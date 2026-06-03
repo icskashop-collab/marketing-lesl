@@ -543,7 +543,7 @@
       <span class="text-gradient">сотен тысяч человек</span>
     </h1>
     <p class="hero__sub reveal reveal-delay-2">
-      Алекс Лесли — основатель системы отношений. 20 лет. 15 книг тиражом 700 000+ экземпляров. Тренинги в России, Европе и онлайн.
+      Алекс Лесли — основатель системы отношений. 20 лет.<br>15 книг тиражом 700 000+ экземпляров. Тренинги в России, Европе и онлайн.
     </p>
     <div class="hero__cta reveal reveal-delay-3">
       <a href="https://t.me/Lesley18bot?start=01LIDER01" class="btn btn-primary" target="_blank" rel="noopener">Записаться на тренинг</a>
@@ -1108,10 +1108,12 @@
     </div>
     <div class="news-grid mt-4">
 
-      <a href="site/site/alexlesley.biz/alexlesley.biz/palim-shemy-millionerov-shopping-vlog.html" class="news-card reveal">
+      <a href="https://www.youtube.com/watch?v=R2Mygn56Xcc" target="_blank" rel="noopener" class="news-card reveal">
         <div class="news-card__thumb">
-          <!-- TODO: asset shemy-millionerov-600x338.jpg not found in site local downloads -->
-          <span style="font-size:2.5rem">🎥</span>
+          <img src="assets/img/blog/post-shemy-millionerov.jpg"
+               alt="Палим схемы миллионеров — шоппинг влог. Секреты богатых: шоппинг в Милане, Gucci, Fendi"
+               onerror="this.src='https://img.youtube.com/vi/R2Mygn56Xcc/maxresdefault.jpg';this.onerror=null"
+               loading="lazy" />
           <div class="news-card__date">26.02.2026</div>
         </div>
         <div class="news-card__body">
@@ -1121,10 +1123,12 @@
         </div>
       </a>
 
-      <a href="site/site/alexlesley.biz/alexlesley.biz/aleks-lesli-pereobulsya-i-ishhet-zhenu-dlya-millionera.html" class="news-card reveal reveal-delay-1">
+      <a href="https://www.youtube.com/watch?v=VoqbRvO7CY0" target="_blank" rel="noopener" class="news-card reveal reveal-delay-1">
         <div class="news-card__thumb">
-          <!-- TODO: asset maxresdefault-8-600x338.jpg not found in site local downloads -->
-          <span style="font-size:2.5rem">💍</span>
+          <img src="assets/img/blog/post-pereobulsya.jpg"
+               alt="Алекс Лесли переобулся и ищет жену для миллионера — Кекс в большом городе"
+               onerror="this.src='https://img.youtube.com/vi/VoqbRvO7CY0/maxresdefault.jpg';this.onerror=null"
+               loading="lazy" />
           <div class="news-card__date">04.10.2025</div>
         </div>
         <div class="news-card__body">
@@ -1506,7 +1510,7 @@
         x.target.dataset.counted = '1'; run(x.target);
       }
     });
-  },{threshold:.5});
+  },{threshold:0, rootMargin:'0px'});
   document.querySelectorAll('[data-count]').forEach(function(el){ io2.observe(el); });
 })();
 
