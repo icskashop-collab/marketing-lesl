@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Личный кабинет — закрытая зона
+Disallow: /cabinet/
+
+# Внутренний маркетинг-дашборд — не для индексации
+Disallow: /marketing/
+
+# Служебные файлы
+Disallow: /assets/js/data/
+
+Sitemap: https://icskashop-collab.github.io/marketing-lesl/sitemap.xml

@@ -9,16 +9,18 @@
   'use strict';
 
   /* Вычисляем относительный путь до корня сайта.
-     Нужно для корректной работы ссылок из любой папки. */
+     Нужно для корректной работы ссылок из любой папки.
+     BASE_DEPTH = 1 — для GitHub Pages репозитория /marketing-lesl/
+     При деплое в корень домена замени BASE_DEPTH на 0. */
   function getRootPath() {
+    var BASE_DEPTH = 1; // глубина base path: /marketing-lesl/ = 1 уровень
     var path = window.location.pathname;
-    // Считаем вложенность: women/how-to-marry.html → 2 уровня
     var parts = path.split('/').filter(function (p) { return p !== ''; });
     // Убираем имя файла
     if (parts.length > 0 && parts[parts.length - 1].indexOf('.') !== -1) {
       parts.pop();
     }
-    var depth = parts.length;
+    var depth = Math.max(0, parts.length - BASE_DEPTH);
     if (depth === 0) return './';
     return '../'.repeat(depth);
   }

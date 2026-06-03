@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модуль 9: Финансы и план | Маркетинг | Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <script src="../assets/js/data/m9.js"></script>
+  <style>
+    .mod-nav { display:flex; gap:12px; flex-wrap:wrap; padding:20px 0 0; }
+    .mod-nav a {
+      display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600;
+      color:var(--color-text-muted); text-decoration:none; padding:6px 14px;
+      border:1px solid rgba(255,255,255,0.1); border-radius:20px; transition:all 0.2s;
+    }
+    .mod-nav a:hover { color:var(--color-gold); border-color:var(--color-gold); }
+    .mod-header { padding:32px 0 24px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:40px; }
+    .mod-header__num { font-size:11px; font-weight:700; letter-spacing:3px; color:var(--color-gold); text-transform:uppercase; margin-bottom:8px; }
+    .mod-header__title { font-size:clamp(24px,4vw,40px); font-weight:800; margin-bottom:8px; }
+    .mod-header__sub { color:var(--color-text-muted); font-size:15px; }
+    .section { margin-bottom:56px; }
+    .section__title {
+      font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+      color:var(--color-gold); margin-bottom:20px; display:flex; align-items:center; gap:10px;
+    }
+    .section__title::after { content:''; flex:1; height:1px; background:rgba(212,160,23,0.2); }
+
+    /* ТАБЛИЦЫ */
+    .tbl-wrap { overflow-x:auto; margin-bottom:20px; }
+    .tbl { width:100%; border-collapse:collapse; font-size:13px; }
+    .tbl th {
+      text-align:left; padding:10px 14px; font-size:10px; font-weight:700;
+      letter-spacing:1.5px; text-transform:uppercase; color:var(--color-text-muted);
+      border-bottom:1px solid rgba(255,255,255,0.08); white-space:nowrap;
+      background:rgba(255,255,255,0.02);
+    }
+    .tbl td { padding:10px 14px; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:middle; }
+    .tbl tr:hover td { background:rgba(255,255,255,0.03); }
+
+    /* ПРОФИЛЬ */
+    .profile-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px; }
+    @media(max-width:600px){ .profile-grid { grid-template-columns:1fr; } }
+    .profile-row {
+      display:flex; gap:10px; background:var(--color-card);
+      border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:12px 14px;
+    }
+    .profile-row__key { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--color-text-muted); min-width:130px; flex-shrink:0; }
+    .profile-row__val { font-size:13px; }
+
+    /* ПРОБЛЕМЫ/ВОЗМОЖНОСТИ */
+    .audit-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:12px; }
+    .audit-card {
+      background:var(--color-card); border-radius:12px; padding:16px;
+      border-left:3px solid;
+    }
+    .audit-card--problem { border-color:#f44336; }
+    .audit-card--opportunity { border-color:#4caf50; }
+    .audit-card__badge {
+      font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+      padding:2px 8px; border-radius:8px; display:inline-block; margin-bottom:8px;
+    }
+    .audit-card--problem .audit-card__badge { background:rgba(244,67,54,0.15); color:#f44336; }
+    .audit-card--opportunity .audit-card__badge { background:rgba(76,175,80,0.15); color:#4caf50; }
+    .audit-card__title { font-size:14px; font-weight:700; margin-bottom:6px; }
+    .audit-card__text { font-size:12px; color:var(--color-text-muted); line-height:1.5; }
+
+    /* МЕТРИКИ ВОРОНКИ */
+    .funnel-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; }
+    .funnel-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:10px; padding:14px 16px;
+    }
+    .funnel-card__metric { font-size:12px; color:var(--color-text-muted); margin-bottom:4px; }
+    .funnel-card__value { font-size:20px; font-weight:800; color:var(--color-gold); margin-bottom:4px; }
+    .funnel-card__note { font-size:11px; color:rgba(255,255,255,0.35); }
+
+    /* СЦЕНАРНАЯ МОДЕЛЬ */
+    .scenario-cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
+    .sc-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px; padding:16px; position:relative; overflow:hidden;
+    }
+    .sc-card.best-sc { border-color:rgba(212,160,23,0.4); }
+    .sc-card.best-sc::before {
+      content:'Базовый'; position:absolute; top:10px; right:10px;
+      font-size:9px; font-weight:700; background:rgba(212,160,23,0.2); color:var(--color-gold);
+      padding:2px 8px; border-radius:8px; letter-spacing:1px;
+    }
+    .sc-card__leads { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--color-text-muted); margin-bottom:10px; }
+    .sc-card__val { font-size:24px; font-weight:800; color:var(--color-gold); }
+    .sc-card__val-label { font-size:10px; color:var(--color-text-muted); margin-bottom:10px; }
+    .sc-card__rows { border-top:1px solid rgba(255,255,255,0.06); padding-top:10px; }
+    .sc-row { display:flex; justify-content:space-between; font-size:12px; padding:3px 0; }
+    .sc-row span:first-child { color:var(--color-text-muted); }
+    .sc-row span:last-child { font-weight:600; }
+    .sc-row.highlight span:last-child { color:var(--color-gold); font-weight:800; }
+
+    /* ПУТЬ К 1 МЛРД */
+    .billion-path { display:grid; gap:0; position:relative; }
+    .billion-step {
+      display:grid; grid-template-columns:120px 1fr; gap:0; align-items:stretch;
+    }
+    .billion-step__left {
+      display:flex; flex-direction:column; align-items:center; padding:4px 0;
+    }
+    .billion-step__dot {
+      width:14px; height:14px; border-radius:50%; border:2px solid var(--color-gold);
+      background:var(--color-bg); z-index:1; flex-shrink:0; margin-top:18px;
+    }
+    .billion-step__line { width:2px; flex:1; background:rgba(212,160,23,0.2); }
+    .billion-step__label {
+      text-align:right; padding-right:16px; font-size:11px; font-weight:700;
+      color:var(--color-text-muted); padding-top:16px;
+    }
+    .billion-step__card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px; padding:14px 18px; margin:6px 0;
+    }
+    .billion-step.goal .billion-step__dot { background:var(--color-gold); width:18px; height:18px; border-color:var(--color-gold); }
+    .billion-step.goal .billion-step__card { border-color:rgba(212,160,23,0.4); background:rgba(212,160,23,0.05); }
+    .bs-stage { font-size:13px; font-weight:700; margin-bottom:6px; }
+    .bs-months { font-size:11px; color:var(--color-text-muted); margin-bottom:8px; }
+    .bs-metrics { display:flex; gap:16px; flex-wrap:wrap; }
+    .bs-metric { font-size:12px; }
+    .bs-metric span { color:var(--color-gold); font-weight:700; }
+    .bs-val { font-size:16px; font-weight:800; color:var(--color-gold); margin-top:4px; }
+
+    /* ДОРОЖНАЯ КАРТА */
+    .roadmap-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
+    .rm-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px; padding:18px; border-top:3px solid;
+    }
+    .rm-card__phase { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }
+    .rm-card__title { font-size:16px; font-weight:700; margin-bottom:14px; }
+    .rm-card__items { list-style:none; padding:0; margin:0; }
+    .rm-card__items li {
+      font-size:12px; color:var(--color-text-muted); padding:4px 0;
+      border-bottom:1px solid rgba(255,255,255,0.04);
+      display:flex; gap:8px; align-items:flex-start; line-height:1.4;
+    }
+    .rm-card__items li::before { content:'→'; color:var(--color-gold); flex-shrink:0; font-weight:700; }
+
+    .insight-box {
+      background:linear-gradient(135deg, rgba(212,160,23,0.1) 0%, rgba(212,160,23,0.05) 100%);
+      border:1px solid rgba(212,160,23,0.3); border-radius:12px; padding:20px 24px; margin-top:24px;
+    }
+    .insight-box__title { font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--color-gold); margin-bottom:10px; }
+    .insight-box__text { font-size:14px; color:var(--color-text); line-height:1.6; }
+
+    /* CHART */
+    .chart-wrap { background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:20px; margin-top:20px; }
+  </style>
+  <link rel="canonical" href="https://icskashop-collab.github.io/marketing-lesl/marketing/m9-finansy" />
+  <meta property="og:url" content="https://icskashop-collab.github.io/marketing-lesl/marketing/m9-finansy" />
+  <meta name="robots" content="noindex, nofollow" />
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <div class="container">
+    <nav class="mod-nav">
+      <a href="../index.html">← Главная</a>
+      <a href="index.html">← В Маркетинг</a>
+    </nav>
+
+    <div class="mod-header">
+      <div class="mod-header__num">Модуль 9 · Маркетинг</div>
+      <div class="mod-header__title">💰 Финансы и план</div>
+      <div class="mod-header__sub">Аудит экосистемы · Метрики воронки · Сценарная финмодель · Дорожная карта запуска</div>
+    </div>
+
+    <!-- ── 1. АУДИТ ЭКОСИСТЕМЫ ── -->
+    <section class="section">
+      <div class="section__title">1.1 · Профиль медийной личности</div>
+      <div class="profile-grid" id="profile-grid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section__title">1.2 · Карта каналов и аудитории</div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Канал</th>
+              <th>Аудитория</th>
+              <th>Контент</th>
+              <th>Монетизация</th>
+              <th>Охват/пост</th>
+            </tr>
+          </thead>
+          <tbody id="channels-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section__title">1.4–1.5 · Клиентский путь · Проблемы и возможности</div>
+      <div class="tbl-wrap" style="margin-bottom:24px;">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Этап</th>
+              <th>Точка входа</th>
+              <th>Действие</th>
+              <th>Конверсия</th>
+              <th>Потеря</th>
+            </tr>
+          </thead>
+          <tbody id="path-tbody"></tbody>
+        </table>
+      </div>
+      <div class="audit-grid" id="audit-grid"></div>
+    </section>
+
+    <!-- ── 2. ФИНАНСОВАЯ МОДЕЛЬ ── -->
+    <section class="section">
+      <div class="section__title">17.1 · Ключевые метрики воронки</div>
+      <div class="funnel-grid" id="funnel-grid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section__title">17.2 · Сценарная финансовая модель</div>
+      <div class="scenario-cards" id="scenario-cards"></div>
+    </section>
+
+    <section class="section">
+      <div class="section__title">17.3 · Путь к оценке бизнеса 1 млрд ₽</div>
+      <div class="chart-wrap">
+        <canvas id="milestoneChart" height="80"></canvas>
+      </div>
+      <div class="billion-path" id="billion-path" style="margin-top:28px;"></div>
+      <div class="insight-box">
+        <div class="insight-box__title">Ключевой инсайт совладельца</div>
+        <div class="insight-box__text">
+          При выходе на <strong>40–50 тыс. лидов в месяц</strong> и выручке <strong>70–90 млн руб/мес</strong> оценка бизнеса по мультипликатору 12–15x ежемесячной прибыли составит <strong>720 млн — 1,1 млрд рублей</strong>. Срок: <strong>18–24 месяца</strong> при правильном исполнении.<br><br>
+          Большинство конкурентов продают надежду. Лесли — единственный, кто продаёт <strong>доказанный результат</strong>. Сава вышла замуж за мультимиллионера. Рыбка оказалась на яхте Дерипаски. Ни у одного конкурента нет ничего близкого.
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 3. ДОРОЖНАЯ КАРТА ── -->
+    <section class="section">
+      <div class="section__title">18 · Дорожная карта запуска</div>
+      <div class="roadmap-grid" id="roadmap-grid"></div>
+    </section>
+
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/components.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+  </script>
+  <script>
+  (function() {
+    /* ПРОФИЛЬ */
+    var profileEntries = [
+      ['Настоящее имя', M9.profile.realName],
+      ['Псевдоним', M9.profile.alias],
+      ['Дата рождения', M9.profile.born],
+      ['Образование', M9.profile.edu],
+      ['Позиционирование', M9.profile.position],
+      ['Аудитория', M9.profile.audience],
+      ['Доход (2024)', M9.profile.income],
+      ['Правовой статус', M9.profile.legal],
+      ['Ключевые кейсы', M9.profile.cases]
+    ];
+    var profileGrid = document.getElementById('profile-grid');
+    profileEntries.forEach(function(e) {
+      profileGrid.innerHTML += '<div class="profile-row">' +
+        '<div class="profile-row__key">' + e[0] + '</div>' +
+        '<div class="profile-row__val">' + e[1] + '</div>' +
+        '</div>';
+    });
+
+    /* КАНАЛЫ */
+    var channelsTbody = document.getElementById('channels-tbody');
+    M9.channels.forEach(function(c) {
+      channelsTbody.innerHTML += '<tr>' +
+        '<td style="font-weight:600;color:var(--color-gold);">' + c.channel + '</td>' +
+        '<td style="font-size:12px;">' + c.audience + '</td>' +
+        '<td style="font-size:12px;color:var(--color-text-muted);">' + c.content + '</td>' +
+        '<td style="font-size:12px;">' + c.monetization + '</td>' +
+        '<td style="font-size:12px;text-align:center;">' + c.reach + '</td>' +
+        '</tr>';
+    });
+
+    /* КЛИЕНТСКИЙ ПУТЬ */
+    var pathTbody = document.getElementById('path-tbody');
+    M9.clientPath.forEach(function(p) {
+      pathTbody.innerHTML += '<tr>' +
+        '<td style="font-weight:600;">' + p.stage + '</td>' +
+        '<td style="font-size:12px;color:var(--color-text-muted);">' + p.entry + '</td>' +
+        '<td style="font-size:12px;">' + p.action + '</td>' +
+        '<td style="font-size:12px;color:var(--color-gold);font-weight:600;">' + p.conv + '</td>' +
+        '<td style="font-size:12px;color:#f44336;">' + p.loss + '</td>' +
+        '</tr>';
+    });
+
+    /* АУДИТ */
+    var auditGrid = document.getElementById('audit-grid');
+    M9.problems.forEach(function(p) {
+      auditGrid.innerHTML += '<div class="audit-card audit-card--' + p.type + '">' +
+        '<div class="audit-card__badge">' + (p.type === 'problem' ? '⚠ Проблема' : '✓ Возможность') + '</div>' +
+        '<div class="audit-card__title">' + p.title + '</div>' +
+        '<div class="audit-card__text">' + p.text + '</div>' +
+        '</div>';
+    });
+
+    /* МЕТРИКИ ВОРОНКИ */
+    var funnelGrid = document.getElementById('funnel-grid');
+    M9.funnelMetrics.forEach(function(m) {
+      funnelGrid.innerHTML += '<div class="funnel-card">' +
+        '<div class="funnel-card__metric">' + m.metric + '</div>' +
+        '<div class="funnel-card__value">' + m.value + '</div>' +
+        '<div class="funnel-card__note">' + m.note + '</div>' +
+        '</div>';
+    });
+
+    /* СЦЕНАРИИ */
+    var scenarioCards = document.getElementById('scenario-cards');
+    M9.scenarios.forEach(function(s) {
+      var best = s.leads === '5 000';
+      scenarioCards.innerHTML += '<div class="sc-card' + (best ? ' best-sc' : '') + '">' +
+        '<div class="sc-card__leads">' + s.leads + ' лидов/мес</div>' +
+        '<div class="sc-card__val">' + s.total + '</div>' +
+        '<div class="sc-card__val-label">выручка/мес</div>' +
+        '<div class="sc-card__rows">' +
+        '<div class="sc-row"><span>CPL</span><span>' + s.cpl + '</span></div>' +
+        '<div class="sc-row"><span>Бюджет/мес</span><span>' + s.budget + '</span></div>' +
+        '<div class="sc-row highlight"><span>Прибыль/мес</span><span>' + s.profit + '</span></div>' +
+        '<div class="sc-row"><span>ROMI</span><span>' + s.romi + '</span></div>' +
+        '<div class="sc-row highlight"><span>Оценка бизнеса</span><span>' + s.valuation + '</span></div>' +
+        '</div></div>';
+    });
+
+    /* MILESTONE CHART */
+    var milestoneCtx = document.getElementById('milestoneChart').getContext('2d');
+    var labels = M9.milestones.map(function(m){ return m.stage + ' (мес ' + m.months + ')'; });
+    var revenues = [0.6, 4, 9, 18, 45, 72];
+    var profits  = [0.4, 2.8, 6.3, 12.6, 31, 50];
+    var valuations = [0, 34, 75, 151, 375, 1000];
+
+    new Chart(milestoneCtx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Выручка, млн ₽/мес',
+            data: revenues,
+            borderColor: '#D4A017',
+            backgroundColor: 'rgba(212,160,23,0.1)',
+            borderWidth: 2,
+            tension: 0.4,
+            fill: true,
+            yAxisID: 'y'
+          },
+          {
+            label: 'Прибыль, млн ₽/мес',
+            data: profits,
+            borderColor: '#4caf50',
+            backgroundColor: 'rgba(76,175,80,0.08)',
+            borderWidth: 2,
+            tension: 0.4,
+            fill: true,
+            yAxisID: 'y'
+          },
+          {
+            label: 'Оценка бизнеса, млн ₽',
+            data: valuations,
+            borderColor: '#C2185B',
+            backgroundColor: 'transparent',
+            borderWidth: 2,
+            borderDash: [5, 5],
+            tension: 0.4,
+            yAxisID: 'y2'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        interaction: { mode:'index', intersect:false },
+        plugins: {
+          legend: { labels: { color:'#B0B8C1', font:{ size:11 }, boxWidth:12 } },
+          tooltip: {
+            backgroundColor:'rgba(26,26,46,0.95)',
+            borderColor:'rgba(212,160,23,0.3)',
+            borderWidth:1,
+            titleColor:'#D4A017',
+            bodyColor:'#B0B8C1'
+          }
+        },
+        scales: {
+          x: { ticks:{ color:'#B0B8C1', font:{ size:10 } }, grid:{ color:'rgba(255,255,255,0.04)' } },
+          y: {
+            type:'linear', position:'left',
+            ticks:{ color:'#B0B8C1', font:{ size:10 }, callback:function(v){ return v + ' млн'; } },
+            grid:{ color:'rgba(255,255,255,0.04)' },
+            title:{ display:true, text:'млн ₽/мес', color:'#B0B8C1', font:{ size:10 } }
+          },
+          y2: {
+            type:'linear', position:'right',
+            ticks:{ color:'#C2185B', font:{ size:10 }, callback:function(v){ return v + ' млн'; } },
+            grid:{ drawOnChartArea:false },
+            title:{ display:true, text:'Оценка (млн ₽)', color:'#C2185B', font:{ size:10 } }
+          }
+        }
+      }
+    });
+
+    /* BILLION PATH */
+    var billionPath = document.getElementById('billion-path');
+    M9.milestones.forEach(function(m, i) {
+      var isGoal = m.stage.includes('Цель');
+      billionPath.innerHTML += '<div class="billion-step' + (isGoal ? ' goal' : '') + '">' +
+        '<div class="billion-step__left">' +
+        '<div class="billion-step__dot"></div>' +
+        (i < M9.milestones.length - 1 ? '<div class="billion-step__line"></div>' : '') +
+        '</div>' +
+        '<div>' +
+        '<div style="display:flex;gap:8px;align-items:center;padding:16px 0 4px;">' +
+        '<span style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--color-text-muted);">' + m.phase + '</span>' +
+        '</div>' +
+        '<div class="billion-step__card">' +
+        '<div class="bs-stage">' + m.stage + '</div>' +
+        '<div class="bs-months">Месяц ' + m.months + '</div>' +
+        '<div class="bs-metrics">' +
+        '<div class="bs-metric">Лидов: <span>' + m.leads + '</span></div>' +
+        '<div class="bs-metric">Выручка: <span>' + m.rev + '</span></div>' +
+        '<div class="bs-metric">Прибыль: <span>' + m.profit + '</span></div>' +
+        (m.val !== '—' ? '<div class="bs-metric">Оценка: <span>' + m.val + '</span></div>' : '') +
+        '</div></div></div></div>';
+    });
+
+    /* ДОРОЖНАЯ КАРТА */
+    var roadmapGrid = document.getElementById('roadmap-grid');
+    M9.roadmap.forEach(function(phase) {
+      var items = phase.items.map(function(item){ return '<li>' + item + '</li>'; }).join('');
+      roadmapGrid.innerHTML += '<div class="rm-card" style="border-top-color:' + phase.color + '">' +
+        '<div class="rm-card__phase" style="color:' + phase.color + '">' + phase.phase + '</div>' +
+        '<div class="rm-card__title">' + phase.title + '</div>' +
+        '<ul class="rm-card__items">' + items + '</ul>' +
+        '</div>';
+    });
+  })();
+  </script>
+</body>
+</html>
