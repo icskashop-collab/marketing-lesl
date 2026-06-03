@@ -27,7 +27,7 @@
     var h = '';
     h += '<header class="header">';
     h += '<div class="header__inner">';
-    h += '<a href="' + ROOT + 'index.html" class="header__logo">ALEX<span>LESLIE</span></a>';
+    h += '<a href="' + ROOT + 'index.html" class="header__logo" aria-label="Alex Leslie — Главная"><img src="' + ROOT + 'assets/img/logo.svg" alt="Alex Leslie" class="header__logo-img"/></a>';
     h += '<nav class="header__nav" aria-label="Основная навигация">';
     h += '<div class="nav-item"><a href="' + ROOT + 'index.html" class="nav-link">Главная</a></div>';
     h += '<div class="nav-item"><a href="' + ROOT + 'alex.html" class="nav-link">Об Алексе</a></div>';
@@ -104,7 +104,7 @@
     f += '<div class="container">';
     f += '<div class="footer__grid">';
     f += '<div>';
-    f += '<div class="footer__logo">ALEXLESLIE</div>';
+    f += '<div class="footer__logo"><img src="' + ROOT + 'assets/img/logo.svg" alt="Alex Leslie" class="footer__logo-img"/></div>';
     f += '<p class="footer__slogan">Экосистема личного развития и отношений. Методологии для тех, кто играет в жизнь по своим правилам.</p>';
     f += '<div class="footer__socials">';
     f += '<a href="https://t.me/alexleslie" class="footer__social" target="_blank" rel="noopener" aria-label="Telegram">\u{2708}\u{FE0F}</a>';

@@ -271,7 +271,242 @@
 </nav>
 
 <div id="site-header"></div>
+
+<style>
+.promo-strip {
+  background: linear-gradient(90deg, #0B3D34 0%, #0E5044 50%, #0B3D34 100%);
+  border-bottom: 1px solid rgba(16,220,180,0.25);
+  position: sticky;
+  top: 0;
+  z-index: 950;
+  padding: 0 24px;
+}
+.promo-strip__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px 0;
+  flex-wrap: wrap;
+}
+.promo-strip__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.promo-strip__icon {
+  width: 18px; height: 18px;
+  color: rgba(255,255,255,0.7);
+  flex-shrink: 0;
+}
+.promo-strip__label {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  white-space: nowrap;
+}
+.promo-strip__label strong {
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+.promo-strip__timer {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  background: rgba(0,0,0,0.25);
+  padding: 3px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.promo-strip__btn {
+  background: rgba(255,255,255,0.95);
+  color: #0B3D34;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 7px 20px;
+  border-radius: 100px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+.promo-strip__btn:hover {
+  background: #ffffff;
+  transform: scale(1.04);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+@media (max-width: 600px) {
+  .promo-strip__label { font-size: 12px; }
+  .promo-strip__timer { font-size: 14px; }
+  .promo-strip__btn  { font-size: 12px; padding: 6px 14px; }
+}
+</style>
+
+<script>
+(function() {
+  // Целевая дата: Базовый тренинг в Варшаве — 19 июня 2026, 10:00 по Москве (UTC+3)
+  var TARGET = new Date('2026-06-19T10:00:00+03:00').getTime();
+  var timerEl = document.getElementById('promo-timer');
+  var stripEl = document.getElementById('promo-strip');
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function tick() {
+    var now = Date.now();
+    var diff = TARGET - now;
+    if (diff <= 0) {
+      // Событие прошло — скрываем баннер
+      if (stripEl) stripEl.style.display = 'none';
+      return;
+    }
+    var days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+    var hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    if (timerEl) {
+      timerEl.textContent = days + ' дн  ' + pad(hours) + ' : ' + pad(minutes) + ' : ' + pad(seconds);
+    }
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+
 <main class="page-offset">
+
+<!-- ═══ PROMO COUNTDOWN BANNER ═══ -->
+<div class="promo-strip" id="promo-strip">
+  <div class="promo-strip__inner">
+    <div class="promo-strip__left">
+      <svg class="promo-strip__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <span class="promo-strip__label">До последней <strong>БАЗЫ</strong> в Варшаве:</span>
+      <span class="promo-strip__timer" id="promo-timer">...</span>
+    </div>
+    <a href="https://t.me/Lesley18bot?start=03BASE03" class="promo-strip__btn" target="_blank" rel="noopener">
+      Записаться →
+    </a>
+  </div>
+</div>
+
+<style>
+.promo-strip {
+  background: linear-gradient(90deg, #0B3D34 0%, #0E5044 50%, #0B3D34 100%);
+  border-bottom: 1px solid rgba(16,220,180,0.25);
+  position: sticky;
+  top: var(--header-h);
+  z-index: 950;
+  padding: 0 24px;
+}
+.promo-strip__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px 0;
+  flex-wrap: wrap;
+}
+.promo-strip__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.promo-strip__icon {
+  width: 18px; height: 18px;
+  color: rgba(255,255,255,0.7);
+  flex-shrink: 0;
+}
+.promo-strip__label {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  white-space: nowrap;
+}
+.promo-strip__label strong {
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+.promo-strip__timer {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  background: rgba(0,0,0,0.3);
+  padding: 3px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  min-width: 180px;
+  text-align: center;
+}
+.promo-strip__btn {
+  background: rgba(255,255,255,0.96);
+  color: #0B3D34;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 7px 22px;
+  border-radius: 100px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+.promo-strip__btn:hover {
+  background: #ffffff;
+  transform: scale(1.04);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+}
+@media (max-width: 600px) {
+  .promo-strip { padding: 0 12px; }
+  .promo-strip__label { font-size: 12px; }
+  .promo-strip__timer { font-size: 14px; min-width: 150px; }
+  .promo-strip__btn   { font-size: 12px; padding: 6px 14px; }
+}
+</style>
+
+<script>
+(function() {
+  // Базовый тренинг в Варшаве — 19 июня 2026, 10:00 МСК (UTC+3)
+  var TARGET = new Date('2026-06-19T10:00:00+03:00').getTime();
+  var timerEl = document.getElementById('promo-timer');
+  var stripEl = document.getElementById('promo-strip');
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function tick() {
+    var diff = TARGET - Date.now();
+    if (diff <= 0) {
+      if (stripEl) stripEl.style.display = 'none';
+      return;
+    }
+    var days    = Math.floor(diff / 86400000);
+    var hours   = Math.floor((diff % 86400000) / 3600000);
+    var minutes = Math.floor((diff % 3600000) / 60000);
+    var seconds = Math.floor((diff % 60000) / 1000);
+    if (timerEl) {
+      timerEl.textContent = days + ' дн ' + pad(hours) + ' : ' + pad(minutes) + ' : ' + pad(seconds);
+    }
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
 
 <!-- ═══ 1. HERO ═══ -->
 <section class="hero" id="hero">
@@ -332,8 +567,13 @@
     <div class="grid-3 mt-4">
 
       <div class="case-card reveal">
-        <div class="case-card__img" style="background:linear-gradient(135deg,#1A1020,#2A1030)">
-          💍<span class="case-card__badge">Топ-кейс</span>
+        <div class="case-card__img" style="background:linear-gradient(135deg,#1A0A20,#2A1535);padding:0;overflow:hidden;position:relative">
+          <img src="https://icskashop-collab.github.io/marketing-lesl/assets/img/sava-case.jpg"
+               alt="Кейс Сава — Forbes & Daily Mail"
+               loading="lazy"
+               onerror="this.style.display='none'"
+               style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;position:absolute;inset:0"/>
+          <span class="case-card__badge">Топ-кейс</span>
         </div>
         <div class="case-card__body">
           <div class="case-card__result">→ Forbes & Daily Mail</div>
@@ -573,9 +813,10 @@
         <div class="book-card__year">Мужское</div>
       </div>
 
-      <!-- TODO: Евротрэш — обложка не найдена на доступных источниках -->
       <div class="book-card">
-        <div class="book-card__cover" style="background:linear-gradient(135deg,#0A2510,#0F3A18);display:flex;align-items:center;justify-content:center;font-size:2rem">🌍</div>
+        <div class="book-card__cover">
+          <img src="https://loveread.ec/img/book_covers/065/65869.jpg" alt="Евротрэш — Алекс Лесли, Настя Рыбка" loading="lazy"/>
+        </div>
         <div class="book-card__title">Евротрэш</div>
         <div class="book-card__price">590 ₽</div>
         <div class="book-card__year">Женское</div>
