@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модуль 2: Аудитория | Маркетинг | Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <style>
+    .mod-nav { display:flex; gap:12px; flex-wrap:wrap; padding:20px 0 0; }
+    .mod-nav a {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:13px; font-weight:600; color:var(--color-text-muted);
+      text-decoration:none; padding:6px 14px;
+      border:1px solid rgba(255,255,255,0.1); border-radius:20px; transition:all 0.2s;
+    }
+    .mod-nav a:hover { color:var(--color-gold); border-color:var(--color-gold); }
+
+    .mod-header { padding:32px 0 24px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:40px; }
+    .mod-header__num { font-size:11px; font-weight:700; letter-spacing:3px; color:var(--color-gold); text-transform:uppercase; margin-bottom:8px; }
+    .mod-header__title { font-size:clamp(24px,4vw,40px); font-weight:800; margin-bottom:8px; }
+    .mod-header__sub { color:var(--color-text-muted); font-size:15px; }
+
+    .section { margin-bottom:56px; }
+    .section__title {
+      font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+      color:var(--color-gold); margin-bottom:20px; display:flex; align-items:center; gap:10px;
+    }
+    .section__title::after { content:''; flex:1; height:1px; background:rgba(212,160,23,0.2); }
+
+    /* ── БОЛИ ── */
+    .pains-layout { display:grid; grid-template-columns:1fr 320px; gap:24px; }
+    .pains-grid { display:flex; flex-direction:column; gap:10px; }
+    .pain-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:12px;
+      padding:16px 20px; cursor:pointer; transition:border-color 0.2s;
+    }
+    .pain-card:hover, .pain-card.active { border-color:rgba(212,160,23,0.5); }
+    .pain-card__top { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+    .pain-card__category { font-size:14px; font-weight:700; }
+    .pain-card__top-badge {
+      font-size:10px; font-weight:700; background:rgba(194,24,91,0.2);
+      color:#F06292; padding:2px 8px; border-radius:4px;
+    }
+    .pain-card__bars { display:flex; gap:16px; }
+    .bar-group { flex:1; }
+    .bar-label { font-size:10px; color:var(--color-text-muted); margin-bottom:3px; }
+    .bar-track { background:rgba(255,255,255,0.08); border-radius:3px; height:6px; }
+    .bar-fill { height:6px; border-radius:3px; transition:width 0.4s; }
+    .bar-fill--depth { background:var(--color-gold); }
+    .bar-fill--motivation { background:var(--color-women); }
+    .pain-card__detail { display:none; margin-top:12px; font-size:12px; color:var(--color-text-muted); line-height:1.6; }
+    .pain-card.active .pain-card__detail { display:block; }
+
+    .pain-chart-wrap {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:16px;
+      padding:20px; position:sticky; top:80px; height:fit-content;
+    }
+    .pain-chart-wrap__title { font-size:12px; font-weight:700; color:var(--color-text-muted); letter-spacing:1px; margin-bottom:16px; text-transform:uppercase; }
+
+    /* ── СЕГМЕНТЫ ── */
+    .seg-filters { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+    .seg-filter-btn {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.1);
+      color:var(--color-text-muted); font-size:12px; font-weight:600;
+      padding:5px 14px; border-radius:20px; cursor:pointer; transition:all 0.2s;
+    }
+    .seg-filter-btn.active, .seg-filter-btn:hover {
+      background:rgba(212,160,23,0.15); border-color:var(--color-gold); color:var(--color-gold);
+    }
+    .seg-search {
+      width:100%; background:var(--color-card); border:1px solid rgba(255,255,255,0.1);
+      border-radius:8px; padding:10px 16px; color:var(--color-text);
+      font-family:'Inter',sans-serif; font-size:14px; outline:none; margin-bottom:20px; box-sizing:border-box;
+    }
+    .seg-search:focus { border-color:var(--color-gold); }
+    .seg-search::placeholder { color:var(--color-text-muted); }
+
+    .seg-table-wrap { overflow-x:auto; }
+    .seg-table {
+      width:100%; border-collapse:collapse; font-size:12px;
+    }
+    .seg-table th {
+      text-align:left; padding:10px 12px; font-size:10px; font-weight:700;
+      letter-spacing:1.5px; text-transform:uppercase; color:var(--color-text-muted);
+      border-bottom:1px solid rgba(255,255,255,0.07); white-space:nowrap;
+    }
+    .seg-table td {
+      padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.04);
+      vertical-align:top; line-height:1.5;
+    }
+    .seg-table tr:hover td { background:rgba(255,255,255,0.03); }
+    .seg-num { font-weight:800; color:var(--color-gold); }
+    .seg-name { font-weight:700; }
+    .seg-priority-badge {
+      display:inline-block; font-size:9px; font-weight:700;
+      background:rgba(194,24,91,0.2); color:#F06292;
+      padding:1px 6px; border-radius:3px; margin-left:6px;
+    }
+    .seg-channel { font-size:11px; color:var(--color-text-muted); font-style:italic; }
+
+    /* ── СПРОС ── */
+    .demand-layout { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .demand-table-wrap { overflow-x:auto; }
+    .demand-table {
+      width:100%; border-collapse:collapse; font-size:12px;
+    }
+    .demand-table th {
+      text-align:left; padding:8px 12px; font-size:10px; font-weight:700;
+      letter-spacing:1.5px; text-transform:uppercase; color:var(--color-text-muted);
+      border-bottom:1px solid rgba(255,255,255,0.07); white-space:nowrap;
+    }
+    .demand-table td { padding:9px 12px; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:middle; }
+    .demand-table tr:hover td { background:rgba(255,255,255,0.03); }
+    .freq-stars { color:var(--color-gold); font-size:11px; }
+    .type-badge {
+      font-size:10px; font-weight:700; padding:1px 6px; border-radius:3px;
+    }
+    .type-ВЧ { background:rgba(244,67,54,0.2); color:#EF9A9A; }
+    .type-СЧ { background:rgba(255,152,0,0.2); color:#FFCC80; }
+    .type-НЧ { background:rgba(76,175,80,0.2); color:#A5D6A7; }
+    .trend-up { color:#4CAF50; font-weight:700; }
+
+    .growth-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; margin-bottom:24px; }
+    .growth-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px; padding:16px; border-left:3px solid var(--color-gold);
+    }
+    .growth-card__title { font-size:13px; font-weight:700; color:var(--color-gold); margin-bottom:6px; }
+    .growth-card__text { font-size:12px; color:var(--color-text-muted); line-height:1.5; }
+
+    .seasonality-grid { display:grid; grid-template-columns:repeat(12,1fr); gap:8px; }
+    .season-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:10px; padding:12px 8px; text-align:center;
+    }
+    .season-card__month { font-size:10px; font-weight:700; color:var(--color-text-muted); margin-bottom:6px; }
+    .season-card__bar { height:40px; position:relative; display:flex; align-items:flex-end; justify-content:center; margin-bottom:6px; }
+    .season-card__fill { width:16px; border-radius:3px 3px 0 0; background:var(--color-gold); transition:height 0.4s; }
+    .season-card__stars { font-size:8px; color:var(--color-gold); }
+
+    @media (max-width:900px) {
+      .pains-layout { grid-template-columns:1fr; }
+      .demand-layout { grid-template-columns:1fr; }
+    }
+    @media (max-width:600px) {
+      .seasonality-grid { grid-template-columns:repeat(4,1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <div class="container">
+    <nav class="mod-nav">
+      <a href="../index.html">← Вернуться на главную</a>
+      <a href="index.html">← В Маркетинг</a>
+    </nav>
+
+    <div class="mod-header">
+      <div class="mod-header__num">Модуль 2</div>
+      <h1 class="mod-header__title">Аудитория</h1>
+      <p class="mod-header__sub">Источник: Анализ книг блок 3, Маркетинговая стратегия блоки 3, 5</p>
+    </div>
+
+    <!-- 1. КАРТА БОЛЕЙ -->
+    <section class="section">
+      <div class="section__title">Карта болей</div>
+      <div class="pains-layout">
+        <div>
+          <div style="font-size:12px;color:var(--color-text-muted);margin-bottom:12px;">Нажми на категорию, чтобы раскрыть детали. Топ-3 боли по мотивации платить — ключевые для флагмана.</div>
+          <div class="pains-grid" id="pains-grid"></div>
+        </div>
+        <div class="pain-chart-wrap">
+          <div class="pain-chart-wrap__title">Мотивация платить по категориям</div>
+          <canvas id="pain-chart" height="350"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 20 СЕГМЕНТОВ ЦА -->
+    <section class="section">
+      <div class="section__title">20 сегментов целевой аудитории</div>
+      <div style="font-size:13px;color:var(--color-text-muted);margin-bottom:12px;">Топ-3 приоритетных: <strong style="color:#F06292;">Успешная карьеристка 27–35</strong>, <strong style="color:#F06292;">Женщина 35+ без детей</strong>, <strong style="color:#F06292;">Мама после развода</strong></div>
+      <div class="seg-filters" id="seg-filters">
+        <button class="seg-filter-btn active" data-filter="all">Все (20)</button>
+        <button class="seg-filter-btn" data-filter="priority">Приоритетные</button>
+        <button class="seg-filter-btn" data-channel="TikTok">TikTok</button>
+        <button class="seg-filter-btn" data-channel="YouTube">YouTube</button>
+        <button class="seg-filter-btn" data-channel="TG">Telegram</button>
+        <button class="seg-filter-btn" data-channel="VK">VK</button>
+      </div>
+      <input type="text" class="seg-search" id="seg-search" placeholder="Поиск по сегменту, боли, каналу…">
+      <div class="seg-table-wrap">
+        <table class="seg-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Сегмент</th>
+              <th>Возраст</th>
+              <th>Доход</th>
+              <th>Боль</th>
+              <th>Страх</th>
+              <th>Триггер покупки</th>
+              <th>Канал</th>
+            </tr>
+          </thead>
+          <tbody id="seg-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3. СПРОС И СЕЗОННОСТЬ -->
+    <section class="section">
+      <div class="section__title">Спрос и сезонность</div>
+      <div class="demand-layout">
+        <div>
+          <div style="font-size:12px;color:var(--color-text-muted);margin-bottom:16px;font-weight:700;letter-spacing:1px;">ЯНДЕКС WORDSTAT 2025 — КЛЮЧЕВЫЕ ЗАПРОСЫ</div>
+          <div class="demand-table-wrap">
+            <table class="demand-table">
+              <thead>
+                <tr>
+                  <th>Запрос</th>
+                  <th>Тип</th>
+                  <th>Частота / мес</th>
+                  <th>Тренд</th>
+                  <th>Ком.</th>
+                </tr>
+              </thead>
+              <tbody id="demand-body"></tbody>
+            </table>
+          </div>
+
+          <div style="margin-top:24px;font-size:12px;color:var(--color-text-muted);margin-bottom:14px;font-weight:700;letter-spacing:1px;">ТОЧКИ РОСТА</div>
+          <div class="growth-grid" id="growth-grid"></div>
+        </div>
+
+        <div>
+          <div style="font-size:12px;color:var(--color-text-muted);margin-bottom:16px;font-weight:700;letter-spacing:1px;">СПРОС ПО КАТЕГОРИЯМ ЗАПРОСОВ</div>
+          <canvas id="demand-chart" height="220"></canvas>
+
+          <div style="margin-top:32px;font-size:12px;color:var(--color-text-muted);margin-bottom:16px;font-weight:700;letter-spacing:1px;">СЕЗОННОСТЬ СПРОСА ПО МЕСЯЦАМ</div>
+          <div class="seasonality-grid" id="seasonality-grid"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/data/m2.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    var d = window.M2;
+
+    /* ── БОЛИ ── */
+    (function() {
+      var grid = document.getElementById('pains-grid');
+      d.pains.forEach(function(p) {
+        var el = document.createElement('div');
+        el.className = 'pain-card' + (p.top ? ' active' : '');
+        el.innerHTML = '<div class="pain-card__top">' +
+          '<div class="pain-card__category">' + p.category + '</div>' +
+          (p.top ? '<span class="pain-card__top-badge">' + p.topLabel + '</span>' : '') +
+          '</div>' +
+          '<div class="pain-card__bars">' +
+          '<div class="bar-group"><div class="bar-label">Глубина</div><div class="bar-track"><div class="bar-fill bar-fill--depth" style="width:' + (p.depth/5*100) + '%"></div></div></div>' +
+          '<div class="bar-group"><div class="bar-label">Мотивация платить</div><div class="bar-track"><div class="bar-fill bar-fill--motivation" style="width:' + (p.motivation/5*100) + '%"></div></div></div>' +
+          '</div>' +
+          '<div class="pain-card__detail">Конкретные боли: ' + p.pains.join(' · ') + '<br><strong style="color:var(--color-gold);">Продукт: ' + p.product + '</strong></div>';
+        el.addEventListener('click', function() {
+          el.classList.toggle('active');
+        });
+        grid.appendChild(el);
+      });
+
+      // Chart
+      var ctx = document.getElementById('pain-chart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: d.pains.map(function(p) {
+            return p.category.length > 16 ? p.category.substring(0,14) + '…' : p.category;
+          }),
+          datasets: [{
+            label: 'Мотивация платить',
+            data: d.pains.map(function(p) { return p.motivation; }),
+            backgroundColor: d.pains.map(function(p) { return p.top ? '#C2185B' : 'rgba(212,160,23,0.5)'; }),
+            borderColor: d.pains.map(function(p) { return p.top ? '#C2185B' : '#D4A017'; }),
+            borderWidth: 1,
+            borderRadius: 4,
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: function(c) { return ' Мотивация: ' + c.raw + '/5'; } } }
+          },
+          scales: {
+            x: { max: 5, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#B0B8C1', font: { size: 10 } } },
+            y: { grid: { display: false }, ticks: { color: '#B0B8C1', font: { size: 10 } } }
+          }
+        }
+      });
+    })();
+
+    /* ── СЕГМЕНТЫ ── */
+    (function() {
+      var tbody = document.getElementById('seg-body');
+      var searchInput = document.getElementById('seg-search');
+      var currentFilter = 'all';
+      var currentChannel = null;
+
+      function renderSegs() {
+        var q = searchInput.value.toLowerCase();
+        tbody.innerHTML = '';
+        d.segments.forEach(function(s) {
+          if (currentFilter === 'priority' && !s.priority) return;
+          if (currentChannel && s.channel.toLowerCase().indexOf(currentChannel.toLowerCase()) === -1) return;
+          if (q) {
+            var hay = (s.name + s.pain + s.channel + s.trigger).toLowerCase();
+            if (hay.indexOf(q) === -1) return;
+          }
+          var tr = document.createElement('tr');
+          tr.innerHTML = '<td class="seg-num">' + s.id + '</td>' +
+            '<td class="seg-name">' + s.name + (s.priority ? '<span class="seg-priority-badge">★</span>' : '') + '</td>' +
+            '<td style="color:var(--color-text-muted);white-space:nowrap;">' + s.age + '</td>' +
+            '<td style="color:var(--color-text-muted);white-space:nowrap;">' + s.income + '</td>' +
+            '<td style="color:var(--color-text-muted);max-width:200px;">' + s.pain + '</td>' +
+            '<td style="color:var(--color-text-muted);max-width:160px;">' + s.fear + '</td>' +
+            '<td style="color:var(--color-text-muted);max-width:180px;">' + s.trigger + '</td>' +
+            '<td class="seg-channel">' + s.channel + '</td>';
+          tbody.appendChild(tr);
+        });
+      }
+
+      document.querySelectorAll('.seg-filter-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.seg-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          currentFilter = btn.dataset.filter || 'all';
+          currentChannel = btn.dataset.channel || null;
+          renderSegs();
+        });
+      });
+      searchInput.addEventListener('input', renderSegs);
+      renderSegs();
+    })();
+
+    /* ── СПРОС ── */
+    (function() {
+      var tbody = document.getElementById('demand-body');
+      function stars(n) { var s=''; for(var i=0;i<5;i++) s+= i<n ? '★' : '☆'; return s; }
+      d.demand.forEach(function(q) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td style="font-weight:600;">' + q.query + '</td>' +
+          '<td><span class="type-badge type-' + q.type + '">' + q.type + '</span></td>' +
+          '<td style="color:var(--color-text-muted);">' + q.freq + '</td>' +
+          '<td class="trend-up">' + q.trend + '</td>' +
+          '<td class="freq-stars">' + stars(q.commercial) + '</td>';
+        tbody.appendChild(tr);
+      });
+
+      // Demand chart
+      var ctx = document.getElementById('demand-chart').getContext('2d');
+      var topQ = d.demand.slice(0, 8);
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: topQ.map(function(q) { return q.query.length > 20 ? q.query.substring(0,18)+'…' : q.query; }),
+          datasets: [{
+            data: topQ.map(function(q) { return q.commercial; }),
+            backgroundColor: ['#D4A017','#C2185B','#1565C0','#9C27B0','#FF5722','#4CAF50','#FF9800','#00BCD4'],
+            borderWidth: 0,
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#B0B8C1', font: { size: 10 }, boxWidth: 10, padding: 8 } },
+          }
+        }
+      });
+
+      // Seasonality
+      var sgrid = document.getElementById('seasonality-grid');
+      d.seasonality.forEach(function(s) {
+        var el = document.createElement('div');
+        el.className = 'season-card';
+        var fillH = (s.level / 5) * 36;
+        var colors = ['','','','','#4CAF50','#8BC34A','#CDDC39','#FFC107','#FF9800','#FF5722'];
+        var color = s.level === 5 ? '#C2185B' : s.level === 4 ? '#D4A017' : '#888';
+        var starsStr = '';
+        for(var i=0;i<s.level;i++) starsStr+='★';
+        el.innerHTML = '<div class="season-card__month">' + s.month.substring(0,3) + '</div>' +
+          '<div class="season-card__bar"><div class="season-card__fill" style="height:' + fillH + 'px;background:' + color + ';"></div></div>' +
+          '<div class="season-card__stars" style="color:' + color + ';">' + starsStr + '</div>';
+        el.title = s.month + ': ' + s.triggers + ' → ' + s.strategy;
+        sgrid.appendChild(el);
+      });
+
+      // Growth grid
+      var ggrid = document.getElementById('growth-grid');
+      d.growthPoints.forEach(function(g) {
+        var el = document.createElement('div');
+        el.className = 'growth-card';
+        el.innerHTML = '<div class="growth-card__title">' + g.title + '</div>' +
+          '<div class="growth-card__text">' + g.desc + '</div>';
+        ggrid.appendChild(el);
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Тренинг «Стиль соблазнения» — 3-дневная интенсивная программа Алекса Лесли для мужчин. Реальная практика. Результат с первого дня." />
+  <meta property="og:title" content="Стиль соблазнения — тренинг Алекса Лесли" />
+  <meta property="og:description" content="3-дневный тренинг. Реальная практика. От нулевого уровня до Мастера." />
+  <meta property="og:type" content="website" />
+  <title>«Стиль соблазнения» — тренинг Алекса Лесли</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon" />
+
+  <style>
+  :root {
+    --color-men-light: #1976D2;
+    --color-men-glow: rgba(21, 101, 192, 0.15);
+    --color-men-border: rgba(21, 101, 192, 0.3);
+  }
+
+  /* ─── HERO ─── */
+  .sd-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: var(--color-bg);
+    overflow: hidden;
+  }
+  .sd-hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 70% 40%, var(--color-men-glow) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(212,160,23,0.05) 0%, transparent 60%),
+      var(--color-bg);
+    z-index: 0;
+  }
+  .sd-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: calc(var(--header-h) + 80px) var(--container-px) 80px;
+    width: 100%;
+    text-align: center;
+  }
+  .sd-hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-men-glow);
+    color: var(--color-men);
+    border: 1px solid var(--color-men-border);
+    border-radius: 100px;
+    padding: 8px 24px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .sd-hero h1 {
+    font-size: clamp(40px, 6vw, 78px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 28px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .sd-hero h1 em {
+    font-style: normal;
+    color: var(--color-men);
+  }
+  .sd-hero__sub {
+    font-size: 20px;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto 48px;
+    line-height: 1.7;
+  }
+  .sd-hero__ctas {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 64px;
+  }
+  .btn-men {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-men);
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    padding: 18px 44px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-men:hover { background: var(--color-men-light); transform: scale(1.03); }
+  .sd-hero__proof {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .sd-hero__proof-item { text-align: center; }
+  .sd-hero__proof-num {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--color-men);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .sd-hero__proof-label { font-size: 13px; color: var(--color-text-muted); }
+
+  /* ─── PAINS ─── */
+  .sd-pains {
+    padding: var(--section-py) var(--container-px);
+    background: var(--color-card);
+  }
+  .sd-pains__inner { max-width: var(--container-max); margin: 0 auto; }
+  .section-tag { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--color-gold); margin-bottom: 16px; }
+  .section-h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+  .section-lead { font-size: 18px; color: var(--color-text-muted); max-width: 640px; margin-bottom: 48px; line-height: 1.7; }
+  .sd-pains-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .sd-pain-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 28px;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+  .sd-pain-card:hover { border-color: var(--color-men-border); transform: translateY(-3px); }
+  .sd-pain-icon { font-size: 32px; margin-bottom: 16px; }
+  .sd-pain-text { font-size: 15px; color: var(--color-text-muted); line-height: 1.6; }
+  .sd-pain-text strong { color: var(--color-text); display: block; font-weight: 700; margin-bottom: 8px; font-size: 16px; }
+
+  /* ─── PROGRAM ─── */
+  .sd-program {
+    padding: var(--section-py) var(--container-px);
+    background: var(--color-bg);
+  }
+  .sd-program__inner { max-width: var(--container-max); margin: 0 auto; }
+  .sd-days { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px; }
+  .sd-day {
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 36px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+  .sd-day:hover { border-color: var(--color-men-border); transform: translateY(-4px); }
+  .sd-day__num {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    font-size: 80px;
+    font-weight: 900;
+    color: var(--color-men-border);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .sd-day__label {
+    display: inline-block;
+    background: var(--color-men-glow);
+    color: var(--color-men);
+    border: 1px solid var(--color-men-border);
+    border-radius: 100px;
+    padding: 4px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .sd-day__title { font-size: 20px; font-weight: 800; margin-bottom: 16px; color: var(--color-text); }
+  .sd-day__list { list-style: none; }
+  .sd-day__list li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 14px;
+    color: var(--color-text-muted);
+    padding: 7px 0;
+    border-bottom: 1px solid var(--color-border-light);
+    line-height: 1.5;
+  }
+  .sd-day__list li:last-child { border-bottom: none; }
+  .sd-day__list .ck { color: var(--color-men); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  /* ─── RESULTS ─── */
+  .sd-results {
+    padding: var(--section-py) var(--container-px);
+    background: var(--color-card);
+  }
+  .sd-results__inner { max-width: var(--container-max); margin: 0 auto; }
+  .sd-results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .sd-result-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 32px;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+  .sd-result-card:hover { border-color: var(--color-men-border); transform: translateY(-3px); }
+  .sd-result-card .avatar {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--color-men-glow);
+    border: 2px solid var(--color-men-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; margin-bottom: 20px;
+  }
+  .sd-result-card .name { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .sd-result-card .result { font-size: 14px; color: var(--color-men); font-weight: 600; margin-bottom: 16px; }
+  .sd-result-card .quote { font-size: 14px; color: var(--color-text-muted); line-height: 1.7; font-style: italic; }
+
+  /* ─── PRICING ─── */
+  .sd-pricing {
+    padding: var(--section-py) var(--container-px);
+    background: var(--color-bg);
+  }
+  .sd-pricing__inner { max-width: var(--container-max); margin: 0 auto; }
+  .sd-plans {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+    align-items: start;
+  }
+  .sd-plan {
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 36px 28px;
+    text-align: center;
+    transition: border-color var(--transition), transform var(--transition);
+    position: relative;
+  }
+  .sd-plan:hover { border-color: var(--color-men-border); transform: translateY(-4px); }
+  .sd-plan.featured {
+    border-color: var(--color-men);
+    background: linear-gradient(160deg, var(--color-card) 0%, rgba(21,101,192,0.1) 100%);
+    transform: scale(1.03);
+  }
+  .sd-plan.featured:hover { transform: scale(1.03) translateY(-4px); }
+  .sd-plan__badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-men);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 20px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .sd-plan__name { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .sd-plan__sub { font-size: 13px; color: var(--color-text-muted); margin-bottom: 28px; line-height: 1.5; }
+  .sd-plan__price { font-size: 40px; font-weight: 800; color: var(--color-men); line-height: 1; margin-bottom: 6px; }
+  .sd-plan__price-note { font-size: 13px; color: var(--color-text-muted); margin-bottom: 32px; }
+  .sd-plan__list { list-style: none; text-align: left; margin-bottom: 32px; }
+  .sd-plan__list li {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--color-text-muted);
+    padding: 7px 0;
+    border-bottom: 1px solid var(--color-border-light);
+    line-height: 1.5;
+  }
+  .sd-plan__list li:last-child { border-bottom: none; }
+  .sd-plan__list .ck { color: var(--color-men); font-weight: 700; flex-shrink: 0; }
+
+  /* ─── FAQ ─── */
+  .sd-faq {
+    padding: var(--section-py) var(--container-px);
+    background: var(--color-card);
+  }
+  .sd-faq__inner { max-width: 760px; margin: 0 auto; }
+  .sd-faq-list { margin-top: 48px; }
+  .sd-faq-item {
+    border-bottom: 1px solid var(--color-border-light);
+  }
+  .sd-faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--color-text);
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+    padding: 24px 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    font-family: var(--font-base);
+    transition: color var(--transition);
+  }
+  .sd-faq-q:hover { color: var(--color-men); }
+  .sd-faq-q .arrow {
+    font-size: 20px;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    color: var(--color-men);
+  }
+  .sd-faq-item.open .sd-faq-q .arrow { transform: rotate(45deg); }
+  .sd-faq-a {
+    font-size: 15px;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    padding-bottom: 0;
+  }
+  .sd-faq-item.open .sd-faq-a { max-height: 400px; padding-bottom: 24px; }
+
+  /* ─── FINAL CTA ─── */
+  .sd-final {
+    padding: var(--section-py) var(--container-px);
+    background: var(--color-bg);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .sd-final::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, var(--color-men-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .sd-final__inner { max-width: 640px; margin: 0 auto; position: relative; z-index: 1; }
+  .sd-final h2 { font-size: clamp(28px, 4vw, 48px); font-weight: 800; margin-bottom: 20px; line-height: 1.15; }
+  .sd-final p { font-size: 18px; color: var(--color-text-muted); margin-bottom: 40px; line-height: 1.7; }
+  .sd-final__urgency {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--color-text-muted);
+    margin-top: 20px;
+  }
+  .sd-final__urgency .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #27AE60;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  /* ─── ADAPTIVE ─── */
+  @media (max-width: 1024px) {
+    .sd-days { grid-template-columns: 1fr; }
+    .sd-plans { grid-template-columns: 1fr; }
+    .sd-plan.featured { transform: none; }
+    .sd-pains-grid { grid-template-columns: repeat(2, 1fr); }
+    .sd-results-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .sd-pains-grid { grid-template-columns: 1fr; }
+    .sd-hero__proof { gap: 24px; }
+  }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <!-- HERO -->
+  <section class="sd-hero reveal">
+    <div class="sd-hero__bg"></div>
+    <div class="sd-hero__inner">
+      <div class="sd-hero__eyebrow">
+        <span>🎯</span> Тренинг для мужчин
+      </div>
+      <h1>«Стиль<br><em>Соблазнения</em>»</h1>
+      <p class="sd-hero__sub">
+        3-дневная программа Алекса Лесли. Реальная практика в полевых условиях.
+        От нулевого уровня — до уверенных действий Мастера.
+      </p>
+      <div class="sd-hero__ctas">
+        <a href="#pricing" class="btn-men">Выбрать тариф →</a>
+        <a href="#program" class="btn-secondary">Программа тренинга</a>
+      </div>
+      <div class="sd-hero__proof">
+        <div class="sd-hero__proof-item">
+          <div class="sd-hero__proof-num counter" data-target="10000">0</div>
+          <div class="sd-hero__proof-label">учеников</div>
+        </div>
+        <div class="sd-hero__proof-item">
+          <div class="sd-hero__proof-num counter" data-target="20">0</div>
+          <div class="sd-hero__proof-label">лет методологии</div>
+        </div>
+        <div class="sd-hero__proof-item">
+          <div class="sd-hero__proof-num">40+</div>
+          <div class="sd-hero__proof-label">городов и стран</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- БОЛИ -->
+  <section class="sd-pains reveal">
+    <div class="sd-pains__inner">
+      <div class="section-tag">Для кого</div>
+      <h2 class="section-h2">Узнаёшь себя<br>хотя бы в одном?</h2>
+      <p class="section-lead">Тренинг создан для тех, кто устал от теории без результата.</p>
+      <div class="sd-pains-grid">
+        <div class="sd-pain-card reveal">
+          <div class="sd-pain-icon">😶</div>
+          <div class="sd-pain-text"><strong>Теряешься при первом контакте</strong>Не знаешь, что сказать. Ждёшь нужного момента, который никогда не наступает.</div>
+        </div>
+        <div class="sd-pain-card reveal">
+          <div class="sd-pain-icon">📱</div>
+          <div class="sd-pain-text"><strong>Застреваешь в переписке</strong>Вроде общаетесь, но встреч нет. Или встреча была — и она больше не отвечает.</div>
+        </div>
+        <div class="sd-pain-card reveal">
+          <div class="sd-pain-icon">🔄</div>
+          <div class="sd-pain-text"><strong>Попадаешь в «друг-зону»</strong>Интересная девушка видит в тебе только друга. Не знаешь, как изменить динамику.</div>
+        </div>
+        <div class="sd-pain-card reveal">
+          <div class="sd-pain-icon">😤</div>
+          <div class="sd-pain-text"><strong>Читал много — результата нет</strong>Знаешь теорию. Понимаешь, что нужно делать. Но в реальной ситуации теряешься.</div>
+        </div>
+        <div class="sd-pain-card reveal">
+          <div class="sd-pain-icon">⚡</div>
+          <div class="sd-pain-text"><strong>Нет стабильности</strong>Иногда получается — чаще нет. Не понимаешь, что именно работает, а что нет.</div>
+        </div>
+        <div class="sd-pain-card reveal">
+          <div class="sd-pain-icon">🎭</div>
+          <div class="sd-pain-text"><strong>Чувствуешь себя «не тем»</strong>Видишь мужчин, у которых всё легко и естественно — и не понимаешь, как они это делают.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПРОГРАММА -->
+  <section class="sd-program reveal" id="program">
+    <div class="sd-program__inner">
+      <div class="section-tag">Программа</div>
+      <h2 class="section-h2">3 дня. Полная<br>трансформация.</h2>
+      <p class="section-lead">
+        Каждый день — конкретный блок навыков с практикой в реальных условиях.
+        Никаких лекций без применения.
+      </p>
+      <div class="sd-days">
+        <div class="sd-day reveal">
+          <div class="sd-day__num">1</div>
+          <div class="sd-day__label">День 1</div>
+          <div class="sd-day__title">Первый контакт и внутреннее состояние</div>
+          <ul class="sd-day__list">
+            <li><span class="ck">✓</span> Психология нулевого уровня — что тебя останавливает</li>
+            <li><span class="ck">✓</span> Техника «Угнать за 60 секунд» — первая фраза-крючок</li>
+            <li><span class="ck">✓</span> Невербалика и уверенность с первых секунд</li>
+            <li><span class="ck">✓</span> Практика: реальные подходы с разбором</li>
+            <li><span class="ck">✓</span> Разбор ошибок в режиме реального времени</li>
+          </ul>
+        </div>
+        <div class="sd-day reveal">
+          <div class="sd-day__num">2</div>
+          <div class="sd-day__label">День 2</div>
+          <div class="sd-day__title">Динамика общения и эмоциональный интеллект</div>
+          <ul class="sd-day__list">
+            <li><span class="ck">✓</span> Раскачка эмоций — механизм притяжения</li>
+            <li><span class="ck">✓</span> Игра на понижение: когда и как применять</li>
+            <li><span class="ck">✓</span> Якорение: создание устойчивых ассоциаций</li>
+            <li><span class="ck">✓</span> Переход от знакомства к свиданию</li>
+            <li><span class="ck">✓</span> Практика: первые свидания с анализом</li>
+          </ul>
+        </div>
+        <div class="sd-day reveal">
+          <div class="sd-day__num">3</div>
+          <div class="sd-day__label">День 3</div>
+          <div class="sd-day__title">Удержание и путь к уровню Мастера</div>
+          <ul class="sd-day__list">
+            <li><span class="ck">✓</span> Правило 72 часов и дефицит</li>
+            <li><span class="ck">✓</span> Техника «слабого места» — точечное воздействие</li>
+            <li><span class="ck">✓</span> Мультиличность: гибкость в разных контекстах</li>
+            <li><span class="ck">✓</span> Дневник соблазнения и самоанализ</li>
+            <li><span class="ck">✓</span> Личный план перехода на следующий уровень</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- РЕЗУЛЬТАТЫ -->
+  <section class="sd-results reveal">
+    <div class="sd-results__inner">
+      <div class="section-tag">Кейсы учеников</div>
+      <h2 class="section-h2">Результаты тех,<br>кто прошёл</h2>
+      <p class="section-lead">
+        <!-- TODO: реальные кейсы учеников мужской программы -->
+        Топ-ученики мужского направления. Реальные истории трансформации.
+      </p>
+      <div class="sd-results-grid">
+        <div class="sd-result-card reveal">
+          <div class="avatar">👤</div>
+          <div class="name"><!-- TODO: имя --></div>
+          <div class="result"><!-- TODO: результат --></div>
+          <div class="quote"><!-- TODO: цитата ученика из мужской программы --></div>
+        </div>
+        <div class="sd-result-card reveal">
+          <div class="avatar">👤</div>
+          <div class="name"><!-- TODO: имя --></div>
+          <div class="result"><!-- TODO: результат --></div>
+          <div class="quote"><!-- TODO: цитата ученика из мужской программы --></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ТАРИФЫ -->
+  <section class="sd-pricing reveal" id="pricing">
+    <div class="sd-pricing__inner">
+      <div class="section-tag">Выбери формат</div>
+      <h2 class="section-h2">Тарифы</h2>
+      <p class="section-lead">Три формата участия — для разных задач и бюджетов.</p>
+      <div class="sd-plans">
+        <div class="sd-plan reveal">
+          <div class="sd-plan__name">Онлайн</div>
+          <div class="sd-plan__sub">Всё в прямом эфире. Смотришь из любой точки мира.</div>
+          <div class="sd-plan__price">15 000 ₽</div>
+          <div class="sd-plan__price-note">или рассрочка</div>
+          <ul class="sd-plan__list">
+            <li><span class="ck">✓</span> 3 дня прямых эфиров</li>
+            <li><span class="ck">✓</span> Видеозапись после тренинга</li>
+            <li><span class="ck">✓</span> Чат участников</li>
+            <li><span class="ck">✓</span> Домашние задания с проверкой</li>
+          </ul>
+          <a href="#" class="btn-secondary">Записаться</a>
+        </div>
+        <div class="sd-plan featured reveal">
+          <div class="sd-plan__badge">Рекомендован</div>
+          <div class="sd-plan__name">Офлайн</div>
+          <div class="sd-plan__sub">Живое участие с реальной практикой выходов на улицу.</div>
+          <div class="sd-plan__price">от 17 000 ₽</div>
+          <div class="sd-plan__price-note">зависит от города</div>
+          <ul class="sd-plan__list">
+            <li><span class="ck">✓</span> Всё из онлайн-формата</li>
+            <li><span class="ck">✓</span> Реальные подходы под наблюдением тренера</li>
+            <li><span class="ck">✓</span> Разбор ошибок в реальном времени</li>
+            <li><span class="ck">✓</span> Нетворкинг с участниками</li>
+          </ul>
+          <a href="#" class="btn-men">Записаться →</a>
+        </div>
+        <div class="sd-plan reveal">
+          <div class="sd-plan__name">Выездной</div>
+          <div class="sd-plan__sub">Интенсив за рубежом (Нью-Йорк, Дубай и другие города).</div>
+          <div class="sd-plan__price">~62 000 ₽</div>
+          <div class="sd-plan__price-note">+ перелёт и проживание</div>
+          <ul class="sd-plan__list">
+            <li><span class="ck">✓</span> Малая группа (до 12 чел.)</li>
+            <li><span class="ck">✓</span> Практика в незнакомой среде</li>
+            <li><span class="ck">✓</span> VIP-нетворкинг</li>
+            <li><span class="ck">✓</span> Личная обратная связь</li>
+          </ul>
+          <a href="#" class="btn-secondary">Подробнее</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sd-faq reveal">
+    <div class="sd-faq__inner">
+      <div class="section-tag">Вопросы</div>
+      <h2 class="section-h2" style="text-align:center;">Часто задаваемые<br>вопросы</h2>
+      <div class="sd-faq-list">
+        <div class="sd-faq-item">
+          <button class="sd-faq-q">Нужна ли предварительная подготовка? <span class="arrow">+</span></button>
+          <div class="sd-faq-a">Нет. Тренинг подходит и для тех, кто начинает с нуля, и для тех, кто уже знаком с методологией. Программа построена так, что каждый уйдёт с конкретными результатами под свой уровень.</div>
+        </div>
+        <div class="sd-faq-item">
+          <button class="sd-faq-q">Можно ли получить запись тренинга? <span class="arrow">+</span></button>
+          <div class="sd-faq-a">Да, все форматы включают видеозапись. Запись доступна в личном кабинете в течение 12 месяцев после тренинга.</div>
+        </div>
+        <div class="sd-faq-item">
+          <button class="sd-faq-q">Как проходит практическая часть онлайн? <span class="arrow">+</span></button>
+          <div class="sd-faq-a">В онлайн-формате практика проходит в виде домашних заданий, которые выполняются в реальной жизни и разбираются на следующем эфире. Тренер даёт персональную обратную связь по каждому заданию.</div>
+        </div>
+        <div class="sd-faq-item">
+          <button class="sd-faq-q">Есть ли рассрочка? <span class="arrow">+</span></button>
+          <div class="sd-faq-a">Да, рассрочка доступна для всех тарифов. Условия рассрочки уточняются при записи.</div>
+        </div>
+        <div class="sd-faq-item">
+          <button class="sd-faq-q">Что если тренинг мне не подойдёт? <span class="arrow">+</span></button>
+          <div class="sd-faq-a"><!-- TODO: условия возврата --></div>
+        </div>
+        <div class="sd-faq-item">
+          <button class="sd-faq-q">В каких городах проходит офлайн-тренинг? <span class="arrow">+</span></button>
+          <div class="sd-faq-a"><!-- TODO: список городов --></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ФИНАЛЬНЫЙ CTA -->
+  <section class="sd-final reveal">
+    <div class="sd-final__inner">
+      <div class="section-tag">Записаться</div>
+      <h2>Первый шаг<br>делаешь <span style="color:var(--color-men);">ты.</span></h2>
+      <p>Не ждать подходящего момента. Не откладывать. Мастер отличается от нулевого игрока одним — он действует.</p>
+      <a href="#pricing" class="btn-men" style="font-size:17px; padding:20px 52px;">Записаться на тренинг →</a>
+      <div class="sd-final__urgency">
+        <span class="dot"></span>
+        <!-- TODO: количество свободных мест / дата ближайшего потока -->
+        Ближайший тренинг — уточняйте при записи
+      </div>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/components.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Counters
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target);
+      const duration = 2000;
+      const step = target / (duration / 16);
+      let current = 0;
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) { current = target; clearInterval(timer); }
+        el.textContent = target >= 1000 ? Math.floor(current).toLocaleString('ru') + '+' : Math.floor(current) + '+';
+      }, 16);
+    }
+    const counterObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); counterObs.unobserve(e.target); } });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.counter').forEach(el => counterObs.observe(el));
+
+    // FAQ accordion
+    document.querySelectorAll('.sd-faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.sd-faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.sd-faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // Smooth scroll for anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+  </script>
+</body>
+</html>

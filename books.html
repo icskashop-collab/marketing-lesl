@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Книги Алекса Лесли — методология отношений и соблазнения. «Охота на самца», «Игра Мастера и Охотницы», «Жизнь без трусов» и другие." />
+  <meta property="og:title" content="Книги — Alex Leslie" />
+  <meta property="og:description" content="Все книги Алекса Лесли. Купить на Litres, Wildberries, Ozon." />
+  <meta property="og:type" content="website" />
+  <title>Книги — Alex Leslie</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+
+  <style>
+  /* ─── HERO ─── */
+  .bk-hero {
+    position: relative;
+    padding: calc(var(--header-h) + 80px) var(--container-px) 80px;
+    text-align: center;
+    background: var(--color-bg);
+    overflow: hidden;
+  }
+  .bk-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 50% at 50% 30%, rgba(212,160,23,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .bk-hero__inner { max-width: var(--container-max); margin: 0 auto; position: relative; z-index: 1; }
+  .bk-hero__tag {
+    display: inline-block;
+    background: rgba(212,160,23,0.12);
+    color: var(--color-gold);
+    border: 1px solid rgba(212,160,23,0.25);
+    border-radius: 100px;
+    padding: 6px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .bk-hero h1 {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .bk-hero h1 span { color: var(--color-gold); }
+  .bk-hero__sub {
+    font-size: 18px;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto 48px;
+    line-height: 1.7;
+  }
+  .bk-hero__stats {
+    display: inline-flex;
+    gap: 48px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .bk-hero__stat-num {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--color-gold);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .bk-hero__stat-label { font-size: 13px; color: var(--color-text-muted); }
+
+  /* ─── FILTER ─── */
+  .bk-filter {
+    background: var(--color-card);
+    padding: 20px var(--container-px);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+  .bk-filter__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .bk-filter-btn {
+    padding: 8px 20px;
+    border-radius: 100px;
+    border: 1px solid var(--color-border-light);
+    background: transparent;
+    color: var(--color-text-muted);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-base);
+    transition: all var(--transition);
+  }
+  .bk-filter-btn:hover { border-color: var(--color-gold); color: var(--color-gold); }
+  .bk-filter-btn.active { background: var(--color-gold); border-color: var(--color-gold); color: #0D0D1A; }
+
+  /* ─── FEATURED BOOK ─── */
+  .bk-featured {
+    padding: var(--section-py) var(--container-px);
+    background: var(--color-bg);
+  }
+  .bk-featured__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .bk-cover {
+    aspect-ratio: 3/4;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .bk-cover--gold {
+    background: linear-gradient(135deg, #1A1A2E 0%, #0D0D1A 50%, rgba(212,160,23,0.15) 100%);
+    border: 1px solid rgba(212,160,23,0.3);
+  }
+  .bk-cover--women {
+    background: linear-gradient(135deg, #1A1A2E 0%, #0D0D1A 50%, rgba(194,24,91,0.12) 100%);
+    border: 1px solid rgba(194,24,91,0.25);
+  }
+  .bk-cover--men {
+    background: linear-gradient(135deg, #1A1A2E 0%, #0D0D1A 50%, rgba(21,101,192,0.12) 100%);
+    border: 1px solid rgba(21,101,192,0.25);
+  }
+  .bk-cover__placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 40px;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+  }
+  .bk-cover__icon { font-size: 64px; }
+  .bk-cover__title-text {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-style: italic;
+    color: var(--color-gold);
+    line-height: 1.3;
+    text-align: center;
+  }
+  .bk-cover__author {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .section-tag { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--color-gold); margin-bottom: 16px; }
+  .section-h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+  .bk-feat__badge {
+    display: inline-block;
+    background: rgba(194,24,91,0.12);
+    color: #C2185B;
+    border: 1px solid rgba(194,24,91,0.2);
+    border-radius: 100px;
+    padding: 4px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .bk-feat__desc { font-size: 17px; color: var(--color-text-muted); line-height: 1.75; margin-bottom: 32px; }
+  .bk-feat__concepts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .bk-concept-tag {
+    padding: 5px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--color-border-light);
+    font-size: 13px;
+    color: var(--color-text-muted);
+    transition: border-color var(--transition), color var(--transition);
+  }
+  .bk-concept-tag:hover { border-color: var(--color-gold); color: var(--color-gold); }
+  .bk-feat__price-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+  .bk-feat__price { font-size: 36px; font-weight: 800; color: var(--color-gold); }
+  .bk-feat__where { font-size: 13px; color: var(--color-text-muted); line-height: 1.6; }
+  .bk-feat__ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* ─── BOOK GRID ─── */
+  .bk-catalog {
+    padding: var(--section-py) var(--container-px);
+    background: var(--color-card);
+  }
+  .bk-catalog__inner { max-width: var(--container-max); margin: 0 auto; }
+  .bk-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    margin-top: 48px;
+  }
+  .bk-book {
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition);
+  }
+  .bk-book:hover { transform: translateY(-6px); }
+  .bk-book__cover {
+    aspect-ratio: 3/4;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bk-book__period {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(13,13,26,0.8);
+    color: var(--color-text-muted);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    backdrop-filter: blur(8px);
+  }
+  .bk-book__direction {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+  .dir-women { background: rgba(194,24,91,0.8); color: #fff; }
+  .dir-men { background: rgba(21,101,192,0.8); color: #fff; }
+  .dir-all { background: rgba(212,160,23,0.8); color: #0D0D1A; }
+  .bk-book__title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .bk-book__year { font-size: 12px; color: var(--color-text-muted); margin-bottom: 10px; }
+  .bk-book__desc { font-size: 13px; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 20px; flex: 1; }
+  .bk-book__footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+  .bk-book__price { font-size: 20px; font-weight: 800; color: var(--color-gold); }
+  .bk-book__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    background: transparent;
+    border: 1px solid var(--color-gold);
+    color: var(--color-gold);
+    cursor: pointer;
+    font-family: var(--font-base);
+    transition: all var(--transition);
+  }
+  .bk-book__cta:hover { background: var(--color-gold); color: #0D0D1A; }
+
+  /* ─── PLATFORMS ─── */
+  .bk-platforms {
+    padding: 64px var(--container-px);
+    background: var(--color-bg);
+    text-align: center;
+  }
+  .bk-platforms__inner { max-width: var(--container-max); margin: 0 auto; }
+  .bk-platforms h2 { font-size: clamp(22px, 3vw, 32px); font-weight: 800; margin-bottom: 12px; }
+  .bk-platforms p { font-size: 16px; color: var(--color-text-muted); margin-bottom: 40px; }
+  .bk-platform-list { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .bk-platform-item {
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 20px 36px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-text);
+    transition: border-color var(--transition), transform var(--transition);
+  }
+  .bk-platform-item:hover { border-color: var(--color-gold); transform: scale(1.03); }
+
+  /* ─── PHILOSOPHY QUOTE ─── */
+  .bk-quote {
+    padding: var(--section-py) var(--container-px);
+    background: var(--color-card);
+    text-align: center;
+  }
+  .bk-quote__inner { max-width: 760px; margin: 0 auto; }
+  .bk-quote__text {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 3vw, 34px);
+    font-style: italic;
+    color: var(--color-gold);
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+  .bk-quote__author { font-size: 14px; color: var(--color-text-muted); letter-spacing: 1px; }
+
+  /* ─── CTA ─── */
+  .bk-cta {
+    padding: var(--section-py) var(--container-px);
+    background: var(--color-bg);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .bk-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(212,160,23,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .bk-cta__inner { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+  .bk-cta h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; margin-bottom: 20px; }
+  .bk-cta p { font-size: 17px; color: var(--color-text-muted); margin-bottom: 40px; line-height: 1.7; }
+  .bk-cta__btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* ─── ADAPTIVE ─── */
+  @media (max-width: 1024px) {
+    .bk-featured__inner { grid-template-columns: 1fr; gap: 40px; }
+    .bk-featured__inner > .bk-cover { max-width: 300px; margin: 0 auto; }
+    .bk-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .bk-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .bk-hero__stats { gap: 28px; }
+    .bk-feat__ctas { flex-direction: column; }
+  }
+  @media (max-width: 400px) {
+    .bk-grid { grid-template-columns: 1fr; }
+  }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <!-- HERO -->
+  <section class="bk-hero reveal">
+    <div class="bk-hero__inner">
+      <div class="bk-hero__tag">Книги</div>
+      <h1>10 книг.<br><span>Одна методология.</span></h1>
+      <p class="bk-hero__sub">
+        Философия Алекса Лесли — в книжном формате. Фундамент для тех,
+        кто хочет понять систему, а не просто получить набор техник.
+      </p>
+      <div class="bk-hero__stats">
+        <div>
+          <div class="bk-hero__stat-num">10+</div>
+          <div class="bk-hero__stat-label">книг издано</div>
+        </div>
+        <div>
+          <div class="bk-hero__stat-num">20+</div>
+          <div class="bk-hero__stat-label">лет методологии</div>
+        </div>
+        <div>
+          <div class="bk-hero__stat-num">4.0+</div>
+          <div class="bk-hero__stat-label">рейтинг на Litres</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER -->
+  <div class="bk-filter">
+    <div class="bk-filter__inner">
+      <button class="bk-filter-btn active" data-filter="all">Все книги</button>
+      <button class="bk-filter-btn" data-filter="women">Женское направление</button>
+      <button class="bk-filter-btn" data-filter="men">Мужское направление</button>
+    </div>
+  </div>
+
+  <!-- FEATURED BOOK -->
+  <section class="bk-featured reveal">
+    <div class="bk-featured__inner">
+      <div class="bk-cover bk-cover--women">
+        <div class="bk-cover__placeholder">
+          <!-- TODO: обложка книги -->
+          <div class="bk-cover__icon">🎯</div>
+          <div class="bk-cover__title-text">Охота<br>на самца</div>
+          <div class="bk-cover__author">Алекс Лесли</div>
+        </div>
+      </div>
+      <div class="bk-feat__info">
+        <div class="section-tag">Флагманская книга</div>
+        <h2 class="section-h2">«Охота на самца»</h2>
+        <div class="bk-feat__badge">Женское направление · 2011</div>
+        <p class="bk-feat__desc">
+          Книга, которая изменила взгляд тысяч женщин на отношения. Методология «Охотницы»
+          впервые описана системно: 9 шагов, Кодекс, техники якорения и раскачки эмоций.
+          Центральный кейс — история Савы, вышедшей замуж за мультимиллионера.
+          Рейтинг 3.4–4.2 на Litres. Упоминалась в Forbes и Daily Mail.
+        </p>
+        <div class="bk-feat__concepts">
+          <div class="bk-concept-tag">Охотница</div>
+          <div class="bk-concept-tag">9 шагов</div>
+          <div class="bk-concept-tag">Якорение</div>
+          <div class="bk-concept-tag">Раскачка эмоций</div>
+          <div class="bk-concept-tag">Кодекс</div>
+          <div class="bk-concept-tag">Жизнь без трусов</div>
+          <div class="bk-concept-tag">21 день</div>
+        </div>
+        <div class="bk-feat__price-row">
+          <div class="bk-feat__price">590 ₽</div>
+          <div class="bk-feat__where">Доступна на Litres,<br>Wildberries, Ozon, MyBook</div>
+        </div>
+        <div class="bk-feat__ctas">
+          <a href="#" class="btn-primary">Купить книгу →</a>
+          <a href="women/huntress.html" class="btn-secondary">Методология Охотницы</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- КАТАЛОГ КНИГ -->
+  <section class="bk-catalog reveal">
+    <div class="bk-catalog__inner">
+      <div class="section-tag">Все книги</div>
+      <h2 class="section-h2">Полная библиотека</h2>
+      <div class="bk-grid" id="books-grid">
+
+        <!-- Книга 1 -->
+        <div class="bk-book reveal" data-dir="women">
+          <div class="bk-cover bk-cover--women bk-book__cover">
+            <div class="bk-cover__placeholder">
+              <div class="bk-cover__icon" style="font-size:40px;">🎯</div>
+              <div class="bk-cover__title-text" style="font-size:16px;">Охота<br>на самца</div>
+            </div>
+            <div class="bk-book__period">2011</div>
+            <div class="bk-book__direction dir-women">Женское</div>
+          </div>
+          <div class="bk-book__title">«Охота на самца»</div>
+          <div class="bk-book__year">2011 · Флагманская книга женского направления</div>
+          <div class="bk-book__desc">Методология Охотницы от начала до конца. 9 шагов, Кодекс, реальные техники и кейс Савы.</div>
+          <div class="bk-book__footer">
+            <div class="bk-book__price">590 ₽</div>
+            <a href="#" class="bk-book__cta">Купить →</a>
+          </div>
+        </div>
+
+        <!-- Книга 2 -->
+        <div class="bk-book reveal" data-dir="women">
+          <div class="bk-cover bk-cover--gold bk-book__cover">
+            <div class="bk-cover__placeholder">
+              <div class="bk-cover__icon" style="font-size:40px;">♟️</div>
+              <div class="bk-cover__title-text" style="font-size:16px;">Игра Мастера<br>и Охотницы</div>
+            </div>
+            <div class="bk-book__period">2017</div>
+            <div class="bk-book__direction dir-all">М + Ж</div>
+          </div>
+          <div class="bk-book__title">«Игра Мастера и Охотницы»</div>
+          <div class="bk-book__year">2017 · Системная философия</div>
+          <div class="bk-book__desc">Кодекс Мастера. Иерархия уровней. Отношения как игра. Философски самая глубокая книга.</div>
+          <div class="bk-book__footer">
+            <div class="bk-book__price">590 ₽</div>
+            <a href="#" class="bk-book__cta">Купить →</a>
+          </div>
+        </div>
+
+        <!-- Книга 3 -->
+        <div class="bk-book reveal" data-dir="men">
+          <div class="bk-cover bk-cover--men bk-book__cover">
+            <div class="bk-cover__placeholder">
+              <div class="bk-cover__icon" style="font-size:40px;">🔓</div>
+              <div class="bk-cover__title-text" style="font-size:16px;">Жизнь<br>без трусов</div>
+            </div>
+            <div class="bk-book__period">2006</div>
+            <div class="bk-book__direction dir-men">Мужское</div>
+          </div>
+          <div class="bk-book__title">«Жизнь без трусов»</div>
+          <div class="bk-book__year">2006 · Стартовая точка методологии</div>
+          <div class="bk-book__desc">Центральный образ всего творчества Лесли. Психологические ограничения, техники первого контакта, свидания.</div>
+          <div class="bk-book__footer">
+            <div class="bk-book__price">590 ₽</div>
+            <a href="#" class="bk-book__cta">Купить →</a>
+          </div>
+        </div>
+
+        <!-- Книга 4 -->
+        <div class="bk-book reveal" data-dir="men">
+          <div class="bk-cover bk-cover--men bk-book__cover">
+            <div class="bk-cover__placeholder">
+              <div class="bk-cover__icon" style="font-size:40px;">⏱️</div>
+              <div class="bk-cover__title-text" style="font-size:16px;">Угнать<br>за 60 секунд</div>
+            </div>
+            <div class="bk-book__period">2007</div>
+            <div class="bk-book__direction dir-men">Мужское</div>
+          </div>
+          <div class="bk-book__title">«Угнать за 60 секунд»</div>
+          <div class="bk-book__year">2007 · Техники первого контакта</div>
+          <div class="bk-book__desc">Техника захвата внимания с первых секунд. Крючок первой фразы, невербалика, переход к следующему этапу.</div>
+          <div class="bk-book__footer">
+            <div class="bk-book__price">590 ₽</div>
+            <a href="#" class="bk-book__cta">Купить →</a>
+          </div>
+        </div>
+
+        <!-- Книга 5 -->
+        <div class="bk-book reveal" data-dir="men">
+          <div class="bk-cover bk-cover--men bk-book__cover">
+            <div class="bk-cover__placeholder">
+              <div class="bk-cover__icon" style="font-size:40px;">🏡</div>
+              <div class="bk-cover__title-text" style="font-size:16px;">Как проснуться<br>в гостях</div>
+            </div>
+            <div class="bk-book__period">2008</div>
+            <div class="bk-book__direction dir-men">Мужское</div>
+          </div>
+          <div class="bk-book__title">«Как проснуться в гостях»</div>
+          <div class="bk-book__year">2008 · Переход к близости</div>
+          <div class="bk-book__desc">Стратегия перехода к физической близости. Правило первой ночи, эмоциональные якоря, удержание интереса.</div>
+          <div class="bk-book__footer">
+            <div class="bk-book__price">590 ₽</div>
+            <a href="#" class="bk-book__cta">Купить →</a>
+          </div>
+        </div>
+
+        <!-- Книга 6 -->
+        <div class="bk-book reveal" data-dir="women">
+          <div class="bk-cover bk-cover--women bk-book__cover">
+            <div class="bk-cover__placeholder">
+              <div class="bk-cover__icon" style="font-size:40px;">💊</div>
+              <div class="bk-cover__title-text" style="font-size:16px;">Волшебная<br>таблетка</div>
+            </div>
+            <div class="bk-book__period">2011</div>
+            <div class="bk-book__direction dir-women">Женское</div>
+          </div>
+          <div class="bk-book__title">«Волшебная таблетка»</div>
+          <div class="bk-book__year">2011 · Адаптация мужских техник для женщин</div>
+          <div class="bk-book__desc">Первая адаптация методологии для женской аудитории. Прорыв: признание того, что женщины могут «охотиться».</div>
+          <div class="bk-book__footer">
+            <div class="bk-book__price">590 ₽</div>
+            <a href="#" class="bk-book__cta">Купить →</a>
+          </div>
+        </div>
+
+        <!-- Книга 7 -->
+        <div class="bk-book reveal" data-dir="women">
+          <div class="bk-cover bk-cover--gold bk-book__cover">
+            <div class="bk-cover__placeholder">
+              <div class="bk-cover__icon" style="font-size:40px;">✍️</div>
+              <div class="bk-cover__title-text" style="font-size:16px;">Метод Лесли:<br>рабочая тетрадь</div>
+            </div>
+            <div class="bk-book__period">2020+</div>
+            <div class="bk-book__direction dir-all">М + Ж</div>
+          </div>
+          <div class="bk-book__title">«Метод Лесли: рабочая тетрадь»</div>
+          <div class="bk-book__year">Практическое дополнение к методологии</div>
+          <div class="bk-book__desc">Задания, трекер прогресса, дневник соблазнения. Для тех, кто хочет работать с методологией системно.</div>
+          <div class="bk-book__footer">
+            <div class="bk-book__price">990 ₽</div>
+            <a href="#" class="bk-book__cta">Купить →</a>
+          </div>
+        </div>
+
+        <!-- Книга 8 -->
+        <div class="bk-book reveal" data-dir="women">
+          <div class="bk-cover bk-cover--women bk-book__cover">
+            <div class="bk-cover__placeholder">
+              <div class="bk-cover__icon" style="font-size:40px;">🌍</div>
+              <div class="bk-cover__title-text" style="font-size:16px;">Евротрэш</div>
+            </div>
+            <div class="bk-book__period">2018</div>
+            <div class="bk-book__direction dir-women">Женское</div>
+          </div>
+          <div class="bk-book__title">«Евротрэш»</div>
+          <div class="bk-book__year">2018 · Кейс-студи Насти Рыбки</div>
+          <div class="bk-book__desc">История охоты на конкретного состоятельного мужчину. Реализация методологии в экстремальных условиях.</div>
+          <div class="bk-book__footer">
+            <div class="bk-book__price">590 ₽</div>
+            <a href="#" class="bk-book__cta">Купить →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ПЛАТФОРМЫ -->
+  <section class="bk-platforms reveal">
+    <div class="bk-platforms__inner">
+      <h2>Где купить книги</h2>
+      <p>Все книги доступны в электронном и бумажном форматах на крупнейших платформах.</p>
+      <div class="bk-platform-list">
+        <div class="bk-platform-item">📗 Litres</div>
+        <div class="bk-platform-item">🛒 Wildberries</div>
+        <div class="bk-platform-item">📦 Ozon</div>
+        <div class="bk-platform-item">📱 MyBook</div>
+        <div class="bk-platform-item">🎧 Аудиокнига</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ЦИТАТА -->
+  <section class="bk-quote reveal">
+    <div class="bk-quote__inner">
+      <div class="bk-quote__text">
+        «Самое сильное, что есть в методологии — это не конкретные техники.
+        Это РАЗРЕШЕНИЕ. Разрешение хотеть. Разрешение действовать.
+        Разрешение не ждать.»
+      </div>
+      <div class="bk-quote__author">— Из анализа философии Алекса Лесли</div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bk-cta reveal">
+    <div class="bk-cta__inner">
+      <div class="section-tag">Читать → Практиковать → Результат</div>
+      <h2>Книга — это начало.<br>Курс — это путь.</h2>
+      <p>
+        Книги дают философию и понимание. Курсы — системную трансформацию с поддержкой тренера.
+        Начни с книги, иди глубже.
+      </p>
+      <div class="bk-cta__btns">
+        <a href="women/how-to-marry.html" class="btn-primary">Флагманский курс →</a>
+        <a href="products.html" class="btn-secondary">Все продукты</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/components.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Filter
+    const filterBtns = document.querySelectorAll('.bk-filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.bk-book').forEach(book => {
+          if (filter === 'all' || book.dataset.dir === filter) {
+            book.style.display = '';
+          } else {
+            book.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

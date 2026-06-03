@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Мужское направление Алекса Лесли — методология «Стиль соблазнения», тренинги, закрытый клуб." />
+  <meta property="og:title" content="Мужское направление — Alex Leslie" />
+  <meta property="og:description" content="Стань Мастером. Доказанная методология соблазнения." />
+  <meta property="og:type" content="website" />
+  <title>Мужское направление — Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon" />
+
+  <style>
+  /* ─── АКЦЕНТНЫЕ ПЕРЕМЕННЫЕ ─── */
+  :root {
+    --color-men-light: #1976D2;
+    --color-men-glow: rgba(21, 101, 192, 0.15);
+    --color-men-border: rgba(21, 101, 192, 0.3);
+  }
+
+  /* ─── HERO ─── */
+  .m-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--color-bg);
+  }
+  .m-hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 70% at 80% 40%, var(--color-men-glow) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 10% 80%, rgba(212,160,23,.06) 0%, transparent 60%),
+      var(--color-bg);
+    z-index: 0;
+  }
+  .m-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: calc(var(--header-h) + 80px) var(--container-px) 80px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .m-hero__tag {
+    display: inline-block;
+    background: var(--color-men-glow);
+    color: var(--color-men);
+    border: 1px solid var(--color-men-border);
+    border-radius: 100px;
+    padding: 6px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .m-hero h1 {
+    font-size: clamp(36px, 5vw, 62px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    color: var(--color-text);
+  }
+  .m-hero h1 span { color: var(--color-men); }
+  .m-hero__sub {
+    font-size: 18px;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    max-width: 520px;
+    margin-bottom: 40px;
+  }
+  .m-hero__ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-men {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-men);
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    padding: 16px 36px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-men:hover { background: var(--color-men-light); transform: scale(1.03); }
+  .m-hero__visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .m-hero__photo-frame {
+    width: 100%;
+    max-width: 440px;
+    aspect-ratio: 3/4;
+    border-radius: 24px;
+    overflow: hidden;
+    background: var(--color-card);
+    border: 1px solid var(--color-men-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    font-size: 14px;
+    position: relative;
+  }
+  .m-hero__photo-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, var(--color-men-glow) 0%, transparent 70%);
+  }
+  .m-hero__badge {
+    position: absolute;
+    bottom: 32px;
+    left: -24px;
+    background: var(--color-card);
+    border: 1px solid var(--color-men-border);
+    border-radius: 16px;
+    padding: 16px 24px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    backdrop-filter: blur(12px);
+  }
+  .m-hero__badge-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--color-men);
+    line-height: 1;
+  }
+  .m-hero__badge-text { font-size: 12px; color: var(--color-text-muted); line-height: 1.4; }
+  .m-hero__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .m-hero__stat { text-align: center; }
+  .m-hero__stat-num {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--color-men);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .m-hero__stat-label { font-size: 13px; color: var(--color-text-muted); }
+
+  /* ─── PHILOSOPHY ─── */
+  .m-philosophy {
+    background: var(--color-card);
+    padding: var(--section-py) var(--container-px);
+  }
+  .m-philosophy__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .section-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 16px;
+  }
+  .section-h2 {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    color: var(--color-text);
+  }
+  .section-lead {
+    font-size: 18px;
+    color: var(--color-text-muted);
+    max-width: 640px;
+    margin-bottom: 48px;
+    line-height: 1.7;
+  }
+  .m-levels {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .m-level-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 32px 24px;
+    text-align: center;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+  .m-level-card:hover {
+    border-color: var(--color-men-border);
+    transform: translateY(-4px);
+  }
+  .m-level-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-men-glow);
+    border: 2px solid var(--color-men-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--color-men);
+    margin: 0 auto 20px;
+  }
+  .m-level-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 12px;
+  }
+  .m-level-desc { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; }
+
+  /* ─── MAIN PRODUCT ─── */
+  .m-product {
+    padding: var(--section-py) var(--container-px);
+    background: var(--color-bg);
+  }
+  .m-product__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .m-product__visual {
+    background: var(--color-card);
+    border: 1px solid var(--color-men-border);
+    border-radius: 24px;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .m-product__visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, var(--color-men-glow) 0%, transparent 70%);
+  }
+  .m-product__visual-icon {
+    font-size: 72px;
+    position: relative;
+    z-index: 1;
+  }
+  .m-product__info { }
+  .m-product__price-block {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 32px 0 24px;
+  }
+  .m-product__price {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--color-men);
+  }
+  .m-product__price-note { font-size: 14px; color: var(--color-text-muted); }
+  .m-product__features { list-style: none; margin-bottom: 40px; }
+  .m-product__features li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-border-light);
+    font-size: 15px;
+    color: var(--color-text-muted);
+  }
+  .m-product__features li:last-child { border-bottom: none; }
+  .m-product__features .check {
+    color: var(--color-men);
+    font-size: 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ─── TECHNIQUES ─── */
+  .m-techniques {
+    padding: var(--section-py) var(--container-px);
+    background: var(--color-card);
+  }
+  .m-techniques__inner { max-width: var(--container-max); margin: 0 auto; }
+  .m-tech-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .m-tech-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 28px 24px;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+  .m-tech-card:hover {
+    border-color: var(--color-men-border);
+    transform: translateY(-4px);
+  }
+  .m-tech-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    background: var(--color-men-glow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .m-tech-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 10px;
+  }
+  .m-tech-desc { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; }
+
+  /* ─── CASES ─── */
+  .m-cases {
+    padding: var(--section-py) var(--container-px);
+    background: var(--color-bg);
+  }
+  .m-cases__inner { max-width: var(--container-max); margin: 0 auto; }
+  .m-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .m-case-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 32px;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+  .m-case-card:hover {
+    border-color: var(--color-men-border);
+    transform: translateY(-4px);
+  }
+  .m-case-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--color-men-glow);
+    border: 2px solid var(--color-men-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .m-case-name { font-size: 16px; font-weight: 700; color: var(--color-text); margin-bottom: 6px; }
+  .m-case-result {
+    font-size: 14px;
+    color: var(--color-men);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .m-case-text { font-size: 14px; color: var(--color-text-muted); line-height: 1.7; font-style: italic; }
+
+  /* ─── FORMATS ─── */
+  .m-formats {
+    padding: var(--section-py) var(--container-px);
+    background: var(--color-card);
+  }
+  .m-formats__inner { max-width: var(--container-max); margin: 0 auto; }
+  .m-formats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-top: 48px;
+  }
+  .m-format-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+  .m-format-card:hover {
+    border-color: var(--color-men-border);
+    transform: translateY(-4px);
+  }
+  .m-format-card.featured {
+    border-color: var(--color-men);
+    background: linear-gradient(135deg, var(--color-bg) 0%, rgba(21,101,192,0.08) 100%);
+  }
+  .m-format-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--color-men);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+  .m-format-title { font-size: 22px; font-weight: 800; color: var(--color-text); margin-bottom: 12px; }
+  .m-format-subtitle { font-size: 14px; color: var(--color-text-muted); margin-bottom: 24px; line-height: 1.6; }
+  .m-format-price { font-size: 32px; font-weight: 800; color: var(--color-men); margin-bottom: 8px; }
+  .m-format-price-note { font-size: 13px; color: var(--color-text-muted); margin-bottom: 32px; }
+  .m-format-list { list-style: none; margin-bottom: 32px; }
+  .m-format-list li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 14px;
+    color: var(--color-text-muted);
+    padding: 6px 0;
+  }
+  .m-format-list .ck { color: var(--color-men); font-weight: 700; flex-shrink: 0; }
+
+  /* ─── CTA ─── */
+  .m-cta {
+    padding: var(--section-py) var(--container-px);
+    background: var(--color-bg);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .m-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, var(--color-men-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .m-cta__inner { max-width: 640px; margin: 0 auto; position: relative; z-index: 1; }
+  .m-cta h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; margin-bottom: 20px; }
+  .m-cta p { font-size: 18px; color: var(--color-text-muted); margin-bottom: 40px; line-height: 1.7; }
+  .m-cta__btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* ─── ADAPTIVE ─── */
+  @media (max-width: 1024px) {
+    .m-hero__inner { grid-template-columns: 1fr; gap: 40px; }
+    .m-hero__visual { display: none; }
+    .m-levels { grid-template-columns: repeat(2, 1fr); }
+    .m-product__inner { grid-template-columns: 1fr; gap: 40px; }
+    .m-product__visual { display: none; }
+    .m-tech-grid { grid-template-columns: repeat(2, 1fr); }
+    .m-cases-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .m-levels { grid-template-columns: 1fr; }
+    .m-tech-grid { grid-template-columns: 1fr; }
+    .m-cases-grid { grid-template-columns: 1fr; }
+    .m-formats-grid { grid-template-columns: 1fr; }
+    .m-hero__stats { grid-template-columns: repeat(3, 1fr); }
+  }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <!-- HERO -->
+  <section class="m-hero reveal">
+    <div class="m-hero__bg"></div>
+    <div class="m-hero__inner">
+      <div class="m-hero__content">
+        <div class="m-hero__tag">Мужское направление</div>
+        <h1>Стань<br><span>Мастером.</span><br>Действуй.</h1>
+        <p class="m-hero__sub">
+          Методология Алекса Лесли для мужчин — проверенная система привлечения
+          и соблазнения. Никакой теории. Только техники, которые работают сегодня.
+        </p>
+        <div class="m-hero__ctas">
+          <a href="seduction.html" class="btn-men">Узнать о тренинге →</a>
+          <a href="../about.html" class="btn-secondary">Об Алексе</a>
+        </div>
+        <div class="m-hero__stats">
+          <div class="m-hero__stat">
+            <div class="m-hero__stat-num counter" data-target="20">0</div>
+            <div class="m-hero__stat-label">лет опыта</div>
+          </div>
+          <div class="m-hero__stat">
+            <div class="m-hero__stat-num counter" data-target="10000">0</div>
+            <div class="m-hero__stat-label">учеников</div>
+          </div>
+          <div class="m-hero__stat">
+            <div class="m-hero__stat-num counter" data-target="10">0</div>
+            <div class="m-hero__stat-label">книг</div>
+          </div>
+        </div>
+      </div>
+      <div class="m-hero__visual">
+        <div class="m-hero__photo-frame">
+          <!-- TODO: фото Алекса -->
+          <span style="position:relative;z-index:1;font-size:80px;">👤</span>
+          <div class="m-hero__badge">
+            <div>
+              <div class="m-hero__badge-num">15к+</div>
+              <div class="m-hero__badge-text">средний чек<br>тренинга</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- УРОВНИ ИГРОКА -->
+  <section class="m-philosophy reveal">
+    <div class="m-philosophy__inner">
+      <div class="section-tag">Философия</div>
+      <h2 class="section-h2">Четыре уровня игрока</h2>
+      <p class="section-lead">
+        Каждый мужчина находится на одном из уровней. Методология Лесли — это
+        системный путь наверх. Где ты сейчас?
+      </p>
+      <div class="m-levels">
+        <div class="m-level-card reveal">
+          <div class="m-level-num">0</div>
+          <div class="m-level-title">Нулевой игрок</div>
+          <div class="m-level-desc">Ждёт подходящего момента. Не действует. Объясняет себе, почему не сейчас.</div>
+        </div>
+        <div class="m-level-card reveal">
+          <div class="m-level-num">1</div>
+          <div class="m-level-title">Начинающий</div>
+          <div class="m-level-desc">Пробует, ошибается, не понимает почему. Знает теорию, но теряется на практике.</div>
+        </div>
+        <div class="m-level-card reveal">
+          <div class="m-level-num">2</div>
+          <div class="m-level-title">Командный игрок</div>
+          <div class="m-level-desc">Понимает правила игры. Получает результаты, но ещё зависит от настроения и ситуации.</div>
+        </div>
+        <div class="m-level-card reveal" style="border-color: var(--color-men);">
+          <div class="m-level-num" style="background:var(--color-men);color:#fff;">М</div>
+          <div class="m-level-title" style="color:var(--color-men);">Мастер</div>
+          <div class="m-level-desc">Создаёт реальность. Не зависит от обстоятельств. Играет по собственным правилам.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ГЛАВНЫЙ ПРОДУКТ -->
+  <section class="m-product reveal">
+    <div class="m-product__inner">
+      <div class="m-product__visual">
+        <div class="m-product__visual-icon">🎯</div>
+      </div>
+      <div class="m-product__info">
+        <div class="section-tag">Флагманский тренинг</div>
+        <h2 class="section-h2">«Стиль<br>Соблазнения»</h2>
+        <p class="section-lead" style="margin-bottom:0;">
+          3-дневная программа живого тренинга. Реальная практика в полевых условиях.
+          От теории нулевого уровня — до уверенных действий Мастера.
+        </p>
+        <div class="m-product__price-block">
+          <div class="m-product__price">от 15 000 ₽</div>
+          <div class="m-product__price-note">рассрочка доступна</div>
+        </div>
+        <ul class="m-product__features">
+          <li><span class="check">✓</span> 3 дня интенсивной практики — онлайн и офлайн</li>
+          <li><span class="check">✓</span> Реальные выходы на практику с разбором ошибок</li>
+          <li><span class="check">✓</span> Персональная обратная связь от тренеров</li>
+          <li><span class="check">✓</span> Техники первого контакта, свидания, удержания</li>
+          <li><span class="check">✓</span> Закрытый чат участников после тренинга</li>
+          <li><span class="check">✓</span> Видеозапись всех материалов</li>
+        </ul>
+        <a href="seduction.html" class="btn-men">Записаться на тренинг →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ТЕХНИКИ -->
+  <section class="m-techniques reveal">
+    <div class="m-techniques__inner">
+      <div class="section-tag">Инструменты Мастера</div>
+      <h2 class="section-h2">Ключевые техники методологии</h2>
+      <p class="section-lead">
+        Каждая техника отработана на тысячах ситуаций. Никакой теории — только
+        практические инструменты с понятным алгоритмом применения.
+      </p>
+      <div class="m-tech-grid">
+        <div class="m-tech-card reveal">
+          <div class="m-tech-icon">⚡</div>
+          <div class="m-tech-title">Угнать за 60 секунд</div>
+          <div class="m-tech-desc">Техника захвата внимания с первых секунд. Нестандартная первая фраза — крючок, который запускает интерес.</div>
+        </div>
+        <div class="m-tech-card reveal">
+          <div class="m-tech-icon">🎭</div>
+          <div class="m-tech-title">Раскачка эмоций</div>
+          <div class="m-tech-desc">Чередование тепла и холода. Создаёт эмоциональную зависимость и удерживает интерес на протяжении всего общения.</div>
+        </div>
+        <div class="m-tech-card reveal">
+          <div class="m-tech-icon">⚓</div>
+          <div class="m-tech-title">Якорение</div>
+          <div class="m-tech-desc">Создание устойчивых положительных ассоциаций. Определённая фраза, жест или место — запускает нужное состояние.</div>
+        </div>
+        <div class="m-tech-card reveal">
+          <div class="m-tech-icon">📉</div>
+          <div class="m-tech-title">Игра на понижение</div>
+          <div class="m-tech-desc">Лёгкая провокация снижает самооценку объекта и повышает интерес. Работает на инстинктивном уровне.</div>
+        </div>
+        <div class="m-tech-card reveal">
+          <div class="m-tech-icon">🌀</div>
+          <div class="m-tech-title">Правило 72 часов</div>
+          <div class="m-tech-desc">Стратегическое молчание после ключевого момента. Один из самых мощных инструментов создания дефицита.</div>
+        </div>
+        <div class="m-tech-card reveal">
+          <div class="m-tech-icon">🎯</div>
+          <div class="m-tech-title">Техника «слабого места»</div>
+          <div class="m-tech-desc">Найти главный страх или желание объекта и работать точно с ним — не с поверхностными реакциями.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- КЕЙСЫ -->
+  <section class="m-cases reveal">
+    <div class="m-cases__inner">
+      <div class="section-tag">Результаты</div>
+      <h2 class="section-h2">Топ-ученики<br>мужской программы</h2>
+      <p class="section-lead">
+        Реальные истории тех, кто прошёл методологию Лесли и перешёл на новый уровень.
+      </p>
+      <div class="m-cases-grid">
+        <div class="m-case-card reveal">
+          <div class="m-case-avatar">👤</div>
+          <div class="m-case-name"><!-- TODO: имя --></div>
+          <div class="m-case-result"><!-- TODO: результат --></div>
+          <div class="m-case-text"><!-- TODO: цитата ученика --></div>
+        </div>
+        <div class="m-case-card reveal">
+          <div class="m-case-avatar">👤</div>
+          <div class="m-case-name"><!-- TODO: имя --></div>
+          <div class="m-case-result"><!-- TODO: результат --></div>
+          <div class="m-case-text"><!-- TODO: цитата ученика --></div>
+        </div>
+        <div class="m-case-card reveal">
+          <div class="m-case-avatar">👤</div>
+          <div class="m-case-name"><!-- TODO: имя --></div>
+          <div class="m-case-result"><!-- TODO: результат --></div>
+          <div class="m-case-text"><!-- TODO: цитата ученика --></div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:40px;">
+        <a href="../cases.html" class="btn-secondary">Все результаты учеников →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ФОРМАТЫ -->
+  <section class="m-formats reveal">
+    <div class="m-formats__inner">
+      <div class="section-tag">Форматы обучения</div>
+      <h2 class="section-h2">Выбери свой путь<br>к уровню Мастера</h2>
+      <p class="section-lead">От первого знакомства с методологией до полного погружения под личным руководством.</p>
+      <div class="m-formats-grid">
+        <div class="m-format-card reveal">
+          <div class="m-format-title">Тренинг «Стиль соблазнения»</div>
+          <div class="m-format-subtitle">3-дневная интенсивная программа с реальной практикой. Онлайн или офлайн-формат.</div>
+          <div class="m-format-price">от 15 000 ₽</div>
+          <div class="m-format-price-note">рассрочка доступна</div>
+          <ul class="m-format-list">
+            <li><span class="ck">✓</span> 3 дня практики</li>
+            <li><span class="ck">✓</span> Реальные выходы с разбором</li>
+            <li><span class="ck">✓</span> Видеозапись</li>
+            <li><span class="ck">✓</span> Чат участников</li>
+          </ul>
+          <a href="seduction.html" class="btn-men">Подробнее →</a>
+        </div>
+        <div class="m-format-card featured reveal">
+          <div class="m-format-badge">Рекомендован</div>
+          <div class="m-format-title">Выездной тренинг</div>
+          <div class="m-format-subtitle">Интенсив за рубежом (Нью-Йорк, Дубай и другие города). Максимальное погружение в практику в новых условиях.</div>
+          <div class="m-format-price">~62 000 ₽</div>
+          <div class="m-format-price-note">+ перелёт и проживание</div>
+          <ul class="m-format-list">
+            <li><span class="ck">✓</span> Всё из базового тренинга</li>
+            <li><span class="ck">✓</span> Практика в незнакомой среде</li>
+            <li><span class="ck">✓</span> Малая группа (до 12 чел.)</li>
+            <li><span class="ck">✓</span> VIP-нетворкинг</li>
+          </ul>
+          <a href="seduction.html" class="btn-men">Записаться →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="m-cta reveal">
+    <div class="m-cta__inner">
+      <div class="section-tag">Начни сегодня</div>
+      <h2>Готов стать<br><span style="color:var(--color-men);">Мастером?</span></h2>
+      <p>Первый шаг — не ждать подходящего момента. Подходящий момент — сейчас.</p>
+      <div class="m-cta__btns">
+        <a href="seduction.html" class="btn-men">Записаться на тренинг →</a>
+        <a href="../club.html" class="btn-secondary">Закрытый клуб</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/components.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Counters
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target);
+      const duration = 2000;
+      const step = target / (duration / 16);
+      let current = 0;
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) { current = target; clearInterval(timer); }
+        el.textContent = target >= 1000 ? Math.floor(current).toLocaleString('ru') + '+' : Math.floor(current) + '+';
+      }, 16);
+    }
+    const counterObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); counterObs.unobserve(e.target); } });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.counter').forEach(el => counterObs.observe(el));
+  </script>
+</body>
+</html>

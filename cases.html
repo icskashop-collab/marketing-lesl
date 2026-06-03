@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Результаты учеников Алекса Лесли — кейсы Савы, Насти Рыбки и более 50 реальных историй. Женское и мужское направления." />
+  <meta property="og:title" content="Результаты учеников — Alex Leslie" />
+  <meta property="og:description" content="Реальные истории. Доказанные результаты. Методология, которая работает." />
+  <meta property="og:type" content="website" />
+  <title>Результаты учеников — Alex Leslie</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+
+  <style>
+  /* ─── CASES PAGE ─── */
+  .cases-hero {
+    position: relative;
+    padding: calc(var(--header-h, 72px) + 80px) 0 60px;
+    text-align: center;
+    background: var(--color-bg);
+    overflow: hidden;
+  }
+  .cases-hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 40% 50% at 25% 30%, rgba(194,24,91,.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 75% 30%, rgba(21,101,192,.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(212,160,23,.08) 0%, transparent 60%),
+      var(--color-bg);
+    z-index: 0;
+  }
+  .cases-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 var(--container-px, 24px);
+  }
+
+  /* ─── MEGA CASES ─── */
+  .mega-cases {
+    padding: 40px 0 80px;
+  }
+  .mega-cases__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 16px;
+  }
+  .mega-case {
+    border-radius: var(--radius-card, 16px);
+    overflow: hidden;
+    position: relative;
+    min-height: 440px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    cursor: pointer;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .mega-case:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 32px 80px rgba(0,0,0,.5);
+  }
+  .mega-case__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .mega-case--sava .mega-case__bg {
+    background: linear-gradient(160deg, rgba(194,24,91,.25) 0%, #0D0D1A 100%),
+      radial-gradient(circle at 30% 30%, rgba(194,24,91,.3) 0%, transparent 60%);
+    border: 1px solid rgba(194,24,91,.25);
+  }
+  .mega-case--rybka .mega-case__bg {
+    background: linear-gradient(160deg, rgba(21,101,192,.25) 0%, #0D0D1A 100%),
+      radial-gradient(circle at 70% 30%, rgba(21,101,192,.3) 0%, transparent 60%);
+    border: 1px solid rgba(21,101,192,.2);
+  }
+  .mega-case__photo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8rem;
+    z-index: 1;
+    opacity: .3;
+  }
+  .mega-case__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13,13,26,.98) 30%, rgba(13,13,26,.3) 80%, transparent 100%);
+    z-index: 2;
+  }
+  .mega-case__content {
+    position: relative;
+    z-index: 3;
+    padding: 36px;
+  }
+  .mega-case__label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+    display: inline-block;
+  }
+  .mega-case--sava .mega-case__label {
+    background: rgba(194,24,91,.2);
+    color: #E91E63;
+    border: 1px solid rgba(194,24,91,.3);
+  }
+  .mega-case--rybka .mega-case__label {
+    background: rgba(21,101,192,.2);
+    color: #42A5F5;
+    border: 1px solid rgba(21,101,192,.3);
+  }
+  .mega-case__name {
+    font-size: var(--text-3xl, 1.875rem);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .mega-case__result {
+    font-size: var(--text-xl, 1.25rem);
+    font-weight: 700;
+    color: var(--color-gold, #D4A017);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  .mega-case__text {
+    font-size: var(--text-sm, .875rem);
+    color: rgba(255,255,255,.7);
+    line-height: 1.7;
+    margin-bottom: 24px;
+    max-width: 420px;
+  }
+  .mega-case__facts {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .mega-case__fact {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .mega-case__fact-num {
+    font-size: var(--text-xl, 1.25rem);
+    font-weight: 800;
+    color: var(--color-gold, #D4A017);
+  }
+  .mega-case__fact-label {
+    font-size: 11px;
+    color: rgba(255,255,255,.5);
+    letter-spacing: .06em;
+  }
+  .mega-case__media {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .mega-case__media-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    padding: 3px 10px;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 100px;
+    color: rgba(255,255,255,.5);
+  }
+
+  /* ─── FILTERS ─── */
+  .cases-filters {
+    padding: 0 0 32px;
+  }
+  .cases-filters__inner {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .cases-filter-btn {
+    padding: 9px 20px;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: transparent;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm, .875rem);
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .cases-filter-btn:hover,
+  .cases-filter-btn.active {
+    border-color: var(--color-gold, #D4A017);
+    color: var(--color-gold, #D4A017);
+    background: rgba(212,160,23,.08);
+  }
+  .cases-filter-btn--women.active {
+    border-color: #C2185B;
+    color: #E91E63;
+    background: rgba(194,24,91,.08);
+  }
+  .cases-filter-btn--men.active {
+    border-color: #1565C0;
+    color: #42A5F5;
+    background: rgba(21,101,192,.08);
+  }
+  .cases-count {
+    margin-left: auto;
+    font-size: var(--text-sm, .875rem);
+    color: var(--color-text-muted);
+  }
+
+  /* ─── MASONRY GRID ─── */
+  .cases-masonry {
+    columns: 3;
+    column-gap: 20px;
+    padding-bottom: 48px;
+  }
+  .case-item {
+    break-inside: avoid;
+    margin-bottom: 20px;
+    background: var(--color-card, #1A1A2E);
+    border: 1px solid var(--color-border-light, rgba(255,255,255,.07));
+    border-radius: var(--radius-card, 16px);
+    overflow: hidden;
+    transition: transform .2s, border-color .2s;
+    display: block;
+    width: 100%;
+  }
+  .case-item:hover {
+    transform: translateY(-3px);
+    border-color: rgba(212,160,23,.2);
+  }
+  .case-item__photo {
+    width: 100%;
+    background: linear-gradient(135deg, #1A1A2E 0%, #0D0D1A 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .case-item__photo--short { aspect-ratio: 4/3; }
+  .case-item__photo--tall { aspect-ratio: 3/4; }
+  .case-item__photo--square { aspect-ratio: 1/1; }
+  .case-item__photo-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+  .case-item__photo-tag--women { background: rgba(194,24,91,.8); color: #fff; }
+  .case-item__photo-tag--men { background: rgba(21,101,192,.8); color: #fff; }
+  .case-item__body {
+    padding: 20px;
+  }
+  .case-item__result {
+    font-size: var(--text-xl, 1.25rem);
+    font-weight: 800;
+    color: var(--color-gold, #D4A017);
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+  .case-item__name {
+    font-size: var(--text-base, 1rem);
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .case-item__text {
+    font-size: var(--text-sm, .875rem);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+  .case-item__date {
+    font-size: 11px;
+    color: rgba(255,255,255,.3);
+    margin-top: 12px;
+    letter-spacing: .04em;
+  }
+  .case-item__verify {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    color: #66BB6A;
+    margin-top: 8px;
+  }
+
+  /* ─── LOAD MORE ─── */
+  .cases-load-more {
+    text-align: center;
+    padding: 16px 0 80px;
+  }
+  .btn-load-more {
+    padding: 16px 48px;
+    border: 2px solid rgba(255,255,255,.15);
+    border-radius: 100px;
+    background: transparent;
+    color: rgba(255,255,255,.7);
+    font-size: var(--text-base, 1rem);
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .btn-load-more:hover {
+    border-color: var(--color-gold, #D4A017);
+    color: var(--color-gold, #D4A017);
+  }
+  .btn-load-more:disabled {
+    opacity: .4;
+    cursor: default;
+  }
+
+  /* ─── FIXED BOTTOM CTA ─── */
+  .cases-fixed-cta {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(13,13,26,.92);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(212,160,23,.2);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    transform: translateY(100%);
+    transition: transform .4s cubic-bezier(.25,.8,.25,1);
+  }
+  .cases-fixed-cta.visible { transform: translateY(0); }
+  .cases-fixed-cta__text {
+    font-size: var(--text-base, 1rem);
+    font-weight: 600;
+    color: #fff;
+  }
+  .cases-fixed-cta__text span { color: var(--color-gold, #D4A017); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .cases-masonry { columns: 2; }
+  }
+  @media (max-width: 768px) {
+    .mega-cases__grid { grid-template-columns: 1fr; }
+    .cases-masonry { columns: 1; }
+    .cases-fixed-cta__text { display: none; }
+    .mega-case { min-height: 360px; }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ХЕДЕР -->
+<div id="site-header"></div>
+
+<main>
+
+  <!-- ─── HERO ─── -->
+  <section class="cases-hero">
+    <div class="cases-hero__bg"></div>
+    <div class="cases-hero__inner reveal">
+      <p class="section-tag" style="color:var(--color-gold);">Доказанные результаты</p>
+      <h1 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.02em;margin-bottom:20px;line-height:1.1;">Результаты учеников</h1>
+      <p style="font-size:var(--text-lg,1.125rem);color:var(--color-text-muted);line-height:1.7;max-width:560px;margin:0 auto;">Реальные истории реальных людей. Методология работает — вот доказательства.</p>
+    </div>
+  </section>
+
+  <!-- ─── МЕГАКЕЙСЫ ─── -->
+  <section class="mega-cases">
+    <div class="container">
+      <p class="section-tag" style="color:var(--color-gold);">Флагманские кейсы</p>
+      <h2>Истории, изменившие индустрию</h2>
+
+      <div class="mega-cases__grid">
+
+        <!-- САВА -->
+        <div class="mega-case mega-case--sava reveal">
+          <div class="mega-case__bg"></div>
+          <div class="mega-case__photo">👸</div>
+          <div class="mega-case__overlay"></div>
+          <div class="mega-case__content">
+            <span class="mega-case__label">Женское направление · Топ-кейс</span>
+            <h2 class="mega-case__name">Сава</h2>
+            <p class="mega-case__result">Вышла замуж за мультимиллионера</p>
+            <p class="mega-case__text">Познакомилась с Алексом Лесли в ходе обучения и прошла полный курс методологии Охотницы. Применила техники на практике и вышла замуж за состоятельного мужчину. Один из самых цитируемых кейсов в нише.</p>
+            <div class="mega-case__facts">
+              <div class="mega-case__fact">
+                <span class="mega-case__fact-num">90</span>
+                <span class="mega-case__fact-label">дней программы</span>
+              </div>
+              <div class="mega-case__fact">
+                <span class="mega-case__fact-num">💍</span>
+                <span class="mega-case__fact-label">Результат</span>
+              </div>
+              <div class="mega-case__fact">
+                <span class="mega-case__fact-num"><!-- TODO: год --></span>
+                <span class="mega-case__fact-label">Год замужества</span>
+              </div>
+            </div>
+            <div class="mega-case__media">
+              <span class="mega-case__media-tag">Forbes</span>
+              <span class="mega-case__media-tag">Daily Mail</span>
+              <span class="mega-case__media-tag"><!-- TODO: СМИ --></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- РЫБКА -->
+        <div class="mega-case mega-case--rybka reveal">
+          <div class="mega-case__bg"></div>
+          <div class="mega-case__photo">🌊</div>
+          <div class="mega-case__overlay"></div>
+          <div class="mega-case__content">
+            <span class="mega-case__label">Медийный кейс · Мировой охват</span>
+            <h2 class="mega-case__name">Настя Рыбка</h2>
+            <p class="mega-case__result">Яхта Дерипаски. Мировые СМИ.</p>
+            <p class="mega-case__text">Ученица методологии Алекса Лесли, чья история попала на первые полосы ведущих мировых СМИ. Кейс, который сделал имя Лесли известным за пределами русскоязычного пространства.</p>
+            <div class="mega-case__facts">
+              <div class="mega-case__fact">
+                <span class="mega-case__fact-num">100+</span>
+                <span class="mega-case__fact-label">публикаций в СМИ</span>
+              </div>
+              <div class="mega-case__fact">
+                <span class="mega-case__fact-num">🌍</span>
+                <span class="mega-case__fact-label">Мировой охват</span>
+              </div>
+              <div class="mega-case__fact">
+                <span class="mega-case__fact-num"><!-- TODO --></span>
+                <span class="mega-case__fact-label"><!-- TODO --></span>
+              </div>
+            </div>
+            <div class="mega-case__media">
+              <span class="mega-case__media-tag">BBC</span>
+              <span class="mega-case__media-tag">The Guardian</span>
+              <span class="mega-case__media-tag">NY Post</span>
+              <span class="mega-case__media-tag"><!-- TODO: другие --></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── БАНК КЕЙСОВ ─── -->
+  <section style="padding-bottom:120px;">
+    <div class="container">
+      <p class="section-tag" style="color:var(--color-gold);">Банк кейсов</p>
+      <h2 style="margin-bottom:8px;">Реальные истории учеников</h2>
+      <p style="color:var(--color-text-muted);margin-bottom:40px;">Более 50 верифицированных результатов. Женское и мужское направления.</p>
+
+      <!-- Фильтры -->
+      <div class="cases-filters">
+        <div class="cases-filters__inner">
+          <button class="cases-filter-btn active" data-filter="all">Все</button>
+          <button class="cases-filter-btn cases-filter-btn--women" data-filter="women">👩 Женское</button>
+          <button class="cases-filter-btn cases-filter-btn--men" data-filter="men">👨 Мужское</button>
+          <button class="cases-filter-btn" data-filter="marriage">💍 Замужество</button>
+          <button class="cases-filter-btn" data-filter="relationship">❤️ Отношения</button>
+          <span class="cases-count" id="cases-count">Показано: <strong>12</strong></span>
+        </div>
+      </div>
+
+      <!-- Masonry сетка -->
+      <div class="cases-masonry" id="cases-grid">
+
+        <!-- Case 1: женское -->
+        <div class="case-item reveal" data-type="women marriage">
+          <div class="case-item__photo case-item__photo--short">
+            👩
+            <span class="case-item__photo-tag case-item__photo-tag--women">Женское</span>
+          </div>
+          <div class="case-item__body">
+            <div class="case-item__result">💍 Замужем!</div>
+            <div class="case-item__name">Анастасия, 29 лет</div>
+            <p class="case-item__text">После 5 лет безуспешных отношений прошла программу «Как выйти замуж». Через 3 месяца познакомилась с будущим мужем, через год — свадьба.</p>
+            <div class="case-item__verify">✓ Верифицировано</div>
+            <div class="case-item__date"><!-- TODO: дата --></div>
+          </div>
+        </div>
+
+        <!-- Case 2: женское, отношения -->
+        <div class="case-item reveal" data-type="women relationship">
+          <div class="case-item__photo case-item__photo--tall">
+            👩‍❤️‍👨
+            <span class="case-item__photo-tag case-item__photo-tag--women">Женское</span>
+          </div>
+          <div class="case-item__body">
+            <div class="case-item__result">❤️ Серьёзные отношения</div>
+            <div class="case-item__name">Екатерина, 34 года</div>
+            <p class="case-item__text">«Я думала, что в 34 уже поздно. Методология Охотницы показала, что возраст — не помеха. Сейчас в отношениях с мужчиной, с которым строим семью.»</p>
+            <div class="case-item__verify">✓ Верифицировано</div>
+            <div class="case-item__date"><!-- TODO: дата --></div>
+          </div>
+        </div>
+
+        <!-- Case 3: мужское -->
+        <div class="case-item reveal" data-type="men relationship">
+          <div class="case-item__photo case-item__photo--square">
+            🧔
+            <span class="case-item__photo-tag case-item__photo-tag--men">Мужское</span>
+          </div>
+          <div class="case-item__body">
+            <div class="case-item__result">🎯 Стиль соблазнения освоен</div>
+            <div class="case-item__name"><!-- TODO: имя -->, <!-- TODO: возраст --></div>
+            <p class="case-item__text"><!-- TODO: цитата или история --></p>
+            <div class="case-item__verify">✓ Верифицировано</div>
+            <div class="case-item__date"><!-- TODO: дата --></div>
+          </div>
+        </div>
+
+        <!-- Case 4 -->
+        <div class="case-item reveal" data-type="women marriage">
+          <div class="case-item__photo case-item__photo--short">
+            👰
+            <span class="case-item__photo-tag case-item__photo-tag--women">Женское</span>
+          </div>
+          <div class="case-item__body">
+            <div class="case-item__result">💒 Свадьба в мае</div>
+            <div class="case-item__name"><!-- TODO: имя -->, <!-- TODO: возраст --></div>
+            <p class="case-item__text"><!-- TODO --></p>
+            <div class="case-item__verify">✓ Верифицировано</div>
+            <div class="case-item__date"><!-- TODO: дата --></div>
+          </div>
+        </div>
+
+        <!-- Case 5 -->
+        <div class="case-item reveal" data-type="women relationship">
+          <div class="case-item__photo case-item__photo--tall">
+            🌸
+            <span class="case-item__photo-tag case-item__photo-tag--women">Женское</span>
+          </div>
+          <div class="case-item__body">
+            <div class="case-item__result">❤️ Первые серьёзные отношения</div>
+            <div class="case-item__name"><!-- TODO: имя -->, 27 лет</div>
+            <p class="case-item__text">«Никогда не была в отношениях дольше 3 месяцев. После курса — уже год вместе, думаем о свадьбе.»</p>
+            <div class="case-item__verify">✓ Верифицировано</div>
+            <div class="case-item__date"><!-- TODO: дата --></div>
+          </div>
+        </div>
+
+        <!-- Case 6: мужское -->
+        <div class="case-item reveal" data-type="men relationship">
+          <div class="case-item__photo case-item__photo--square">
+            🏆
+            <span class="case-item__photo-tag case-item__photo-tag--men">Мужское</span>
+          </div>
+          <div class="case-item__body">
+            <div class="case-item__result">🔝 Уверенность в 100%</div>
+            <div class="case-item__name"><!-- TODO: имя -->, <!-- TODO: возраст --></div>
+            <p class="case-item__text"><!-- TODO --></p>
+            <div class="case-item__verify">✓ Верифицировано</div>
+            <div class="case-item__date"><!-- TODO: дата --></div>
+          </div>
+        </div>
+
+        <!-- Case 7 -->
+        <div class="case-item reveal" data-type="women marriage">
+          <div class="case-item__photo case-item__photo--short">
+            💍
+            <span class="case-item__photo-tag case-item__photo-tag--women">Женское</span>
+          </div>
+          <div class="case-item__body">
+            <div class="case-item__result">💍 Предложение через 4 мес.</div>
+            <div class="case-item__name"><!-- TODO: имя -->, <!-- TODO: возраст --></div>
+            <p class="case-item__text"><!-- TODO --></p>
+            <div class="case-item__verify">✓ Верифицировано</div>
+            <div class="case-item__date"><!-- TODO: дата --></div>
+          </div>
+        </div>
+
+        <!-- Case 8 -->
+        <div class="case-item reveal" data-type="women relationship">
+          <div class="case-item__photo case-item__photo--tall">
+            🦋
+            <span class="case-item__photo-tag case-item__photo-tag--women">Женское</span>
+          </div>
+          <div class="case-item__body">
+            <div class="case-item__result">🌟 Знакомство с мечтой</div>
+            <div class="case-item__name"><!-- TODO: имя -->, <!-- TODO: возраст --></div>
+            <p class="case-item__text"><!-- TODO --></p>
+            <div class="case-item__verify">✓ Верифицировано</div>
+            <div class="case-item__date"><!-- TODO: дата --></div>
+          </div>
+        </div>
+
+        <!-- Case 9 -->
+        <div class="case-item reveal" data-type="men relationship">
+          <div class="case-item__photo case-item__photo--square">
+            ⚡
+            <span class="case-item__photo-tag case-item__photo-tag--men">Мужское</span>
+          </div>
+          <div class="case-item__body">
+            <div class="case-item__result">🎯 <!-- TODO: результат --></div>
+            <div class="case-item__name"><!-- TODO: имя -->, <!-- TODO: возраст --></div>
+            <p class="case-item__text"><!-- TODO --></p>
+            <div class="case-item__verify">✓ Верифицировано</div>
+            <div class="case-item__date"><!-- TODO: дата --></div>
+          </div>
+        </div>
+
+        <!-- Case 10 -->
+        <div class="case-item reveal" data-type="women marriage">
+          <div class="case-item__photo case-item__photo--short">
+            🌹
+            <span class="case-item__photo-tag case-item__photo-tag--women">Женское</span>
+          </div>
+          <div class="case-item__body">
+            <div class="case-item__result">💒 Замуж за год</div>
+            <div class="case-item__name"><!-- TODO: имя -->, <!-- TODO: возраст --></div>
+            <p class="case-item__text"><!-- TODO --></p>
+            <div class="case-item__verify">✓ Верифицировано</div>
+            <div class="case-item__date"><!-- TODO: дата --></div>
+          </div>
+        </div>
+
+        <!-- Case 11 -->
+        <div class="case-item reveal" data-type="women relationship">
+          <div class="case-item__photo case-item__photo--short">
+            ✨
+            <span class="case-item__photo-tag case-item__photo-tag--women">Женское</span>
+          </div>
+          <div class="case-item__body">
+            <div class="case-item__result">❤️ После развода — новая жизнь</div>
+            <div class="case-item__name"><!-- TODO: имя -->, 38 лет</div>
+            <p class="case-item__text">«После развода думала, что новые отношения невозможны. Методология изменила всё.»</p>
+            <div class="case-item__verify">✓ Верифицировано</div>
+            <div class="case-item__date"><!-- TODO: дата --></div>
+          </div>
+        </div>
+
+        <!-- Case 12: мужское -->
+        <div class="case-item reveal" data-type="men relationship">
+          <div class="case-item__photo case-item__photo--square">
+            🦅
+            <span class="case-item__photo-tag case-item__photo-tag--men">Мужское</span>
+          </div>
+          <div class="case-item__body">
+            <div class="case-item__result">🎯 <!-- TODO: результат --></div>
+            <div class="case-item__name"><!-- TODO: имя -->, <!-- TODO: возраст --></div>
+            <p class="case-item__text"><!-- TODO --></p>
+            <div class="case-item__verify">✓ Верифицировано</div>
+            <div class="case-item__date"><!-- TODO: дата --></div>
+          </div>
+        </div>
+
+      </div><!-- /cases-masonry -->
+
+      <!-- Кнопка «Загрузить ещё» -->
+      <div class="cases-load-more">
+        <button class="btn-load-more" id="load-more-btn" onclick="loadMore()">
+          Загрузить ещё (<!-- TODO --> кейсов) ↓
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ПОДВАЛ -->
+<div id="site-footer"></div>
+
+<!-- ─── ФИКСИРОВАННЫЙ CTA ─── -->
+<div class="cases-fixed-cta" id="fixed-cta">
+  <div class="cases-fixed-cta__text">Хотите такой же результат? <span>Начните сегодня</span></div>
+  <a href="women/how-to-marry.html" class="btn-primary" style="padding:12px 28px;font-size:.875rem;">Хочу такой же результат →</a>
+</div>
+
+<script src="assets/js/components.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (typeof initScrollReveal === 'function') initScrollReveal();
+
+  // Show fixed CTA after scroll
+  var fixedCta = document.getElementById('fixed-cta');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 600) {
+      fixedCta.classList.add('visible');
+    } else {
+      fixedCta.classList.remove('visible');
+    }
+  });
+
+  // Filter
+  var filterBtns = document.querySelectorAll('.cases-filter-btn');
+  var caseItems = document.querySelectorAll('.case-item');
+  var countEl = document.getElementById('cases-count');
+
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      filterBtns.forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+
+      var filter = this.dataset.filter;
+      var visible = 0;
+      caseItems.forEach(function(item) {
+        if (filter === 'all') {
+          item.style.display = '';
+          visible++;
+        } else {
+          var types = (item.dataset.type || '').split(' ');
+          if (types.includes(filter)) {
+            item.style.display = '';
+            visible++;
+          } else {
+            item.style.display = 'none';
+          }
+        }
+      });
+      countEl.innerHTML = 'Показано: <strong>' + visible + '</strong>';
+    });
+  });
+});
+
+function loadMore() {
+  var btn = document.getElementById('load-more-btn');
+  btn.textContent = 'Загружаем...';
+  btn.disabled = true;
+  // TODO: implement actual load more (e.g. fetch more cases or show hidden ones)
+  setTimeout(function() {
+    btn.textContent = 'Все кейсы загружены';
+  }, 1000);
+}
+</script>
+</body>
+</html>

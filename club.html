@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Академия Охотниц — закрытый клуб Алекса Лесли. Методология, сообщество, разборы с автором. 4 уровня доступа от 2 990 руб/мес." />
+  <meta property="og:title" content="Академия Охотниц — Закрытый клуб Alex Leslie" />
+  <meta property="og:description" content="Закрытое сообщество женщин, идущих к замужеству по доказанной методологии." />
+  <meta property="og:type" content="website" />
+  <title>Академия Охотниц — Закрытый клуб Alex Leslie</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+
+  <style>
+  /* ─── CLUB VARS ─── */
+  :root {
+    --club-gold: #D4A017;
+    --club-gold-light: #F0C040;
+    --club-gold-glow: rgba(212,160,23,0.15);
+  }
+
+  /* ─── HERO ─── */
+  .club-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: var(--color-bg);
+  }
+  .club-hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 0%, rgba(212,160,23,.18) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 80% at 10% 90%, rgba(212,160,23,.07) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 80% at 90% 90%, rgba(194,24,91,.07) 0%, transparent 60%),
+      var(--color-bg);
+    z-index: 0;
+  }
+  .club-hero__particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .club-hero__particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: var(--club-gold);
+    opacity: 0;
+    animation: particle-float linear infinite;
+  }
+  @keyframes particle-float {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-20vh) scale(1); opacity: 0; }
+  }
+  .club-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    padding: calc(var(--header-h, 72px) + 80px) var(--container-px, 24px) 80px;
+    width: 100%;
+  }
+  .club-hero__crown {
+    font-size: 3rem;
+    margin-bottom: 24px;
+    display: block;
+  }
+  .club-hero__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--club-gold);
+    padding: 8px 20px;
+    border: 1px solid rgba(212,160,23,.35);
+    border-radius: 100px;
+    background: var(--club-gold-glow);
+    margin-bottom: 28px;
+  }
+  .club-hero__title {
+    font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    margin-bottom: 24px;
+  }
+  .club-hero__title span {
+    background: linear-gradient(135deg, var(--club-gold) 0%, var(--club-gold-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .club-hero__sub {
+    font-size: var(--text-lg, 1.125rem);
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto 48px;
+    line-height: 1.7;
+  }
+  .club-hero__cta {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 64px;
+  }
+  .btn-club {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 36px;
+    border-radius: 100px;
+    background: linear-gradient(135deg, var(--club-gold) 0%, var(--club-gold-light) 100%);
+    color: #0D0D1A;
+    font-weight: 700;
+    font-size: var(--text-base, 1rem);
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 8px 32px rgba(212,160,23,.4);
+  }
+  .btn-club:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 16px 48px rgba(212,160,23,.55);
+  }
+  .club-hero__counter-box {
+    display: flex;
+    gap: 48px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .club-hero__counter {
+    text-align: center;
+  }
+  .club-hero__counter-num {
+    font-size: var(--text-4xl, 2.5rem);
+    font-weight: 800;
+    color: var(--club-gold);
+    line-height: 1;
+    display: block;
+  }
+  .club-hero__counter-label {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    letter-spacing: .08em;
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+
+  /* ─── SEATS COUNTER ─── */
+  .club-seats {
+    background: linear-gradient(135deg, #1A1500 0%, #1A1A00 100%);
+    border: 1px solid rgba(212,160,23,.25);
+    padding: 32px 0;
+  }
+  .club-seats__inner {
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--container-px, 24px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  .club-seats__icon { font-size: 1.5rem; }
+  .club-seats__text {
+    font-size: var(--text-lg, 1.125rem);
+    font-weight: 600;
+    color: #fff;
+  }
+  .club-seats__count {
+    font-size: var(--text-2xl, 1.5rem);
+    font-weight: 800;
+    color: var(--club-gold);
+    font-variant-numeric: tabular-nums;
+  }
+  .club-seats__bar {
+    width: 240px;
+    height: 8px;
+    background: rgba(255,255,255,.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .club-seats__bar-fill {
+    height: 100%;
+    width: 73%;
+    background: linear-gradient(90deg, var(--club-gold), var(--club-gold-light));
+    border-radius: 4px;
+    animation: bar-pulse 2s ease-in-out infinite;
+  }
+  @keyframes bar-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .7; }
+  }
+
+  /* ─── WHAT'S INSIDE ─── */
+  .club-inside {
+    padding: var(--section-py, 120px) 0 80px;
+  }
+  .inside-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 60px;
+  }
+  .inside-card {
+    background: var(--color-card, #1A1A2E);
+    border: 1px solid var(--color-border-light, rgba(255,255,255,.07));
+    border-radius: var(--radius-card, 16px);
+    padding: 36px 32px;
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .inside-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--club-gold), transparent);
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .inside-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(212,160,23,.3);
+    box-shadow: 0 16px 48px rgba(0,0,0,.3);
+  }
+  .inside-card:hover::before { opacity: 1; }
+  .inside-card__icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .inside-card__title {
+    font-size: var(--text-xl, 1.25rem);
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #fff;
+  }
+  .inside-card__text {
+    font-size: var(--text-sm, .875rem);
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+  .inside-card__list {
+    list-style: none;
+    margin-top: 16px;
+  }
+  .inside-card__list li {
+    font-size: var(--text-sm, .875rem);
+    color: var(--color-text-muted);
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+  .inside-card__list li::before {
+    content: '✦';
+    color: var(--club-gold);
+    font-size: 10px;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ─── GAMIFICATION ─── */
+  .club-game {
+    background: var(--color-card, #1A1A2E);
+    padding: 80px 0;
+    border-top: 1px solid var(--color-border-light, rgba(255,255,255,.07));
+    border-bottom: 1px solid var(--color-border-light, rgba(255,255,255,.07));
+  }
+  .game-levels {
+    display: flex;
+    gap: 0;
+    margin-top: 48px;
+    border-radius: var(--radius-card, 16px);
+    overflow: hidden;
+    border: 1px solid rgba(212,160,23,.2);
+  }
+  .game-level {
+    flex: 1;
+    padding: 32px 24px;
+    text-align: center;
+    position: relative;
+    background: rgba(212,160,23,.04);
+    transition: background .3s;
+  }
+  .game-level + .game-level {
+    border-left: 1px solid rgba(212,160,23,.15);
+  }
+  .game-level--active {
+    background: rgba(212,160,23,.12);
+  }
+  .game-level__icon { font-size: 2.5rem; margin-bottom: 12px; display: block; }
+  .game-level__name {
+    font-size: var(--text-base, 1rem);
+    font-weight: 700;
+    color: var(--club-gold);
+    margin-bottom: 8px;
+  }
+  .game-level__desc {
+    font-size: var(--text-xs, .75rem);
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+  .game-level__arrow {
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: var(--club-gold);
+    z-index: 2;
+  }
+  .game-badges {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    justify-content: center;
+  }
+  .game-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: rgba(212,160,23,.08);
+    border: 1px solid rgba(212,160,23,.2);
+    border-radius: 100px;
+    font-size: var(--text-sm, .875rem);
+    color: #fff;
+  }
+  .game-badge__icon { font-size: 1.1rem; }
+
+  /* ─── TARIFFS ─── */
+  .club-tariffs {
+    padding: var(--section-py, 120px) 0;
+  }
+  .tariffs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 60px;
+    align-items: start;
+  }
+  .tariff-card {
+    background: var(--color-card, #1A1A2E);
+    border: 1px solid var(--color-border-light, rgba(255,255,255,.07));
+    border-radius: var(--radius-card, 16px);
+    padding: 36px 28px;
+    position: relative;
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+  }
+  .tariff-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,.3);
+  }
+  .tariff-card--recommended {
+    border-color: var(--club-gold);
+    background: linear-gradient(160deg, rgba(212,160,23,.08) 0%, var(--color-card) 100%);
+    transform: scale(1.03);
+    box-shadow: 0 0 0 1px var(--club-gold), 0 24px 64px rgba(212,160,23,.2);
+  }
+  .tariff-card--recommended:hover {
+    transform: scale(1.03) translateY(-4px);
+  }
+  .tariff-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--club-gold), var(--club-gold-light));
+    color: #0D0D1A;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .tariff-name {
+    font-size: var(--text-xs, .75rem);
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--club-gold);
+    margin-bottom: 8px;
+  }
+  .tariff-title {
+    font-size: var(--text-xl, 1.25rem);
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #fff;
+    line-height: 1.3;
+  }
+  .tariff-price {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .tariff-price__num {
+    font-size: var(--text-3xl, 1.875rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+  }
+  .tariff-price__period {
+    font-size: var(--text-sm, .875rem);
+    color: var(--color-text-muted);
+    margin-left: 4px;
+  }
+  .tariff-price__year {
+    font-size: var(--text-sm, .875rem);
+    color: var(--club-gold);
+    margin-top: 6px;
+    display: block;
+  }
+  .tariff-limit {
+    font-size: var(--text-xs, .75rem);
+    color: var(--color-text-muted);
+    margin-top: 4px;
+    display: block;
+  }
+  .tariff-features {
+    list-style: none;
+    margin-bottom: 32px;
+  }
+  .tariff-features li {
+    font-size: var(--text-sm, .875rem);
+    color: var(--color-text-muted);
+    padding: 9px 0;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    line-height: 1.5;
+  }
+  .tariff-features li::before {
+    content: '✓';
+    color: var(--club-gold);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .tariff-features li.disabled { opacity: .35; }
+  .tariff-features li.disabled::before { content: '—'; color: var(--color-text-muted); }
+  .tariff-cta {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: var(--text-sm, .875rem);
+    text-decoration: none;
+    transition: all .2s;
+    border: 2px solid var(--club-gold);
+    color: var(--club-gold);
+    background: transparent;
+    cursor: pointer;
+  }
+  .tariff-cta--primary {
+    background: linear-gradient(135deg, var(--club-gold), var(--club-gold-light));
+    color: #0D0D1A;
+    border-color: transparent;
+    box-shadow: 0 8px 24px rgba(212,160,23,.35);
+  }
+  .tariff-cta:hover, .tariff-cta--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(212,160,23,.5);
+  }
+
+  /* ─── CASES ─── */
+  .club-cases {
+    background: var(--color-card, #1A1A2E);
+    padding: 80px 0;
+    border-top: 1px solid var(--color-border-light, rgba(255,255,255,.07));
+    border-bottom: 1px solid var(--color-border-light, rgba(255,255,255,.07));
+  }
+  .club-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .club-case-card {
+    background: var(--color-bg, #0D0D1A);
+    border: 1px solid rgba(212,160,23,.15);
+    border-radius: var(--radius-card, 16px);
+    padding: 28px;
+    transition: transform .2s, border-color .2s;
+  }
+  .club-case-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(212,160,23,.4);
+  }
+  .club-case-card__quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: var(--text-base, 1rem);
+    color: #fff;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .club-case-card__author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .club-case-card__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--club-gold), rgba(212,160,23,.4));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .club-case-card__name {
+    font-weight: 600;
+    font-size: var(--text-sm, .875rem);
+    color: #fff;
+  }
+  .club-case-card__result {
+    font-size: var(--text-xs, .75rem);
+    color: var(--club-gold);
+    margin-top: 2px;
+  }
+
+  /* ─── FORM ─── */
+  .club-form {
+    padding: var(--section-py, 120px) 0;
+    text-align: center;
+  }
+  .club-form__box {
+    max-width: 560px;
+    margin: 48px auto 0;
+    background: var(--color-card, #1A1A2E);
+    border: 1px solid rgba(212,160,23,.25);
+    border-radius: var(--radius-card, 16px);
+    padding: 48px 40px;
+  }
+  .form-field {
+    margin-bottom: 16px;
+    text-align: left;
+  }
+  .form-field label {
+    display: block;
+    font-size: var(--text-sm, .875rem);
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .form-field input,
+  .form-field select {
+    width: 100%;
+    padding: 14px 18px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 10px;
+    color: #fff;
+    font-size: var(--text-base, 1rem);
+    font-family: inherit;
+    outline: none;
+    transition: border-color .2s;
+    box-sizing: border-box;
+  }
+  .form-field input:focus,
+  .form-field select:focus {
+    border-color: var(--club-gold);
+  }
+  .form-field select option { background: #1A1A2E; }
+  .form-note {
+    font-size: var(--text-xs, .75rem);
+    color: var(--color-text-muted);
+    margin-top: 16px;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1200px) {
+    .tariffs-grid { grid-template-columns: repeat(2, 1fr); }
+    .tariff-card--recommended { transform: none; }
+    .tariff-card--recommended:hover { transform: translateY(-4px); }
+  }
+  @media (max-width: 768px) {
+    .inside-grid { grid-template-columns: 1fr; }
+    .tariffs-grid { grid-template-columns: 1fr; }
+    .game-levels { flex-direction: column; }
+    .game-level + .game-level { border-left: none; border-top: 1px solid rgba(212,160,23,.15); }
+    .game-level__arrow { display: none; }
+    .club-cases-grid { grid-template-columns: 1fr; }
+    .club-hero__counter-box { gap: 24px; }
+    .club-form__box { padding: 32px 24px; }
+    .club-seats__inner { flex-direction: column; gap: 12px; }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ХЕДЕР -->
+<div id="site-header"></div>
+
+<main>
+
+  <!-- ─── HERO ─── -->
+  <section class="club-hero">
+    <div class="club-hero__bg"></div>
+    <div class="club-hero__particles" id="particles"></div>
+    <div class="club-hero__inner reveal">
+      <span class="club-hero__crown">👑</span>
+      <div class="club-hero__tag">🔒 Закрытый клуб</div>
+      <h1 class="club-hero__title">
+        Академия<br><span>Охотниц</span>
+      </h1>
+      <p class="club-hero__sub">
+        Закрытое сообщество женщин, идущих к замужеству по доказанной методологии Алекса Лесли. Здесь практика, поддержка и разборы с автором.
+      </p>
+      <div class="club-hero__cta">
+        <a href="#tariffs" class="btn-club">Вступить в клуб →</a>
+        <a href="#inside" class="btn-secondary">Что внутри</a>
+      </div>
+      <div class="club-hero__counter-box">
+        <div class="club-hero__counter">
+          <span class="club-hero__counter-num counter" data-target="<!-- TODO: участниц -->"><!-- TODO --></span>
+          <span class="club-hero__counter-label">Участниц</span>
+        </div>
+        <div class="club-hero__counter">
+          <span class="club-hero__counter-num counter" data-target="<!-- TODO -->"><!-- TODO --></span>
+          <span class="club-hero__counter-label">Замужеств</span>
+        </div>
+        <div class="club-hero__counter">
+          <span class="club-hero__counter-num"><!-- TODO --></span>
+          <span class="club-hero__counter-label">Эфиров в месяц</span>
+        </div>
+        <div class="club-hero__counter">
+          <span class="club-hero__counter-num"><!-- TODO --></span>
+          <span class="club-hero__counter-label">Города</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── СЧЁТЧИК МЕСТ ─── -->
+  <div class="club-seats">
+    <div class="club-seats__inner">
+      <span class="club-seats__icon">⚡</span>
+      <span class="club-seats__text">Осталось мест на тариф БАЗА:</span>
+      <span class="club-seats__count" id="seats-count"><!-- TODO --></span>
+      <div class="club-seats__bar">
+        <div class="club-seats__bar-fill"></div>
+      </div>
+      <span style="font-size:.875rem;color:rgba(255,255,255,.5);">из <!-- TODO --> мест заполнено</span>
+    </div>
+  </div>
+
+  <!-- ─── ЧТО ВНУТРИ ─── -->
+  <section class="club-inside" id="inside">
+    <div class="container">
+      <p class="section-tag" style="color:var(--club-gold);">6 блоков программы</p>
+      <h2>Что вас ждёт внутри</h2>
+      <p style="color:var(--color-text-muted);max-width:560px;margin-top:16px;line-height:1.7;">Академия Охотниц — это не просто канал. Это полноценная система с заданиями, разборами и живым сообществом.</p>
+
+      <div class="inside-grid">
+
+        <!-- Блок 1 -->
+        <div class="inside-card reveal">
+          <span class="inside-card__icon">📚</span>
+          <h3 class="inside-card__title">Обучение и методология</h3>
+          <p class="inside-card__text">Полная методология «Охотницы» в структурированных модулях. Новый контент каждую неделю.</p>
+          <ul class="inside-card__list">
+            <li>Видеоуроки по 9 шагам методологии</li>
+            <li>Библиотека 100+ техник с инструкциями</li>
+            <li>Шаблоны и скрипты переписки</li>
+            <li>Разбор кейсов Савы, Рыбки и других</li>
+          </ul>
+        </div>
+
+        <!-- Блок 2 -->
+        <div class="inside-card reveal">
+          <span class="inside-card__icon">🎙️</span>
+          <h3 class="inside-card__title">Эфиры с Алексом</h3>
+          <p class="inside-card__text">Регулярные прямые эфиры с автором методологии. Разборы ваших ситуаций в прямом эфире.</p>
+          <ul class="inside-card__list">
+            <li>2 эфира в месяц (тариф СТАРТ)</li>
+            <li>Еженедельные разборы (тариф БАЗА+)</li>
+            <li>Личные консультации (ПРОДВИНУТЫЙ)</li>
+            <li>Архив всех прошлых эфиров</li>
+          </ul>
+        </div>
+
+        <!-- Блок 3 -->
+        <div class="inside-card reveal">
+          <span class="inside-card__icon">💬</span>
+          <h3 class="inside-card__title">Сообщество и чат</h3>
+          <p class="inside-card__text">Закрытое сообщество участниц, разбитое по темам. Поддержка и нетворкинг 24/7.</p>
+          <ul class="inside-card__list">
+            <li>Тематические чаты: знакомства / отношения / загс</li>
+            <li>Поиск поддержки и единомышленниц</li>
+            <li>Истории успеха в реальном времени</li>
+            <li>Ежемесячный нетворкинг-вечер</li>
+          </ul>
+        </div>
+
+        <!-- Блок 4 -->
+        <div class="inside-card reveal">
+          <span class="inside-card__icon">📋</span>
+          <h3 class="inside-card__title">Задания и трекер</h3>
+          <p class="inside-card__text">Ежедневные задания с дедлайном и «Охотничий дневник» для отслеживания прогресса.</p>
+          <ul class="inside-card__list">
+            <li>«Задание дня» с чётким алгоритмом</li>
+            <li>Трекер свиданий и знакомств</li>
+            <li>XP за выполнение → повышение уровня</li>
+            <li>«Ритуал первого числа» — общий старт</li>
+          </ul>
+        </div>
+
+        <!-- Блок 5 -->
+        <div class="inside-card reveal">
+          <span class="inside-card__icon">🏆</span>
+          <h3 class="inside-card__title">Геймификация</h3>
+          <p class="inside-card__text">Система уровней, бейджей и доски лидеров превращает путь к замужеству в увлекательную игру.</p>
+          <ul class="inside-card__list">
+            <li>Уровни: Охотница → Мастер охоты → Богиня</li>
+            <li>Достижения: «Первое свидание», «Загс» и др.</li>
+            <li>Ежемесячный рейтинг активных участниц</li>
+            <li>«Стена победителей» — фото с кольцом</li>
+          </ul>
+        </div>
+
+        <!-- Блок 6 -->
+        <div class="inside-card reveal">
+          <span class="inside-card__icon">🎁</span>
+          <h3 class="inside-card__title">Бонусы и привилегии</h3>
+          <p class="inside-card__text">Программа «Подруга», скидки на мероприятия и эксклюзивные материалы только для участниц.</p>
+          <ul class="inside-card__list">
+            <li>Программа «Подруга» — месяц бесплатно</li>
+            <li>Скидки на офлайн-интенсивы (35 000 ₽)</li>
+            <li>Ранний доступ к новым продуктам</li>
+            <li>Сертификат Охотницы при результате</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ГЕЙМИФИКАЦИЯ ─── -->
+  <section class="club-game">
+    <div class="container">
+      <p class="section-tag" style="color:var(--club-gold);">Система уровней</p>
+      <h2>Прокачай свой уровень</h2>
+      <p style="color:var(--color-text-muted);max-width:560px;margin-top:16px;line-height:1.7;">Каждое задание приносит очки XP. Выполняй практики — расти по уровням — получай эксклюзивный доступ.</p>
+
+      <div class="game-levels">
+        <div class="game-level">
+          <span class="game-level__icon">🌱</span>
+          <div class="game-level__name">Охотница</div>
+          <div class="game-level__desc">Старт пути. Базовые техники и первые практики.</div>
+          <span class="game-level__arrow">→</span>
+        </div>
+        <div class="game-level">
+          <span class="game-level__icon">🎯</span>
+          <div class="game-level__name">Охотница II</div>
+          <div class="game-level__desc">Первые результаты. Продвинутые инструменты.</div>
+          <span class="game-level__arrow">→</span>
+        </div>
+        <div class="game-level game-level--active">
+          <span class="game-level__icon">🔥</span>
+          <div class="game-level__name">Мастер охоты</div>
+          <div class="game-level__desc">Системные навыки. Разбор с автором.</div>
+          <span class="game-level__arrow">→</span>
+        </div>
+        <div class="game-level">
+          <span class="game-level__icon">👑</span>
+          <div class="game-level__name">Богиня</div>
+          <div class="game-level__desc">Результат достигнут. Помогаешь другим.</div>
+        </div>
+      </div>
+
+      <div class="game-badges">
+        <div class="game-badge"><span class="game-badge__icon">💌</span> Первое свидание</div>
+        <div class="game-badge"><span class="game-badge__icon">📱</span> Он написал первым</div>
+        <div class="game-badge"><span class="game-badge__icon">❤️</span> Отношения</div>
+        <div class="game-badge"><span class="game-badge__icon">💍</span> Предложение</div>
+        <div class="game-badge"><span class="game-badge__icon">💒</span> Загс</div>
+        <div class="game-badge"><span class="game-badge__icon">🔥</span> 7 дней подряд</div>
+        <div class="game-badge"><span class="game-badge__icon">⭐</span> Лучший месяц</div>
+        <div class="game-badge"><span class="game-badge__icon">🤝</span> Привела подругу</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ТАРИФЫ ─── -->
+  <section class="club-tariffs" id="tariffs">
+    <div class="container">
+      <p class="section-tag" style="color:var(--club-gold);">Тарифы</p>
+      <h2>Выберите свой уровень</h2>
+      <p style="color:var(--color-text-muted);max-width:560px;margin-top:16px;line-height:1.7;">Первый месяц тарифа СТАРТ — бесплатно при прохождении курса «Как выйти замуж».</p>
+
+      <div class="tariffs-grid">
+
+        <!-- СТАРТ -->
+        <div class="tariff-card reveal">
+          <div class="tariff-name">СТАРТ</div>
+          <div class="tariff-title">Telegram-клуб</div>
+          <div class="tariff-price">
+            <span class="tariff-price__num">2 990 ₽</span>
+            <span class="tariff-price__period">/мес</span>
+            <span class="tariff-price__year">или 24 900 ₽/год</span>
+            <span class="tariff-limit">Неограниченно мест</span>
+          </div>
+          <ul class="tariff-features">
+            <li>Закрытый TG-канал</li>
+            <li>Контент и шаблоны каждую неделю</li>
+            <li>2 эфира с Алексом в месяц</li>
+            <li>Чаты сообщества</li>
+            <li>Задание дня</li>
+            <li class="disabled">Видеокурс «Как выйти замуж»</li>
+            <li class="disabled">Личные разборы</li>
+            <li class="disabled">VIP-группа</li>
+          </ul>
+          <a href="#form" class="tariff-cta">Вступить →</a>
+        </div>
+
+        <!-- БАЗА -->
+        <div class="tariff-card tariff-card--recommended reveal">
+          <div class="tariff-badge">⭐ Рекомендуем</div>
+          <div class="tariff-name">БАЗА</div>
+          <div class="tariff-title">Курс + клуб</div>
+          <div class="tariff-price">
+            <span class="tariff-price__num">9 900 ₽</span>
+            <span class="tariff-price__period">/мес</span>
+            <span class="tariff-price__year">или 89 900 ₽/год</span>
+            <span class="tariff-limit">Ограничено 500 участницами</span>
+          </div>
+          <ul class="tariff-features">
+            <li>Всё из тарифа СТАРТ</li>
+            <li>Видеокурс «Как выйти замуж» 90 дней</li>
+            <li>Еженедельные задания с проверкой</li>
+            <li>Трекер прогресса</li>
+            <li>Закрытый чат 500 участниц</li>
+            <li>Личный куратор на месяц</li>
+            <li class="disabled">Разборы с Лесли</li>
+            <li class="disabled">VIP-группа до 30 чел.</li>
+          </ul>
+          <a href="#form" class="tariff-cta tariff-cta--primary">Вступить сейчас →</a>
+        </div>
+
+        <!-- ПРОДВИНУТЫЙ -->
+        <div class="tariff-card reveal">
+          <div class="tariff-name">ПРОДВИНУТЫЙ</div>
+          <div class="tariff-title">VIP-группа</div>
+          <div class="tariff-price">
+            <span class="tariff-price__num">29 900 ₽</span>
+            <span class="tariff-price__period">/мес</span>
+            <span class="tariff-price__year">или 249 000 ₽/год</span>
+            <span class="tariff-limit">Строго до 30 участниц</span>
+          </div>
+          <ul class="tariff-features">
+            <li>Всё из тарифа БАЗА</li>
+            <li>Разборы с Алексом Лесли лично</li>
+            <li>VIP-группа до 30 человек</li>
+            <li>1 личная консультация в месяц</li>
+            <li>Приоритетный ответ в чате</li>
+            <li>Доступ к новым продуктам первой</li>
+            <li>Офлайн-интенсив бесплатно</li>
+            <li class="disabled">Индивидуальная программа</li>
+          </ul>
+          <a href="#form" class="tariff-cta">Вступить →</a>
+        </div>
+
+        <!-- ELITE -->
+        <div class="tariff-card reveal">
+          <div class="tariff-name">ELITE</div>
+          <div class="tariff-title">Личный коучинг</div>
+          <div class="tariff-price">
+            <span class="tariff-price__num">от 100 000 ₽</span>
+            <span class="tariff-price__period"> разово</span>
+            <span class="tariff-price__year">Программа 3 месяца</span>
+            <span class="tariff-limit">5 мест на набор</span>
+          </div>
+          <ul class="tariff-features">
+            <li>Индивидуальная программа 3 мес.</li>
+            <li>Еженедельные созвоны с Алексом</li>
+            <li>Полное сопровождение</li>
+            <li>Разбор каждого шага</li>
+            <li>Прямой контакт с автором</li>
+            <li>Личная стратегия под вашу ситуацию</li>
+            <li>VIP-ретрит за рубежом (опция)</li>
+            <li>Гарантия результата</li>
+          </ul>
+          <a href="#form" class="tariff-cta">Подать заявку →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── КЕЙСЫ УЧАСТНИЦ ─── -->
+  <section class="club-cases">
+    <div class="container">
+      <p class="section-tag" style="color:var(--club-gold);">Истории участниц</p>
+      <h2>Они уже внутри. И у них — результаты.</h2>
+
+      <div class="club-cases-grid">
+
+        <div class="club-case-card reveal">
+          <p class="club-case-card__quote">«Я не верила, что у меня получится. Через 4 месяца в клубе познакомилась с будущим мужем прямо на нетворкинге. Сейчас мы помолвлены.»</p>
+          <div class="club-case-card__author">
+            <div class="club-case-card__avatar">👩</div>
+            <div>
+              <div class="club-case-card__name">Анастасия <!-- TODO: фамилия --></div>
+              <div class="club-case-card__result">💍 Помолвлена через 4 месяца</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="club-case-card reveal">
+          <p class="club-case-card__quote">«После 8 лет в отношениях без перспектив — прошла курс, вступила в клуб. Через полгода — предложение руки и сердца от другого мужчины.»</p>
+          <div class="club-case-card__author">
+            <div class="club-case-card__avatar">👩</div>
+            <div>
+              <div class="club-case-card__name"><!-- TODO: имя --></div>
+              <div class="club-case-card__result">💒 Выходит замуж в июне</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="club-case-card reveal">
+          <p class="club-case-card__quote">«Задания реально работают. Система геймификации держит мотивацию. Уже на уровне «Мастер охоты» — и познакомилась с мужчиной мечты.»</p>
+          <div class="club-case-card__author">
+            <div class="club-case-card__avatar">👩</div>
+            <div>
+              <div class="club-case-card__name"><!-- TODO: имя --></div>
+              <div class="club-case-card__result">❤️ В отношениях, курс к загсу</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align:center;margin-top:40px;">
+        <a href="cases.html" class="btn-secondary">Смотреть все кейсы →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ФОРМА ВСТУПЛЕНИЯ ─── -->
+  <section class="club-form" id="form">
+    <div class="container">
+      <p class="section-tag" style="color:var(--club-gold);">Вступление</p>
+      <h2>Хочу в Академию Охотниц</h2>
+      <p style="color:var(--color-text-muted);max-width:500px;margin:16px auto 0;line-height:1.7;">Заполните форму — мы свяжемся, уточним детали и откроем доступ.</p>
+
+      <div class="club-form__box reveal">
+        <form onsubmit="return false;">
+          <div class="form-field">
+            <label for="cf-name">Ваше имя</label>
+            <input type="text" id="cf-name" placeholder="Как к вам обращаться?" />
+          </div>
+          <div class="form-field">
+            <label for="cf-telegram">Telegram</label>
+            <input type="text" id="cf-telegram" placeholder="@username" />
+          </div>
+          <div class="form-field">
+            <label for="cf-tariff">Выберите тариф</label>
+            <select id="cf-tariff">
+              <option value="">— Выберите тариф —</option>
+              <option>СТАРТ — 2 990 ₽/мес</option>
+              <option>БАЗА — 9 900 ₽/мес (Рекомендуем)</option>
+              <option>ПРОДВИНУТЫЙ — 29 900 ₽/мес</option>
+              <option>ELITE — от 100 000 ₽</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="cf-situation">Коротко о вашей ситуации (опционально)</label>
+            <input type="text" id="cf-situation" placeholder="Что привело вас сюда?" />
+          </div>
+          <button type="submit" class="btn-club" style="width:100%;justify-content:center;margin-top:8px;border:none;">
+            Отправить заявку →
+          </button>
+          <p class="form-note">Нажимая кнопку, вы соглашаетесь с <a href="#" style="color:var(--club-gold);">офертой</a>. Ответим в течение 24 часов.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ПОДВАЛ -->
+<div id="site-footer"></div>
+
+<script src="assets/js/components.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (typeof initScrollReveal === 'function') initScrollReveal();
+
+  // Particle animation
+  var container = document.getElementById('particles');
+  for (var i = 0; i < 20; i++) {
+    var p = document.createElement('div');
+    p.className = 'club-hero__particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.width = p.style.height = (Math.random() * 3 + 1) + 'px';
+    p.style.animationDuration = (Math.random() * 8 + 6) + 's';
+    p.style.animationDelay = (Math.random() * 8) + 's';
+    container.appendChild(p);
+  }
+
+  // Smooth scroll for anchors
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>

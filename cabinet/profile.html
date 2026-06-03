@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Профиль — Личный кабинет | Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon" />
+  <style>
+    /* ── CABINET LAYOUT (shared) ── */
+    .cabinet-wrap { display: flex; min-height: 100vh; padding-top: var(--header-h); background: var(--color-bg); }
+    .cab-sidebar { width: 260px; flex-shrink: 0; background: var(--color-card); border-right: 1px solid var(--color-border-light); display: flex; flex-direction: column; position: sticky; top: var(--header-h); height: calc(100vh - var(--header-h)); overflow-y: auto; }
+    .cab-user { padding: 24px 20px; border-bottom: 1px solid var(--color-border-light); display: flex; align-items: center; gap: 12px; }
+    .cab-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--color-women), var(--color-gold)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: var(--text-lg); color: #fff; flex-shrink: 0; }
+    .cab-user-info { flex: 1; min-width: 0; }
+    .cab-user-name { font-weight: 600; font-size: var(--text-sm); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cab-user-level { font-size: var(--text-xs); color: var(--color-gold); font-weight: 500; margin-top: 2px; }
+    .cab-nav { padding: 12px; flex: 1; }
+    .cab-nav-link { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: var(--radius-sm); font-size: var(--text-sm); font-weight: 500; color: var(--color-text-muted); transition: all var(--transition); margin-bottom: 2px; }
+    .cab-nav-link:hover, .cab-nav-link.active { background: rgba(212,160,23,.1); color: var(--color-gold); }
+    .cab-nav-link.active { border-left: 3px solid var(--color-gold); padding-left: 11px; }
+    .cab-nav-icon { font-size: 16px; width: 20px; text-align: center; }
+    .cab-nav-divider { font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); padding: 16px 14px 6px; }
+    .cab-exit { padding: 16px 20px; border-top: 1px solid var(--color-border-light); }
+    .cab-exit a { font-size: var(--text-sm); color: var(--color-text-muted); display: flex; align-items: center; gap: 8px; transition: color var(--transition); }
+    .cab-exit a:hover { color: var(--color-text); }
+    .cab-main { flex: 1; padding: 32px; overflow-x: hidden; }
+    .cab-page-title { font-size: var(--text-2xl); font-weight: 700; margin-bottom: 4px; }
+    .cab-page-subtitle { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: 32px; }
+    .section-heading { font-size: var(--text-lg); font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+
+    /* ── PROFILE LAYOUT ── */
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    /* ── PROFILE CARD ── */
+    .profile-card {
+      background: var(--color-card);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-card);
+      padding: 28px;
+      text-align: center;
+    }
+
+    .profile-avatar-wrap { position: relative; display: inline-block; margin-bottom: 16px; }
+
+    .profile-avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-women), var(--color-gold));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      font-weight: 800;
+      color: #fff;
+      border: 3px solid var(--color-gold);
+      margin: 0 auto;
+    }
+
+    .profile-avatar-edit {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--color-gold);
+      color: var(--color-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+
+    .profile-avatar-edit:hover { background: var(--color-gold-hover); }
+
+    .profile-name { font-size: var(--text-2xl); font-weight: 700; margin-bottom: 4px; }
+    .profile-email { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: 16px; }
+
+    .profile-level-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212,160,23,.12);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--color-gold);
+      margin-bottom: 20px;
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .profile-stat {
+      background: rgba(255,255,255,.04);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+    }
+
+    .profile-stat-val { font-size: var(--text-xl); font-weight: 800; color: var(--color-gold); line-height: 1; }
+    .profile-stat-label { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 4px; }
+
+    .profile-direction {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .direction-btn {
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid var(--color-border-light);
+      background: none;
+      color: var(--color-text-muted);
+      transition: all var(--transition);
+    }
+
+    .direction-btn.active-women {
+      border-color: var(--color-women);
+      background: rgba(194,24,91,.12);
+      color: var(--color-women);
+    }
+
+    .direction-btn.active-men {
+      border-color: var(--color-men);
+      background: rgba(21,101,192,.12);
+      color: #90CAF9;
+    }
+
+    /* ── FORM ── */
+    .profile-form { background: var(--color-card); border: 1px solid var(--color-border-light); border-radius: var(--radius-card); padding: 28px; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: span 2; }
+
+    .form-label { font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); }
+
+    .form-input {
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      color: var(--color-text);
+      font-size: var(--text-sm);
+      font-family: inherit;
+      outline: none;
+      transition: border-color var(--transition);
+    }
+
+    .form-input:focus { border-color: var(--color-gold); }
+
+    .form-select {
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      color: var(--color-text);
+      font-size: var(--text-sm);
+      font-family: inherit;
+      outline: none;
+      transition: border-color var(--transition);
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .form-select:focus { border-color: var(--color-gold); }
+    .form-select option { background: var(--color-card); }
+
+    .notif-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .notif-row:last-child { border-bottom: none; }
+
+    .notif-row-info { }
+    .notif-row-label { font-size: var(--text-sm); font-weight: 500; margin-bottom: 2px; }
+    .notif-row-desc { font-size: var(--text-xs); color: var(--color-text-muted); }
+
+    /* Toggle */
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .toggle input { opacity: 0; width: 0; height: 0; }
+
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,.15);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+
+    .toggle-track::after {
+      content: '';
+      position: absolute;
+      left: 3px;
+      top: 3px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform var(--transition);
+    }
+
+    .toggle input:checked + .toggle-track { background: var(--color-gold); }
+    .toggle input:checked + .toggle-track::after { transform: translateX(20px); }
+
+    /* ── SUBSCRIPTION ── */
+    .sub-card {
+      background: linear-gradient(135deg, rgba(212,160,23,.1) 0%, rgba(212,160,23,.04) 100%);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .sub-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .sub-plan-name { font-size: var(--text-xl); font-weight: 800; }
+    .sub-plan-price { font-size: var(--text-2xl); font-weight: 800; color: var(--color-gold); }
+
+    .sub-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .sub-feature {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sub-feature::before { content: '✓'; color: var(--color-gold); font-weight: 700; }
+
+    .sub-actions { display: flex; gap: 12px; }
+
+    /* ── PURCHASE HISTORY ── */
+    .purchase-table {
+      background: var(--color-card);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+
+    .purchase-row {
+      display: grid;
+      grid-template-columns: 1fr 120px 100px 80px;
+      gap: 16px;
+      padding: 14px 22px;
+      border-bottom: 1px solid var(--color-border-light);
+      align-items: center;
+      font-size: var(--text-sm);
+      transition: background var(--transition);
+    }
+
+    .purchase-row:hover { background: rgba(255,255,255,.03); }
+    .purchase-row:last-child { border-bottom: none; }
+    .purchase-row.header { background: rgba(255,255,255,.04); font-weight: 700; font-size: var(--text-xs); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); }
+    .purchase-row.header:hover { background: rgba(255,255,255,.04); }
+
+    .purchase-product { font-weight: 500; }
+    .purchase-date { color: var(--color-text-muted); }
+    .purchase-amount { color: var(--color-gold); font-weight: 700; }
+
+    .purchase-status {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 10px;
+    }
+
+    .status-paid { background: rgba(56,161,105,.15); color: #68D391; }
+    .status-active { background: rgba(212,160,23,.15); color: var(--color-gold); }
+
+    /* ── REFERRAL ── */
+    .referral-box {
+      background: var(--color-card);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+
+    .referral-link-row {
+      display: flex;
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .referral-link-input {
+      flex: 1;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      color: var(--color-gold);
+      font-size: var(--text-sm);
+      font-family: inherit;
+      outline: none;
+    }
+
+    .referral-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .referral-stat {
+      background: rgba(255,255,255,.04);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      text-align: center;
+    }
+
+    .referral-stat-val { font-size: var(--text-2xl); font-weight: 800; color: var(--color-gold); }
+    .referral-stat-label { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 4px; }
+
+    @media (max-width: 1200px) { .profile-grid { grid-template-columns: 1fr; } .sub-features { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .cab-sidebar { display: none; } .cab-main { padding: 20px 16px; } .form-row { grid-template-columns: 1fr; } .form-group.full { grid-column: span 1; } .purchase-row { grid-template-columns: 1fr 80px; } .purchase-date, .purchase-status { display: none; } .referral-stats { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <div class="cabinet-wrap">
+    <!-- SIDEBAR -->
+    <aside class="cab-sidebar">
+      <div class="cab-user">
+        <div class="cab-avatar">А</div>
+        <div class="cab-user-info">
+          <div class="cab-user-name">Анастасия К.</div>
+          <div class="cab-user-level">🏹 Охотница · Уровень 2</div>
+        </div>
+      </div>
+      <nav class="cab-nav">
+        <div class="cab-nav-divider">Кабинет</div>
+        <a href="index.html" class="cab-nav-link"><span class="cab-nav-icon">⚡</span> Dashboard</a>
+        <a href="courses.html" class="cab-nav-link"><span class="cab-nav-icon">🎓</span> Мои курсы</a>
+        <a href="club.html" class="cab-nav-link"><span class="cab-nav-icon">👑</span> Клуб</a>
+        <a href="profile.html" class="cab-nav-link active"><span class="cab-nav-icon">👤</span> Профиль</a>
+        <div class="cab-nav-divider">Прогресс</div>
+        <a href="courses.html#tasks" class="cab-nav-link"><span class="cab-nav-icon">📋</span> Задания</a>
+        <a href="courses.html#achievements" class="cab-nav-link"><span class="cab-nav-icon">🏅</span> Достижения</a>
+        <div class="cab-nav-divider">Сайт</div>
+        <a href="../index.html" class="cab-nav-link"><span class="cab-nav-icon">🏠</span> Главная</a>
+        <a href="../club.html" class="cab-nav-link"><span class="cab-nav-icon">🌐</span> Академия Охотниц</a>
+      </nav>
+      <div class="cab-exit"><a href="../index.html">← Выйти из кабинета</a></div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="cab-main">
+      <div class="cab-page-title">👤 Профиль</div>
+      <div class="cab-page-subtitle">Управление аккаунтом и подпиской</div>
+
+      <!-- PROFILE + FORM -->
+      <div class="profile-grid">
+        <!-- Left: Profile Card -->
+        <div class="profile-card">
+          <div class="profile-avatar-wrap">
+            <div class="profile-avatar">А</div>
+            <div class="profile-avatar-edit" title="Изменить фото">✎</div>
+          </div>
+          <div class="profile-name">Анастасия Козлова</div>
+          <div class="profile-email">anastasia@example.com</div>
+
+          <div class="profile-level-badge">🏹 Охотница · Уровень 2</div>
+
+          <div class="profile-stats">
+            <div class="profile-stat">
+              <div class="profile-stat-val">340</div>
+              <div class="profile-stat-label">очков XP</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-val">8</div>
+              <div class="profile-stat-label">заданий</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-val">2</div>
+              <div class="profile-stat-label">курса</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-val">34</div>
+              <div class="profile-stat-label">дня в клубе</div>
+            </div>
+          </div>
+
+          <div style="font-size:var(--text-xs); color:var(--color-text-muted); margin-bottom:10px;">Направление</div>
+          <div class="profile-direction">
+            <button class="direction-btn active-women">♀ Женское</button>
+            <button class="direction-btn">♂ Мужское</button>
+          </div>
+
+          <div style="font-size:var(--text-xs); color:var(--color-text-muted); margin-bottom:8px;">«Стена побед»</div>
+          <div style="background:rgba(255,255,255,.04); border-radius:var(--radius-sm); padding:12px; font-size:var(--text-sm); color:var(--color-text-muted); font-style:italic; line-height:1.6; text-align:left;">
+            «Сделала первый шаг — прошла 100% курса Охотницы. Применила позицию — и он написал сам» ✍️
+          </div>
+        </div>
+
+        <!-- Right: Edit Form + Notifications -->
+        <div>
+          <div class="profile-form" style="margin-bottom:20px;">
+            <div style="font-weight:700; margin-bottom:20px; font-size:var(--text-base);">✏️ Личные данные</div>
+            <div class="form-row">
+              <div class="form-group">
+                <div class="form-label">Имя</div>
+                <input type="text" class="form-input" value="Анастасия" />
+              </div>
+              <div class="form-group">
+                <div class="form-label">Фамилия</div>
+                <input type="text" class="form-input" value="Козлова" />
+              </div>
+              <div class="form-group">
+                <div class="form-label">Email</div>
+                <input type="email" class="form-input" value="anastasia@example.com" />
+              </div>
+              <div class="form-group">
+                <div class="form-label">Телефон</div>
+                <input type="tel" class="form-input" placeholder="+7 (___) ___-__-__" />
+              </div>
+              <div class="form-group">
+                <div class="form-label">Город</div>
+                <input type="text" class="form-input" placeholder="Москва" />
+              </div>
+              <div class="form-group">
+                <div class="form-label">Telegram</div>
+                <input type="text" class="form-input" placeholder="@username" />
+              </div>
+            </div>
+            <button class="btn btn-primary" style="padding:12px 32px;" onclick="this.textContent='✓ Сохранено!'; setTimeout(()=>this.textContent='Сохранить изменения', 2000)">Сохранить изменения</button>
+          </div>
+
+          <!-- Notifications Settings -->
+          <div class="profile-form">
+            <div style="font-weight:700; margin-bottom:16px; font-size:var(--text-base);">🔔 Настройки уведомлений</div>
+            <div class="notif-row">
+              <div class="notif-row-info">
+                <div class="notif-row-label">Email-уведомления</div>
+                <div class="notif-row-desc">Новые задания, ответы, напоминания</div>
+              </div>
+              <label class="toggle"><input type="checkbox" checked /><span class="toggle-track"></span></label>
+            </div>
+            <div class="notif-row">
+              <div class="notif-row-info">
+                <div class="notif-row-label">Telegram-уведомления</div>
+                <div class="notif-row-desc">Задание дня, напоминание об эфире</div>
+              </div>
+              <label class="toggle"><input type="checkbox" checked /><span class="toggle-track"></span></label>
+            </div>
+            <div class="notif-row">
+              <div class="notif-row-info">
+                <div class="notif-row-label">Напоминание об эфире</div>
+                <div class="notif-row-desc">За 30 минут до старта</div>
+              </div>
+              <label class="toggle"><input type="checkbox" checked /><span class="toggle-track"></span></label>
+            </div>
+            <div class="notif-row">
+              <div class="notif-row-info">
+                <div class="notif-row-label">Активность в клубе</div>
+                <div class="notif-row-desc">Ответы на твои сообщения</div>
+              </div>
+              <label class="toggle"><input type="checkbox" /><span class="toggle-track"></span></label>
+            </div>
+            <div class="notif-row">
+              <div class="notif-row-info">
+                <div class="notif-row-label">Маркетинговые письма</div>
+                <div class="notif-row-desc">Акции, новые курсы, специальные предложения</div>
+              </div>
+              <label class="toggle"><input type="checkbox" /><span class="toggle-track"></span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBSCRIPTION -->
+      <div id="subscription">
+        <div class="section-heading">💳 Управление подпиской</div>
+        <div class="sub-card">
+          <div class="sub-header">
+            <div>
+              <div style="font-size:var(--text-xs); color:var(--color-text-muted); margin-bottom:4px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;">Текущий тариф</div>
+              <div class="sub-plan-name">Охотница Pro 🏹</div>
+            </div>
+            <div>
+              <div class="sub-plan-price">4 990 ₽</div>
+              <div style="font-size:var(--text-xs); color:var(--color-text-muted);">в месяц</div>
+            </div>
+          </div>
+          <div class="sub-features">
+            <div class="sub-feature">Все курсы в доступе</div>
+            <div class="sub-feature">Закрытый чат клуба</div>
+            <div class="sub-feature">Прямые эфиры с Алексом</div>
+            <div class="sub-feature">Архив всех записей</div>
+            <div class="sub-feature">Индивидуальные разборы</div>
+            <div class="sub-feature">Приоритетная поддержка</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04); border-radius:var(--radius-sm); padding:12px 16px; margin-bottom:16px; display:flex; justify-content:space-between; font-size:var(--text-sm);">
+            <span style="color:var(--color-text-muted);">Следующее списание</span>
+            <span style="font-weight:700;">1 июля 2026 · 4 990 ₽</span>
+          </div>
+          <div class="sub-actions">
+            <button class="btn btn-primary">⬆ Повысить до Мастер</button>
+            <button class="btn btn-secondary" style="color:rgba(255,100,100,.8);" onclick="if(confirm('Отменить подписку?')) alert('Подписка будет отменена в конце периода')">Отменить подписку</button>
+          </div>
+        </div>
+
+        <!-- Upgrade options -->
+        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; margin-bottom:32px;">
+          <div style="background:var(--color-card); border:1px solid var(--color-border-light); border-radius:var(--radius-md); padding:20px; text-align:center;">
+            <div style="font-size:var(--text-sm); font-weight:700; margin-bottom:8px;">Охотница Старт</div>
+            <div style="font-size:var(--text-xl); font-weight:800; color:var(--color-gold); margin-bottom:8px;">2 990 ₽<span style="font-size:var(--text-xs); font-weight:400; color:var(--color-text-muted);">/мес</span></div>
+            <div style="font-size:var(--text-xs); color:var(--color-text-muted); margin-bottom:16px;">Базовый доступ, чат, эфиры</div>
+            <button class="btn btn-secondary" style="width:100%;padding:8px;font-size:13px;" disabled>Текущий ниже</button>
+          </div>
+          <div style="background:rgba(212,160,23,.07); border:2px solid var(--color-gold); border-radius:var(--radius-md); padding:20px; text-align:center; position:relative;">
+            <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--color-gold);color:var(--color-bg);font-size:11px;font-weight:700;padding:2px 12px;border-radius:10px;">ТЕКУЩИЙ</div>
+            <div style="font-size:var(--text-sm); font-weight:700; margin-bottom:8px;">Охотница Pro</div>
+            <div style="font-size:var(--text-xl); font-weight:800; color:var(--color-gold); margin-bottom:8px;">4 990 ₽<span style="font-size:var(--text-xs); font-weight:400; color:var(--color-text-muted);">/мес</span></div>
+            <div style="font-size:var(--text-xs); color:var(--color-text-muted); margin-bottom:16px;">Всё + разборы + приоритет</div>
+            <button class="btn btn-primary" style="width:100%;padding:8px;font-size:13px;" disabled>Активен</button>
+          </div>
+          <div style="background:var(--color-card); border:1px solid var(--color-border-light); border-radius:var(--radius-md); padding:20px; text-align:center;">
+            <div style="font-size:var(--text-sm); font-weight:700; margin-bottom:8px;">Мастер Охотницы</div>
+            <div style="font-size:var(--text-xl); font-weight:800; color:var(--color-gold); margin-bottom:8px;">9 990 ₽<span style="font-size:var(--text-xs); font-weight:400; color:var(--color-text-muted);">/мес</span></div>
+            <div style="font-size:var(--text-xs); color:var(--color-text-muted); margin-bottom:16px;">VIP + личная сессия с Алексом</div>
+            <button class="btn btn-primary" style="width:100%;padding:8px;font-size:13px;">Повысить ⬆</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PURCHASE HISTORY -->
+      <div class="section-heading">🧾 История покупок</div>
+      <div class="purchase-table">
+        <div class="purchase-row header">
+          <div>Продукт</div>
+          <div>Дата</div>
+          <div>Сумма</div>
+          <div>Статус</div>
+        </div>
+        <div class="purchase-row">
+          <div class="purchase-product">Клуб «Академия Охотниц» Pro — июнь</div>
+          <div class="purchase-date">01.06.2026</div>
+          <div class="purchase-amount">4 990 ₽</div>
+          <div><span class="purchase-status status-active">Активен</span></div>
+        </div>
+        <div class="purchase-row">
+          <div class="purchase-product">Курс «Как выйти замуж» — полный доступ</div>
+          <div class="purchase-date">12.05.2026</div>
+          <div class="purchase-amount">12 900 ₽</div>
+          <div><span class="purchase-status status-paid">Оплачен</span></div>
+        </div>
+        <div class="purchase-row">
+          <div class="purchase-product">Клуб «Академия Охотниц» Pro — май</div>
+          <div class="purchase-date">01.05.2026</div>
+          <div class="purchase-amount">4 990 ₽</div>
+          <div><span class="purchase-status status-paid">Оплачен</span></div>
+        </div>
+        <div class="purchase-row">
+          <div class="purchase-product">Курс «Методология Охотницы» — стартовый</div>
+          <div class="purchase-date">10.04.2026</div>
+          <div class="purchase-amount">3 900 ₽</div>
+          <div><span class="purchase-status status-paid">Оплачен</span></div>
+        </div>
+      </div>
+
+      <!-- REFERRAL -->
+      <div class="section-heading">🎁 Реферальная программа</div>
+      <div class="referral-box">
+        <div style="font-size:var(--text-sm); color:var(--color-text-muted); margin-bottom:4px;">Приглашай подруг — получай бонусы. За каждую оплату приглашённой — 500 ₽ на твой счёт.</div>
+        <div class="referral-link-row">
+          <input class="referral-link-input" type="text" value="https://alexlesley.biz/ref/anastasia-k-847" readonly onclick="this.select()" />
+          <button class="btn btn-primary" style="padding:12px 20px;font-size:13px; white-space:nowrap;" onclick="navigator.clipboard.writeText('https://alexlesley.biz/ref/anastasia-k-847').then(()=>{this.textContent='✓ Скопировано!'; setTimeout(()=>this.textContent='Копировать',2000)})">Копировать</button>
+        </div>
+        <div style="font-size:var(--text-xs); color:var(--color-text-muted); margin-bottom:16px;">Поделиться:
+          <a href="#" style="color:var(--color-gold);">Telegram</a> ·
+          <a href="#" style="color:var(--color-gold);">WhatsApp</a> ·
+          <a href="#" style="color:var(--color-gold);">ВКонтакте</a>
+        </div>
+        <div class="referral-stats">
+          <div class="referral-stat">
+            <div class="referral-stat-val">7</div>
+            <div class="referral-stat-label">приглашено подруг</div>
+          </div>
+          <div class="referral-stat">
+            <div class="referral-stat-val">3</div>
+            <div class="referral-stat-label">совершили покупку</div>
+          </div>
+          <div class="referral-stat">
+            <div class="referral-stat-val">1 500 ₽</div>
+            <div class="referral-stat-label">заработано бонусов</div>
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <button class="btn btn-secondary" style="padding:10px 24px; font-size:13px;">Вывести 1 500 ₽</button>
+        </div>
+      </div>
+
+      <!-- Security -->
+      <div class="section-heading">🔒 Безопасность</div>
+      <div style="background:var(--color-card); border:1px solid var(--color-border-light); border-radius:var(--radius-card); padding:24px; margin-bottom:32px;">
+        <div class="notif-row">
+          <div class="notif-row-info">
+            <div class="notif-row-label">Пароль</div>
+            <div class="notif-row-desc">Последнее изменение: 3 месяца назад</div>
+          </div>
+          <button class="btn btn-secondary" style="padding:8px 16px;font-size:13px;">Изменить</button>
+        </div>
+        <div class="notif-row">
+          <div class="notif-row-info">
+            <div class="notif-row-label">Двухфакторная аутентификация</div>
+            <div class="notif-row-desc">Защити аккаунт с помощью Telegram или SMS</div>
+          </div>
+          <button class="btn btn-primary" style="padding:8px 16px;font-size:13px;">Включить</button>
+        </div>
+        <div class="notif-row" style="border-bottom:none;">
+          <div class="notif-row-info">
+            <div class="notif-row-label">Активные сессии</div>
+            <div class="notif-row-desc">2 устройства: iPhone 15, MacBook Pro</div>
+          </div>
+          <button class="btn btn-secondary" style="padding:8px 16px;font-size:13px;">Управлять</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../assets/js/components.js"></script>
+  <script>
+    if (document.getElementById('site-header')) insertHeader();
+
+    // Direction toggle
+    document.querySelectorAll('.direction-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.direction-btn').forEach(function(b) {
+          b.className = 'direction-btn';
+        });
+        this.classList.add(this.textContent.includes('♀') ? 'active-women' : 'active-men');
+      });
+    });
+  </script>
+</body>
+</html>

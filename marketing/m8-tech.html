@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модуль 8: Технологии и автоматизация | Маркетинг | Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <script src="../assets/js/data/m8.js"></script>
+  <style>
+    .mod-nav { display:flex; gap:12px; flex-wrap:wrap; padding:20px 0 0; }
+    .mod-nav a {
+      display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600;
+      color:var(--color-text-muted); text-decoration:none; padding:6px 14px;
+      border:1px solid rgba(255,255,255,0.1); border-radius:20px; transition:all 0.2s;
+    }
+    .mod-nav a:hover { color:var(--color-gold); border-color:var(--color-gold); }
+    .mod-header { padding:32px 0 24px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:40px; }
+    .mod-header__num { font-size:11px; font-weight:700; letter-spacing:3px; color:var(--color-gold); text-transform:uppercase; margin-bottom:8px; }
+    .mod-header__title { font-size:clamp(24px,4vw,40px); font-weight:800; margin-bottom:8px; }
+    .mod-header__sub { color:var(--color-text-muted); font-size:15px; }
+    .section { margin-bottom:56px; }
+    .section__title {
+      font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+      color:var(--color-gold); margin-bottom:20px; display:flex; align-items:center; gap:10px;
+    }
+    .section__title::after { content:''; flex:1; height:1px; background:rgba(212,160,23,0.2); }
+
+    /* ТАБЛИЦЫ */
+    .tbl-wrap { overflow-x:auto; margin-bottom:20px; }
+    .tbl { width:100%; border-collapse:collapse; font-size:13px; }
+    .tbl th {
+      text-align:left; padding:10px 14px; font-size:10px; font-weight:700;
+      letter-spacing:1.5px; text-transform:uppercase; color:var(--color-text-muted);
+      border-bottom:1px solid rgba(255,255,255,0.08); white-space:nowrap;
+      background:rgba(255,255,255,0.02);
+    }
+    .tbl td { padding:10px 14px; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:middle; }
+    .tbl tr:hover td { background:rgba(255,255,255,0.03); }
+
+    /* СКОРИНГ */
+    .scoring-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:10px; margin-bottom:20px; }
+    .score-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:10px; padding:12px 16px; display:flex; align-items:center; gap:14px;
+    }
+    .score-pts {
+      min-width:52px; text-align:center; font-size:16px; font-weight:800;
+      border-radius:8px; padding:6px 0;
+    }
+    .score-pts.pos { color:#4caf50; background:rgba(76,175,80,0.12); }
+    .score-pts.neg { color:#f44336; background:rgba(244,67,54,0.12); }
+    .score-sign { font-size:13px; font-weight:600; }
+    .score-logic { font-size:11px; color:var(--color-text-muted); margin-top:2px; }
+
+    .priority-rules { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px; }
+    @media(max-width:600px){ .priority-rules { grid-template-columns:1fr; } }
+    .priority-card {
+      border-radius:10px; padding:14px 16px; text-align:center;
+      border:1px solid rgba(255,255,255,0.06);
+    }
+    .priority-card__range { font-size:16px; font-weight:800; margin-bottom:6px; }
+    .priority-card__action { font-size:12px; color:var(--color-text-muted); }
+
+    /* SEO */
+    .seo-cluster-wrap { display:grid; gap:10px; }
+    .seo-cluster {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:10px; padding:14px 16px;
+    }
+    .seo-cluster__header { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+    .seo-cluster__name { font-size:13px; font-weight:700; color:var(--color-gold); }
+    .seo-cluster__vol { font-size:11px; background:rgba(212,160,23,0.15); color:var(--color-gold); padding:2px 8px; border-radius:10px; white-space:nowrap; }
+    .seo-cluster__com { font-size:12px; color:var(--color-gold); }
+    .seo-cluster__examples { font-size:12px; color:var(--color-text-muted); margin-bottom:6px; }
+    .seo-cluster__page { font-size:11px; background:rgba(255,255,255,0.06); color:var(--color-text-muted); padding:3px 10px; border-radius:8px; display:inline-block; }
+
+    .seo-pages-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:12px; }
+    .seo-page-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:10px; padding:14px 16px;
+    }
+    .seo-page-card__type { font-size:13px; font-weight:700; color:var(--color-gold); margin-bottom:6px; }
+    .seo-page-card__desc { font-size:12px; color:var(--color-text-muted); margin-bottom:8px; line-height:1.5; }
+    .seo-page-card__keys { display:flex; flex-wrap:wrap; gap:4px; }
+    .key-tag { font-size:10px; background:rgba(255,255,255,0.06); color:var(--color-text-muted); padding:2px 8px; border-radius:8px; }
+
+    .seo-forecast {
+      background:linear-gradient(135deg, rgba(212,160,23,0.1) 0%, rgba(212,160,23,0.05) 100%);
+      border:1px solid rgba(212,160,23,0.3); border-radius:12px; padding:18px 22px; margin-top:16px;
+    }
+    .seo-forecast__title { font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--color-gold); margin-bottom:8px; }
+    .seo-forecast__text { font-size:14px; color:var(--color-text); line-height:1.6; }
+
+    /* ПРИЛОЖЕНИЕ */
+    .app-verdict {
+      display:flex; align-items:center; gap:14px;
+      background:linear-gradient(135deg, rgba(21,101,192,0.15) 0%, rgba(21,101,192,0.05) 100%);
+      border:1px solid rgba(21,101,192,0.3); border-radius:12px; padding:20px 24px; margin-bottom:28px;
+    }
+    .app-verdict__icon { font-size:32px; }
+    .app-verdict__label { font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#64b4ff; margin-bottom:4px; }
+    .app-verdict__text { font-size:14px; color:var(--color-text); line-height:1.5; }
+
+    .app-funcs-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; margin-bottom:28px; }
+    .app-func-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:10px; padding:14px 16px;
+    }
+    .app-func-card__name { font-size:13px; font-weight:700; margin-bottom:6px; }
+    .app-func-card__desc { font-size:12px; color:var(--color-text-muted); line-height:1.5; margin-bottom:8px; }
+    .app-func-card__pri { font-size:12px; color:var(--color-gold); }
+
+    /* ФИНМОДЕЛЬ ПРИЛОЖЕНИЯ */
+    .scenario-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; }
+    .scenario-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px; padding:16px; text-align:center;
+    }
+    .scenario-card.best { border-color:rgba(212,160,23,0.4); background:rgba(212,160,23,0.05); }
+    .scenario-card__name { font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--color-text-muted); margin-bottom:12px; }
+    .scenario-card__mau { font-size:22px; font-weight:800; color:var(--color-gold); }
+    .scenario-card__mau-label { font-size:10px; color:var(--color-text-muted); margin-bottom:10px; }
+    .scenario-card__row { font-size:12px; color:var(--color-text-muted); display:flex; justify-content:space-between; padding:3px 0; }
+    .scenario-card__row span:last-child { color:var(--color-text); font-weight:600; }
+    .scenario-card__roi { font-size:16px; font-weight:800; color:var(--color-gold); margin-top:10px; }
+    .scenario-card__roi-label { font-size:10px; color:var(--color-text-muted); }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <div class="container">
+    <nav class="mod-nav">
+      <a href="../index.html">← Главная</a>
+      <a href="index.html">← В Маркетинг</a>
+    </nav>
+
+    <div class="mod-header">
+      <div class="mod-header__num">Модуль 8 · Маркетинг</div>
+      <div class="mod-header__title">⚙️ Технологии и автоматизация</div>
+      <div class="mod-header__sub">Парсинг и автоматизация · Скоринг лидов · SEO-семантика · Приложение «Охотница»</div>
+    </div>
+
+    <!-- ── 1. ПАРСИНГ И АВТОМАТИЗАЦИЯ ── -->
+    <section class="section">
+      <div class="section__title">10.1 · Технический стек автоматизации</div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Задача</th>
+              <th>Инструмент</th>
+              <th>Что даёт</th>
+            </tr>
+          </thead>
+          <tbody id="auto-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── 2. СКОРИНГ ЛИДОВ ── -->
+    <section class="section">
+      <div class="section__title">10.2 · Система скоринга лидов</div>
+      <div class="scoring-grid" id="scoring-grid"></div>
+      <div class="priority-rules" id="priority-rules"></div>
+    </section>
+
+    <!-- ── 3. SEO ── -->
+    <section class="section">
+      <div class="section__title">11.1 · SEO — семантическое ядро (кластеры)</div>
+      <div class="seo-cluster-wrap" id="seo-clusters"></div>
+      <div class="seo-forecast">
+        <div class="seo-forecast__title">SEO-прогноз</div>
+        <div class="seo-forecast__text">При правильном внедрении через <strong>6–9 месяцев</strong> SEO даст <strong>5 000–15 000 органических переходов в месяц</strong> с CPL <strong>200–400 руб</strong> — самый дешёвый лид в долгосрочной перспективе. Женщины 28–45 лет активно ищут в Google/Яндекс. SEO-трафик — самый тёплый: человек сам формирует запрос.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section__title">11.2 · Типы страниц для создания</div>
+      <div class="seo-pages-grid" id="seo-pages-grid"></div>
+    </section>
+
+    <!-- ── 4. ПРИЛОЖЕНИЕ ── -->
+    <section class="section">
+      <div class="section__title">12 · Мобильное приложение «Охотница: путь к замужеству»</div>
+
+      <div class="app-verdict">
+        <div class="app-verdict__icon">⏳</div>
+        <div>
+          <div class="app-verdict__label">Вердикт</div>
+          <div class="app-verdict__text"><strong>ДЕЛАТЬ — но не сейчас.</strong> На этапе 0–12 месяцев приложение — преждевременная инвестиция. Запуск имеет смысл при базе <strong>30 000+ активных участниц клуба</strong> (ориентировочно месяц 12–18). Начать с <strong>Telegram mini-app</strong> (1–1.5 млн ₽, 2–3 месяца) — тестирует концепцию при минимальных вложениях.</div>
+        </div>
+      </div>
+
+      <div class="app-funcs-grid" id="app-funcs-grid"></div>
+
+      <div class="section__title" style="margin-top:32px;">12.2 · Финансовая модель приложения</div>
+      <div class="scenario-grid" id="scenario-grid"></div>
+      <p style="font-size:12px;color:var(--color-text-muted);margin-top:12px;">
+        Стоимость разработки MVP: <strong>3–5 млн ₽</strong> (6–9 мес., команда 4–6 чел.).<br>
+        Альтернатива: Telegram mini-app — <strong>1–1,5 млн ₽</strong>, 2–3 месяца.
+      </p>
+    </section>
+
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/components.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+  </script>
+  <script>
+  (function() {
+    /* АВТОМАТИЗАЦИЯ */
+    var autoTbody = document.getElementById('auto-tbody');
+    M8.automation.forEach(function(r) {
+      autoTbody.innerHTML += '<tr>' +
+        '<td style="font-weight:600;">' + r.task + '</td>' +
+        '<td style="color:var(--color-gold);font-size:12px;">' + r.tool + '</td>' +
+        '<td style="font-size:12px;color:var(--color-text-muted);">' + r.result + '</td>' +
+        '</tr>';
+    });
+
+    /* СКОРИНГ */
+    var scoringGrid = document.getElementById('scoring-grid');
+    M8.scoring.forEach(function(s) {
+      var pos = s.pts.startsWith('+');
+      scoringGrid.innerHTML += '<div class="score-card">' +
+        '<div class="score-pts ' + (pos ? 'pos' : 'neg') + '">' + s.pts + '</div>' +
+        '<div><div class="score-sign">' + s.sign + '</div>' +
+        '<div class="score-logic">' + s.logic + '</div></div>' +
+        '</div>';
+    });
+
+    var prRules = document.getElementById('priority-rules');
+    M8.scoringRules.forEach(function(r) {
+      prRules.innerHTML += '<div class="priority-card" style="border-color:' + r.color + '33;">' +
+        '<div class="priority-card__range" style="color:' + r.color + '">' + r.range + '</div>' +
+        '<div class="priority-card__action">' + r.action + '</div>' +
+        '</div>';
+    });
+
+    /* SEO КЛАСТЕРЫ */
+    var seoClusters = document.getElementById('seo-clusters');
+    M8.seoClusters.forEach(function(c) {
+      seoClusters.innerHTML += '<div class="seo-cluster">' +
+        '<div class="seo-cluster__header">' +
+        '<span class="seo-cluster__name">' + c.cluster + '</span>' +
+        '<span class="seo-cluster__vol">' + c.volume + '/мес</span>' +
+        '<span class="seo-cluster__com">' + c.commercial + '</span>' +
+        '</div>' +
+        '<div class="seo-cluster__examples">' + c.examples + '</div>' +
+        '<span class="seo-cluster__page">' + c.pageType + '</span>' +
+        '</div>';
+    });
+
+    /* SEO СТРАНИЦЫ */
+    var seoPagesGrid = document.getElementById('seo-pages-grid');
+    M8.seoPages.forEach(function(p) {
+      var keys = p.keys.map(function(k){ return '<span class="key-tag">' + k + '</span>'; }).join('');
+      seoPagesGrid.innerHTML += '<div class="seo-page-card">' +
+        '<div class="seo-page-card__type">' + p.type + '</div>' +
+        '<div class="seo-page-card__desc">' + p.desc + '</div>' +
+        '<div class="seo-page-card__keys">' + keys + '</div>' +
+        '</div>';
+    });
+
+    /* ФУНКЦИИ ПРИЛОЖЕНИЯ */
+    var appFuncsGrid = document.getElementById('app-funcs-grid');
+    M8.appFunctions.forEach(function(f) {
+      appFuncsGrid.innerHTML += '<div class="app-func-card">' +
+        '<div class="app-func-card__name">' + f.func + '</div>' +
+        '<div class="app-func-card__desc">' + f.desc + '</div>' +
+        '<div class="app-func-card__pri">' + f.priority + '</div>' +
+        '</div>';
+    });
+
+    /* ФИНМОДЕЛЬ ПРИЛОЖЕНИЯ */
+    var scenarioGrid = document.getElementById('scenario-grid');
+    M8.appFinModel.forEach(function(s, i) {
+      var isBest = s.scenario === 'Базовый';
+      scenarioGrid.innerHTML += '<div class="scenario-card' + (isBest ? ' best' : '') + '">' +
+        '<div class="scenario-card__name">' + s.scenario + '</div>' +
+        '<div class="scenario-card__mau">' + s.mau + '</div>' +
+        '<div class="scenario-card__mau-label">MAU</div>' +
+        '<div class="scenario-card__row"><span>Платящих (10%)</span><span>' + s.paying + '</span></div>' +
+        '<div class="scenario-card__row"><span>ARPU/мес</span><span>' + s.arpu + '</span></div>' +
+        '<div class="scenario-card__row"><span>Выручка/мес</span><span>' + s.revMonth + '</span></div>' +
+        '<div class="scenario-card__row"><span>Год 1</span><span>' + s.revYear + '</span></div>' +
+        '<div class="scenario-card__roi">' + s.roi + '</div>' +
+        '<div class="scenario-card__roi-label">ROI</div>' +
+        '</div>';
+    });
+  })();
+  </script>
+</body>
+</html>

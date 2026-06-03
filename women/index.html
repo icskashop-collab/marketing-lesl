@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Женское направление Алекса Лесли — методология Охотницы, курс «Как выйти замуж», кейсы и закрытый клуб." />
+  <meta property="og:title" content="Женское направление — Alex Leslie" />
+  <meta property="og:description" content="Стань Охотницей. Доказанная методология замужества." />
+  <meta property="og:type" content="website" />
+  <title>Женское направление — Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon" />
+
+  <style>
+  /* ─── АКЦЕНТНЫЕ ПЕРЕМЕННЫЕ ─── */
+  :root {
+    --color-women: #C2185B;
+    --color-women-light: #E91E63;
+    --color-women-glow: rgba(194, 24, 91, 0.15);
+  }
+
+  /* ─── HERO ─── */
+  .w-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--color-bg);
+  }
+  .w-hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 70% at 80% 40%, var(--color-women-glow) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 10% 80%, rgba(212,160,23,.06) 0%, transparent 60%),
+      var(--color-bg);
+    z-index: 0;
+  }
+  .w-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: calc(var(--header-h) + 80px) var(--container-px) 80px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .w-hero__tag {
+    display: inline-block;
+    background: var(--color-women-glow);
+    color: var(--color-women);
+    border: 1px solid rgba(194,24,91,.3);
+    border-radius: 100px;
+    padding: 6px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .w-hero h1 {
+    font-size: clamp(36px, 5vw, 62px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    color: var(--color-text);
+  }
+  .w-hero h1 span {
+    color: var(--color-women);
+  }
+  .w-hero__sub {
+    font-size: 18px;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    max-width: 520px;
+    margin-bottom: 40px;
+  }
+  .w-hero__ctas {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-women {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-women);
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    padding: 16px 36px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-women:hover {
+    background: var(--color-women-light);
+    transform: scale(1.03);
+  }
+  .w-hero__visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .w-hero__photo-frame {
+    width: 100%;
+    max-width: 440px;
+    aspect-ratio: 3/4;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 40px 80px rgba(194,24,91,.2);
+  }
+  .w-hero__photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg, #1A1A2E 0%, #2A1020 50%, #1A0A18 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-women);
+    font-size: 80px;
+  }
+  .w-hero__badge {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.4);
+  }
+  .w-hero__badge-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--color-women);
+  }
+  .w-hero__badge-label {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+  }
+  .w-hero__stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 40px;
+  }
+  .w-hero__stat {
+    text-align: center;
+  }
+  .w-hero__stat-val {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--color-women);
+  }
+  .w-hero__stat-label {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    margin-top: 4px;
+  }
+
+  /* ─── ПУТИ/НАПРАВЛЕНИЯ ─── */
+  .w-paths {
+    padding: var(--section-py) var(--container-px);
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .w-paths__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .w-path-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .w-path-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--color-women);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .w-path-card:hover {
+    border-color: rgba(194,24,91,.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(194,24,91,.15);
+  }
+  .w-path-card:hover::before {
+    opacity: 1;
+  }
+  .w-path-card__icon {
+    font-size: 40px;
+    line-height: 1;
+  }
+  .w-path-card__title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+  .w-path-card__desc {
+    font-size: 15px;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .w-path-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-women);
+    font-size: 14px;
+    font-weight: 600;
+    transition: gap 0.2s;
+  }
+  .w-path-card:hover .w-path-card__link {
+    gap: 12px;
+  }
+
+  /* ─── FEATURED: ФЛАГМАН ─── */
+  .w-flagship {
+    padding: var(--section-py) var(--container-px);
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .w-flagship__inner {
+    background: linear-gradient(135deg, #1A0A18 0%, #2A1020 60%, #1A1A2E 100%);
+    border: 1px solid rgba(194,24,91,.3);
+    border-radius: 24px;
+    padding: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .w-flagship__inner::after {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, var(--color-women-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .w-flagship__tag {
+    display: inline-block;
+    background: var(--color-women-glow);
+    color: var(--color-women);
+    border: 1px solid rgba(194,24,91,.3);
+    border-radius: 100px;
+    padding: 5px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .w-flagship h2 {
+    font-size: clamp(28px, 3vw, 42px);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .w-flagship__price {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--color-women);
+    margin-bottom: 8px;
+  }
+  .w-flagship__price-note {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    margin-bottom: 32px;
+  }
+  .w-flagship__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .w-flagship__features li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--color-text-muted);
+  }
+  .w-flagship__features li::before {
+    content: '✓';
+    color: var(--color-women);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .w-flagship__visual {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .w-flagship__kpi {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .w-flagship__kpi-val {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--color-women);
+    flex-shrink: 0;
+  }
+  .w-flagship__kpi-text {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  /* ─── КЕЙСЫ ─── */
+  .w-cases {
+    padding: var(--section-py) var(--container-px);
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .w-cases__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .w-case-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .w-case-card--mega {
+    grid-column: span 2;
+    background: linear-gradient(135deg, #1A0A18, #1A1A2E);
+    border-color: rgba(194,24,91,.3);
+  }
+  .w-case-card__photo {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #C2185B, #E91E63);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  .w-case-card__header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .w-case-card__name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+  .w-case-card__result-tag {
+    display: inline-block;
+    background: var(--color-women-glow);
+    color: var(--color-women);
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .w-case-card__text {
+    font-size: 15px;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    font-style: italic;
+  }
+  .w-case-card__result {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--color-women);
+    margin-top: auto;
+  }
+
+  /* ─── ВОРОНКА/ПУТЬ ─── */
+  .w-journey {
+    background: var(--color-bg-surface);
+    padding: var(--section-py) var(--container-px);
+  }
+  .w-journey__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .w-journey__steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin-top: 48px;
+    position: relative;
+  }
+  .w-journey__steps::before {
+    content: '';
+    position: absolute;
+    top: 32px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-women) 0%, rgba(194,24,91,.2) 100%);
+  }
+  .w-journey__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .w-journey__step-num {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--color-women);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(194,24,91,.4);
+  }
+  .w-journey__step-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0D0D1A;
+  }
+  .w-journey__step-desc {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  /* ─── КЛУБ БЛОК ─── */
+  .w-club {
+    padding: var(--section-py) var(--container-px);
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .w-club__inner {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 24px;
+    padding: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .w-club__perks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .w-club__perk {
+    background: rgba(194,24,91,.08);
+    border: 1px solid rgba(194,24,91,.2);
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 14px;
+    color: var(--color-text-muted);
+  }
+  .w-club__perk-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .w-club__perk-title {
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .w-club__price {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    margin-top: 24px;
+  }
+  .w-club__price strong {
+    font-size: 28px;
+    color: var(--color-women);
+  }
+  .w-club__visual {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .w-club__member {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,.04);
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid var(--color-border);
+  }
+  .w-club__member-ava {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #C2185B, #E91E63);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .w-club__member-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .w-club__member-result {
+    font-size: 12px;
+    color: var(--color-women);
+  }
+
+  /* ─── CTA-СЕКЦИЯ ─── */
+  .w-cta {
+    padding: var(--section-py) var(--container-px);
+    text-align: center;
+    background: linear-gradient(180deg, transparent, var(--color-bg-card));
+  }
+  .w-cta__inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .w-cta h2 {
+    font-size: clamp(28px, 3.5vw, 48px);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .w-cta p {
+    font-size: 18px;
+    color: var(--color-text-muted);
+    margin-bottom: 40px;
+  }
+
+  /* ─── АДАПТИВ ─── */
+  @media (max-width: 1200px) {
+    .w-flagship__inner { padding: 48px; }
+    .w-club__inner { padding: 48px; }
+  }
+  @media (max-width: 768px) {
+    .w-hero__inner { grid-template-columns: 1fr; gap: 40px; padding-top: calc(var(--header-h) + 40px); }
+    .w-hero__visual { order: -1; }
+    .w-hero__photo-frame { max-width: 300px; }
+    .w-hero__badge { bottom: -10px; left: -10px; }
+    .w-paths__grid { grid-template-columns: 1fr; }
+    .w-flagship__inner { grid-template-columns: 1fr; gap: 40px; padding: 32px 24px; }
+    .w-cases__grid { grid-template-columns: 1fr; }
+    .w-case-card--mega { grid-column: span 1; }
+    .w-journey__steps { grid-template-columns: repeat(2, 1fr); }
+    .w-journey__steps::before { display: none; }
+    .w-club__inner { grid-template-columns: 1fr; gap: 32px; padding: 32px 24px; }
+    .w-club__perks { grid-template-columns: 1fr; }
+    .w-hero__stats { flex-wrap: wrap; gap: 16px; }
+  }
+  @media (max-width: 375px) {
+    .w-hero__ctas { flex-direction: column; }
+    .w-journey__steps { grid-template-columns: 1fr; }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ХЕДЕР -->
+<div id="site-header"></div>
+
+<main>
+
+  <!-- ─── HERO ─── -->
+  <section class="w-hero">
+    <div class="w-hero__bg"></div>
+    <div class="w-hero__inner">
+      <div class="w-hero__content">
+        <span class="w-hero__tag">Женское направление</span>
+        <h1>Стань <span>Охотницей.</span><br>Получи результат.</h1>
+        <p class="w-hero__sub">
+          Единственная в русскоязычном пространстве доказанная методология, которая ведёт женщину от знакомства до замужества. Не теория — конкретный путь с результатами.
+        </p>
+        <div class="w-hero__ctas">
+          <a href="how-to-marry.html" class="btn-women">Начать путь →</a>
+          <a href="huntress.html" class="btn-secondary">О методологии</a>
+        </div>
+        <div class="w-hero__stats">
+          <div class="w-hero__stat">
+            <div class="w-hero__stat-val"><!-- TODO --></div>
+            <div class="w-hero__stat-label">женщин прошли курс</div>
+          </div>
+          <div class="w-hero__stat">
+            <div class="w-hero__stat-val"><!-- TODO --></div>
+            <div class="w-hero__stat-label">вышли замуж</div>
+          </div>
+          <div class="w-hero__stat">
+            <div class="w-hero__stat-val">90</div>
+            <div class="w-hero__stat-label">дней программы</div>
+          </div>
+        </div>
+      </div>
+      <div class="w-hero__visual">
+        <div class="w-hero__photo-frame">
+          <div class="w-hero__photo-placeholder">💎</div>
+          <!-- TODO: фото ученицы с кольцом -->
+        </div>
+        <div class="w-hero__badge">
+          <div class="w-hero__badge-num">№1</div>
+          <div class="w-hero__badge-label">методология<br>замужества</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── НАПРАВЛЕНИЯ ─── -->
+  <section class="w-paths">
+    <div class="section-header">
+      <p class="section-tag">Что внутри</p>
+      <h2 class="section-title">Выбери свой путь</h2>
+      <p class="section-subtitle">Три входа в экосистему — каждый ведёт к результату</p>
+    </div>
+    <div class="w-paths__grid">
+      <a href="huntress.html" class="w-path-card reveal">
+        <div class="w-path-card__icon">🎯</div>
+        <div class="w-path-card__title">Методология Охотницы</div>
+        <p class="w-path-card__desc">9 шагов доказанной системы. Поймёшь механику мужской психологии и научишься создавать условия, при которых он сам ведёт к замужеству.</p>
+        <span class="w-path-card__link">Узнать больше →</span>
+      </a>
+      <a href="how-to-marry.html" class="w-path-card reveal">
+        <div class="w-path-card__icon">💍</div>
+        <div class="w-path-card__title">Курс «Как выйти замуж»</div>
+        <p class="w-path-card__desc">Флагманская 90-дневная программа. 9 модулей. Видеоуроки, практика, поддержка наставника. Реальные результаты — замужество.</p>
+        <span class="w-path-card__link">Записаться →</span>
+      </a>
+      <a href="../club.html" class="w-path-card reveal">
+        <div class="w-path-card__icon">👑</div>
+        <div class="w-path-card__title">Закрытый клуб Охотниц</div>
+        <p class="w-path-card__desc">Еженедельные задания, закрытый чат, эфиры с Алексом, трекер прогресса. Сообщество женщин, которые идут к результату вместе.</p>
+        <span class="w-path-card__link">Вступить →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ─── ФЛАГМАН ─── -->
+  <section class="w-flagship">
+    <div class="w-flagship__inner reveal">
+      <div class="w-flagship__info">
+        <span class="w-flagship__tag">Флагманский продукт</span>
+        <h2>«Как выйти замуж»<br>— 90-дневная программа</h2>
+        <p style="color:var(--color-text-muted);font-size:16px;line-height:1.7;margin-bottom:24px;">
+          Полная методология от знакомства до загса. 9 модулей, охватывающих весь путь Охотницы — от первого взгляда до того, как он сам предлагает статус.
+        </p>
+        <ul class="w-flagship__features">
+          <li>9 видео-модулей с практическими заданиями</li>
+          <li>Поддержка наставника в течение 90 дней</li>
+          <li>Закрытый чат участниц курса</li>
+          <li>Трекер прогресса и дневник Охотницы</li>
+          <li>Пожизненный доступ к материалам</li>
+          <li>Разбор реальных ситуаций</li>
+        </ul>
+        <div class="w-flagship__price">49 900 ₽</div>
+        <div class="w-flagship__price-note">или рассрочка от <!-- TODO --> ₽/мес</div>
+        <a href="how-to-marry.html" class="btn-women">Записаться на курс →</a>
+      </div>
+      <div class="w-flagship__visual">
+        <div class="w-flagship__kpi">
+          <div class="w-flagship__kpi-val"><!-- TODO --></div>
+          <div class="w-flagship__kpi-text">женщин уже прошли программу и получили результат</div>
+        </div>
+        <div class="w-flagship__kpi">
+          <div class="w-flagship__kpi-val">90</div>
+          <div class="w-flagship__kpi-text">дней — полная трансформация от знакомства до загса</div>
+        </div>
+        <div class="w-flagship__kpi">
+          <div class="w-flagship__kpi-val">9</div>
+          <div class="w-flagship__kpi-text">модулей, охватывающих каждый этап пути Охотницы</div>
+        </div>
+        <div class="w-flagship__kpi">
+          <div class="w-flagship__kpi-val">Forbes</div>
+          <div class="w-flagship__kpi-text">Daily Mail и другие СМИ о методологии Алекса Лесли</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── КЕЙСЫ ─── -->
+  <section class="w-cases">
+    <div class="section-header">
+      <p class="section-tag">Результаты</p>
+      <h2 class="section-title">Они уже вышли замуж</h2>
+      <p class="section-subtitle">Реальные истории учениц методологии Охотницы</p>
+    </div>
+    <div class="w-cases__grid">
+      <!-- Мегакейс Сава -->
+      <div class="w-case-card w-case-card--mega reveal">
+        <div class="w-case-card__header">
+          <div class="w-case-card__photo">💍</div>
+          <div>
+            <div class="w-case-card__name">Сава</div>
+            <span class="w-case-card__result-tag">Мегакейс</span>
+          </div>
+        </div>
+        <p class="w-case-card__text"><!-- TODO: история Савы --></p>
+        <div class="w-case-card__result">Вышла замуж за успешного мужчину</div>
+      </div>
+
+      <!-- Кейс Рыбка -->
+      <div class="w-case-card reveal">
+        <div class="w-case-card__header">
+          <div class="w-case-card__photo">🌸</div>
+          <div>
+            <div class="w-case-card__name">Рыбка</div>
+            <span class="w-case-card__result-tag">Мегакейс</span>
+          </div>
+        </div>
+        <p class="w-case-card__text"><!-- TODO: история Рыбки --></p>
+        <div class="w-case-card__result"><!-- TODO: результат Рыбки --></div>
+      </div>
+
+      <!-- Дополнительные кейсы -->
+      <div class="w-case-card reveal">
+        <div class="w-case-card__header">
+          <div class="w-case-card__photo">✨</div>
+          <div>
+            <div class="w-case-card__name">Анна, 34 года</div>
+            <span class="w-case-card__result-tag">Результат</span>
+          </div>
+        </div>
+        <p class="w-case-card__text">«Встречались 2 года, и он никак не предлагал пожениться. После 3-го модуля курса он сам заговорил о свадьбе. Я не давила — просто знала что делать.»</p>
+        <div class="w-case-card__result">Помолвка через 3 месяца курса</div>
+      </div>
+      <div class="w-case-card reveal">
+        <div class="w-case-card__header">
+          <div class="w-case-card__photo">💐</div>
+          <div>
+            <div class="w-case-card__name">Марина, 29 лет</div>
+            <span class="w-case-card__result-tag">Результат</span>
+          </div>
+        </div>
+        <p class="w-case-card__text">«Думала, что в 29 уже поздно. Алекс объяснил, что это мышление жертвы. Через 2 месяца познакомилась с будущим мужем.»</p>
+        <div class="w-case-card__result">Знакомство → свадьба за 8 месяцев</div>
+      </div>
+      <div class="w-case-card reveal">
+        <div class="w-case-card__header">
+          <div class="w-case-card__photo">🏆</div>
+          <div>
+            <div class="w-case-card__name">Виктория, 37 лет</div>
+            <span class="w-case-card__result-tag">Результат</span>
+          </div>
+        </div>
+        <p class="w-case-card__text">«Все говорили — поздно. Методология Охотницы доказала обратное. Я встретила его в 37 и вышла замуж в 38.»</p>
+        <div class="w-case-card__result">Замужество в 38 лет</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <a href="../cases.html" class="btn-secondary">Смотреть все кейсы →</a>
+    </div>
+  </section>
+
+  <!-- ─── ПУТЬ ─── -->
+  <section class="w-journey">
+    <div class="w-journey__inner">
+      <div class="section-header" style="color:#0D0D1A;">
+        <p class="section-tag" style="color:var(--color-women);">Как это работает</p>
+        <h2 class="section-title" style="color:#0D0D1A;">Твой путь к результату</h2>
+      </div>
+      <div class="w-journey__steps">
+        <div class="w-journey__step reveal">
+          <div class="w-journey__step-num">1</div>
+          <div class="w-journey__step-title">Пройди квиз</div>
+          <div class="w-journey__step-desc">Бесплатный анализ твоей ситуации — узнай, где ты находишься и что мешает</div>
+        </div>
+        <div class="w-journey__step reveal">
+          <div class="w-journey__step-num">2</div>
+          <div class="w-journey__step-title">Получи план</div>
+          <div class="w-journey__step-desc">Персональный результат квиза + PDF с первыми шагами Охотницы</div>
+        </div>
+        <div class="w-journey__step reveal">
+          <div class="w-journey__step-num">3</div>
+          <div class="w-journey__step-title">Пройди курс</div>
+          <div class="w-journey__step-desc">90 дней программы — шаг за шагом к замужеству с поддержкой</div>
+        </div>
+        <div class="w-journey__step reveal">
+          <div class="w-journey__step-num">4</div>
+          <div class="w-journey__step-title">Получи результат</div>
+          <div class="w-journey__step-desc">Он сам предлагает статус — ты не просила, ты создала условия</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:48px;">
+        <a href="how-to-marry.html" class="btn-women" style="background:var(--color-women);">Начать бесплатно →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── КЛУБ ─── -->
+  <section class="w-club">
+    <div class="w-club__inner reveal">
+      <div>
+        <span class="w-hero__tag">Закрытый клуб</span>
+        <h2 style="margin:16px 0 12px;">Клуб Охотниц — сообщество, которое меняет жизнь</h2>
+        <p style="color:var(--color-text-muted);font-size:16px;line-height:1.7;">
+          Для тех, кто готов к результату. Еженедельные задания, живые разборы с Алексом, закрытый чат с единомышленницами.
+        </p>
+        <div class="w-club__perks">
+          <div class="w-club__perk">
+            <span class="w-club__perk-icon">📋</span>
+            <div class="w-club__perk-title">Задания недели</div>
+            Практические упражнения каждую неделю
+          </div>
+          <div class="w-club__perk">
+            <span class="w-club__perk-icon">💬</span>
+            <div class="w-club__perk-title">Закрытый чат</div>
+            Поддержка и нетворкинг 24/7
+          </div>
+          <div class="w-club__perk">
+            <span class="w-club__perk-icon">🎙</span>
+            <div class="w-club__perk-title">Эфиры с Алексом</div>
+            Разборы ситуаций в прямом эфире
+          </div>
+          <div class="w-club__perk">
+            <span class="w-club__perk-icon">🏆</span>
+            <div class="w-club__perk-title">Банк техник</div>
+            Полная библиотека методологии Охотницы
+          </div>
+        </div>
+        <div class="w-club__price">
+          от <strong>2 990 ₽</strong>/мес · первый месяц бесплатно
+        </div>
+        <div style="margin-top:24px;">
+          <a href="../club.html" class="btn-women">Вступить в клуб →</a>
+        </div>
+      </div>
+      <div class="w-club__visual">
+        <p style="font-size:13px;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:8px;">Последние результаты участниц</p>
+        <div class="w-club__member">
+          <div class="w-club__member-ava">😊</div>
+          <div>
+            <div class="w-club__member-name">Катя, 31 год</div>
+            <div class="w-club__member-result">Помолвка после 6 недель в клубе</div>
+          </div>
+        </div>
+        <div class="w-club__member">
+          <div class="w-club__member-ava">🌟</div>
+          <div>
+            <div class="w-club__member-name">Лена, 28 лет</div>
+            <div class="w-club__member-result">Он предложил статус сам</div>
+          </div>
+        </div>
+        <div class="w-club__member">
+          <div class="w-club__member-ava">💎</div>
+          <div>
+            <div class="w-club__member-name">Ольга, 35 лет</div>
+            <div class="w-club__member-result">Свадьба через 4 месяца</div>
+          </div>
+        </div>
+        <div class="w-club__member">
+          <div class="w-club__member-ava">✨</div>
+          <div>
+            <div class="w-club__member-name">Наташа, 33 года</div>
+            <div class="w-club__member-result">Из «просто встречаемся» → помолвка</div>
+          </div>
+        </div>
+        <div class="w-club__member">
+          <div class="w-club__member-ava">🏅</div>
+          <div>
+            <div class="w-club__member-name">Ира, 26 лет</div>
+            <div class="w-club__member-result">Познакомилась и вышла замуж за 7 мес.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ФИНАЛЬНЫЙ CTA ─── -->
+  <section class="w-cta">
+    <div class="w-cta__inner reveal">
+      <p class="section-tag" style="color:var(--color-women);">Начни сегодня</p>
+      <h2>Готова стать Охотницей?</h2>
+      <p>Первый шаг бесплатный — пройди квиз и узнай, что мешает тебе получить результат прямо сейчас.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="how-to-marry.html" class="btn-women">Записаться на курс →</a>
+        <a href="huntress.html" class="btn-secondary">Узнать о методологии</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ПОДВАЛ -->
+<div id="site-footer"></div>
+
+<script src="../assets/js/components.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof initScrollReveal === 'function') initScrollReveal();
+    if (typeof initCounters === 'function') initCounters();
+  });
+</script>
+</body>
+</html>

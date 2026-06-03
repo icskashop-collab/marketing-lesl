@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Блог Алекса Лесли — статьи о психологии отношений, методологии Охотницы, техниках соблазнения и замужестве." />
+  <meta property="og:title" content="Блог — Alex Leslie" />
+  <meta property="og:description" content="Статьи, разборы и техники от Алекса Лесли." />
+  <meta property="og:type" content="website" />
+  <title>Блог — Alex Leslie</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+
+  <style>
+  /* ─── BLOG PAGE ─── */
+  .blog-hero {
+    position: relative;
+    padding: calc(var(--header-h, 72px) + 64px) 0 64px;
+    background: var(--color-bg);
+    overflow: hidden;
+  }
+  .blog-hero__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(212,160,23,.07) 0%, transparent 60%);
+    z-index: 0;
+  }
+  .blog-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--container-px, 24px);
+  }
+
+  /* Хлебные крошки */
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .8rem;
+    color: var(--color-text-muted);
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .breadcrumbs a { color: var(--color-gold); text-decoration: none; }
+  .breadcrumbs a:hover { text-decoration: underline; }
+  .breadcrumbs__sep { opacity: .4; }
+
+  .blog-hero__title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 16px;
+  }
+  .blog-hero__sub { color: var(--color-text-muted); font-size: 1.05rem; margin-bottom: 40px; }
+
+  /* Поиск */
+  .blog-search {
+    display: flex;
+    gap: 12px;
+    max-width: 600px;
+    margin-bottom: 32px;
+  }
+  .blog-search__input {
+    flex: 1;
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-size: .95rem;
+    color: var(--color-text);
+    font-family: var(--font-base);
+    outline: none;
+    transition: var(--transition);
+  }
+  .blog-search__input:focus { border-color: var(--color-gold); }
+  .blog-search__input::placeholder { color: var(--color-text-muted); }
+  .blog-search__btn {
+    background: var(--color-gold);
+    border: none;
+    border-radius: 12px;
+    padding: 14px 24px;
+    font-weight: 700;
+    font-size: .875rem;
+    color: #000;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font-base);
+  }
+  .blog-search__btn:hover { background: var(--color-gold-hover); }
+
+  /* Теги */
+  .blog-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .blog-tag {
+    padding: 6px 16px;
+    border-radius: 40px;
+    font-size: .8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid var(--color-border-light);
+    background: none;
+    color: var(--color-text-muted);
+    font-family: var(--font-base);
+  }
+  .blog-tag:hover,
+  .blog-tag.active {
+    background: var(--color-gold);
+    color: #000;
+    border-color: var(--color-gold);
+  }
+
+  /* Контент */
+  .blog-content {
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 64px var(--container-px, 24px);
+  }
+
+  /* Крупная карточка последнего поста */
+  .blog-featured {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 0;
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    margin-bottom: 64px;
+    transition: var(--transition);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  .blog-featured:hover {
+    border-color: var(--color-border);
+    box-shadow: var(--shadow-hover);
+  }
+  .blog-featured__img {
+    position: relative;
+    overflow: hidden;
+    min-height: 360px;
+    background: linear-gradient(135deg, #1A1A2E 0%, #0D0D1A 100%);
+  }
+  .blog-featured__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease;
+  }
+  .blog-featured:hover .blog-featured__img img { transform: scale(1.03); }
+  .blog-featured__badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--color-gold);
+    color: #000;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 40px;
+  }
+  .blog-featured__body {
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .blog-featured__tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 16px;
+  }
+  .blog-featured__title {
+    font-size: clamp(1.25rem, 2vw, 1.625rem);
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+  .blog-featured__excerpt {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: 24px;
+    font-size: .95rem;
+  }
+  .blog-featured__meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: .8rem;
+    color: var(--color-text-muted);
+  }
+  .blog-featured__meta-dot { opacity: .4; }
+  .blog-featured__read {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-gold);
+    font-weight: 700;
+    font-size: .875rem;
+    margin-top: 20px;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  .blog-featured:hover .blog-featured__read { gap: 12px; }
+
+  /* Раздел статей */
+  .blog-section-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .blog-section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-border-light);
+  }
+
+  /* Сетка 3 колонки */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .blog-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    transition: var(--transition);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+  .blog-card:hover {
+    border-color: var(--color-border);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+  }
+  .blog-card__img {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1A1A2E, #0D1A2E);
+    position: relative;
+  }
+  .blog-card__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease;
+  }
+  .blog-card:hover .blog-card__img img { transform: scale(1.05); }
+  .blog-card__body {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .blog-card__tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 10px;
+  }
+  .blog-card__title {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.45;
+    margin-bottom: 10px;
+    flex: 1;
+  }
+  .blog-card__excerpt {
+    font-size: .8rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .blog-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: .75rem;
+    color: var(--color-text-muted);
+    border-top: 1px solid var(--color-border-light);
+    padding-top: 12px;
+    margin-top: auto;
+  }
+  .blog-card__read-time { color: var(--color-gold); font-weight: 600; }
+
+  /* Кнопка «Загрузить ещё» */
+  .blog-load-more {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  /* Лид-магнит в блоге */
+  .blog-leadmagnet {
+    background: linear-gradient(135deg, rgba(212,160,23,.1) 0%, rgba(26,26,46,.8) 100%);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    padding: 48px;
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .blog-leadmagnet__icon { font-size: 3rem; margin-bottom: 16px; }
+  .blog-leadmagnet__title { font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; }
+  .blog-leadmagnet__sub { color: var(--color-text-muted); margin-bottom: 28px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .blog-leadmagnet__form {
+    display: flex;
+    gap: 12px;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+  .blog-leadmagnet__input {
+    flex: 1;
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-size: .9rem;
+    color: var(--color-text);
+    font-family: var(--font-base);
+    outline: none;
+    transition: var(--transition);
+  }
+  .blog-leadmagnet__input:focus { border-color: var(--color-gold); }
+  .blog-leadmagnet__input::placeholder { color: var(--color-text-muted); }
+
+  /* Sidebar-like categories (боковая панель) */
+  .blog-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 48px;
+    align-items: start;
+  }
+  .blog-sidebar {
+    position: sticky;
+    top: calc(var(--header-h, 72px) + 24px);
+  }
+  .sidebar-widget {
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .sidebar-widget__title {
+    font-size: .875rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 16px;
+  }
+  .sidebar-cats { display: flex; flex-direction: column; gap: 8px; }
+  .sidebar-cat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: .875rem;
+    text-decoration: none;
+    color: var(--color-text);
+  }
+  .sidebar-cat:hover { background: rgba(212,160,23,.08); color: var(--color-gold); }
+  .sidebar-cat__count {
+    font-size: .75rem;
+    background: rgba(212,160,23,.15);
+    color: var(--color-gold);
+    padding: 2px 8px;
+    border-radius: 40px;
+    font-weight: 600;
+  }
+  .sidebar-popular { display: flex; flex-direction: column; gap: 16px; }
+  .sidebar-post {
+    display: flex;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+  }
+  .sidebar-post:hover .sidebar-post__title { color: var(--color-gold); }
+  .sidebar-post__num {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-gold);
+    opacity: .3;
+    line-height: 1;
+    min-width: 24px;
+  }
+  .sidebar-post__title { font-size: .85rem; font-weight: 600; line-height: 1.4; }
+  .sidebar-post__meta { font-size: .75rem; color: var(--color-text-muted); margin-top: 4px; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .blog-layout { grid-template-columns: 1fr; }
+    .blog-sidebar { position: static; }
+    .blog-grid { grid-template-columns: repeat(2, 1fr); }
+    .blog-featured { grid-template-columns: 1fr; }
+    .blog-featured__img { min-height: 240px; }
+  }
+  @media (max-width: 768px) {
+    .blog-grid { grid-template-columns: 1fr; }
+    .blog-featured__body { padding: 28px; }
+    .blog-content { padding: 40px var(--container-px, 24px); }
+    .blog-leadmagnet__form { flex-direction: column; }
+  }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <!-- HERO -->
+  <section class="blog-hero">
+    <div class="blog-hero__bg"></div>
+    <div class="blog-hero__inner">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <a href="index.html">Главная</a>
+        <span class="breadcrumbs__sep">›</span>
+        <span>Блог</span>
+      </nav>
+      <h1 class="blog-hero__title">Блог Алекса <span style="color:var(--color-gold)">Лесли</span></h1>
+      <p class="blog-hero__sub">Техники, психология, разборы и кейсы — всё, что работает в реальных отношениях</p>
+
+      <div class="blog-search">
+        <input type="search" class="blog-search__input" placeholder="Поиск по статьям..." id="blogSearch" oninput="filterPosts()" />
+        <button class="blog-search__btn" onclick="filterPosts()">Найти</button>
+      </div>
+
+      <div class="blog-tags">
+        <button class="blog-tag active" onclick="filterByTag('all', this)">Все</button>
+        <button class="blog-tag" onclick="filterByTag('women', this)">Женское</button>
+        <button class="blog-tag" onclick="filterByTag('men', this)">Мужское</button>
+        <button class="blog-tag" onclick="filterByTag('psychology', this)">Психология</button>
+        <button class="blog-tag" onclick="filterByTag('techniques', this)">Техники</button>
+        <button class="blog-tag" onclick="filterByTag('cases', this)">Кейсы</button>
+        <button class="blog-tag" onclick="filterByTag('philosophy', this)">Философия</button>
+        <button class="blog-tag" onclick="filterByTag('dating', this)">Знакомства</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- КОНТЕНТ -->
+  <div class="blog-content">
+    <div class="blog-layout">
+
+      <!-- Основная колонка -->
+      <div>
+
+        <!-- Последний (главный) пост -->
+        <a href="#" class="blog-featured" id="featuredPost">
+          <div class="blog-featured__img">
+            <img src="assets/img/blog-featured.jpg" alt="Главная статья" onerror="this.parentNode.style.background='linear-gradient(135deg,#1A1A2E,#0D0D1A)'" />
+            <span class="blog-featured__badge">Новое</span>
+          </div>
+          <div class="blog-featured__body">
+            <div class="blog-featured__tag">Женское · Техники</div>
+            <h2 class="blog-featured__title"><!-- TODO --> Почему методология Охотницы работает там, где другие советы провалились</h2>
+            <p class="blog-featured__excerpt"><!-- TODO --> Разбираем ключевой принцип методологии, который меняет всё: почему женщина должна быть охотником, а не добычей — и как это работает на практике...</p>
+            <div class="blog-featured__meta">
+              <span>Алекс Лесли</span>
+              <span class="blog-featured__meta-dot">·</span>
+              <span><!-- TODO --> дата</span>
+              <span class="blog-featured__meta-dot">·</span>
+              <span>12 мин читать</span>
+            </div>
+            <span class="blog-featured__read">Читать статью →</span>
+          </div>
+        </a>
+
+        <!-- Сетка статей -->
+        <div class="blog-section-title">Свежие статьи</div>
+
+        <div class="blog-grid" id="blogGrid">
+
+          <!-- Карточка 1 -->
+          <a href="#" class="blog-card" data-tag="women techniques">
+            <div class="blog-card__img">
+              <img src="assets/img/blog-1.jpg" alt="Техника правильного молчания" onerror="this.parentNode.style.background='#1A1A2E'" />
+            </div>
+            <div class="blog-card__body">
+              <div class="blog-card__tag">Техники · Женское</div>
+              <div class="blog-card__title"><!-- TODO --> Техника «правильное молчание»: когда не отвечать — это сила</div>
+              <div class="blog-card__excerpt"><!-- TODO --> Когда пауза работает лучше, чем любой ответ. Разбираем технику с примерами из практики...</div>
+              <div class="blog-card__meta">
+                <span><!-- TODO --> дата</span>
+                <span class="blog-card__read-time">8 мин</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Карточка 2 -->
+          <a href="#" class="blog-card" data-tag="psychology men">
+            <div class="blog-card__img">
+              <img src="assets/img/blog-2.jpg" alt="Мужская логика" onerror="this.parentNode.style.background='#1A1A2E'" />
+            </div>
+            <div class="blog-card__body">
+              <div class="blog-card__tag">Психология · Мужское</div>
+              <div class="blog-card__title"><!-- TODO --> Мужская логика: почему он не звонит и что это на самом деле значит</div>
+              <div class="blog-card__excerpt"><!-- TODO --> Разбираем самый частый вопрос: он молчит — что делать? Реальный ответ из практики...</div>
+              <div class="blog-card__meta">
+                <span><!-- TODO --> дата</span>
+                <span class="blog-card__read-time">6 мин</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Карточка 3 -->
+          <a href="#" class="blog-card" data-tag="cases women">
+            <div class="blog-card__img">
+              <img src="assets/img/blog-3.jpg" alt="История Савы" onerror="this.parentNode.style.background='#1A1A2E'" />
+            </div>
+            <div class="blog-card__body">
+              <div class="blog-card__tag">Кейсы · Женское</div>
+              <div class="blog-card__title"><!-- TODO --> История Савы: от разочарований к замужеству за мультимиллионера</div>
+              <div class="blog-card__excerpt"><!-- TODO --> Полная история самого известного кейса методологии. Что изменилось и когда...</div>
+              <div class="blog-card__meta">
+                <span><!-- TODO --> дата</span>
+                <span class="blog-card__read-time">15 мин</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Карточка 4 -->
+          <a href="#" class="blog-card" data-tag="dating techniques">
+            <div class="blog-card__img">
+              <img src="assets/img/blog-4.jpg" alt="Первое свидание" onerror="this.parentNode.style.background='#1A1A2E'" />
+            </div>
+            <div class="blog-card__body">
+              <div class="blog-card__tag">Знакомства · Техники</div>
+              <div class="blog-card__title"><!-- TODO --> Первое свидание: 10 правил, которые работают в 2026 году</div>
+              <div class="blog-card__excerpt"><!-- TODO --> Что говорить, как держаться и почему большинство женщин совершают одну и ту же ошибку...</div>
+              <div class="blog-card__meta">
+                <span><!-- TODO --> дата</span>
+                <span class="blog-card__read-time">10 мин</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Карточка 5 -->
+          <a href="#" class="blog-card" data-tag="philosophy">
+            <div class="blog-card__img">
+              <img src="assets/img/blog-5.jpg" alt="Философия охотницы" onerror="this.parentNode.style.background='#1A1A2E'" />
+            </div>
+            <div class="blog-card__body">
+              <div class="blog-card__tag">Философия</div>
+              <div class="blog-card__title"><!-- TODO --> Жизнь без трусов: как работает основной принцип методологии</div>
+              <div class="blog-card__excerpt"><!-- TODO --> Почему трусость в отношениях — это главная причина, по которой женщины не получают того, чего хотят...</div>
+              <div class="blog-card__meta">
+                <span><!-- TODO --> дата</span>
+                <span class="blog-card__read-time">9 мин</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Карточка 6 -->
+          <a href="#" class="blog-card" data-tag="psychology women">
+            <div class="blog-card__img">
+              <img src="assets/img/blog-6.jpg" alt="Готова ли к отношениям" onerror="this.parentNode.style.background='#1A1A2E'" />
+            </div>
+            <div class="blog-card__body">
+              <div class="blog-card__tag">Психология · Женское</div>
+              <div class="blog-card__title"><!-- TODO --> 7 признаков того, что ты готова к серьёзным отношениям</div>
+              <div class="blog-card__excerpt"><!-- TODO --> Честный чек-лист, который поможет понять: ты ищешь партнёра или бежишь от себя...</div>
+              <div class="blog-card__meta">
+                <span><!-- TODO --> дата</span>
+                <span class="blog-card__read-time">7 мин</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Карточка 7 -->
+          <a href="#" class="blog-card" data-tag="men techniques">
+            <div class="blog-card__img">
+              <img src="assets/img/blog-7.jpg" alt="Стиль соблазнения" onerror="this.parentNode.style.background='#1A1A2E'" />
+            </div>
+            <div class="blog-card__body">
+              <div class="blog-card__tag">Мужское · Техники</div>
+              <div class="blog-card__title"><!-- TODO --> Стиль соблазнения: почему харизма важнее внешности</div>
+              <div class="blog-card__excerpt"><!-- TODO --> Разбираем мужскую сторону методологии: что делает мужчину по-настоящему привлекательным...</div>
+              <div class="blog-card__meta">
+                <span><!-- TODO --> дата</span>
+                <span class="blog-card__read-time">11 мин</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Карточка 8 -->
+          <a href="#" class="blog-card" data-tag="cases">
+            <div class="blog-card__img">
+              <img src="assets/img/blog-8.jpg" alt="Кейс" onerror="this.parentNode.style.background='#1A1A2E'" />
+            </div>
+            <div class="blog-card__body">
+              <div class="blog-card__tag">Кейсы</div>
+              <div class="blog-card__title"><!-- TODO --> 5 историй учениц, которые вышли замуж за год</div>
+              <div class="blog-card__excerpt"><!-- TODO --> Реальные истории с деталями: с чего начинали, что изменили, что получили в итоге...</div>
+              <div class="blog-card__meta">
+                <span><!-- TODO --> дата</span>
+                <span class="blog-card__read-time">14 мин</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Карточка 9 -->
+          <a href="#" class="blog-card" data-tag="dating women">
+            <div class="blog-card__img">
+              <img src="assets/img/blog-9.jpg" alt="Знакомства" onerror="this.parentNode.style.background='#1A1A2E'" />
+            </div>
+            <div class="blog-card__body">
+              <div class="blog-card__tag">Знакомства · Женское</div>
+              <div class="blog-card__title"><!-- TODO --> Где знакомиться с мужчинами в 2026: 10 мест, которые работают</div>
+              <div class="blog-card__excerpt"><!-- TODO --> Реальный список мест для знакомства — онлайн и офлайн. Без банальных советов...</div>
+              <div class="blog-card__meta">
+                <span><!-- TODO --> дата</span>
+                <span class="blog-card__read-time">5 мин</span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- Загрузить ещё -->
+        <div class="blog-load-more">
+          <button class="btn-secondary" onclick="loadMore()">Загрузить ещё статьи</button>
+        </div>
+
+        <!-- Лид-магнит -->
+        <div class="blog-leadmagnet">
+          <div class="blog-leadmagnet__icon">📖</div>
+          <h3 class="blog-leadmagnet__title">Получи PDF бесплатно</h3>
+          <p class="blog-leadmagnet__sub">«5 ошибок, которые мешают выйти замуж» — разбор самых частых причин, почему отношения не развиваются</p>
+          <div class="blog-leadmagnet__form">
+            <input type="email" class="blog-leadmagnet__input" placeholder="Твой email" />
+            <button class="btn-primary" style="white-space:nowrap;">Получить PDF</button>
+          </div>
+          <p style="font-size:.75rem;color:var(--color-text-muted);margin-top:12px;">Или подпишись в <a href="https://t.me/alexlesley" target="_blank" style="color:var(--color-gold);">Telegram</a></p>
+        </div>
+
+      </div>
+
+      <!-- Сайдбар -->
+      <aside class="blog-sidebar">
+
+        <div class="sidebar-widget">
+          <div class="sidebar-widget__title">Категории</div>
+          <div class="sidebar-cats">
+            <a href="#" class="sidebar-cat" onclick="filterByTag('all', null)">Все статьи <span class="sidebar-cat__count"><!-- TODO --></span></a>
+            <a href="#" class="sidebar-cat" onclick="filterByTag('women', null)">Женское <span class="sidebar-cat__count"><!-- TODO --></span></a>
+            <a href="#" class="sidebar-cat" onclick="filterByTag('men', null)">Мужское <span class="sidebar-cat__count"><!-- TODO --></span></a>
+            <a href="#" class="sidebar-cat" onclick="filterByTag('psychology', null)">Психология <span class="sidebar-cat__count"><!-- TODO --></span></a>
+            <a href="#" class="sidebar-cat" onclick="filterByTag('techniques', null)">Техники <span class="sidebar-cat__count"><!-- TODO --></span></a>
+            <a href="#" class="sidebar-cat" onclick="filterByTag('cases', null)">Кейсы <span class="sidebar-cat__count"><!-- TODO --></span></a>
+            <a href="#" class="sidebar-cat" onclick="filterByTag('philosophy', null)">Философия <span class="sidebar-cat__count"><!-- TODO --></span></a>
+            <a href="#" class="sidebar-cat" onclick="filterByTag('dating', null)">Знакомства <span class="sidebar-cat__count"><!-- TODO --></span></a>
+          </div>
+        </div>
+
+        <div class="sidebar-widget">
+          <div class="sidebar-widget__title">Популярные</div>
+          <div class="sidebar-popular">
+            <a href="#" class="sidebar-post">
+              <div class="sidebar-post__num">1</div>
+              <div>
+                <div class="sidebar-post__title"><!-- TODO --> История Савы</div>
+                <div class="sidebar-post__meta"><!-- TODO --> просмотров</div>
+              </div>
+            </a>
+            <a href="#" class="sidebar-post">
+              <div class="sidebar-post__num">2</div>
+              <div>
+                <div class="sidebar-post__title"><!-- TODO --> Техника «правильного молчания»</div>
+                <div class="sidebar-post__meta"><!-- TODO --> просмотров</div>
+              </div>
+            </a>
+            <a href="#" class="sidebar-post">
+              <div class="sidebar-post__num">3</div>
+              <div>
+                <div class="sidebar-post__title"><!-- TODO --> Мужская логика</div>
+                <div class="sidebar-post__meta"><!-- TODO --> просмотров</div>
+              </div>
+            </a>
+            <a href="#" class="sidebar-post">
+              <div class="sidebar-post__num">4</div>
+              <div>
+                <div class="sidebar-post__title"><!-- TODO --> Первое свидание</div>
+                <div class="sidebar-post__meta"><!-- TODO --> просмотров</div>
+              </div>
+            </a>
+            <a href="#" class="sidebar-post">
+              <div class="sidebar-post__num">5</div>
+              <div>
+                <div class="sidebar-post__title"><!-- TODO --> 7 признаков готовности</div>
+                <div class="sidebar-post__meta"><!-- TODO --> просмотров</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="sidebar-widget" style="background:linear-gradient(135deg,rgba(212,160,23,.1),rgba(26,26,46,.5));border-color:var(--color-border);">
+          <div class="sidebar-widget__title">Начать путь</div>
+          <p style="font-size:.85rem;color:var(--color-text-muted);margin-bottom:16px;line-height:1.6;">
+            Статьи — это теория. Результат даёт методология в действии.
+          </p>
+          <a href="women/how-to-marry.html" class="btn-primary" style="display:block;text-align:center;margin-bottom:10px;">Курс «Как выйти замуж»</a>
+          <a href="club.html" class="btn-secondary" style="display:block;text-align:center;font-size:.85rem;">Закрытый клуб →</a>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/components.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    function filterByTag(tag, btn) {
+      // Активный тег
+      document.querySelectorAll('.blog-tag').forEach(t => t.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.blog-card');
+      cards.forEach(card => {
+        if (tag === 'all' || (card.dataset.tag || '').includes(tag)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      return false;
+    }
+
+    function filterPosts() {
+      const q = document.getElementById('blogSearch').value.toLowerCase();
+      document.querySelectorAll('.blog-card').forEach(card => {
+        const title = card.querySelector('.blog-card__title')?.textContent.toLowerCase() || '';
+        card.style.display = (!q || title.includes(q)) ? '' : 'none';
+      });
+    }
+
+    function loadMore() {
+      // TODO: Добавить подгрузку статей
+      alert('Загружаем больше статей... (TODO: подключить к CMS)');
+    }
+
+    // Scroll-reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.blog-card').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = `opacity .5s ease ${i * 0.05}s, transform .5s ease ${i * 0.05}s`;
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

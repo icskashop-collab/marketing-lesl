@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ближайшие мероприятия Алекса Лесли — интенсивы, вебинары, офлайн-события. Расписание и регистрация." />
+  <meta property="og:title" content="Мероприятия — Alex Leslie" />
+  <meta property="og:description" content="Живые встречи, вебинары и интенсивы экосистемы Алекса Лесли." />
+  <meta property="og:type" content="website" />
+  <title>Мероприятия — Alex Leslie</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+
+  <style>
+  /* ─── EVENTS PAGE ─── */
+  .ev-hero {
+    position: relative;
+    padding: calc(var(--header-h, 72px) + 80px) 0 80px;
+    text-align: center;
+    background: var(--color-bg);
+    overflow: hidden;
+  }
+  .ev-hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(212,160,23,.1) 0%, transparent 70%),
+      var(--color-bg);
+    z-index: 0;
+  }
+  .ev-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 var(--container-px, 24px);
+  }
+  .ev-hero__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--color-gold, #D4A017);
+    padding: 8px 20px;
+    border: 1px solid rgba(212,160,23,.3);
+    border-radius: 100px;
+    background: rgba(212,160,23,.07);
+    margin-bottom: 28px;
+  }
+  .ev-hero__title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -.02em;
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+  .ev-hero__sub {
+    font-size: var(--text-lg, 1.125rem);
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  /* ─── FILTERS ─── */
+  .ev-filters {
+    padding: 40px 0 0;
+  }
+  .ev-filters__inner {
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--container-px, 24px);
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .ev-filter-btn {
+    padding: 10px 22px;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: transparent;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm, .875rem);
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .ev-filter-btn:hover,
+  .ev-filter-btn.active {
+    border-color: var(--color-gold, #D4A017);
+    color: var(--color-gold, #D4A017);
+    background: rgba(212,160,23,.08);
+  }
+
+  /* ─── EVENTS GRID ─── */
+  .ev-section {
+    padding: 60px 0 var(--section-py, 120px);
+  }
+  .ev-month-title {
+    font-size: var(--text-sm, .875rem);
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .ev-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+  .ev-card {
+    background: var(--color-card, #1A1A2E);
+    border: 1px solid var(--color-border-light, rgba(255,255,255,.07));
+    border-radius: var(--radius-card, 16px);
+    overflow: hidden;
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .ev-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(212,160,23,.25);
+    box-shadow: 0 16px 48px rgba(0,0,0,.25);
+  }
+  .ev-card__header {
+    padding: 28px 28px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .ev-card__date-box {
+    flex-shrink: 0;
+    width: 56px;
+    height: 64px;
+    background: rgba(212,160,23,.12);
+    border: 1px solid rgba(212,160,23,.25);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+  }
+  .ev-card__date-day {
+    font-size: var(--text-2xl, 1.5rem);
+    font-weight: 800;
+    color: var(--color-gold, #D4A017);
+    line-height: 1;
+  }
+  .ev-card__date-month {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(212,160,23,.7);
+  }
+  .ev-card__meta {
+    flex: 1;
+  }
+  .ev-card__badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .ev-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+  .ev-badge--format { background: rgba(255,255,255,.08); color: rgba(255,255,255,.6); }
+  .ev-badge--women { background: rgba(194,24,91,.15); color: #E91E63; }
+  .ev-badge--men { background: rgba(21,101,192,.15); color: #42A5F5; }
+  .ev-badge--both { background: rgba(212,160,23,.12); color: #D4A017; }
+  .ev-badge--free { background: rgba(76,175,80,.15); color: #66BB6A; }
+  .ev-badge--vip { background: rgba(212,160,23,.2); color: #D4A017; border: 1px solid rgba(212,160,23,.3); }
+  .ev-card__location {
+    font-size: var(--text-xs, .75rem);
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .ev-card__body {
+    padding: 20px 28px 28px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .ev-card__title {
+    font-size: var(--text-lg, 1.125rem);
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    line-height: 1.35;
+  }
+  .ev-card__desc {
+    font-size: var(--text-sm, .875rem);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 20px;
+  }
+  .ev-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.06);
+  }
+  .ev-card__price {
+    font-size: var(--text-lg, 1.125rem);
+    font-weight: 700;
+    color: #fff;
+  }
+  .ev-card__price span {
+    font-size: var(--text-sm, .875rem);
+    font-weight: 400;
+    color: var(--color-text-muted);
+  }
+  .ev-card__seats {
+    font-size: var(--text-xs, .75rem);
+    color: var(--color-text-muted);
+    margin-top: 4px;
+  }
+  .ev-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 22px;
+    border-radius: 100px;
+    background: linear-gradient(135deg, var(--color-gold, #D4A017), #F0C040);
+    color: #0D0D1A;
+    font-weight: 700;
+    font-size: var(--text-sm, .875rem);
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+    white-space: nowrap;
+  }
+  .ev-card__cta:hover {
+    transform: scale(1.04);
+    box-shadow: 0 8px 24px rgba(212,160,23,.4);
+  }
+  .ev-card__cta--secondary {
+    background: transparent;
+    color: var(--color-gold, #D4A017);
+    border: 1px solid var(--color-gold, #D4A017);
+  }
+  .ev-card--featured {
+    grid-column: span 2;
+    border-color: rgba(212,160,23,.2);
+    background: linear-gradient(135deg, rgba(212,160,23,.06) 0%, var(--color-card) 100%);
+  }
+  .ev-card--featured .ev-card__title {
+    font-size: var(--text-xl, 1.25rem);
+  }
+  .ev-card--sold-out {
+    opacity: .6;
+    pointer-events: none;
+  }
+  .ev-card--sold-out .ev-card__cta {
+    background: rgba(255,255,255,.1);
+    color: var(--color-text-muted);
+  }
+
+  /* ─── PAST EVENTS ─── */
+  .ev-past {
+    padding: 40px 0 var(--section-py, 120px);
+    border-top: 1px solid rgba(255,255,255,.06);
+  }
+  .ev-past__toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    margin-bottom: 32px;
+    font-size: var(--text-base, 1rem);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background: none;
+    border: none;
+    font-family: inherit;
+    padding: 0;
+    transition: color .2s;
+  }
+  .ev-past__toggle:hover { color: var(--color-gold, #D4A017); }
+  .ev-past__grid {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .ev-past__grid.open { display: grid; }
+  .ev-card--past {
+    opacity: .5;
+  }
+  .ev-card--past::after {
+    content: 'Завершилось';
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    background: rgba(255,255,255,.05);
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  /* ─── CTA BANNER ─── */
+  .ev-cta {
+    background: linear-gradient(135deg, rgba(212,160,23,.12) 0%, rgba(212,160,23,.04) 100%);
+    border: 1px solid rgba(212,160,23,.2);
+    border-radius: var(--radius-card, 16px);
+    padding: 56px 48px;
+    text-align: center;
+    margin: 0 0 var(--section-py, 120px);
+  }
+  .ev-cta h2 { margin-bottom: 16px; }
+  .ev-cta p { color: var(--color-text-muted); max-width: 480px; margin: 0 auto 32px; line-height: 1.7; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .ev-grid { grid-template-columns: repeat(2, 1fr); }
+    .ev-card--featured { grid-column: span 2; }
+    .ev-past__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .ev-grid { grid-template-columns: 1fr; }
+    .ev-card--featured { grid-column: auto; }
+    .ev-past__grid { grid-template-columns: 1fr; }
+    .ev-cta { padding: 36px 24px; }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ХЕДЕР -->
+<div id="site-header"></div>
+
+<main>
+
+  <!-- ─── HERO ─── -->
+  <section class="ev-hero">
+    <div class="ev-hero__bg"></div>
+    <div class="ev-hero__inner reveal">
+      <div class="ev-hero__tag">📅 Расписание</div>
+      <h1 class="ev-hero__title">Ближайшие<br>мероприятия</h1>
+      <p class="ev-hero__sub">Живые встречи, вебинары и интенсивы экосистемы Алекса Лесли. Регистрируйтесь заранее — мест немного.</p>
+    </div>
+  </section>
+
+  <!-- ─── ФИЛЬТРЫ ─── -->
+  <div class="ev-filters">
+    <div class="ev-filters__inner">
+      <button class="ev-filter-btn active" data-filter="all">Все</button>
+      <button class="ev-filter-btn" data-filter="online">Онлайн</button>
+      <button class="ev-filter-btn" data-filter="offline">Офлайн</button>
+      <button class="ev-filter-btn" data-filter="women">Женское</button>
+      <button class="ev-filter-btn" data-filter="men">Мужское</button>
+      <button class="ev-filter-btn" data-filter="free">Бесплатно</button>
+    </div>
+  </div>
+
+  <!-- ─── СОБЫТИЯ ─── -->
+  <section class="ev-section">
+    <div class="container">
+
+      <!-- Июнь -->
+      <div class="ev-month-title">Июнь 2026</div>
+      <div class="ev-grid">
+
+        <!-- Вебинар (featured) -->
+        <div class="ev-card ev-card--featured reveal" data-type="online women free">
+          <div class="ev-card__header">
+            <div class="ev-card__date-box">
+              <span class="ev-card__date-day">14</span>
+              <span class="ev-card__date-month">июн</span>
+            </div>
+            <div class="ev-card__meta">
+              <div class="ev-card__badges">
+                <span class="ev-badge ev-badge--format">Вебинар</span>
+                <span class="ev-badge ev-badge--women">Женское</span>
+                <span class="ev-badge ev-badge--free">Бесплатно</span>
+              </div>
+              <div class="ev-card__location">🌐 Онлайн · 19:00 МСК</div>
+            </div>
+          </div>
+          <div class="ev-card__body">
+            <h3 class="ev-card__title">«Почему он не женится и что с этим делать» — бесплатный вебинар</h3>
+            <p class="ev-card__desc">Алекс Лесли разберёт топ-5 причин, по которым мужчины не делают предложение, даже когда всё хорошо. Живые вопросы-ответы. Бонус за регистрацию — PDF-чек-лист.</p>
+            <div class="ev-card__footer">
+              <div>
+                <div class="ev-card__price">Бесплатно</div>
+                <div class="ev-card__seats">⚡ Осталось <!-- TODO --> мест</div>
+              </div>
+              <a href="#" class="ev-card__cta">Зарегистрироваться →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Эфир клуба -->
+        <div class="ev-card reveal" data-type="online women">
+          <div class="ev-card__header">
+            <div class="ev-card__date-box">
+              <span class="ev-card__date-day">18</span>
+              <span class="ev-card__date-month">июн</span>
+            </div>
+            <div class="ev-card__meta">
+              <div class="ev-card__badges">
+                <span class="ev-badge ev-badge--format">Эфир клуба</span>
+                <span class="ev-badge ev-badge--women">Женское</span>
+                <span class="ev-badge ev-badge--vip">Только клуб</span>
+              </div>
+              <div class="ev-card__location">🌐 Telegram · 20:00 МСК</div>
+            </div>
+          </div>
+          <div class="ev-card__body">
+            <h3 class="ev-card__title">«Ритуал первого числа» — разбор 3 лучших кейсов июня</h3>
+            <p class="ev-card__desc">Ежемесячный эфир только для участниц Академии Охотниц. Разбор реальных ситуаций, лучшие результаты месяца, новые задания.</p>
+            <div class="ev-card__footer">
+              <div>
+                <div class="ev-card__price">Для участниц клуба</div>
+              </div>
+              <a href="club.html" class="ev-card__cta ev-card__cta--secondary">Вступить в клуб</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Июль -->
+      <div class="ev-month-title">Июль 2026</div>
+      <div class="ev-grid">
+
+        <!-- Офлайн-интенсив -->
+        <div class="ev-card reveal" data-type="offline women">
+          <div class="ev-card__header">
+            <div class="ev-card__date-box">
+              <span class="ev-card__date-day">5</span>
+              <span class="ev-card__date-month">июл</span>
+            </div>
+            <div class="ev-card__meta">
+              <div class="ev-card__badges">
+                <span class="ev-badge ev-badge--format">Интенсив 2 дня</span>
+                <span class="ev-badge ev-badge--women">Женское</span>
+              </div>
+              <div class="ev-card__location">📍 <!-- TODO: город --></div>
+            </div>
+          </div>
+          <div class="ev-card__body">
+            <h3 class="ev-card__title">Женский интенсив «Охотница за 48 часов»</h3>
+            <p class="ev-card__desc">2 дня глубокого погружения в методологию. Практики, разборы, живое общение. Группа до <!-- TODO --> человек. Трансформация за выходные.</p>
+            <div class="ev-card__footer">
+              <div>
+                <div class="ev-card__price">35 000 ₽ <span>(бесплатно для ПРОДВИНУТЫЙ)</span></div>
+                <div class="ev-card__seats"><!-- TODO --> мест</div>
+              </div>
+              <a href="#" class="ev-card__cta">Записаться →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Нетворкинг -->
+        <div class="ev-card reveal" data-type="offline both">
+          <div class="ev-card__header">
+            <div class="ev-card__date-box">
+              <span class="ev-card__date-day">12</span>
+              <span class="ev-card__date-month">июл</span>
+            </div>
+            <div class="ev-card__meta">
+              <div class="ev-card__badges">
+                <span class="ev-badge ev-badge--format">Нетворкинг</span>
+                <span class="ev-badge ev-badge--both">Мужское+Женское</span>
+              </div>
+              <div class="ev-card__location">📍 <!-- TODO: город --> · 18:00</div>
+            </div>
+          </div>
+          <div class="ev-card__body">
+            <h3 class="ev-card__title">Вечер знакомств участников экосистемы Лесли</h3>
+            <p class="ev-card__desc">Закрытая встреча — только для действующих участников клуба и курсов. Живое общение, нетворкинг и реальные знакомства в безопасной среде.</p>
+            <div class="ev-card__footer">
+              <div>
+                <div class="ev-card__price"><!-- TODO --> ₽</div>
+                <div class="ev-card__seats">Только для участников клуба</div>
+              </div>
+              <a href="#" class="ev-card__cta">Подать заявку →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Вебинар М -->
+        <div class="ev-card reveal" data-type="online men free">
+          <div class="ev-card__header">
+            <div class="ev-card__date-box">
+              <span class="ev-card__date-day">19</span>
+              <span class="ev-card__date-month">июл</span>
+            </div>
+            <div class="ev-card__meta">
+              <div class="ev-card__badges">
+                <span class="ev-badge ev-badge--format">Вебинар</span>
+                <span class="ev-badge ev-badge--men">Мужское</span>
+                <span class="ev-badge ev-badge--free">Бесплатно</span>
+              </div>
+              <div class="ev-card__location">🌐 Онлайн · 20:00 МСК</div>
+            </div>
+          </div>
+          <div class="ev-card__body">
+            <h3 class="ev-card__title">«Стиль соблазнения: базовые принципы» — открытый вебинар</h3>
+            <p class="ev-card__desc">Введение в мужское направление экосистемы Лесли. Ключевые техники, ответы на вопросы.</p>
+            <div class="ev-card__footer">
+              <div>
+                <div class="ev-card__price">Бесплатно</div>
+                <div class="ev-card__seats">⚡ Осталось <!-- TODO --> мест</div>
+              </div>
+              <a href="#" class="ev-card__cta">Зарегистрироваться →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Август -->
+      <div class="ev-month-title">Август 2026</div>
+      <div class="ev-grid">
+
+        <!-- VIP-ретрит -->
+        <div class="ev-card ev-card--featured reveal" data-type="offline women">
+          <div class="ev-card__header">
+            <div class="ev-card__date-box">
+              <span class="ev-card__date-day"><!-- TODO --></span>
+              <span class="ev-card__date-month">авг</span>
+            </div>
+            <div class="ev-card__meta">
+              <div class="ev-card__badges">
+                <span class="ev-badge ev-badge--format">VIP-ретрит 5 дней</span>
+                <span class="ev-badge ev-badge--women">Женское</span>
+                <span class="ev-badge ev-badge--vip">VIP</span>
+              </div>
+              <div class="ev-card__location">📍 <!-- TODO: страна, отель --></div>
+            </div>
+          </div>
+          <div class="ev-card__body">
+            <h3 class="ev-card__title">VIP-ретрит «Охотница» за рубежом — глубокое погружение на 5 дней</h3>
+            <p class="ev-card__desc">Максимальный формат трансформации. 5 дней за рубежом с Алексом Лесли и командой. Личные разборы, практики, luxury-среда для изменений. Строго ограниченное количество мест.</p>
+            <div class="ev-card__footer">
+              <div>
+                <div class="ev-card__price">от 120 000 ₽</div>
+                <div class="ev-card__seats"><!-- TODO --> мест из <!-- TODO --></div>
+              </div>
+              <a href="#" class="ev-card__cta">Подать заявку →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Эфир клуба Авг -->
+        <div class="ev-card reveal" data-type="online women">
+          <div class="ev-card__header">
+            <div class="ev-card__date-box">
+              <span class="ev-card__date-day">1</span>
+              <span class="ev-card__date-month">авг</span>
+            </div>
+            <div class="ev-card__meta">
+              <div class="ev-card__badges">
+                <span class="ev-badge ev-badge--format">Эфир клуба</span>
+                <span class="ev-badge ev-badge--women">Женское</span>
+                <span class="ev-badge ev-badge--vip">Только клуб</span>
+              </div>
+              <div class="ev-card__location">🌐 Telegram · 20:00 МСК</div>
+            </div>
+          </div>
+          <div class="ev-card__body">
+            <h3 class="ev-card__title">«Ритуал первого числа» — старт августа в Академии</h3>
+            <p class="ev-card__desc">Ежемесячный общий эфир. Новые задания, разбор лучших историй июля, анонс августовской программы.</p>
+            <div class="ev-card__footer">
+              <div>
+                <div class="ev-card__price">Для участниц клуба</div>
+              </div>
+              <a href="club.html" class="ev-card__cta ev-card__cta--secondary">Вступить в клуб</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ─── ПРОШЕДШИЕ ─── -->
+      <div class="ev-past">
+        <button class="ev-past__toggle" id="past-toggle" onclick="togglePast()">
+          <span>📁</span> Прошедшие мероприятия <span id="past-arrow">▸</span>
+        </button>
+        <div class="ev-past__grid" id="past-grid">
+
+          <div class="ev-card ev-card--past">
+            <div class="ev-card__header">
+              <div class="ev-card__date-box" style="opacity:.5;">
+                <span class="ev-card__date-day"><!-- TODO --></span>
+                <span class="ev-card__date-month">май</span>
+              </div>
+              <div class="ev-card__meta">
+                <div class="ev-card__badges">
+                  <span class="ev-badge ev-badge--format">Вебинар</span>
+                  <span class="ev-badge ev-badge--women">Женское</span>
+                </div>
+                <div class="ev-card__location">🌐 Онлайн</div>
+              </div>
+            </div>
+            <div class="ev-card__body">
+              <h3 class="ev-card__title"><!-- TODO: название прошедшего события --></h3>
+              <p class="ev-card__desc"><!-- TODO --></p>
+              <div class="ev-card__footer">
+                <div class="ev-card__price">— </div>
+                <a href="#" class="ev-card__cta ev-card__cta--secondary">Запись →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="ev-card ev-card--past">
+            <div class="ev-card__header">
+              <div class="ev-card__date-box" style="opacity:.5;">
+                <span class="ev-card__date-day"><!-- TODO --></span>
+                <span class="ev-card__date-month">май</span>
+              </div>
+              <div class="ev-card__meta">
+                <div class="ev-card__badges">
+                  <span class="ev-badge ev-badge--format">Интенсив</span>
+                  <span class="ev-badge ev-badge--women">Женское</span>
+                </div>
+                <div class="ev-card__location">📍 <!-- TODO --></div>
+              </div>
+            </div>
+            <div class="ev-card__body">
+              <h3 class="ev-card__title"><!-- TODO: название --></h3>
+              <p class="ev-card__desc"><!-- TODO --></p>
+              <div class="ev-card__footer">
+                <div class="ev-card__price">— </div>
+                <a href="#" class="ev-card__cta ev-card__cta--secondary">Запись →</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ─── CTA ─── -->
+      <div class="ev-cta reveal">
+        <p class="section-tag" style="color:var(--color-gold);">Не пропустите следующее</p>
+        <h2>Хотите узнавать первой?</h2>
+        <p>Подпишитесь на Telegram-канал или вступите в клуб — участницы клуба узнают о мероприятиях за 2 недели до публичного анонса.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="https://t.me/alexlesleynew" target="_blank" rel="noopener" class="btn-primary">Подписаться в Telegram →</a>
+          <a href="club.html" class="btn-secondary">Вступить в клуб</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ПОДВАЛ -->
+<div id="site-footer"></div>
+
+<script src="assets/js/components.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (typeof initScrollReveal === 'function') initScrollReveal();
+
+  // Filter buttons
+  var filterBtns = document.querySelectorAll('.ev-filter-btn');
+  var cards = document.querySelectorAll('.ev-card:not(.ev-card--past)');
+
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      filterBtns.forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+
+      var filter = this.dataset.filter;
+      cards.forEach(function(card) {
+        if (filter === 'all') {
+          card.style.display = '';
+        } else {
+          var types = (card.dataset.type || '').split(' ');
+          card.style.display = types.includes(filter) ? '' : 'none';
+        }
+      });
+    });
+  });
+});
+
+function togglePast() {
+  var grid = document.getElementById('past-grid');
+  var arrow = document.getElementById('past-arrow');
+  var isOpen = grid.classList.toggle('open');
+  arrow.textContent = isOpen ? '▾' : '▸';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Приложение «Охотница» — персональный ИИ-коуч, трекер прогресса и закрытое сообщество женщин, идущих к замужеству." />
+  <meta property="og:title" content="Приложение Охотница — Alex Leslie" />
+  <meta property="og:description" content="Скачай приложение — твой персональный коуч в кармане." />
+  <meta property="og:type" content="website" />
+  <title>Приложение Охотница — Alex Leslie</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+
+  <style>
+  /* ─── APP PAGE ─── */
+
+  /* Hero */
+  .app-hero {
+    position: relative;
+    padding: calc(var(--header-h, 72px) + 80px) 0 100px;
+    background: var(--color-bg);
+    overflow: hidden;
+  }
+  .app-hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 80% at 20% 50%, rgba(194,24,91,.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 70% at 80% 50%, rgba(212,160,23,.07) 0%, transparent 60%),
+      var(--color-bg);
+    z-index: 0;
+  }
+  .app-hero__grid {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--container-px, 24px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .app-hero__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--color-women, #C2185B);
+    padding: 8px 20px;
+    border: 1px solid rgba(194,24,91,.3);
+    border-radius: 40px;
+    margin-bottom: 24px;
+  }
+  .app-hero__title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .app-hero__title span { color: var(--color-gold); }
+  .app-hero__sub {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    max-width: 480px;
+  }
+
+  /* Кнопки сторов */
+  .app-store-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .store-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 14px;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: var(--transition);
+    min-width: 160px;
+  }
+  .store-btn:hover {
+    background: rgba(255,255,255,.1);
+    border-color: var(--color-gold);
+    transform: translateY(-2px);
+  }
+  .store-btn__icon { font-size: 1.75rem; line-height: 1; }
+  .store-btn__text-small { font-size: .7rem; color: var(--color-text-muted); margin-bottom: 2px; }
+  .store-btn__text-big { font-size: .95rem; font-weight: 700; }
+  .store-btn--tg {
+    background: rgba(42,171,238,.1);
+    border-color: rgba(42,171,238,.3);
+  }
+  .store-btn--tg:hover { background: rgba(42,171,238,.2); border-color: #2AABEE; }
+
+  /* Статистика */
+  .app-hero__stats {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .app-stat {
+    display: flex;
+    flex-direction: column;
+  }
+  .app-stat__num {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-gold);
+  }
+  .app-stat__label { font-size: .8rem; color: var(--color-text-muted); }
+
+  /* Мокап телефона */
+  .app-mockup-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .app-mockup {
+    position: relative;
+    width: 280px;
+  }
+  .app-mockup__phone {
+    width: 100%;
+    background: #1A1A2E;
+    border-radius: 40px;
+    border: 3px solid rgba(255,255,255,.12);
+    padding: 16px;
+    box-shadow:
+      0 40px 80px rgba(0,0,0,.6),
+      0 0 0 1px rgba(255,255,255,.04),
+      inset 0 0 60px rgba(212,160,23,.03);
+    position: relative;
+    z-index: 2;
+  }
+  .app-mockup__notch {
+    width: 80px;
+    height: 24px;
+    background: #0D0D1A;
+    border-radius: 20px;
+    margin: 0 auto 12px;
+  }
+  .app-mockup__screen {
+    background: linear-gradient(160deg, #0D0D1A 0%, #1A1A2E 100%);
+    border-radius: 24px;
+    overflow: hidden;
+    aspect-ratio: 9/18;
+    position: relative;
+  }
+  /* Экран приложения */
+  .app-screen {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: .6rem;
+  }
+  .app-screen__header {
+    background: rgba(212,160,23,.08);
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+  }
+  .app-screen__logo { font-weight: 800; font-size: .65rem; color: var(--color-gold); }
+  .app-screen__level {
+    background: var(--color-gold);
+    color: #000;
+    font-weight: 800;
+    font-size: .55rem;
+    padding: 2px 6px;
+    border-radius: 20px;
+  }
+  .app-screen__body { padding: 10px 12px; flex: 1; overflow: hidden; }
+  .app-screen__greeting {
+    font-size: .6rem;
+    color: rgba(255,255,255,.5);
+    margin-bottom: 2px;
+  }
+  .app-screen__name {
+    font-size: .75rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+  /* Прогресс-кольцо */
+  .app-progress-ring {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,.03);
+    border-radius: 10px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(255,255,255,.06);
+  }
+  .app-ring {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: conic-gradient(#D4A017 0%, #D4A017 65%, rgba(255,255,255,.1) 65%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .app-ring::after {
+    content: '';
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background: #1A1A2E;
+    border-radius: 50%;
+  }
+  .app-ring__num {
+    position: relative;
+    z-index: 1;
+    font-size: .55rem;
+    font-weight: 800;
+    color: var(--color-gold);
+  }
+  .app-ring-info__title { font-size: .65rem; font-weight: 700; margin-bottom: 2px; }
+  .app-ring-info__sub { font-size: .55rem; color: rgba(255,255,255,.4); }
+  /* Задание дня */
+  .app-task {
+    background: linear-gradient(135deg, rgba(194,24,91,.15), rgba(212,160,23,.1));
+    border: 1px solid rgba(212,160,23,.2);
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+  }
+  .app-task__label { font-size: .55rem; color: var(--color-gold); font-weight: 700; margin-bottom: 3px; }
+  .app-task__text { font-size: .6rem; line-height: 1.4; }
+  /* Мини-чат */
+  .app-chat {
+    background: rgba(255,255,255,.02);
+    border-radius: 8px;
+    padding: 8px;
+    flex: 1;
+    overflow: hidden;
+  }
+  .app-chat__label { font-size: .55rem; color: rgba(255,255,255,.4); margin-bottom: 6px; }
+  .app-msg {
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+  }
+  .app-msg--ai .app-msg__bubble {
+    background: rgba(212,160,23,.15);
+    border-radius: 0 6px 6px 6px;
+    align-self: flex-start;
+  }
+  .app-msg--user .app-msg__bubble {
+    background: rgba(194,24,91,.2);
+    border-radius: 6px 0 6px 6px;
+    align-self: flex-end;
+  }
+  .app-msg__bubble { padding: 4px 6px; font-size: .55rem; line-height: 1.4; max-width: 85%; }
+  /* Навбар */
+  .app-navbar {
+    display: flex;
+    justify-content: space-around;
+    padding: 6px 0;
+    border-top: 1px solid rgba(255,255,255,.06);
+  }
+  .app-nav-item { font-size: .65rem; text-align: center; color: rgba(255,255,255,.3); }
+  .app-nav-item.active { color: var(--color-gold); }
+
+  /* Второй телефон (позади) */
+  .app-mockup__phone-2 {
+    position: absolute;
+    width: 240px;
+    background: #0D0D1A;
+    border-radius: 36px;
+    border: 2px solid rgba(255,255,255,.06);
+    padding: 14px;
+    right: -80px;
+    top: 40px;
+    z-index: 1;
+    opacity: .6;
+    transform: rotate(6deg);
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  }
+  .app-mockup__phone-2 .app-mockup__notch {
+    width: 60px;
+    height: 18px;
+    margin-bottom: 8px;
+  }
+  .app-mockup__phone-2 .app-mockup__screen {
+    border-radius: 18px;
+  }
+
+  /* Фоновые элементы */
+  .app-mockup__glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,160,23,.15) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+
+  /* 6 функций */
+  .app-features {
+    padding: var(--section-py, 120px) 0;
+    background: rgba(26,26,46,.3);
+  }
+  .app-features__container {
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--container-px, 24px);
+  }
+  .app-features__header { text-align: center; margin-bottom: 64px; }
+  .app-features__badge {
+    display: inline-flex;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 16px;
+  }
+  .app-features__title { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 800; }
+  .app-features__sub { color: var(--color-text-muted); margin-top: 12px; }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .feature-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 32px;
+    transition: var(--transition);
+  }
+  .feature-card:hover {
+    border-color: var(--color-border);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+  }
+  .feature-card__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: rgba(212,160,23,.1);
+    border: 1px solid rgba(212,160,23,.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  .feature-card__num {
+    font-size: .75rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    opacity: .5;
+    margin-bottom: 8px;
+    letter-spacing: .1em;
+  }
+  .feature-card__title { font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; }
+  .feature-card__desc { font-size: .875rem; color: var(--color-text-muted); line-height: 1.7; }
+  .feature-card__badge {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: .75rem;
+    font-weight: 700;
+    background: rgba(212,160,23,.12);
+    color: var(--color-gold);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  /* Отзывы из стора */
+  .app-reviews {
+    padding: var(--section-py, 120px) 0;
+  }
+  .app-reviews__container {
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--container-px, 24px);
+  }
+  .app-reviews__header { text-align: center; margin-bottom: 48px; }
+  .app-reviews__rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+  .app-rating-num {
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--color-gold);
+    line-height: 1;
+  }
+  .app-rating-stars { display: flex; gap: 4px; }
+  .app-rating-star { color: var(--color-gold); font-size: 1.5rem; }
+  .app-rating-count { font-size: .875rem; color: var(--color-text-muted); }
+
+  .app-reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .app-review-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 24px;
+    transition: var(--transition);
+  }
+  .app-review-card:hover { border-color: var(--color-border); }
+  .app-review-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .app-review-card__stars { color: var(--color-gold); font-size: .9rem; }
+  .app-review-card__platform {
+    font-size: .7rem;
+    color: var(--color-text-muted);
+    background: rgba(255,255,255,.05);
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+  .app-review-card__title { font-weight: 700; font-size: .9rem; margin-bottom: 8px; }
+  .app-review-card__text { font-size: .85rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 12px; }
+  .app-review-card__author { font-size: .8rem; color: var(--color-gold); font-weight: 600; }
+
+  /* Скачать секция */
+  .app-download {
+    padding: var(--section-py, 120px) 0;
+    background: linear-gradient(135deg, rgba(194,24,91,.06) 0%, rgba(212,160,23,.06) 50%, rgba(194,24,91,.06) 100%);
+  }
+  .app-download__container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 var(--container-px, 24px);
+    text-align: center;
+  }
+  .app-download__title { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; margin-bottom: 16px; }
+  .app-download__sub { color: var(--color-text-muted); font-size: 1.05rem; margin-bottom: 40px; }
+  .app-download__grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 32px;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+  .app-download__btns {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .app-download__or {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-text-muted);
+    font-size: .875rem;
+  }
+  .app-download__or::before,
+  .app-download__or::after {
+    content: '';
+    width: 1px;
+    height: 32px;
+    background: var(--color-border-light);
+  }
+  /* QR */
+  .app-qr-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .app-qr {
+    width: 120px;
+    height: 120px;
+    background: #fff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-size: .65rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 8px;
+    /* TODO: Заменить на настоящий QR */
+  }
+  .app-qr-label { font-size: .8rem; color: var(--color-text-muted); text-align: center; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .app-reviews-grid { grid-template-columns: repeat(2, 1fr); }
+    .app-download__grid { grid-template-columns: 1fr; }
+    .app-download__or { flex-direction: row; }
+    .app-download__or::before, .app-download__or::after { width: 32px; height: 1px; }
+  }
+  @media (max-width: 768px) {
+    .app-hero__grid { grid-template-columns: 1fr; }
+    .app-mockup-wrap { order: -1; }
+    .app-mockup { width: 220px; }
+    .app-mockup__phone-2 { display: none; }
+    .features-grid { grid-template-columns: 1fr; }
+    .app-reviews-grid { grid-template-columns: 1fr; }
+    .app-reviews { padding: var(--section-py-mob, 64px) 0; }
+    .app-features { padding: var(--section-py-mob, 64px) 0; }
+    .app-download { padding: var(--section-py-mob, 64px) 0; }
+  }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <!-- HERO -->
+  <section class="app-hero">
+    <div class="app-hero__bg"></div>
+    <div class="app-hero__grid">
+
+      <!-- Текст -->
+      <div>
+        <div class="app-hero__tag">📱 Приложение</div>
+        <h1 class="app-hero__title">«Охотница»<br><span>путь к замужеству</span><br>в твоём кармане</h1>
+        <p class="app-hero__sub">Персональный ИИ-коуч, трекер прогресса, банк техник и закрытое сообщество — всё в одном приложении. Конкурентов в этой нише нет.</p>
+
+        <div class="app-store-btns">
+          <a href="#" target="_blank" rel="noopener" class="store-btn">
+            <div class="store-btn__icon"> </div>
+            <div>
+              <div class="store-btn__text-small">Скачать в</div>
+              <div class="store-btn__text-big">App Store</div>
+            </div>
+          </a>
+          <a href="#" target="_blank" rel="noopener" class="store-btn">
+            <div class="store-btn__icon">▶</div>
+            <div>
+              <div class="store-btn__text-small">Скачать в</div>
+              <div class="store-btn__text-big">Google Play</div>
+            </div>
+          </a>
+          <a href="https://t.me/alexlesley_bot" target="_blank" rel="noopener" class="store-btn store-btn--tg">
+            <div class="store-btn__icon">✈</div>
+            <div>
+              <div class="store-btn__text-small">Открыть в</div>
+              <div class="store-btn__text-big">Telegram</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="app-hero__stats">
+          <div class="app-stat">
+            <span class="app-stat__num">4.8 ★</span>
+            <span class="app-stat__label">Рейтинг</span>
+          </div>
+          <div class="app-stat">
+            <span class="app-stat__num"><!-- TODO -->К+</span>
+            <span class="app-stat__label">Скачиваний</span>
+          </div>
+          <div class="app-stat">
+            <span class="app-stat__num">100+</span>
+            <span class="app-stat__label">Техник</span>
+          </div>
+          <div class="app-stat">
+            <span class="app-stat__num">24/7</span>
+            <span class="app-stat__label">ИИ-коуч</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Мокап телефона -->
+      <div class="app-mockup-wrap">
+        <div class="app-mockup__glow"></div>
+
+        <!-- Задний телефон -->
+        <div class="app-mockup__phone-2">
+          <div class="app-mockup__notch"></div>
+          <div class="app-mockup__screen" style="aspect-ratio:9/18;background:linear-gradient(160deg,#0D0D1A,#1A1A2E);border-radius:18px;padding:8px;">
+            <div style="font-size:.5rem;color:var(--color-gold);font-weight:800;margin-bottom:6px;">100+ ТЕХНИК</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="background:rgba(255,255,255,.04);border-radius:6px;padding:6px;font-size:.5rem;">🎯 Правильное молчание</div>
+              <div style="background:rgba(255,255,255,.04);border-radius:6px;padding:6px;font-size:.5rem;">💫 Якорение</div>
+              <div style="background:rgba(212,160,23,.08);border-radius:6px;padding:6px;font-size:.5rem;color:var(--color-gold);">⚡ Эффект бабочки</div>
+              <div style="background:rgba(255,255,255,.04);border-radius:6px;padding:6px;font-size:.5rem;">🔥 Незавершённое действие</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Главный телефон -->
+        <div class="app-mockup">
+          <div class="app-mockup__phone">
+            <div class="app-mockup__notch"></div>
+            <div class="app-mockup__screen">
+              <div class="app-screen">
+                <div class="app-screen__header">
+                  <div class="app-screen__logo">🦅 ОХОТНИЦА</div>
+                  <div class="app-screen__level">ур. 3</div>
+                </div>
+                <div class="app-screen__body">
+                  <div class="app-screen__greeting">Добрый день,</div>
+                  <div class="app-screen__name">Анна 👋</div>
+
+                  <div class="app-progress-ring">
+                    <div class="app-ring">
+                      <span class="app-ring__num">65%</span>
+                    </div>
+                    <div class="app-ring-info">
+                      <div class="app-ring-info__title">Прогресс пути</div>
+                      <div class="app-ring-info__sub">Шаг 6 из 9</div>
+                    </div>
+                  </div>
+
+                  <div class="app-task">
+                    <div class="app-task__label">📍 ЗАДАНИЕ ДНЯ</div>
+                    <div class="app-task__text">Напиши ему первой — но только после 18:00. Используй технику «незавершённого действия».</div>
+                  </div>
+
+                  <div class="app-chat">
+                    <div class="app-chat__label">ИИ-КОУЧ 24/7</div>
+                    <div class="app-msg app-msg--ai">
+                      <div class="app-msg__bubble">Он не ответил 2 дня — это нормально. Дай ещё 24 часа...</div>
+                    </div>
+                    <div class="app-msg app-msg--user">
+                      <div class="app-msg__bubble">А если он пишет, но редко?</div>
+                    </div>
+                    <div class="app-msg app-msg--ai">
+                      <div class="app-msg__bubble">Хороший знак. Применяем технику «правильный ответ»...</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="app-navbar">
+                  <div class="app-nav-item active">🏠</div>
+                  <div class="app-nav-item">📖</div>
+                  <div class="app-nav-item">🎯</div>
+                  <div class="app-nav-item">💬</div>
+                  <div class="app-nav-item">👤</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 6 ФУНКЦИЙ -->
+  <section class="app-features">
+    <div class="app-features__container">
+      <div class="app-features__header">
+        <div class="app-features__badge">⚡ Возможности</div>
+        <h2 class="app-features__title">Всё, что нужно для результата</h2>
+        <p class="app-features__sub">6 ключевых функций, которые делают приложение уникальным</p>
+      </div>
+
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <div class="feature-card__icon">🎯</div>
+          <div class="feature-card__num">01</div>
+          <div class="feature-card__title">Оценка готовности</div>
+          <div class="feature-card__desc">Тест «Готова ли я к замужеству» — 20 вопросов, персональный результат и индивидуальный план действий. Стартовая точка пути.</div>
+          <span class="feature-card__badge">★★★★★ Приоритет MVP</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">📍</div>
+          <div class="feature-card__num">02</div>
+          <div class="feature-card__title">Ежедневные задания</div>
+          <div class="feature-card__desc">«Задание дня»: конкретные шаги, техники и действия с push-уведомлениями. Геймификация превращает методологию в игру с прогрессом.</div>
+          <span class="feature-card__badge">★★★★★ Геймификация</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">📊</div>
+          <div class="feature-card__num">03</div>
+          <div class="feature-card__title">Трекер прогресса</div>
+          <div class="feature-card__desc">Дневник свиданий, знакомств и отношений с визуализацией пути. Видишь прогресс — продолжаешь двигаться. Данные синхронизированы с личным кабинетом.</div>
+          <span class="feature-card__badge">★★★★ Дневник</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">🤖</div>
+          <div class="feature-card__num">04</div>
+          <div class="feature-card__title">ИИ-коуч 24/7</div>
+          <div class="feature-card__desc">Чат с ИИ, обученным на методологии Лесли. Отвечает на вопросы в любое время — «что написать», «как реагировать», «это красный флаг?»</div>
+          <span class="feature-card__badge">★★★★ Уникальный</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">💡</div>
+          <div class="feature-card__num">05</div>
+          <div class="feature-card__title">Банк техник</div>
+          <div class="feature-card__desc">Библиотека 100+ техник с пошаговыми инструкциями: правильное молчание, якорение, эффект бабочки и другие. Фильтр по ситуации и этапу отношений.</div>
+          <span class="feature-card__badge">★★★★ 100+ техник</span>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">💬</div>
+          <div class="feature-card__num">06</div>
+          <div class="feature-card__title">Клубный чат</div>
+          <div class="feature-card__desc">Закрытое сообщество участниц клуба с нативными push-уведомлениями. Поддержка, истории успеха и нетворкинг — прямо в приложении.</div>
+          <span class="feature-card__badge">★★★★★ Сообщество</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ОТЗЫВЫ -->
+  <section class="app-reviews">
+    <div class="app-reviews__container">
+      <div class="app-reviews__header">
+        <div class="app-reviews__rating">
+          <div class="app-rating-num">4.8</div>
+          <div>
+            <div class="app-rating-stars">
+              <span class="app-rating-star">★</span>
+              <span class="app-rating-star">★</span>
+              <span class="app-rating-star">★</span>
+              <span class="app-rating-star">★</span>
+              <span class="app-rating-star">★</span>
+            </div>
+            <div class="app-rating-count"><!-- TODO --> отзывов в App Store и Google Play</div>
+          </div>
+        </div>
+        <h2 style="font-size:clamp(1.5rem,3vw,2rem);font-weight:800;">Что говорят пользователи</h2>
+      </div>
+
+      <div class="app-reviews-grid">
+
+        <div class="app-review-card">
+          <div class="app-review-card__top">
+            <div class="app-review-card__stars">★★★★★</div>
+            <div class="app-review-card__platform">App Store</div>
+          </div>
+          <div class="app-review-card__title">Это работает!</div>
+          <div class="app-review-card__text"><!-- TODO --> Пользуюсь 3 месяца. ИИ-коуч реально помогает в конкретных ситуациях — не общими словами, а точными ответами. Задания дисциплинируют.</div>
+          <div class="app-review-card__author"><!-- TODO --> Анна К., Москва</div>
+        </div>
+
+        <div class="app-review-card">
+          <div class="app-review-card__top">
+            <div class="app-review-card__stars">★★★★★</div>
+            <div class="app-review-card__platform">Google Play</div>
+          </div>
+          <div class="app-review-card__title">Лучшее приложение об отношениях</div>
+          <div class="app-review-card__text"><!-- TODO --> Банк техник — золото. Наконец-то не абстрактные советы, а конкретные шаги с примерами. Трекер помогает видеть прогресс.</div>
+          <div class="app-review-card__author"><!-- TODO --> Мария Д., Санкт-Петербург</div>
+        </div>
+
+        <div class="app-review-card">
+          <div class="app-review-card__top">
+            <div class="app-review-card__stars">★★★★★</div>
+            <div class="app-review-card__platform">Telegram</div>
+          </div>
+          <div class="app-review-card__title">Клубный чат — это сообщество</div>
+          <div class="app-review-card__text"><!-- TODO --> В клубном чате нашла поддержку и девочек, которые идут тем же путём. Это бесценно — когда рядом те, кто тебя понимает.</div>
+          <div class="app-review-card__author"><!-- TODO --> Екатерина Л., Казань</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- СКАЧАТЬ -->
+  <section class="app-download">
+    <div class="app-download__container">
+      <h2 class="app-download__title">Начни путь прямо сейчас</h2>
+      <p class="app-download__sub">Скачай приложение или открой в Telegram — бесплатно</p>
+
+      <div class="app-download__grid">
+        <div class="app-download__btns">
+          <a href="#" target="_blank" rel="noopener" class="store-btn" style="justify-content:center;">
+            <div class="store-btn__icon"> </div>
+            <div>
+              <div class="store-btn__text-small">Скачать в</div>
+              <div class="store-btn__text-big">App Store</div>
+            </div>
+          </a>
+          <a href="#" target="_blank" rel="noopener" class="store-btn" style="justify-content:center;">
+            <div class="store-btn__icon">▶</div>
+            <div>
+              <div class="store-btn__text-small">Скачать в</div>
+              <div class="store-btn__text-big">Google Play</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="app-download__or">или</div>
+
+        <div class="app-qr-wrap">
+          <div class="app-qr">
+            <!-- TODO: QR-код -->
+            QR<br>код
+          </div>
+          <div class="app-qr-label">Наведи камеру<br>для скачивания</div>
+          <a href="https://t.me/alexlesley_bot" target="_blank" rel="noopener" class="store-btn store-btn--tg" style="justify-content:center;">
+            <div class="store-btn__icon">✈</div>
+            <div>
+              <div class="store-btn__text-small">Открыть в</div>
+              <div class="store-btn__text-big">Telegram Mini-App</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <p style="font-size:.875rem;color:var(--color-text-muted);">
+        Рейтинг 4.8 ★ · <!-- TODO --> скачиваний · iOS & Android
+      </p>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/components.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    // Scroll-reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.feature-card, .app-review-card, .app-stat').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = `opacity .5s ease ${i * 0.06}s, transform .5s ease ${i * 0.06}s`;
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

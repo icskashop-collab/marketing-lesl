@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модуль 1: Философия и смыслы | Маркетинг | Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <style>
+    .mod-nav {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 20px 0 0;
+    }
+    .mod-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      padding: 6px 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      transition: all 0.2s;
+    }
+    .mod-nav a:hover {
+      color: var(--color-gold);
+      border-color: var(--color-gold);
+    }
+
+    /* ── ЗАГОЛОВОК МОДУЛЯ ── */
+    .mod-header {
+      padding: 32px 0 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 40px;
+    }
+    .mod-header__num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--color-gold);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .mod-header__title {
+      font-size: clamp(24px, 4vw, 40px);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .mod-header__sub { color: var(--color-text-muted); font-size: 15px; }
+
+    /* ── СЕКЦИИ ── */
+    .section { margin-bottom: 56px; }
+    .section__title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section__title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(212,160,23,0.2);
+    }
+
+    /* ── ГРАФ ФИЛОСОФИИ ── */
+    .philosophy-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 24px;
+    }
+    .graph-canvas-wrap {
+      background: var(--color-card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 24px;
+      min-height: 400px;
+      position: relative;
+      overflow: hidden;
+    }
+    .graph-svg {
+      width: 100%;
+      height: 420px;
+      display: block;
+    }
+    .graph-node {
+      cursor: pointer;
+    }
+    .graph-node circle {
+      transition: r 0.2s, filter 0.2s;
+    }
+    .graph-node:hover circle {
+      filter: brightness(1.3);
+    }
+    .graph-node text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      text-anchor: middle;
+      dominant-baseline: central;
+      pointer-events: none;
+    }
+    .philosophy-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .insight-box {
+      background: linear-gradient(135deg, rgba(212,160,23,0.15), rgba(212,160,23,0.05));
+      border: 1px solid rgba(212,160,23,0.3);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .insight-box__label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--color-gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .insight-box__text {
+      font-size: 14px;
+      line-height: 1.6;
+      font-style: italic;
+      color: var(--color-text);
+    }
+    .node-detail-box {
+      background: var(--color-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 16px;
+      flex: 1;
+    }
+    .node-detail-box__title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-gold);
+      margin-bottom: 8px;
+    }
+    .node-detail-box__text {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+    .node-detail-placeholder {
+      color: var(--color-text-muted);
+      font-size: 13px;
+      font-style: italic;
+    }
+
+    /* ── ФУНДАМЕНТАЛЬНЫЕ ИДЕИ ── */
+    .fundamentals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .fundamental-card {
+      background: var(--color-card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 20px;
+      border-left: 3px solid var(--color-gold);
+    }
+    .fundamental-card__title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-gold);
+      margin-bottom: 8px;
+    }
+    .fundamental-card__text {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── ЭВОЛЮЦИЯ КНИГ ── */
+    .evolution-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+    .evolution-timeline::before {
+      content: '';
+      position: absolute;
+      left: 100px;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: rgba(212,160,23,0.2);
+    }
+    .evo-item {
+      display: grid;
+      grid-template-columns: 100px 24px 1fr;
+      gap: 0 16px;
+      padding: 20px 0;
+      align-items: start;
+    }
+    .evo-period {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-gold);
+      text-align: right;
+      padding-top: 2px;
+    }
+    .evo-dot {
+      width: 12px;
+      height: 12px;
+      background: var(--color-gold);
+      border-radius: 50%;
+      margin-top: 4px;
+      position: relative;
+      z-index: 1;
+      margin-left: 6px;
+    }
+    .evo-content { padding-left: 8px; }
+    .evo-books {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+    .evo-change {
+      font-size: 14px;
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    /* ── СЛОВАРЬ ── */
+    .search-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .search-bar input {
+      flex: 1;
+      background: var(--color-card);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 10px 16px;
+      color: var(--color-text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      outline: none;
+    }
+    .search-bar input:focus { border-color: var(--color-gold); }
+    .search-bar input::placeholder { color: var(--color-text-muted); }
+
+    .top-terms {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .term-badge {
+      background: rgba(212,160,23,0.15);
+      border: 1px solid rgba(212,160,23,0.4);
+      color: var(--color-gold);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .term-badge:hover { background: rgba(212,160,23,0.3); }
+
+    .terms-table-wrap { overflow-x: auto; }
+    .terms-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .terms-table th {
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      white-space: nowrap;
+    }
+    .terms-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .terms-table tr:hover td { background: rgba(255,255,255,0.03); }
+    .term-name { font-weight: 700; color: var(--color-text); }
+    .term-stars { color: var(--color-gold); letter-spacing: 1px; }
+    .term-top-badge {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      background: rgba(212,160,23,0.2);
+      color: var(--color-gold);
+      padding: 1px 6px;
+      border-radius: 3px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    /* ── БРЕНД ── */
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .why-card {
+      background: var(--color-card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .why-card__title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-gold);
+      margin-bottom: 8px;
+    }
+    .why-card__text {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    .trust-table-wrap { overflow-x: auto; margin-bottom: 32px; }
+    .trust-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .trust-table th {
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .trust-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: top;
+    }
+    .type-trust { color: #4CAF50; font-weight: 700; }
+    .type-neutral { color: var(--color-gold); font-weight: 700; }
+    .type-resist { color: #F44336; font-weight: 700; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .col-card {
+      background: var(--color-card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .col-card__title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .col-card--lock .col-card__title { color: #F44336; }
+    .col-card--unlock .col-card__title { color: #4CAF50; }
+    .col-card ul {
+      list-style: none;
+      padding: 0; margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .col-card li {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .col-card--lock li::before { content: '🔒'; position: absolute; left: 0; font-size: 11px; }
+    .col-card--unlock li::before { content: '✏️'; position: absolute; left: 0; font-size: 11px; }
+
+    .archetype-box {
+      background: linear-gradient(135deg, rgba(156,39,176,0.2), rgba(156,39,176,0.05));
+      border: 1px solid rgba(156,39,176,0.4);
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
+    }
+    .archetype-box__label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: #CE93D8;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .archetype-box__name {
+      font-size: 28px;
+      font-weight: 800;
+      color: #E040FB;
+      margin-bottom: 12px;
+    }
+    .archetype-box__desc {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .philosophy-layout { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+      .evolution-timeline::before { left: 70px; }
+      .evo-item { grid-template-columns: 70px 20px 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <div class="container">
+    <nav class="mod-nav">
+      <a href="../index.html">← Вернуться на главную</a>
+      <a href="index.html">← В Маркетинг</a>
+    </nav>
+
+    <div class="mod-header">
+      <div class="mod-header__num">Модуль 1</div>
+      <h1 class="mod-header__title">Философия и смыслы</h1>
+      <p class="mod-header__sub">Источник: Анализ книг Алекса Лесли, блоки 1, 2, 8</p>
+    </div>
+
+    <!-- 1. КАРТА ФИЛОСОФИИ -->
+    <section class="section">
+      <div class="section__title">Карта философии</div>
+      <div class="philosophy-layout">
+        <div class="graph-canvas-wrap">
+          <svg class="graph-svg" id="philosophy-graph" viewBox="0 0 700 420">
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(212,160,23,0.5)"/>
+              </marker>
+            </defs>
+            <!-- Edges drawn by JS -->
+            <g id="graph-edges"></g>
+            <!-- Nodes drawn by JS -->
+            <g id="graph-nodes"></g>
+          </svg>
+        </div>
+        <div class="philosophy-sidebar">
+          <div class="insight-box">
+            <div class="insight-box__label">Ключевой инсайт</div>
+            <div class="insight-box__text" id="key-insight">Нажми на узел графа, чтобы узнать подробности.</div>
+          </div>
+          <div class="node-detail-box" id="node-detail">
+            <div class="node-detail-placeholder">← Нажми на любой элемент графа</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Фундаментальные идеи -->
+      <div style="margin-top:32px;">
+        <div style="font-size:13px;font-weight:700;color:var(--color-text-muted);margin-bottom:16px;letter-spacing:1px;">ФУНДАМЕНТАЛЬНЫЕ ИДЕИ (повторяются во всех книгах)</div>
+        <div class="fundamentals-grid" id="fundamentals-grid"></div>
+      </div>
+
+      <!-- Эволюция книг -->
+      <div style="margin-top:40px;">
+        <div style="font-size:13px;font-weight:700;color:var(--color-text-muted);margin-bottom:16px;letter-spacing:1px;">ЭВОЛЮЦИЯ ИДЕЙ ПО КНИГАМ</div>
+        <div class="evolution-timeline" id="evo-timeline"></div>
+      </div>
+    </section>
+
+    <!-- 2. СЛОВАРЬ ТЕРМИНОВ -->
+    <section class="section">
+      <div class="section__title">Словарь терминов</div>
+      <div style="margin-bottom:16px;font-size:13px;color:var(--color-text-muted);">Топ-термины — самые сильные для маркетинга:</div>
+      <div class="top-terms" id="top-terms"></div>
+      <div class="search-bar">
+        <input type="text" id="term-search" placeholder="Поиск по термину или определению…">
+      </div>
+      <div class="terms-table-wrap">
+        <table class="terms-table">
+          <thead>
+            <tr>
+              <th>Термин</th>
+              <th>Определение</th>
+              <th style="width:80px;">Заряд</th>
+              <th>Маркетинговый потенциал</th>
+            </tr>
+          </thead>
+          <tbody id="terms-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3. ПСИХОЛОГИЧЕСКИЙ ПРОФИЛЬ БРЕНДА -->
+    <section class="section">
+      <div class="section__title">Психологический профиль бренда</div>
+
+      <div style="margin-bottom:24px;font-size:13px;color:var(--color-text-muted);font-weight:700;letter-spacing:1px;">ПОЧЕМУ ИДУТ ИМЕННО К ЛЕСЛИ</div>
+      <div class="brand-grid" id="why-grid"></div>
+
+      <div style="margin-bottom:16px;margin-top:32px;font-size:13px;color:var(--color-text-muted);font-weight:700;letter-spacing:1px;">ЧТО ВЫЗЫВАЕТ ДОВЕРИЕ / СОПРОТИВЛЕНИЕ</div>
+      <div class="trust-table-wrap">
+        <table class="trust-table">
+          <thead>
+            <tr>
+              <th>Элемент</th>
+              <th>Эффект</th>
+              <th>Вердикт</th>
+              <th>Тип</th>
+            </tr>
+          </thead>
+          <tbody id="trust-body"></tbody>
+        </table>
+      </div>
+
+      <div style="margin-bottom:16px;font-size:13px;color:var(--color-text-muted);font-weight:700;letter-spacing:1px;">ЧТО НЕЛЬЗЯ МЕНЯТЬ / ЧТО МОЖНО МОДЕРНИЗИРОВАТЬ</div>
+      <div class="two-col">
+        <div class="col-card col-card--lock">
+          <div class="col-card__title">🔒 Нельзя менять</div>
+          <ul id="cant-change-list"></ul>
+        </div>
+        <div class="col-card col-card--unlock">
+          <div class="col-card__title">✏️ Можно модернизировать</div>
+          <ul id="can-modernize-list"></ul>
+        </div>
+      </div>
+
+      <div class="archetype-box">
+        <div class="archetype-box__label">Архетип бренда</div>
+        <div class="archetype-box__name" id="archetype-name"></div>
+        <div class="archetype-box__desc" id="archetype-desc"></div>
+      </div>
+    </section>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/data/m1.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    /* ── ГРАФ ФИЛОСОФИИ ── */
+    (function() {
+      var d = window.M1;
+      // Layout positions
+      var pos = {
+        center:    { x: 350, y: 210 },
+        game:      { x: 350, y: 100 },
+        players:   { x: 350, y: 310 },
+        master:    { x: 200, y: 380 },
+        huntress:  { x: 500, y: 380 },
+        emotions:  { x: 120, y: 230 },
+        anchoring: { x: 120, y: 310 },
+        negging:   { x: 600, y: 270 },
+        love:      { x: 600, y: 360 },
+      };
+
+      var edgesG = document.getElementById('graph-edges');
+      var nodesG = document.getElementById('graph-nodes');
+      var detailBox = document.getElementById('node-detail');
+      var keyInsight = document.getElementById('key-insight');
+      keyInsight.textContent = d.keyInsight;
+
+      // Draw edges
+      d.philosophy.edges.forEach(function(e) {
+        var from = pos[e[0]], to = pos[e[1]];
+        var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', from.x); line.setAttribute('y1', from.y);
+        line.setAttribute('x2', to.x);   line.setAttribute('y2', to.y);
+        line.setAttribute('stroke', 'rgba(212,160,23,0.3)');
+        line.setAttribute('stroke-width', '1.5');
+        line.setAttribute('marker-end', 'url(#arrow)');
+        edgesG.appendChild(line);
+      });
+
+      // Draw center node
+      var allNodes = [d.philosophy.center].concat(d.philosophy.nodes);
+      allNodes.forEach(function(node) {
+        var p = pos[node.id];
+        var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('class', 'graph-node');
+        g.style.cursor = 'pointer';
+
+        var isCenter = node.id === 'center';
+        var r = isCenter ? 55 : 40;
+
+        var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', p.x); circle.setAttribute('cy', p.y);
+        circle.setAttribute('r', r);
+        circle.setAttribute('fill', node.color + (isCenter ? 'CC' : '44'));
+        circle.setAttribute('stroke', node.color);
+        circle.setAttribute('stroke-width', isCenter ? '2.5' : '1.5');
+
+        // Split label by spaces for wrapping
+        var words = node.label.split(' ');
+        var lines = [];
+        var line = '';
+        words.forEach(function(w) {
+          if ((line + ' ' + w).trim().length > 12) {
+            if (line) lines.push(line);
+            line = w;
+          } else {
+            line = (line + ' ' + w).trim();
+          }
+        });
+        if (line) lines.push(line);
+
+        var fontSize = isCenter ? 10 : 9;
+        var totalH = lines.length * (fontSize + 2);
+        var startY = p.y - totalH / 2 + fontSize / 2;
+
+        g.appendChild(circle);
+        lines.forEach(function(txt, i) {
+          var t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          t.setAttribute('x', p.x);
+          t.setAttribute('y', startY + i * (fontSize + 3));
+          t.setAttribute('font-size', fontSize);
+          t.setAttribute('fill', '#fff');
+          t.setAttribute('font-weight', '700');
+          t.setAttribute('text-anchor', 'middle');
+          t.setAttribute('dominant-baseline', 'central');
+          t.textContent = txt;
+          g.appendChild(t);
+        });
+
+        g.addEventListener('click', function() {
+          detailBox.innerHTML = '<div class="node-detail-box__title">' + node.label + '</div>' +
+            '<div class="node-detail-box__text">' + node.desc + '</div>';
+        });
+        nodesG.appendChild(g);
+      });
+    })();
+
+    /* ── ФУНДАМЕНТАЛЬНЫЕ ИДЕИ ── */
+    (function() {
+      var grid = document.getElementById('fundamentals-grid');
+      window.M1.fundamentals.forEach(function(f) {
+        var el = document.createElement('div');
+        el.className = 'fundamental-card';
+        el.innerHTML = '<div class="fundamental-card__title">' + f.title + '</div>' +
+          '<div class="fundamental-card__text">' + f.text + '</div>';
+        grid.appendChild(el);
+      });
+    })();
+
+    /* ── ЭВОЛЮЦИЯ КНИГ ── */
+    (function() {
+      var tl = document.getElementById('evo-timeline');
+      window.M1.bookEvolution.forEach(function(e) {
+        var el = document.createElement('div');
+        el.className = 'evo-item';
+        el.innerHTML = '<div class="evo-period">' + e.period + '</div>' +
+          '<div><div class="evo-dot"></div></div>' +
+          '<div class="evo-content">' +
+          '<div class="evo-books">' + e.books + '</div>' +
+          '<div class="evo-change">' + e.change + '</div>' +
+          '</div>';
+        tl.appendChild(el);
+      });
+    })();
+
+    /* ── СЛОВАРЬ ── */
+    (function() {
+      var terms = window.M1.terms;
+      var tbody = document.getElementById('terms-body');
+      var searchInput = document.getElementById('term-search');
+      var topTermsEl = document.getElementById('top-terms');
+
+      // Top terms badges
+      terms.filter(function(t) { return t.top; }).forEach(function(t) {
+        var badge = document.createElement('span');
+        badge.className = 'term-badge';
+        badge.textContent = t.term;
+        badge.addEventListener('click', function() {
+          searchInput.value = t.term;
+          renderTable(t.term);
+        });
+        topTermsEl.appendChild(badge);
+      });
+
+      function stars(n) {
+        var s = '';
+        for (var i = 0; i < 5; i++) s += i < n ? '★' : '☆';
+        return s;
+      }
+
+      function renderTable(filter) {
+        var q = (filter || '').toLowerCase();
+        tbody.innerHTML = '';
+        terms.forEach(function(t) {
+          if (q && t.term.toLowerCase().indexOf(q) === -1 &&
+              t.definition.toLowerCase().indexOf(q) === -1 &&
+              t.potential.toLowerCase().indexOf(q) === -1) return;
+          var tr = document.createElement('tr');
+          tr.innerHTML = '<td><span class="term-name">' + t.term + '</span>' +
+            (t.top ? '<span class="term-top-badge">ТОП</span>' : '') + '</td>' +
+            '<td style="color:var(--color-text-muted);max-width:300px;">' + t.definition + '</td>' +
+            '<td><span class="term-stars">' + stars(t.charge) + '</span></td>' +
+            '<td style="color:var(--color-text-muted);">' + t.potential + '</td>';
+          tbody.appendChild(tr);
+        });
+      }
+
+      renderTable('');
+      searchInput.addEventListener('input', function() { renderTable(this.value); });
+    })();
+
+    /* ── БРЕНД: ПОЧЕМУ ИДУТ ── */
+    (function() {
+      var brand = window.M1.brand;
+      var grid = document.getElementById('why-grid');
+      brand.whyCome.forEach(function(w) {
+        var el = document.createElement('div');
+        el.className = 'why-card';
+        el.innerHTML = '<div class="why-card__title">' + w.title + '</div>' +
+          '<div class="why-card__text">' + w.text + '</div>';
+        grid.appendChild(el);
+      });
+
+      // Trust table
+      var tbody = document.getElementById('trust-body');
+      brand.trust.forEach(function(t) {
+        var typeClass = 'type-' + t.type;
+        var typeLabel = t.type === 'trust' ? 'Доверие' : t.type === 'resist' ? 'Сопротивление' : 'Нейтральный';
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td style="font-weight:600;">' + t.element + '</td>' +
+          '<td style="color:var(--color-text-muted);">' + t.effect + '</td>' +
+          '<td style="color:var(--color-text-muted);">' + t.verdict + '</td>' +
+          '<td><span class="' + typeClass + '">' + typeLabel + '</span></td>';
+        tbody.appendChild(tr);
+      });
+
+      // Can't change / can modernize
+      var cantList = document.getElementById('cant-change-list');
+      brand.cantChange.forEach(function(item) {
+        var li = document.createElement('li');
+        li.textContent = item;
+        cantList.appendChild(li);
+      });
+      var modernList = document.getElementById('can-modernize-list');
+      brand.canModernize.forEach(function(item) {
+        var li = document.createElement('li');
+        li.textContent = item;
+        modernList.appendChild(li);
+      });
+
+      // Archetype
+      document.getElementById('archetype-name').textContent = brand.archetype;
+      document.getElementById('archetype-desc').textContent = brand.archetypeDesc;
+    })();
+  </script>
+</body>
+</html>

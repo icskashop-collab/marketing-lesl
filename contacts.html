@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Контакты Алекса Лесли — напишите нам, задайте вопрос о курсах, клубе или приложении." />
+  <meta property="og:title" content="Контакты — Alex Leslie" />
+  <meta property="og:description" content="Свяжитесь с командой Алекса Лесли." />
+  <meta property="og:type" content="website" />
+  <title>Контакты — Alex Leslie</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+
+  <style>
+  /* ─── CONTACTS PAGE ─── */
+  .contacts-hero {
+    position: relative;
+    padding: calc(var(--header-h, 72px) + 80px) 0 80px;
+    background: var(--color-bg);
+    overflow: hidden;
+  }
+  .contacts-hero__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 70% at 50% 0%, rgba(212,160,23,.06) 0%, transparent 65%);
+    z-index: 0;
+  }
+  .contacts-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--container-px, 24px);
+    text-align: center;
+  }
+  .contacts-hero__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    padding: 8px 20px;
+    border: 1px solid rgba(212,160,23,.3);
+    border-radius: 40px;
+    margin-bottom: 24px;
+  }
+  .contacts-hero__title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 16px;
+  }
+  .contacts-hero__sub {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* Основной контент */
+  .contacts-content {
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 80px var(--container-px, 24px);
+  }
+  .contacts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  /* Карточки контактов */
+  .contact-cards { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
+  .contact-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 20px 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+  }
+  .contact-card:hover {
+    border-color: var(--color-border);
+    transform: translateX(4px);
+  }
+  .contact-card__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+  .contact-card__icon--tg { background: rgba(42,171,238,.15); }
+  .contact-card__icon--email { background: rgba(212,160,23,.12); }
+  .contact-card__icon--vk { background: rgba(74,118,168,.15); }
+  .contact-card__icon--yt { background: rgba(255,0,0,.12); }
+  .contact-card__label { font-size: .75rem; color: var(--color-text-muted); margin-bottom: 4px; }
+  .contact-card__value { font-weight: 700; font-size: .95rem; }
+  .contact-card__arrow { margin-left: auto; color: var(--color-gold); font-size: 1.25rem; transition: var(--transition); }
+  .contact-card:hover .contact-card__arrow { transform: translateX(4px); }
+
+  /* Время ответа */
+  .response-time {
+    background: rgba(212,160,23,.06);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    padding: 20px 24px;
+    margin-bottom: 32px;
+  }
+  .response-time__title { font-size: .8rem; font-weight: 700; color: var(--color-gold); margin-bottom: 8px; letter-spacing: .05em; text-transform: uppercase; }
+  .response-time__items { display: flex; flex-direction: column; gap: 6px; }
+  .response-time__item {
+    display: flex;
+    justify-content: space-between;
+    font-size: .85rem;
+    color: var(--color-text-muted);
+  }
+  .response-time__item strong { color: var(--color-text); }
+
+  /* Соцсети */
+  .socials-title { font-size: .8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 16px; }
+  .socials-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .social-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--color-text);
+    font-size: .85rem;
+    font-weight: 600;
+    border: 1px solid var(--color-border-light);
+    background: none;
+    transition: var(--transition);
+  }
+  .social-btn:hover { border-color: var(--color-border); background: rgba(255,255,255,.04); }
+  .social-btn__icon { font-size: 1.2rem; }
+
+  /* Форма */
+  .contact-form-wrap {
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 48px;
+  }
+  .form-title { font-size: 1.375rem; font-weight: 800; margin-bottom: 8px; }
+  .form-sub { color: var(--color-text-muted); font-size: .9rem; margin-bottom: 32px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group { margin-bottom: 16px; }
+  .form-label {
+    display: block;
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+  .form-input,
+  .form-select,
+  .form-textarea {
+    width: 100%;
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--color-border-light);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: .95rem;
+    color: var(--color-text);
+    font-family: var(--font-base);
+    outline: none;
+    transition: var(--transition);
+  }
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    border-color: var(--color-gold);
+    background: rgba(212,160,23,.04);
+  }
+  .form-input::placeholder,
+  .form-textarea::placeholder { color: var(--color-text-muted); }
+  .form-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B0B8C1' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
+  .form-select option { background: #1A1A2E; }
+  .form-textarea { resize: vertical; min-height: 140px; }
+
+  /* Тема обращения */
+  .form-topics { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .form-topic {
+    padding: 6px 14px;
+    border-radius: 40px;
+    font-size: .8rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--color-border-light);
+    background: none;
+    color: var(--color-text-muted);
+    transition: var(--transition);
+    font-family: var(--font-base);
+  }
+  .form-topic.active,
+  .form-topic:hover {
+    background: rgba(212,160,23,.12);
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+  }
+
+  /* Статус формы */
+  .form-status {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .form-status__icon { font-size: 3rem; margin-bottom: 16px; }
+  .form-status__title { font-size: 1.25rem; font-weight: 800; margin-bottom: 8px; }
+  .form-status__sub { color: var(--color-text-muted); }
+
+  /* Офис/юрлицо */
+  .legal-section {
+    margin-top: 80px;
+    padding: 48px;
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+  }
+  .legal-section__title { font-size: 1rem; font-weight: 700; margin-bottom: 20px; color: var(--color-gold); }
+  .legal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .legal-item__label { font-size: .75rem; color: var(--color-text-muted); margin-bottom: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+  .legal-item__value { font-size: .9rem; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .contacts-grid { grid-template-columns: 1fr; gap: 40px; }
+    .legal-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .contacts-content { padding: 48px var(--container-px, 24px); }
+    .contact-form-wrap { padding: 28px 20px; }
+    .form-row { grid-template-columns: 1fr; }
+    .legal-section { padding: 28px 20px; }
+    .legal-grid { grid-template-columns: 1fr; gap: 16px; }
+  }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <!-- HERO -->
+  <section class="contacts-hero">
+    <div class="contacts-hero__bg"></div>
+    <div class="contacts-hero__inner">
+      <div class="contacts-hero__tag">✉ Контакты</div>
+      <h1 class="contacts-hero__title">Напишите <span style="color:var(--color-gold)">нам</span></h1>
+      <p class="contacts-hero__sub">Вопросы о курсах, клубе или приложении — мы отвечаем быстро</p>
+    </div>
+  </section>
+
+  <!-- КОНТЕНТ -->
+  <div class="contacts-content">
+    <div class="contacts-grid">
+
+      <!-- Левая колонка: контакты -->
+      <div>
+        <div class="contact-cards">
+
+          <a href="https://t.me/alexlesley" target="_blank" rel="noopener" class="contact-card">
+            <div class="contact-card__icon contact-card__icon--tg">✈</div>
+            <div>
+              <div class="contact-card__label">Telegram-канал</div>
+              <div class="contact-card__value">@alexlesley</div>
+            </div>
+            <span class="contact-card__arrow">→</span>
+          </a>
+
+          <a href="https://t.me/alexlesley_support" target="_blank" rel="noopener" class="contact-card">
+            <div class="contact-card__icon contact-card__icon--tg">💬</div>
+            <div>
+              <div class="contact-card__label">Поддержка в Telegram</div>
+              <div class="contact-card__value">@alexlesley_support</div>
+            </div>
+            <span class="contact-card__arrow">→</span>
+          </a>
+
+          <a href="mailto:<!-- TODO -->@alexlesley.biz" class="contact-card">
+            <div class="contact-card__icon contact-card__icon--email">✉</div>
+            <div>
+              <div class="contact-card__label">Email</div>
+              <div class="contact-card__value"><!-- TODO -->@alexlesley.biz</div>
+            </div>
+            <span class="contact-card__arrow">→</span>
+          </a>
+
+          <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="contact-card">
+            <div class="contact-card__icon contact-card__icon--yt">▶</div>
+            <div>
+              <div class="contact-card__label">YouTube</div>
+              <div class="contact-card__value">youtube.com/@alexlesley</div>
+            </div>
+            <span class="contact-card__arrow">→</span>
+          </a>
+
+        </div>
+
+        <div class="response-time">
+          <div class="response-time__title">⏱ Время ответа</div>
+          <div class="response-time__items">
+            <div class="response-time__item">
+              <span>Telegram (поддержка)</span>
+              <strong>до <!-- TODO --> часов</strong>
+            </div>
+            <div class="response-time__item">
+              <span>Email</span>
+              <strong>до <!-- TODO --> рабочих дней</strong>
+            </div>
+            <div class="response-time__item">
+              <span>Форма на сайте</span>
+              <strong>до <!-- TODO --> часов</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="socials-title">Социальные сети</div>
+        <div class="socials-grid">
+          <a href="https://t.me/alexlesley" target="_blank" rel="noopener" class="social-btn">
+            <span class="social-btn__icon">✈</span> Telegram
+          </a>
+          <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="social-btn">
+            <span class="social-btn__icon">▶</span> YouTube
+          </a>
+          <a href="https://instagram.com/alexlesley" target="_blank" rel="noopener" class="social-btn">
+            <span class="social-btn__icon">📸</span> Instagram
+          </a>
+          <a href="https://vk.com/alexlesley" target="_blank" rel="noopener" class="social-btn">
+            <span class="social-btn__icon">🔵</span> VKontakte
+          </a>
+        </div>
+
+        <!-- FAQ-ссылка -->
+        <div style="margin-top:32px;padding:20px 24px;background:rgba(212,160,23,.05);border:1px solid var(--color-border);border-radius:var(--radius-card);">
+          <p style="font-size:.875rem;color:var(--color-text-muted);margin-bottom:12px;">Возможно, ответ уже есть в базе знаний:</p>
+          <a href="knowledge.html" style="color:var(--color-gold);font-weight:600;font-size:.875rem;text-decoration:none;">📚 Открыть FAQ и словарь →</a>
+        </div>
+      </div>
+
+      <!-- Правая колонка: форма -->
+      <div>
+        <div class="contact-form-wrap" id="formWrap">
+
+          <div id="formContent">
+            <h2 class="form-title">Напишите нам</h2>
+            <p class="form-sub">Заполните форму — мы ответим в течение <!-- TODO --> часов</p>
+
+            <!-- Темы -->
+            <div style="margin-bottom:20px;">
+              <div class="form-label">Тема обращения</div>
+              <div class="form-topics">
+                <button class="form-topic active" onclick="selectTopic(this)">Курсы</button>
+                <button class="form-topic" onclick="selectTopic(this)">Клуб</button>
+                <button class="form-topic" onclick="selectTopic(this)">Приложение</button>
+                <button class="form-topic" onclick="selectTopic(this)">Оплата</button>
+                <button class="form-topic" onclick="selectTopic(this)">Сотрудничество</button>
+                <button class="form-topic" onclick="selectTopic(this)">Другое</button>
+              </div>
+            </div>
+
+            <form id="contactForm" onsubmit="submitForm(event)">
+
+              <div class="form-row">
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label" for="fname">Имя *</label>
+                  <input type="text" id="fname" class="form-input" placeholder="Ваше имя" required />
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label" for="lname">Фамилия</label>
+                  <input type="text" id="lname" class="form-input" placeholder="Фамилия" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label" for="email">Email *</label>
+                  <input type="email" id="email" class="form-input" placeholder="your@email.com" required />
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label" for="tg">Telegram</label>
+                  <input type="text" id="tg" class="form-input" placeholder="@username" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="direction">Направление</label>
+                <select id="direction" class="form-select">
+                  <option value="">Выберите направление</option>
+                  <option value="women">Женское — «Как выйти замуж»</option>
+                  <option value="men">Мужское — «Стиль соблазнения»</option>
+                  <option value="club">Закрытый клуб</option>
+                  <option value="app">Приложение</option>
+                  <option value="other">Другое</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="message">Сообщение *</label>
+                <textarea id="message" class="form-textarea" placeholder="Опишите ваш вопрос или ситуацию..." required></textarea>
+              </div>
+
+              <div style="margin-bottom:24px;">
+                <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;">
+                  <input type="checkbox" id="agree" required style="margin-top:3px;accent-color:var(--color-gold);" />
+                  <span style="font-size:.8rem;color:var(--color-text-muted);line-height:1.5;">
+                    Я согласен(а) на обработку персональных данных в соответствии с
+                    <a href="#" style="color:var(--color-gold);">политикой конфиденциальности</a>
+                  </span>
+                </label>
+              </div>
+
+              <button type="submit" class="btn-primary" style="width:100%;justify-content:center;font-size:1rem;padding:16px 32px;">
+                Отправить сообщение
+              </button>
+
+              <p style="text-align:center;font-size:.8rem;color:var(--color-text-muted);margin-top:12px;">
+                Или напишите напрямую: <a href="https://t.me/alexlesley_support" target="_blank" style="color:var(--color-gold);">@alexlesley_support</a>
+              </p>
+            </form>
+          </div>
+
+          <!-- Статус после отправки -->
+          <div class="form-status" id="formStatus">
+            <div class="form-status__icon">✅</div>
+            <div class="form-status__title">Сообщение отправлено!</div>
+            <div class="form-status__sub">Мы ответим в течение <!-- TODO --> часов. Следите за email или Telegram.</div>
+            <button class="btn-secondary" style="margin-top:24px;" onclick="resetForm()">Отправить ещё</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Юрлицо -->
+    <div class="legal-section">
+      <div class="legal-section__title">Юридическая информация</div>
+      <div class="legal-grid">
+        <div class="legal-item">
+          <div class="legal-item__label">Юридическое лицо</div>
+          <div class="legal-item__value"><!-- TODO --> Название и форма организации</div>
+        </div>
+        <div class="legal-item">
+          <div class="legal-item__label">Регистрация</div>
+          <div class="legal-item__value"><!-- TODO --> Страна и номер регистрации</div>
+        </div>
+        <div class="legal-item">
+          <div class="legal-item__label">Документы</div>
+          <div class="legal-item__value">
+            <a href="#" style="color:var(--color-gold);text-decoration:none;display:block;margin-bottom:4px;">Публичная оферта →</a>
+            <a href="#" style="color:var(--color-gold);text-decoration:none;">Политика конфиденциальности →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/components.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    function selectTopic(btn) {
+      document.querySelectorAll('.form-topic').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function submitForm(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
+      btn.textContent = 'Отправляем...';
+      btn.disabled = true;
+      // TODO: Интегрировать с реальным бэкендом / формспри / TG-боту
+      setTimeout(() => {
+        document.getElementById('formContent').style.display = 'none';
+        document.getElementById('formStatus').style.display = 'block';
+      }, 1200);
+    }
+
+    function resetForm() {
+      document.getElementById('contactForm').reset();
+      document.getElementById('formContent').style.display = 'block';
+      document.getElementById('formStatus').style.display = 'none';
+      const btn = document.querySelector('#contactForm button[type="submit"]');
+      btn.textContent = 'Отправить сообщение';
+      btn.disabled = false;
+    }
+
+    // Scroll-reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.contact-card, .social-btn').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.style.transition = `opacity .4s ease ${i * 0.06}s, transform .4s ease ${i * 0.06}s`;
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модуль 4: Продукты и воронки | Маркетинг | Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <style>
+    .mod-nav { display:flex; gap:12px; flex-wrap:wrap; padding:20px 0 0; }
+    .mod-nav a {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:13px; font-weight:600; color:var(--color-text-muted);
+      text-decoration:none; padding:6px 14px;
+      border:1px solid rgba(255,255,255,0.1); border-radius:20px; transition:all 0.2s;
+    }
+    .mod-nav a:hover { color:var(--color-gold); border-color:var(--color-gold); }
+    .mod-header { padding:32px 0 24px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:40px; }
+    .mod-header__num { font-size:11px; font-weight:700; letter-spacing:3px; color:var(--color-gold); text-transform:uppercase; margin-bottom:8px; }
+    .mod-header__title { font-size:clamp(24px,4vw,40px); font-weight:800; margin-bottom:8px; }
+    .mod-header__sub { color:var(--color-text-muted); font-size:15px; }
+    .section { margin-bottom:56px; }
+    .section__title {
+      font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+      color:var(--color-gold); margin-bottom:20px; display:flex; align-items:center; gap:10px;
+    }
+    .section__title::after { content:''; flex:1; height:1px; background:rgba(212,160,23,0.2); }
+
+    /* ── ВОРОНКА-ЛИНЕЙКА ── */
+    .funnel-wrap { display:flex; flex-direction:column; gap:6px; }
+    .funnel-level {
+      display:grid; grid-template-columns:100px 1fr auto;
+      gap:0 16px; align-items:center;
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px; padding:14px 20px;
+      transition:transform 0.2s, border-color 0.2s; cursor:pointer;
+    }
+    .funnel-level:hover { transform:translateX(4px); border-color:rgba(212,160,23,0.3); }
+    .funnel-level__badge {
+      font-size:10px; font-weight:800; letter-spacing:1px; text-transform:uppercase;
+      padding:4px 10px; border-radius:6px; text-align:center; white-space:nowrap;
+    }
+    .badge-free     { background:rgba(76,175,80,0.2); color:#A5D6A7; border:1px solid rgba(76,175,80,0.3); }
+    .badge-trip     { background:rgba(255,152,0,0.2); color:#FFCC80; border:1px solid rgba(255,152,0,0.3); }
+    .badge-main     { background:rgba(212,160,23,0.2); color:var(--color-gold); border:1px solid rgba(212,160,23,0.3); }
+    .badge-club     { background:rgba(194,24,91,0.2); color:#F06292; border:1px solid rgba(194,24,91,0.3); }
+    .badge-vip      { background:rgba(156,39,176,0.2); color:#CE93D8; border:1px solid rgba(156,39,176,0.3); }
+    .badge-book     { background:rgba(33,150,243,0.2); color:#90CAF9; border:1px solid rgba(33,150,243,0.3); }
+    .badge-offline  { background:rgba(255,87,34,0.2); color:#FFAB91; border:1px solid rgba(255,87,34,0.3); }
+    .funnel-level__name { font-size:14px; font-weight:600; }
+    .funnel-level__format { font-size:12px; color:var(--color-text-muted); margin-top:2px; }
+    .funnel-level__price { font-size:15px; font-weight:800; color:var(--color-gold); white-space:nowrap; }
+    .funnel-level__utp {
+      display:none; grid-column:2/-1; font-size:12px; color:var(--color-text-muted);
+      margin-top:10px; border-top:1px solid rgba(255,255,255,0.06); padding-top:10px;
+    }
+    .funnel-level.open .funnel-level__utp { display:block; }
+
+    /* ── ТАРИФЫ КЛУБА ── */
+    .tiers-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+    .tier-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:16px; padding:24px; position:relative; overflow:hidden;
+      transition:transform 0.2s, box-shadow 0.2s;
+    }
+    .tier-card:hover { transform:translateY(-3px); box-shadow:0 8px 32px rgba(0,0,0,0.4); }
+    .tier-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+    .tier-card__name { font-size:18px; font-weight:900; margin-bottom:4px; }
+    .tier-card__price { font-size:24px; font-weight:800; color:var(--color-gold); }
+    .tier-card__price-year { font-size:12px; color:var(--color-text-muted); margin-bottom:16px; }
+    .tier-card__meta { display:flex; gap:16px; margin-bottom:16px; }
+    .tier-meta-item { text-align:center; }
+    .tier-meta-item__val { font-size:14px; font-weight:700; }
+    .tier-meta-item__key { font-size:10px; color:var(--color-text-muted); text-transform:uppercase; letter-spacing:1px; }
+    .tier-card__includes { list-style:none; padding:0; margin:0 0 16px; display:flex; flex-direction:column; gap:6px; }
+    .tier-card__includes li { font-size:12px; color:var(--color-text-muted); padding-left:18px; position:relative; }
+    .tier-card__includes li::before { content:'✓'; position:absolute; left:0; color:#4CAF50; font-weight:700; }
+    .tier-card__upsell { font-size:11px; font-weight:700; color:var(--color-gold); margin-top:8px; }
+
+    /* ── ГЕЙМИФИКАЦИЯ ── */
+    .gamif-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
+    .gamif-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px; padding:18px; display:flex; gap:14px; align-items:flex-start;
+    }
+    .gamif-card__icon { font-size:28px; flex-shrink:0; }
+    .gamif-card__title { font-size:14px; font-weight:700; color:var(--color-gold); margin-bottom:4px; }
+    .gamif-card__desc { font-size:12px; color:var(--color-text-muted); line-height:1.5; }
+
+    /* ── ЛИД-МАГНИТЫ / ТРИПВАЕРЫ ── */
+    .lm-tw-layout { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .list-block {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:20px;
+    }
+    .list-block__title { font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:16px; }
+    .list-block__title--lm { color:#4CAF50; }
+    .list-block__title--tw { color:#FF9800; }
+    .item-row {
+      display:grid; grid-template-columns:24px 1fr auto;
+      gap:8px; align-items:start; padding:8px 0;
+      border-bottom:1px solid rgba(255,255,255,0.04);
+    }
+    .item-row:last-child { border-bottom:none; }
+    .item-num { font-size:11px; font-weight:800; color:var(--color-gold); }
+    .item-name { font-size:12px; color:var(--color-text); line-height:1.4; }
+    .item-format { font-size:10px; color:var(--color-text-muted); margin-top:2px; }
+    .item-conv { font-size:10px; font-weight:700; color:#4CAF50; white-space:nowrap; }
+    .item-price { font-size:11px; font-weight:700; color:var(--color-gold); white-space:nowrap; }
+    .item-upsell { font-size:10px; color:var(--color-text-muted); }
+
+    /* ── ВОРОНКИ ── */
+    .funnels-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
+    .funnel-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:16px; padding:22px;
+      transition:transform 0.2s; cursor:pointer;
+    }
+    .funnel-card:hover { transform:translateY(-2px); }
+    .funnel-card__top { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+    .funnel-card__icon { font-size:28px; }
+    .funnel-card__num { font-size:10px; font-weight:700; color:var(--color-gold); letter-spacing:1px; }
+    .funnel-card__name { font-size:15px; font-weight:700; }
+    .funnel-steps { display:flex; flex-direction:column; gap:0; position:relative; }
+    .funnel-steps::before {
+      content:''; position:absolute; left:8px; top:12px; bottom:12px;
+      width:1px; background:rgba(255,255,255,0.1);
+    }
+    .funnel-step { display:flex; gap:12px; align-items:flex-start; padding:6px 0; }
+    .funnel-step__dot {
+      width:16px; height:16px; border-radius:50%; flex-shrink:0; margin-top:2px;
+      border:2px solid; display:flex; align-items:center; justify-content:center;
+      font-size:8px; font-weight:800; z-index:1; background:var(--color-card);
+    }
+    .funnel-step__text { font-size:12px; color:var(--color-text-muted); line-height:1.4; }
+    .funnel-card__kpi { margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.06); display:flex; flex-wrap:wrap; gap:8px; }
+    .kpi-chip {
+      font-size:10px; font-weight:700; padding:3px 8px; border-radius:4px;
+      background:rgba(212,160,23,0.1); color:var(--color-gold);
+    }
+
+    @media (max-width:768px) {
+      .lm-tw-layout { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <div class="container">
+    <nav class="mod-nav">
+      <a href="../index.html">← Вернуться на главную</a>
+      <a href="index.html">← В Маркетинг</a>
+    </nav>
+    <div class="mod-header">
+      <div class="mod-header__num">Модуль 4</div>
+      <h1 class="mod-header__title">Продукты и воронки</h1>
+      <p class="mod-header__sub">Источник: Анализ книг блок 6; Маркетинговая стратегия блоки 13, 14, 15</p>
+    </div>
+
+    <!-- 1. ВОРОНКА-ЛИНЕЙКА ПРОДУКТОВ -->
+    <section class="section">
+      <div class="section__title">Продуктовая линейка — воронка снизу вверх</div>
+      <div style="font-size:12px;color:var(--color-text-muted);margin-bottom:16px;">Нажми на продукт, чтобы раскрыть УТП. Карта монетизации: Бесплатно → Трипваер → Флагман → Клуб → VIP</div>
+      <div class="funnel-wrap" id="funnel-wrap"></div>
+      <div style="margin-top:16px;font-size:13px;color:var(--color-text-muted);">Средний LTV по всем уровням — <strong style="color:var(--color-gold);">90 000–120 000 ₽</strong></div>
+    </section>
+
+    <!-- 2. 4 ТАРИФА КЛУБА -->
+    <section class="section">
+      <div class="section__title">Закрытый клуб «Академия Охотниц» — 4 тарифа</div>
+      <div class="tiers-grid" id="tiers-grid"></div>
+    </section>
+
+    <!-- 3. ГЕЙМИФИКАЦИЯ -->
+    <section class="section">
+      <div class="section__title">Геймификация и удержание</div>
+      <div class="gamif-grid" id="gamif-grid"></div>
+    </section>
+
+    <!-- 4. ЛИД-МАГНИТЫ + ТРИПВАЕРЫ -->
+    <section class="section">
+      <div class="section__title">20 лид-магнитов и 20 трипваеров</div>
+      <div class="lm-tw-layout">
+        <div class="list-block">
+          <div class="list-block__title list-block__title--lm">🎁 20 ЛИД-МАГНИТОВ (бесплатно)</div>
+          <div id="lm-list"></div>
+        </div>
+        <div class="list-block">
+          <div class="list-block__title list-block__title--tw">⚡ 20 ТРИПВАЕРОВ (990–4 990 ₽)</div>
+          <div id="tw-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. СХЕМЫ ВОРОНОК -->
+    <section class="section">
+      <div class="section__title">5 схем воронок</div>
+      <div class="funnels-grid" id="funnels-grid"></div>
+    </section>
+
+  </div>
+  <div id="site-footer"></div>
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/data/m4.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    var d = window.M4;
+    var levelColors = {
+      'Бесплатно':'badge-free','Трипваер':'badge-trip','Основной':'badge-main',
+      'Клуб':'badge-club','VIP':'badge-vip','Книга':'badge-book','Офлайн':'badge-offline'
+    };
+
+    /* ── ВОРОНКА ── */
+    (function() {
+      var wrap = document.getElementById('funnel-wrap');
+      d.products.forEach(function(p) {
+        var el = document.createElement('div');
+        el.className = 'funnel-level';
+        el.innerHTML =
+          '<span class="funnel-level__badge ' + (levelColors[p.level]||'badge-free') + '">' + p.level + '</span>' +
+          '<div><div class="funnel-level__name">' + p.icon + ' ' + p.name + '</div>' +
+          '<div class="funnel-level__format">' + p.format + '</div></div>' +
+          '<div class="funnel-level__price">' + p.price + '</div>' +
+          '<div class="funnel-level__utp">' + p.utp + '</div>';
+        el.addEventListener('click', function() { el.classList.toggle('open'); });
+        wrap.appendChild(el);
+      });
+    })();
+
+    /* ── ТАРИФЫ КЛУБА ── */
+    (function() {
+      var grid = document.getElementById('tiers-grid');
+      d.clubTiers.forEach(function(t) {
+        var el = document.createElement('div');
+        el.className = 'tier-card';
+        el.style.borderColor = t.color + '44';
+        el.style.setProperty('--tier-color', t.color);
+        var style = el.querySelector ? '' : '';
+        el.innerHTML =
+          '<style>.tier-card::before{background:' + t.color + ';}</style>' +
+          '<div class="tier-card__name" style="color:' + t.color + ';">' + t.name + '</div>' +
+          '<div class="tier-card__price">' + t.price + '</div>' +
+          '<div class="tier-card__price-year">' + t.priceYear + '</div>' +
+          '<div class="tier-card__meta">' +
+            '<div class="tier-meta-item"><div class="tier-meta-item__val">' + t.avgStay + '</div><div class="tier-meta-item__key">Ср. срок</div></div>' +
+            '<div class="tier-meta-item"><div class="tier-meta-item__val" style="color:#F44336;">' + t.churn + '</div><div class="tier-meta-item__key">Churn</div></div>' +
+            '<div class="tier-meta-item"><div class="tier-meta-item__val" style="color:#4CAF50;">' + t.ltv + '</div><div class="tier-meta-item__key">LTV</div></div>' +
+          '</div>' +
+          '<ul class="tier-card__includes">' +
+            t.includes.map(function(i) { return '<li>' + i + '</li>'; }).join('') +
+          '</ul>' +
+          '<div class="tier-card__includes" style="font-size:11px;">Лимит: ' + t.limit + '</div>' +
+          (t.upsell ? '<div class="tier-card__upsell">Апселл → ' + t.upsell + '</div>' : '');
+        grid.appendChild(el);
+      });
+    })();
+
+    /* ── ГЕЙМИФИКАЦИЯ ── */
+    (function() {
+      var grid = document.getElementById('gamif-grid');
+      d.gamification.forEach(function(g) {
+        var el = document.createElement('div');
+        el.className = 'gamif-card';
+        el.innerHTML = '<div class="gamif-card__icon">' + g.icon + '</div>' +
+          '<div><div class="gamif-card__title">' + g.title + '</div>' +
+          '<div class="gamif-card__desc">' + g.desc + '</div></div>';
+        grid.appendChild(el);
+      });
+    })();
+
+    /* ── ЛИД-МАГНИТЫ ── */
+    (function() {
+      var list = document.getElementById('lm-list');
+      d.leadMagnets.forEach(function(m) {
+        var row = document.createElement('div');
+        row.className = 'item-row';
+        row.innerHTML = '<span class="item-num">' + m.id + '</span>' +
+          '<div><div class="item-name">' + m.name + '</div>' +
+          '<div class="item-format">' + m.format + ' · ' + m.pain + '</div></div>' +
+          '<div class="item-conv">' + m.conv + '</div>';
+        list.appendChild(row);
+      });
+    })();
+
+    /* ── ТРИПВАЕРЫ ── */
+    (function() {
+      var list = document.getElementById('tw-list');
+      d.tripwires.forEach(function(t) {
+        var row = document.createElement('div');
+        row.className = 'item-row';
+        row.innerHTML = '<span class="item-num">' + t.id + '</span>' +
+          '<div><div class="item-name">' + t.name + '</div>' +
+          '<div class="item-upsell">→ ' + t.upsell + '</div></div>' +
+          '<div><div class="item-price">' + t.price + '</div><div class="item-conv" style="text-align:right;">' + t.conv + '</div></div>';
+        list.appendChild(row);
+      });
+    })();
+
+    /* ── ВОРОНКИ ── */
+    (function() {
+      var grid = document.getElementById('funnels-grid');
+      d.funnels.forEach(function(f) {
+        var el = document.createElement('div');
+        el.className = 'funnel-card';
+        el.style.borderColor = f.color + '33';
+        var stepsHtml = f.steps.map(function(s, i) {
+          return '<div class="funnel-step">' +
+            '<div class="funnel-step__dot" style="border-color:' + f.color + ';color:' + f.color + ';">' + (i+1) + '</div>' +
+            '<div class="funnel-step__text">' + s + '</div></div>';
+        }).join('');
+        var kpiHtml = Object.keys(f.kpi).map(function(k) {
+          return '<span class="kpi-chip">' + k + ': ' + f.kpi[k] + '</span>';
+        }).join('');
+        el.innerHTML =
+          '<div class="funnel-card__top">' +
+            '<div class="funnel-card__icon">' + f.icon + '</div>' +
+            '<div><div class="funnel-card__num" style="color:' + f.color + ';">ВОРОНКА ' + f.id + '</div>' +
+            '<div class="funnel-card__name">' + f.name + '</div></div>' +
+          '</div>' +
+          '<div class="funnel-steps">' + stepsHtml + '</div>' +
+          '<div class="funnel-card__kpi">' + kpiHtml + '</div>';
+        grid.appendChild(el);
+      });
+    })();
+  </script>
+</body>
+</html>

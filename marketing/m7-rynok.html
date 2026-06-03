@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модуль 7: Рынок и конкуренты | Маркетинг | Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <script src="../assets/js/data/m7.js"></script>
+  <style>
+    .mod-nav { display:flex; gap:12px; flex-wrap:wrap; padding:20px 0 0; }
+    .mod-nav a {
+      display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600;
+      color:var(--color-text-muted); text-decoration:none; padding:6px 14px;
+      border:1px solid rgba(255,255,255,0.1); border-radius:20px; transition:all 0.2s;
+    }
+    .mod-nav a:hover { color:var(--color-gold); border-color:var(--color-gold); }
+    .mod-header { padding:32px 0 24px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:40px; }
+    .mod-header__num { font-size:11px; font-weight:700; letter-spacing:3px; color:var(--color-gold); text-transform:uppercase; margin-bottom:8px; }
+    .mod-header__title { font-size:clamp(24px,4vw,40px); font-weight:800; margin-bottom:8px; }
+    .mod-header__sub { color:var(--color-text-muted); font-size:15px; }
+    .section { margin-bottom:56px; }
+    .section__title {
+      font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+      color:var(--color-gold); margin-bottom:20px; display:flex; align-items:center; gap:10px;
+    }
+    .section__title::after { content:''; flex:1; height:1px; background:rgba(212,160,23,0.2); }
+
+    /* ── ТАБЛИЦЫ ── */
+    .tbl-wrap { overflow-x:auto; margin-bottom:20px; }
+    .tbl { width:100%; border-collapse:collapse; font-size:13px; }
+    .tbl th {
+      text-align:left; padding:10px 14px; font-size:10px; font-weight:700;
+      letter-spacing:1.5px; text-transform:uppercase; color:var(--color-text-muted);
+      border-bottom:1px solid rgba(255,255,255,0.08); white-space:nowrap;
+      background:rgba(255,255,255,0.02);
+    }
+    .tbl td { padding:10px 14px; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:middle; }
+    .tbl tr:hover td { background:rgba(255,255,255,0.03); }
+    .tbl .gold { color:var(--color-gold); font-weight:700; }
+    .tbl .up { color:#4caf50; }
+    .tbl .down { color:#f44336; }
+    .tbl .highlight { color:var(--color-gold); font-weight:600; }
+
+    /* ── КАРТОЧКИ ТРЕНДОВ ── */
+    .trends-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; }
+    .trend-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px; padding:16px; display:flex; gap:12px;
+    }
+    .trend-card__emoji { font-size:24px; flex-shrink:0; line-height:1; }
+    .trend-card__title { font-size:14px; font-weight:700; margin-bottom:6px; }
+    .trend-card__text { font-size:12px; color:var(--color-text-muted); line-height:1.5; }
+
+    /* ── ДЕМОГРАФИЯ КАРТОЧКИ ── */
+    .demo-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; }
+    .demo-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px; padding:14px 16px;
+    }
+    .demo-card__val { font-size:18px; font-weight:800; color:var(--color-gold); margin-bottom:4px; }
+    .demo-card__label { font-size:12px; color:var(--color-text-muted); margin-bottom:2px; }
+    .demo-card__source { font-size:10px; color:rgba(255,255,255,0.3); }
+
+    /* ── ФИЛЬТРЫ ── */
+    .filter-bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+    .filter-btn {
+      display:inline-flex; align-items:center; gap:6px;
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.1);
+      color:var(--color-text-muted); font-size:12px; font-weight:600;
+      padding:7px 14px; border-radius:20px; cursor:pointer; transition:all 0.2s;
+    }
+    .filter-btn.active { border-color:var(--color-gold); color:var(--color-gold); background:rgba(212,160,23,0.1); }
+    .filter-btn .cnt { font-size:10px; background:rgba(255,255,255,0.1); padding:1px 6px; border-radius:10px; }
+    .filter-btn.active .cnt { background:rgba(212,160,23,0.2); }
+
+    /* ── ПОИСК ── */
+    .search-box {
+      width:100%; max-width:400px; background:var(--color-card);
+      border:1px solid rgba(255,255,255,0.1); border-radius:10px;
+      padding:10px 14px; color:var(--color-text); font-size:14px; font-family:inherit;
+      margin-bottom:16px; box-sizing:border-box;
+    }
+    .search-box::placeholder { color:var(--color-text-muted); }
+    .search-box:focus { outline:none; border-color:var(--color-gold); }
+
+    .comp-count { font-size:13px; color:var(--color-text-muted); margin-bottom:12px; }
+    .comp-count span { color:var(--color-gold); font-weight:700; }
+
+    /* ── КАТЕГОРИЯ-БЕЙДЖ ── */
+    .cat-badge {
+      display:inline-block; font-size:10px; font-weight:700; padding:2px 8px;
+      border-radius:10px; background:rgba(212,160,23,0.15); color:var(--color-gold);
+      border:1px solid rgba(212,160,23,0.3); white-space:nowrap;
+    }
+
+    /* ── RADAR CHART ── */
+    .radar-wrap { max-width:480px; margin:0 auto; }
+    .top5-layout { display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start; }
+    @media(max-width:768px) { .top5-layout { grid-template-columns:1fr; } }
+
+    /* ── ВЫВОД ── */
+    .insight-box {
+      background:linear-gradient(135deg, rgba(212,160,23,0.1) 0%, rgba(212,160,23,0.05) 100%);
+      border:1px solid rgba(212,160,23,0.3); border-radius:12px;
+      padding:20px 24px; margin-top:20px;
+    }
+    .insight-box__title { font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--color-gold); margin-bottom:10px; }
+    .insight-box__text { font-size:14px; color:var(--color-text); line-height:1.6; }
+
+    .stars { color:var(--color-gold); font-size:13px; }
+    .risk { color:#f44336; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <div class="container">
+    <nav class="mod-nav">
+      <a href="../index.html">← Главная</a>
+      <a href="index.html">← В Маркетинг</a>
+    </nav>
+
+    <div class="mod-header">
+      <div class="mod-header__num">Модуль 7 · Маркетинг</div>
+      <div class="mod-header__title">🏆 Рынок и конкуренты</div>
+      <div class="mod-header__sub">Объёмы рынка с прогнозами · Демографические драйверы · 100 конкурентов с фильтрами · Сравнение топ-5</div>
+    </div>
+
+    <!-- ── 1. АНАЛИЗ РЫНКА ── -->
+    <section class="section">
+      <div class="section__title">2.1 · Объём и структура рынка</div>
+      <div class="tbl-wrap">
+        <table class="tbl" id="market-table">
+          <thead>
+            <tr>
+              <th>Сегмент</th>
+              <th>Объём 2025</th>
+              <th>Рост г/г</th>
+              <th>Прогноз 2027</th>
+              <th>Прогноз 2030</th>
+            </tr>
+          </thead>
+          <tbody id="market-tbody"></tbody>
+        </table>
+      </div>
+      <div class="insight-box">
+        <div class="insight-box__title">Вывод по рынку</div>
+        <div class="insight-box__text">Ниша «как выйти замуж» в стадии раннего роста (+25% г/г). Первый игрок с системным продуктом, сильным социальным доказательством и Telegram-экосистемой захватит лидерство на 5+ лет. <strong>Тайминг идеальный.</strong></div>
+      </div>
+    </section>
+
+    <!-- ── 2. ДЕМОГРАФИЯ ── -->
+    <section class="section">
+      <div class="section__title">2.2 · Демографические драйверы спроса</div>
+      <div class="demo-grid" id="demo-grid"></div>
+    </section>
+
+    <!-- ── 3. ТРЕНДЫ ── -->
+    <section class="section">
+      <div class="section__title">2.3 · Тренды 2024–2026</div>
+      <div class="trends-grid" id="trends-grid"></div>
+    </section>
+
+    <!-- ── 4. ПРОГНОЗЫ ── -->
+    <section class="section">
+      <div class="section__title">2.4 · Прогнозы на 3 и 5 лет</div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Параметр</th>
+              <th>2026 (сейчас)</th>
+              <th>2028 (3 года)</th>
+              <th>2031 (5 лет)</th>
+            </tr>
+          </thead>
+          <tbody id="forecast-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── 5. 100 КОНКУРЕНТОВ ── -->
+    <section class="section">
+      <div class="section__title">4 · 100 конкурентов — фильтруемая таблица</div>
+      <div class="filter-bar" id="cat-filters"></div>
+      <input class="search-box" id="comp-search" type="text" placeholder="Поиск по имени, офферу, платформе...">
+      <div class="comp-count">Показано: <span id="comp-shown">100</span> из 100 конкурентов</div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>Имя / Название</th>
+              <th>Категория</th>
+              <th>Платформа</th>
+              <th>Аудитория</th>
+              <th>Оффер</th>
+              <th>Цены</th>
+              <th>Ключевое отличие</th>
+            </tr>
+          </thead>
+          <tbody id="comp-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── 6. ТОП-5 ── -->
+    <section class="section">
+      <div class="section__title">4.1 · Сравнение топ-5 прямых конкурентов</div>
+      <div class="top5-layout">
+        <div class="radar-wrap">
+          <canvas id="radarChart"></canvas>
+        </div>
+        <div class="tbl-wrap">
+          <table class="tbl" id="top5-table">
+            <thead>
+              <tr>
+                <th>Параметр</th>
+                <th>Лесли</th>
+                <th>Ренар</th>
+                <th>Ланске</th>
+                <th>Родник</th>
+                <th>Hussey</th>
+              </tr>
+            </thead>
+            <tbody id="top5-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="insight-box" style="margin-top:24px;">
+        <div class="insight-box__title">Стратегический вывод</div>
+        <div class="insight-box__text">Алекс Лесли имеет <strong>сильнейшую доказательную базу и медийность</strong>, но критически уязвим с правовой точки зрения. Решение — создать отдельный суб-бренд («Академия Охотницы» / «Метод Лесли для женщин»), зарегистрировать за рубежом, работать через этот бренд.</div>
+      </div>
+    </section>
+
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/components.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+  </script>
+  <script>
+  (function() {
+    /* ── РЫНОК ── */
+    var marketTbody = document.getElementById('market-tbody');
+    M7.marketSegments.forEach(function(r) {
+      var growth = r.growth.startsWith('+') ? '<span class="up">' + r.growth + '</span>' : r.growth.startsWith('-') ? '<span class="down">' + r.growth + '</span>' : r.growth;
+      var isNiche = r.segment.includes('замуж');
+      marketTbody.innerHTML += '<tr>' +
+        '<td style="font-weight:' + (isNiche ? '700' : '400') + ';color:' + (isNiche ? 'var(--color-gold)' : 'inherit') + '">' + r.segment + '</td>' +
+        '<td class="gold">' + r.vol2025 + '</td>' +
+        '<td>' + growth + '</td>' +
+        '<td>' + r.f2027 + '</td>' +
+        '<td>' + r.f2030 + '</td>' +
+        '</tr>';
+    });
+
+    /* ── ДЕМОГРАФИЯ ── */
+    var demoGrid = document.getElementById('demo-grid');
+    M7.demographics.forEach(function(d) {
+      demoGrid.innerHTML += '<div class="demo-card">' +
+        '<div class="demo-card__val">' + d.value + '</div>' +
+        '<div class="demo-card__label">' + d.metric + '</div>' +
+        '<div class="demo-card__source">' + d.source + '</div>' +
+        '</div>';
+    });
+
+    /* ── ТРЕНДЫ ── */
+    var trendsGrid = document.getElementById('trends-grid');
+    M7.trends.forEach(function(t) {
+      trendsGrid.innerHTML += '<div class="trend-card">' +
+        '<div class="trend-card__emoji">' + t.emoji + '</div>' +
+        '<div><div class="trend-card__title">' + t.title + '</div>' +
+        '<div class="trend-card__text">' + t.text + '</div></div>' +
+        '</div>';
+    });
+
+    /* ── ПРОГНОЗЫ ── */
+    var forecastTbody = document.getElementById('forecast-tbody');
+    M7.forecasts.forEach(function(f) {
+      forecastTbody.innerHTML += '<tr>' +
+        '<td>' + f.param + '</td>' +
+        '<td class="gold">' + f.y2026 + '</td>' +
+        '<td>' + f.y2028 + '</td>' +
+        '<td>' + f.y2031 + '</td>' +
+        '</tr>';
+    });
+
+    /* ── КОНКУРЕНТЫ ── */
+    var catMap = {};
+    M7.competitors.forEach(function(c) { catMap[c.cat] = c.catName; });
+
+    var filterBar = document.getElementById('cat-filters');
+    var allBtn = document.createElement('button');
+    allBtn.className = 'filter-btn active'; allBtn.dataset.cat = 'ALL';
+    allBtn.innerHTML = 'Все <span class="cnt">100</span>';
+    filterBar.appendChild(allBtn);
+
+    Object.keys(catMap).forEach(function(cat) {
+      var cnt = M7.competitors.filter(function(c){ return c.cat === cat; }).length;
+      var btn = document.createElement('button');
+      btn.className = 'filter-btn'; btn.dataset.cat = cat;
+      btn.innerHTML = catMap[cat].replace(' и свахи','').replace(' и сообщества','') + ' <span class="cnt">' + cnt + '</span>';
+      filterBar.appendChild(btn);
+    });
+
+    var activeCat = 'ALL';
+    var searchVal = '';
+
+    function renderComps() {
+      var filtered = M7.competitors.filter(function(c) {
+        var catOk = activeCat === 'ALL' || c.cat === activeCat;
+        var q = searchVal.toLowerCase();
+        var searchOk = !q || c.name.toLowerCase().includes(q) || c.offer.toLowerCase().includes(q) || c.platform.toLowerCase().includes(q) || c.catName.toLowerCase().includes(q);
+        return catOk && searchOk;
+      });
+      document.getElementById('comp-shown').textContent = filtered.length;
+      var tbody = document.getElementById('comp-tbody');
+      tbody.innerHTML = '';
+      filtered.forEach(function(c) {
+        tbody.innerHTML += '<tr>' +
+          '<td style="font-weight:600;">' + c.name + '</td>' +
+          '<td><span class="cat-badge">' + c.cat + '. ' + c.catName + '</span></td>' +
+          '<td style="color:var(--color-text-muted);font-size:12px;">' + c.platform + '</td>' +
+          '<td style="font-size:12px;">' + c.audience + '</td>' +
+          '<td style="font-size:12px;">' + c.offer + '</td>' +
+          '<td style="font-size:12px;color:var(--color-gold);">' + c.price + '</td>' +
+          '<td style="font-size:12px;color:var(--color-text-muted);">' + c.note + '</td>' +
+          '</tr>';
+      });
+    }
+    renderComps();
+
+    filterBar.addEventListener('click', function(e) {
+      var btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      activeCat = btn.dataset.cat;
+      filterBar.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      renderComps();
+    });
+
+    document.getElementById('comp-search').addEventListener('input', function(e) {
+      searchVal = e.target.value;
+      renderComps();
+    });
+
+    /* ── ТОП-5 ТАБЛИЦА ── */
+    var top5Tbody = document.getElementById('top5-tbody');
+    M7.top5.tableData.forEach(function(r) {
+      var risk = r.lesli.includes('⚠');
+      top5Tbody.innerHTML += '<tr>' +
+        '<td style="font-size:12px;color:var(--color-text-muted);">' + r.param + '</td>' +
+        '<td class="' + (risk ? 'risk' : 'gold') + '" style="font-size:12px;">' + r.lesli + '</td>' +
+        '<td style="font-size:12px;">' + r.renar + '</td>' +
+        '<td style="font-size:12px;">' + r.lanske + '</td>' +
+        '<td style="font-size:12px;">' + r.rodnik + '</td>' +
+        '<td style="font-size:12px;">' + r.hussey + '</td>' +
+        '</tr>';
+    });
+
+    /* ── RADAR CHART ── */
+    var radarCtx = document.getElementById('radarChart').getContext('2d');
+    new Chart(radarCtx, {
+      type: 'radar',
+      data: {
+        labels: M7.top5.labels,
+        datasets: M7.top5.players.map(function(p) {
+          return {
+            label: p.name,
+            data: p.values,
+            backgroundColor: p.color,
+            borderColor: p.border,
+            borderWidth: 2,
+            pointBackgroundColor: p.border
+          };
+        })
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            min: 0, max: 5,
+            ticks: { stepSize: 1, color: 'rgba(255,255,255,0.3)', font: { size: 10 } },
+            grid: { color: 'rgba(255,255,255,0.08)' },
+            angleLines: { color: 'rgba(255,255,255,0.08)' },
+            pointLabels: { color: '#B0B8C1', font: { size: 11 } }
+          }
+        },
+        plugins: {
+          legend: { labels: { color: '#B0B8C1', font: { size: 11 }, boxWidth: 12 } }
+        }
+      }
+    });
+
+  })();
+  </script>
+</body>
+</html>

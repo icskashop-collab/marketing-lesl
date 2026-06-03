@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="База знаний Алекса Лесли — словарь терминов методологии Охотницы и ответы на часто задаваемые вопросы." />
+  <meta property="og:title" content="База знаний — Alex Leslie" />
+  <meta property="og:description" content="Словарь терминов методологии и FAQ." />
+  <meta property="og:type" content="website" />
+  <title>База знаний — Alex Leslie</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+
+  <style>
+  /* ─── KNOWLEDGE PAGE ─── */
+  .kb-hero {
+    position: relative;
+    padding: calc(var(--header-h, 72px) + 64px) 0 64px;
+    background: var(--color-bg);
+    overflow: hidden;
+  }
+  .kb-hero__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(212,160,23,.06) 0%, transparent 65%);
+    z-index: 0;
+  }
+  .kb-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--container-px, 24px);
+    text-align: center;
+  }
+  .kb-hero__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    padding: 8px 20px;
+    border: 1px solid rgba(212,160,23,.3);
+    border-radius: 40px;
+    margin-bottom: 24px;
+  }
+  .kb-hero__title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; margin-bottom: 16px; }
+  .kb-hero__sub { color: var(--color-text-muted); font-size: 1.05rem; margin-bottom: 40px; max-width: 520px; margin-left: auto; margin-right: auto; }
+
+  /* Поиск */
+  .kb-search {
+    max-width: 560px;
+    margin: 0 auto 48px;
+    position: relative;
+  }
+  .kb-search__icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    pointer-events: none;
+  }
+  .kb-search__input {
+    width: 100%;
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: 48px;
+    padding: 16px 24px 16px 52px;
+    font-size: 1rem;
+    color: var(--color-text);
+    font-family: var(--font-base);
+    outline: none;
+    transition: var(--transition);
+  }
+  .kb-search__input:focus { border-color: var(--color-gold); box-shadow: 0 0 0 3px rgba(212,160,23,.1); }
+  .kb-search__input::placeholder { color: var(--color-text-muted); }
+
+  /* Навигация по разделам */
+  .kb-nav {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .kb-nav__btn {
+    padding: 8px 20px;
+    border-radius: 40px;
+    font-size: .8rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--color-border-light);
+    background: none;
+    color: var(--color-text-muted);
+    transition: var(--transition);
+    font-family: var(--font-base);
+  }
+  .kb-nav__btn.active,
+  .kb-nav__btn:hover {
+    background: var(--color-gold);
+    color: #000;
+    border-color: var(--color-gold);
+  }
+
+  /* Контент */
+  .kb-content {
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 64px var(--container-px, 24px);
+  }
+  .kb-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  /* Боковое меню */
+  .kb-menu {
+    position: sticky;
+    top: calc(var(--header-h, 72px) + 24px);
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 24px;
+  }
+  .kb-menu__title {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 12px;
+  }
+  .kb-menu__items { display: flex; flex-direction: column; gap: 4px; }
+  .kb-menu__item {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: .85rem;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    color: var(--color-text-muted);
+    display: block;
+  }
+  .kb-menu__item:hover,
+  .kb-menu__item.active { background: rgba(212,160,23,.08); color: var(--color-gold); }
+
+  /* Секция */
+  .kb-section { margin-bottom: 64px; }
+  .kb-section__header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .kb-section__icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(212,160,23,.12);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .kb-section__title { font-size: 1.375rem; font-weight: 800; }
+  .kb-section__sub { font-size: .85rem; color: var(--color-text-muted); margin-top: 4px; }
+
+  /* Алфавитный словарь */
+  .glossary-alpha {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .glossary-alpha__btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .8rem;
+    font-weight: 700;
+    background: none;
+    border: 1px solid var(--color-border-light);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font-base);
+  }
+  .glossary-alpha__btn:hover { background: var(--color-gold); color: #000; border-color: var(--color-gold); }
+
+  /* Термины */
+  .glossary-group { margin-bottom: 32px; }
+  .glossary-group__letter {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-gold);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+  }
+  .glossary-items { display: flex; flex-direction: column; gap: 16px; }
+  .glossary-item {
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    padding: 20px 24px;
+    transition: var(--transition);
+  }
+  .glossary-item:hover { border-color: var(--color-border); }
+  .glossary-item__term {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    margin-bottom: 8px;
+  }
+  .glossary-item__def {
+    font-size: .875rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+  .glossary-item__link {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: .8rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .glossary-item__link:hover { text-decoration: underline; }
+
+  /* FAQ accordion */
+  .faq-list { display: flex; flex-direction: column; gap: 12px; }
+  .faq-item {
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    transition: border-color var(--transition);
+  }
+  .faq-item.open { border-color: var(--color-border); }
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 24px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: .95rem;
+    line-height: 1.4;
+    transition: var(--transition);
+    user-select: none;
+    list-style: none;
+  }
+  .faq-question:hover { color: var(--color-gold); }
+  .faq-item.open .faq-question { color: var(--color-gold); }
+  .faq-arrow {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(212,160,23,.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform var(--transition), background var(--transition);
+    font-size: .75rem;
+  }
+  .faq-item.open .faq-arrow {
+    transform: rotate(180deg);
+    background: var(--color-gold);
+    color: #000;
+  }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .35s ease, padding .35s ease;
+  }
+  .faq-item.open .faq-answer { max-height: 600px; }
+  .faq-answer__inner {
+    padding: 0 24px 24px;
+    color: var(--color-text-muted);
+    font-size: .9rem;
+    line-height: 1.8;
+    border-top: 1px solid var(--color-border-light);
+    padding-top: 16px;
+    margin-top: 0;
+  }
+  .faq-answer__inner a { color: var(--color-gold); }
+
+  /* CTA внизу */
+  .kb-cta {
+    background: linear-gradient(135deg, rgba(212,160,23,.08) 0%, transparent 50%, rgba(212,160,23,.08) 100%);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    padding: 48px;
+    text-align: center;
+    margin-top: 64px;
+  }
+  .kb-cta__title { font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; }
+  .kb-cta__sub { color: var(--color-text-muted); margin-bottom: 28px; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .kb-layout { grid-template-columns: 1fr; }
+    .kb-menu { position: static; }
+  }
+  @media (max-width: 768px) {
+    .kb-content { padding: 40px var(--container-px, 24px); }
+    .kb-cta { padding: 32px 20px; }
+  }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <!-- HERO -->
+  <section class="kb-hero">
+    <div class="kb-hero__bg"></div>
+    <div class="kb-hero__inner">
+      <div class="kb-hero__tag">📚 База знаний</div>
+      <h1 class="kb-hero__title">Словарь <span style="color:var(--color-gold)">методологии</span> и FAQ</h1>
+      <p class="kb-hero__sub">Все термины, принципы и ответы на вопросы — в одном месте</p>
+
+      <div class="kb-search">
+        <span class="kb-search__icon">🔍</span>
+        <input type="search" class="kb-search__input" id="kbSearch" placeholder="Найти термин или вопрос..." oninput="kbFilter()" />
+      </div>
+
+      <div class="kb-nav">
+        <button class="kb-nav__btn active" onclick="showSection('glossary', this)">Словарь</button>
+        <button class="kb-nav__btn" onclick="showSection('faq-women', this)">FAQ: Женское</button>
+        <button class="kb-nav__btn" onclick="showSection('faq-men', this)">FAQ: Мужское</button>
+        <button class="kb-nav__btn" onclick="showSection('faq-club', this)">FAQ: Клуб</button>
+        <button class="kb-nav__btn" onclick="showSection('faq-general', this)">Общие вопросы</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- КОНТЕНТ -->
+  <div class="kb-content">
+    <div class="kb-layout">
+
+      <!-- Боковое меню -->
+      <nav class="kb-menu">
+        <div class="kb-menu__title">Навигация</div>
+        <div class="kb-menu__items">
+          <a href="#glossary" class="kb-menu__item">📖 Словарь терминов</a>
+          <a href="#faq-women" class="kb-menu__item">👩 FAQ: Женское</a>
+          <a href="#faq-men" class="kb-menu__item">👨 FAQ: Мужское</a>
+          <a href="#faq-club" class="kb-menu__item">🏆 FAQ: Клуб</a>
+          <a href="#faq-general" class="kb-menu__item">❓ Общие вопросы</a>
+          <a href="#faq-app" class="kb-menu__item">📱 FAQ: Приложение</a>
+        </div>
+        <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--color-border-light);">
+          <p style="font-size:.8rem;color:var(--color-text-muted);margin-bottom:12px;">Не нашли ответ?</p>
+          <a href="contacts.html" class="btn-primary" style="display:block;text-align:center;font-size:.85rem;padding:10px 16px;">Написать нам</a>
+        </div>
+      </nav>
+
+      <!-- Основной контент -->
+      <div>
+
+        <!-- ─── СЛОВАРЬ ─── -->
+        <div class="kb-section" id="glossary">
+          <div class="kb-section__header">
+            <div class="kb-section__icon">📖</div>
+            <div>
+              <div class="kb-section__title">Словарь терминов</div>
+              <div class="kb-section__sub">Ключевые понятия методологии Алекса Лесли</div>
+            </div>
+          </div>
+
+          <div class="glossary-alpha">
+            <button class="glossary-alpha__btn">А</button>
+            <button class="glossary-alpha__btn">Г</button>
+            <button class="glossary-alpha__btn">Д</button>
+            <button class="glossary-alpha__btn">И</button>
+            <button class="glossary-alpha__btn">К</button>
+            <button class="glossary-alpha__btn">М</button>
+            <button class="glossary-alpha__btn">О</button>
+            <button class="glossary-alpha__btn">П</button>
+            <button class="glossary-alpha__btn">С</button>
+            <button class="glossary-alpha__btn">Т</button>
+            <button class="glossary-alpha__btn">Ф</button>
+            <button class="glossary-alpha__btn">Х</button>
+            <button class="glossary-alpha__btn">Э</button>
+          </div>
+
+          <div id="glossaryList">
+
+            <div class="glossary-group">
+              <div class="glossary-group__letter">А</div>
+              <div class="glossary-items">
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Академия Охотниц</div>
+                  <div class="glossary-item__def">Закрытый клуб методологии Алекса Лесли. Постоянное сообщество женщин, проходящих путь к замужеству с поддержкой куратора, еженедельными заданиями и закрытым доступом к материалам.</div>
+                  <a href="club.html" class="glossary-item__link">→ Узнать о клубе</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="glossary-group">
+              <div class="glossary-group__letter">Г</div>
+              <div class="glossary-items">
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Геймификация пути</div>
+                  <div class="glossary-item__def"><!-- TODO --> Система заданий, уровней и достижений, встроенная в процесс обучения. Каждый шаг методологии — это «задание», выполнение которого приближает к результату и даёт XP-очки.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="glossary-group">
+              <div class="glossary-group__letter">Д</div>
+              <div class="glossary-items">
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Добыча</div>
+                  <div class="glossary-item__def">В терминологии методологии — пассивная роль в отношениях. Женщина-добыча ждёт, когда её выберут. Антипод — Охотница. Методология учит переходить из позиции добычи в позицию охотника.</div>
+                  <a href="women/huntress.html" class="glossary-item__link">→ Методология Охотницы</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="glossary-group">
+              <div class="glossary-group__letter">И</div>
+              <div class="glossary-items">
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Игра</div>
+                  <div class="glossary-item__def"><!-- TODO --> Ключевой концепт философии: жизнь и отношения — это игра со своими правилами. Тот, кто знает правила и играет по ним осознанно — выигрывает. «Жизнь без трусов» — это готовность играть.</div>
+                  <a href="philosophy.html" class="glossary-item__link">→ Философия</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="glossary-group">
+              <div class="glossary-group__letter">К</div>
+              <div class="glossary-items">
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Кейс</div>
+                  <div class="glossary-item__def">Задокументированная история трансформации ученика/ученицы. Кейс содержит: исходную ситуацию (до), применённые техники, результат (после). Более 547 задокументированных кейсов в базе методологии.</div>
+                  <a href="cases.html" class="glossary-item__link">→ Все кейсы</a>
+                </div>
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Клуб Охотниц</div>
+                  <div class="glossary-item__def">Смотри «Академия Охотниц». Закрытое сообщество с еженедельными эфирами, банком техник и трекером прогресса.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="glossary-group">
+              <div class="glossary-group__letter">М</div>
+              <div class="glossary-items">
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Мастер / Мастерица</div>
+                  <div class="glossary-item__def"><!-- TODO --> Высший уровень игрока в методологии. Человек, полностью освоивший правила игры в отношениях и действующий из позиции силы, а не страха.</div>
+                </div>
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Методология</div>
+                  <div class="glossary-item__def">Системный подход Алекса Лесли к достижению результатов в личной жизни. Основана на 20+ годах практики, более чем 10 книгах и сотнях тысяч учеников. Включает: философию, техники, сценарии, трекер.</div>
+                  <a href="philosophy.html" class="glossary-item__link">→ Подробнее о методологии</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="glossary-group">
+              <div class="glossary-group__letter">О</div>
+              <div class="glossary-items">
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Охотница</div>
+                  <div class="glossary-item__def">Центральный архетип женской части методологии. Охотница — это женщина, которая действует активно и стратегически, а не ждёт. 9 шагов модели охотницы формируют путь от одиночества к замужеству.</div>
+                  <a href="women/huntress.html" class="glossary-item__link">→ Методология Охотницы</a>
+                </div>
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Охота на самца</div>
+                  <div class="glossary-item__def">Название флагманской книги Алекса Лесли, давшей имя всей методологии. <!-- TODO --> Описывает принципы, которые лежат в основе женского направления экосистемы.</div>
+                  <a href="books.html" class="glossary-item__link">→ Книги Алекса Лесли</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="glossary-group">
+              <div class="glossary-group__letter">П</div>
+              <div class="glossary-items">
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Правильное молчание</div>
+                  <div class="glossary-item__def">Одна из ключевых техник методологии. Намеренная пауза в общении, которая создаёт интригу, восстанавливает баланс интереса и заставляет мужчину проявлять инициативу. Используется строго по правилам — не как игнор, а как инструмент.</div>
+                </div>
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Путь игрока</div>
+                  <div class="glossary-item__def"><!-- TODO --> Поэтапный маршрут в методологии: от осознания правил → к освоению техник → к результату. Каждый уровень открывает следующий инструментарий.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="glossary-group">
+              <div class="glossary-group__letter">С</div>
+              <div class="glossary-items">
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Сава / Sawa Pontyjska</div>
+                  <div class="glossary-item__def">Самый известный кейс методологии. Ученица Алекса Лесли, вышедшая замуж за мультимиллионера. История Савы стала центральным социальным доказательством методологии. <!-- TODO --> Instagram: @sawa.pontyjska</div>
+                  <a href="cases.html" class="glossary-item__link">→ История Савы</a>
+                </div>
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Стиль соблазнения</div>
+                  <div class="glossary-item__def">Флагманский продукт мужского направления методологии. Программа для мужчин, основанная на развитии харизмы, уверенности и навыков общения — без манипуляций, через подлинную силу.</div>
+                  <a href="men/seduction.html" class="glossary-item__link">→ Тренинг</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="glossary-group">
+              <div class="glossary-group__letter">Т</div>
+              <div class="glossary-items">
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Техника «якорения»</div>
+                  <div class="glossary-item__def"><!-- TODO --> Метод создания устойчивых эмоциональных ассоциаций. Используется для того, чтобы человек думал о вас в определённых эмоциональных состояниях.</div>
+                </div>
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Трекер прогресса</div>
+                  <div class="glossary-item__def">Инструмент в приложении «Охотница» и личном кабинете. Позволяет отслеживать прохождение этапов методологии: свидания, задания, уровень освоения техник.</div>
+                  <a href="app.html" class="glossary-item__link">→ Приложение</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="glossary-group">
+              <div class="glossary-group__letter">Ф</div>
+              <div class="glossary-items">
+                <div class="glossary-item">
+                  <div class="glossary-item__term">«Жизнь без трусов»</div>
+                  <div class="glossary-item__def">Фундаментальный принцип философии Алекса Лесли. Означает готовность действовать без страха, принимать риск и быть честным с собой и другими. Является точкой входа в методологию.</div>
+                  <a href="philosophy.html" class="glossary-item__link">→ Философия</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="glossary-group">
+              <div class="glossary-group__letter">Х</div>
+              <div class="glossary-items">
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Хантер / Охотник</div>
+                  <div class="glossary-item__def"><!-- TODO --> Архетип активного участника в игре отношений. Охотник (мужской вариант) или Охотница (женский вариант) — человек, действующий с позиции инициативы и стратегии.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="glossary-group">
+              <div class="glossary-group__letter">Э</div>
+              <div class="glossary-items">
+                <div class="glossary-item">
+                  <div class="glossary-item__term">Экосистема</div>
+                  <div class="glossary-item__def">Совокупность всех продуктов, сообществ и медиа Алекса Лесли: книги → курсы → клуб → приложение → VIP-коучинг. Каждый элемент усиливает другой и создаёт единый путь развития.</div>
+                  <a href="about.html" class="glossary-item__link">→ Об экосистеме</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ─── FAQ: ЖЕНСКОЕ ─── -->
+        <div class="kb-section" id="faq-women">
+          <div class="kb-section__header">
+            <div class="kb-section__icon">👩</div>
+            <div>
+              <div class="kb-section__title">FAQ: Женское направление</div>
+              <div class="kb-section__sub">Часто задаваемые вопросы о курсе «Как выйти замуж» и методологии Охотницы</div>
+            </div>
+          </div>
+          <div class="faq-list">
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Сработает ли методология в моём возрасте? Мне <!-- TODO --> лет.
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  <!-- TODO --> Методология не зависит от возраста. Среди учениц — женщины от 22 до 55 лет. Кейсы замужества есть во всех возрастных группах, включая женщин «после 35» и «после развода». Возраст — это один из сценариев, под который адаптированы техники.
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Это работает, если я уже в отношениях, но он не зовёт замуж?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  <!-- TODO --> Да. Один из шести сценариев методологии Охотницы специально рассчитан на ситуацию «встречаемся, но замуж не зовёт». Есть конкретные техники и таймингу для этой ситуации.
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Как долго идёт курс «Как выйти замуж»? В каком формате?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  <!-- TODO --> Курс рассчитан на 90 дней, 9 модулей. Формат: видеоуроки + задания + поддержка куратора. Доступ через личный кабинет, доступен в любое время. Темп — самостоятельный.
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Есть ли гарантия возврата денег?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  <!-- TODO --> Условия возврата указаны в оферте. Рекомендуем ознакомиться перед покупкой. Ссылка на оферту — в подвале сайта.
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Методология манипулятивна? Это этично?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  <!-- TODO --> Методология основана на понимании психологии и создании искренней привлекательности — не на манипуляциях. Цель — помочь женщине быть собой, но лучшей версией себя. Результаты (547+ кейсов замужества) говорят о реальных отношениях, а не об обмане.
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Можно оплатить в рассрочку?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  <!-- TODO --> Да, доступна рассрочка через Тинькофф и Сбер. Условия и ежемесячный платёж указаны на странице курса.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── FAQ: МУЖСКОЕ ─── -->
+        <div class="kb-section" id="faq-men">
+          <div class="kb-section__header">
+            <div class="kb-section__icon">👨</div>
+            <div>
+              <div class="kb-section__title">FAQ: Мужское направление</div>
+              <div class="kb-section__sub">Вопросы о тренинге «Стиль соблазнения»</div>
+            </div>
+          </div>
+          <div class="faq-list">
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Это учит манипулировать женщинами?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  <!-- TODO --> Нет. Методология основана на развитии подлинной харизмы, уверенности и умения общаться. Цель — стать привлекательным человеком, а не научиться обманывать.
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Подойдёт ли тренинг, если у меня нет опыта в отношениях?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  <!-- TODO --> Да. Программа включает базовый уровень для тех, кто только начинает. Участники с разным опытом проходят разные треки внутри тренинга.
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Каков формат и длительность тренинга?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  <!-- TODO --> Уточняйте актуальный формат на странице курса — он может проводиться как онлайн, так и офлайн. Длительность и расписание — на странице <a href="men/seduction.html">«Стиль соблазнения»</a>.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── FAQ: КЛУБ ─── -->
+        <div class="kb-section" id="faq-club">
+          <div class="kb-section__header">
+            <div class="kb-section__icon">🏆</div>
+            <div>
+              <div class="kb-section__title">FAQ: Закрытый клуб</div>
+              <div class="kb-section__sub">Академия Охотниц — вопросы о членстве</div>
+            </div>
+          </div>
+          <div class="faq-list">
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Что входит в клуб и чем он отличается от курса?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  Клуб — это постоянная поддержка: еженедельные задания, закрытый чат, эфиры с Алексом, банк техник и нетворкинг. Курс — разовая программа с фиксированным содержанием. Клуб — это среда и ритм, курс — контент.
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Можно ли вступить в клуб без курса?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  <!-- TODO --> Да, вступление в клуб возможно независимо от прохождения курса. Однако для максимального результата рекомендуется сначала пройти курс «Как выйти замуж».
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Есть ли ограничение по количеству мест?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  <!-- TODO --> Да. Количество мест в клубе ограничено для поддержания качества сообщества. Актуальный статус — на <a href="club.html">странице клуба</a>.
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Как отменить подписку?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  <!-- TODO --> Подписку можно отменить в личном кабинете в разделе «Управление подпиской». Отмена вступает в силу с следующего расчётного периода.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── FAQ: ОБЩИЕ ─── -->
+        <div class="kb-section" id="faq-general">
+          <div class="kb-section__header">
+            <div class="kb-section__icon">❓</div>
+            <div>
+              <div class="kb-section__title">Общие вопросы</div>
+              <div class="kb-section__sub">Об Алексе Лесли, платежах и техническом доступе</div>
+            </div>
+          </div>
+          <div class="faq-list">
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Кто такой Алекс Лесли?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  Алекс Лесли — основатель методологии в области отношений, автор <!-- TODO --> книг, переведённых на <!-- TODO --> языков. Более 20 лет практики, сотни тысяч учеников. Создатель экосистемы: книги, курсы, клуб, приложение. <a href="alex.html">Подробнее →</a>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Как оплатить курс из-за рубежа?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  <!-- TODO --> Принимаются международные карты через Stripe. Также доступна оплата через Telegram. Подробности — при оформлении заказа или в разделе <a href="contacts.html">«Контакты»</a>.
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Как войти в личный кабинет?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  После оплаты вы получите письмо с данными для входа. Личный кабинет доступен по кнопке «Войти» в правом верхнем углу. Вход через email или Telegram. <a href="cabinet/index.html">Перейти в кабинет →</a>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Как связаться с поддержкой?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  Напишите нам через <a href="contacts.html">страницу контактов</a> или в Telegram. Среднее время ответа — <!-- TODO --> часов.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── FAQ: ПРИЛОЖЕНИЕ ─── -->
+        <div class="kb-section" id="faq-app">
+          <div class="kb-section__header">
+            <div class="kb-section__icon">📱</div>
+            <div>
+              <div class="kb-section__title">FAQ: Приложение «Охотница»</div>
+              <div class="kb-section__sub">Вопросы о мобильном приложении</div>
+            </div>
+          </div>
+          <div class="faq-list">
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Где скачать приложение?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  App Store (iOS) и Google Play (Android). Также доступна Telegram Mini-App — версия без установки. <a href="app.html">Подробнее о приложении →</a>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question" onclick="toggleFaq(this)">
+                Приложение бесплатное?
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="faq-answer__inner">
+                  <!-- TODO --> Базовые функции доступны бесплатно. Полный доступ (ИИ-коуч, клубный чат, все техники) — по подписке <!-- TODO --> руб/мес.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="kb-cta">
+          <div class="kb-cta__title">Готова начать путь?</div>
+          <p class="kb-cta__sub">Теория без практики — ничто. Начни с курса или запишись в клуб.</p>
+          <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+            <a href="women/how-to-marry.html" class="btn-primary">Курс «Как выйти замуж»</a>
+            <a href="contacts.html" class="btn-secondary">Задать вопрос</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/components.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    function toggleFaq(el) {
+      const item = el.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Закрыть все
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    function showSection(id, btn) {
+      document.querySelectorAll('.kb-nav__btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function kbFilter() {
+      const q = document.getElementById('kbSearch').value.toLowerCase();
+      // Фильтр терминов
+      document.querySelectorAll('.glossary-item').forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = (!q || text.includes(q)) ? '' : 'none';
+      });
+      // Фильтр FAQ
+      document.querySelectorAll('.faq-item').forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = (!q || text.includes(q)) ? '' : 'none';
+      });
+    }
+
+    // Scroll-reveal
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.05 });
+
+    document.querySelectorAll('.glossary-item, .faq-item').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.style.transition = `opacity .4s ease ${i * 0.02}s, transform .4s ease ${i * 0.02}s`;
+      obs.observe(el);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Курс «Как выйти замуж» — 90-дневная программа Алекса Лесли. Единственная методология, которая привела сотни женщин к замужеству. Запишись." />
+  <meta property="og:title" content="Как выйти замуж — 90-дневная программа Алекса Лесли" />
+  <meta property="og:description" content="Единственная методология, которая привела сотни женщин к замужеству." />
+  <meta property="og:type" content="website" />
+  <title>Как выйти замуж — Курс Алекса Лесли</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon" />
+
+  <style>
+  :root {
+    --color-women: #C2185B;
+    --color-women-light: #E91E63;
+    --color-women-glow: rgba(194, 24, 91, 0.15);
+  }
+
+  /* ─── HERO ─── */
+  .htw-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--color-bg);
+  }
+  .htw-hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 80% at 50% 0%, var(--color-women-glow) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 90% 80%, rgba(212,160,23,.05) 0%, transparent 60%),
+      var(--color-bg);
+    z-index: 0;
+  }
+  .htw-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: calc(var(--header-h) + 80px) var(--container-px) 80px;
+    width: 100%;
+    text-align: center;
+  }
+  .htw-hero__media-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .htw-hero__media-logo {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+  .htw-hero__tag {
+    display: inline-block;
+    background: var(--color-women-glow);
+    color: var(--color-women);
+    border: 1px solid rgba(194,24,91,.3);
+    border-radius: 100px;
+    padding: 6px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .htw-hero h1 {
+    font-size: clamp(32px, 5vw, 64px);
+    font-weight: 800;
+    line-height: 1.1;
+    max-width: 900px;
+    margin: 0 auto 24px;
+  }
+  .htw-hero h1 em {
+    font-style: italic;
+    color: var(--color-women);
+    font-family: 'Playfair Display', serif;
+  }
+  .htw-hero__sub {
+    font-size: 20px;
+    color: var(--color-text-muted);
+    max-width: 640px;
+    margin: 0 auto 48px;
+    line-height: 1.6;
+  }
+  .btn-women {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-women);
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    padding: 18px 40px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-women:hover {
+    background: var(--color-women-light);
+    transform: scale(1.03);
+  }
+  .htw-hero__stats {
+    display: flex;
+    justify-content: center;
+    gap: 64px;
+    margin-top: 64px;
+    flex-wrap: wrap;
+  }
+  .htw-hero__stat { text-align: center; }
+  .htw-hero__stat-val {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--color-women);
+  }
+  .htw-hero__stat-label {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    margin-top: 4px;
+  }
+  .htw-hero__photo-strip {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 48px;
+  }
+  .htw-hero__photo-item {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1A0A18, #2A1020);
+    border: 2px solid rgba(194,24,91,.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+  }
+
+  /* ─── БОЛИ ─── */
+  .htw-pains {
+    padding: var(--section-py) var(--container-px);
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .htw-pains__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .htw-pain-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-women);
+    border-radius: var(--radius-card);
+    padding: 28px 24px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .htw-pain-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(194,24,91,.12);
+  }
+  .htw-pain-card__num {
+    font-size: 12px;
+    color: var(--color-women);
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .htw-pain-card__text {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  /* ─── КЕЙС САВА ─── */
+  .htw-case {
+    background: linear-gradient(135deg, #0D0D1A, #1A0A18);
+    padding: var(--section-py) var(--container-px);
+  }
+  .htw-case__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .htw-case__photo {
+    aspect-ratio: 4/5;
+    background: linear-gradient(160deg, #1A0A18, #2A1020, #1A1A2E);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(194,24,91,.2);
+  }
+  .htw-case__photo::after {
+    content: 'фото до/после';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: rgba(255,255,255,.4);
+    font-family: monospace;
+  }
+  .htw-case__tag {
+    display: inline-block;
+    background: var(--color-women-glow);
+    color: var(--color-women);
+    border: 1px solid rgba(194,24,91,.3);
+    border-radius: 100px;
+    padding: 6px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .htw-case h2 {
+    font-size: clamp(24px, 3vw, 38px);
+    font-weight: 800;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  .htw-case__story {
+    font-size: 16px;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+  .htw-case__timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .htw-case__point {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .htw-case__point-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-women);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .htw-case__point-text {
+    font-size: 15px;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+  .htw-case__quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--color-text);
+    line-height: 1.6;
+    border-left: 3px solid var(--color-women);
+    padding-left: 20px;
+    margin-bottom: 32px;
+  }
+  .htw-case__media-badges {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .htw-case__media-badge {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ─── ПРОГРАММА ─── */
+  .htw-program {
+    padding: var(--section-py) var(--container-px);
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .htw-program__meta {
+    display: flex;
+    gap: 32px;
+    margin: 32px 0;
+    flex-wrap: wrap;
+  }
+  .htw-program__meta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    color: var(--color-text-muted);
+  }
+  .htw-program__meta-icon {
+    font-size: 24px;
+  }
+  .htw-program__modules {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 32px;
+  }
+  .htw-module {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .htw-module:hover {
+    border-color: rgba(194,24,91,.4);
+    transform: translateY(-4px);
+  }
+  .htw-module__num {
+    font-size: 12px;
+    color: var(--color-women);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .htw-module__title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.3;
+  }
+  .htw-module__desc {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .htw-program__what {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 40px;
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+  }
+  .htw-program__what-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .htw-program__what-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .htw-program__what-text {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+  .htw-program__what-text strong {
+    color: var(--color-text);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ─── ТАРИФЫ ─── */
+  .htw-pricing {
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-card) 100%);
+    padding: var(--section-py) var(--container-px);
+  }
+  .htw-pricing__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .htw-pricing__note {
+    text-align: center;
+    font-size: 14px;
+    color: var(--color-text-muted);
+    margin: 16px 0 48px;
+  }
+  .htw-pricing__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+  .htw-plan {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    transition: transform 0.2s;
+  }
+  .htw-plan:hover { transform: translateY(-4px); }
+  .htw-plan--featured {
+    border-color: var(--color-women);
+    box-shadow: 0 0 40px rgba(194,24,91,.2);
+    transform: scale(1.03);
+  }
+  .htw-plan--featured:hover { transform: scale(1.03) translateY(-4px); }
+  .htw-plan__badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-women);
+    color: #fff;
+    border-radius: 100px;
+    padding: 5px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .htw-plan__name {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--color-text);
+    margin-bottom: 8px;
+  }
+  .htw-plan__price {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--color-women);
+  }
+  .htw-plan__price-note {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    margin-bottom: 24px;
+  }
+  .htw-plan__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+  .htw-plan__features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+  }
+  .htw-plan__features li::before {
+    content: '✓';
+    color: var(--color-women);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .htw-plan__features li.disabled {
+    opacity: 0.4;
+  }
+  .htw-plan__features li.disabled::before {
+    content: '–';
+    color: var(--color-text-muted);
+  }
+  .htw-pricing__guarantee {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 15px;
+    color: var(--color-text-muted);
+  }
+  .htw-pricing__guarantee strong {
+    color: var(--color-text);
+  }
+
+  /* ─── ОТЗЫВЫ ─── */
+  .htw-reviews {
+    padding: var(--section-py) var(--container-px);
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .htw-reviews__filter {
+    display: flex;
+    gap: 12px;
+    margin: 32px 0;
+    flex-wrap: wrap;
+  }
+  .htw-reviews__filter-btn {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .htw-reviews__filter-btn.active,
+  .htw-reviews__filter-btn:hover {
+    background: var(--color-women-glow);
+    border-color: rgba(194,24,91,.4);
+    color: var(--color-women);
+  }
+  .htw-reviews__video-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+  .htw-review-video {
+    aspect-ratio: 9/16;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+    max-height: 280px;
+  }
+  .htw-review-video:hover {
+    border-color: rgba(194,24,91,.4);
+    transform: scale(1.02);
+  }
+  .htw-review-video__play {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--color-women);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+  .htw-review-video__name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .htw-reviews__text-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .htw-review-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .htw-review-card__stars {
+    color: var(--color-women);
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+  .htw-review-card__text {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    font-style: italic;
+    flex: 1;
+  }
+  .htw-review-card__author {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .htw-review-card__result {
+    font-size: 12px;
+    color: var(--color-women);
+  }
+
+  /* ─── ОБ АВТОРЕ ─── */
+  .htw-author {
+    background: var(--color-bg-card);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--section-py) var(--container-px);
+  }
+  .htw-author__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .htw-author__photo {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1A1A2E, #2A1020);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    border: 3px solid rgba(194,24,91,.3);
+    flex-shrink: 0;
+  }
+  .htw-author__name {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .htw-author__role {
+    font-size: 16px;
+    color: var(--color-women);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .htw-author__bio {
+    font-size: 16px;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    max-width: 640px;
+    margin-bottom: 24px;
+  }
+  .htw-author__facts {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .htw-author__fact-val {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--color-text);
+  }
+  .htw-author__fact-label {
+    font-size: 13px;
+    color: var(--color-text-muted);
+  }
+
+  /* ─── FAQ ─── */
+  .htw-faq {
+    padding: var(--section-py) var(--container-px);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .htw-faq__list {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .htw-faq-item {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .htw-faq-item.open {
+    border-color: rgba(194,24,91,.4);
+  }
+  .htw-faq-item__q {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 22px 24px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text);
+    font-family: inherit;
+  }
+  .htw-faq-item__arrow {
+    font-size: 18px;
+    color: var(--color-women);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+  .htw-faq-item.open .htw-faq-item__arrow {
+    transform: rotate(180deg);
+  }
+  .htw-faq-item__a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .htw-faq-item.open .htw-faq-item__a {
+    max-height: 400px;
+  }
+  .htw-faq-item__a-inner {
+    padding: 0 24px 22px;
+    font-size: 15px;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    border-top: 1px solid var(--color-border);
+    padding-top: 16px;
+  }
+
+  /* ─── ФИНАЛЬНЫЙ CTA ─── */
+  .htw-final-cta {
+    background: linear-gradient(135deg, #0D0A1A, #1A0A18);
+    padding: var(--section-py) var(--container-px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .htw-final-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 70% at 50% 50%, var(--color-women-glow) 0%, transparent 70%);
+  }
+  .htw-final-cta__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .htw-final-cta__deadline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(194,24,91,.15);
+    border: 1px solid rgba(194,24,91,.4);
+    border-radius: 100px;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-women);
+    margin-bottom: 32px;
+  }
+  .htw-final-cta h2 {
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .htw-final-cta p {
+    font-size: 18px;
+    color: var(--color-text-muted);
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+  .htw-final-cta__ctas {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .htw-final-cta__seats {
+    font-size: 14px;
+    color: var(--color-text-muted);
+  }
+  .htw-final-cta__seats strong {
+    color: var(--color-women);
+  }
+
+  /* ─── АДАПТИВ ─── */
+  @media (max-width: 1200px) {
+    .htw-program__what { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    .htw-pains__grid { grid-template-columns: 1fr; }
+    .htw-case__inner { grid-template-columns: 1fr; gap: 40px; }
+    .htw-program__modules { grid-template-columns: 1fr 1fr; }
+    .htw-program__what { grid-template-columns: 1fr; padding: 24px; }
+    .htw-pricing__grid { grid-template-columns: 1fr; gap: 32px; }
+    .htw-plan--featured { transform: none; }
+    .htw-reviews__video-row { grid-template-columns: 1fr 1fr; }
+    .htw-reviews__text-grid { grid-template-columns: 1fr; }
+    .htw-author__inner { grid-template-columns: 1fr; text-align: center; gap: 32px; }
+    .htw-author__photo { margin: 0 auto; }
+    .htw-author__facts { justify-content: center; }
+    .htw-hero__stats { gap: 32px; }
+  }
+  @media (max-width: 375px) {
+    .htw-program__modules { grid-template-columns: 1fr; }
+    .htw-reviews__video-row { grid-template-columns: 1fr; }
+    .htw-final-cta__ctas { flex-direction: column; align-items: center; }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ХЕДЕР -->
+<div id="site-header"></div>
+
+<main>
+
+  <!-- ─── 1. HERO ─── -->
+  <section class="htw-hero">
+    <div class="htw-hero__bg"></div>
+    <div class="htw-hero__inner">
+      <div class="htw-hero__media-logos">
+        <span class="htw-hero__media-logo">Forbes</span>
+        <span class="htw-hero__media-logo">Daily Mail</span>
+        <span class="htw-hero__media-logo"><!-- TODO: другие СМИ --></span>
+      </div>
+      <span class="htw-hero__tag">Флагманский курс</span>
+      <h1>Единственная методология,<br>которая привела <em><!-- TODO --></em> женщин<br>к замужеству</h1>
+      <p class="htw-hero__sub">
+        90-дневная программа Алекса Лесли. Не советы — конкретный путь с доказанным результатом.
+      </p>
+      <a href="#pricing" class="btn-women">Начать путь → Quiz</a>
+      <div class="htw-hero__photo-strip">
+        <div class="htw-hero__photo-item">💍</div>
+        <div class="htw-hero__photo-item">💎</div>
+        <div class="htw-hero__photo-item">🌸</div>
+        <div class="htw-hero__photo-item">✨</div>
+        <div class="htw-hero__photo-item">👑</div>
+        <!-- TODO: реальные фото учениц с кольцами -->
+      </div>
+      <div class="htw-hero__stats">
+        <div class="htw-hero__stat">
+          <div class="htw-hero__stat-val" data-counter="true"><!-- TODO --></div>
+          <div class="htw-hero__stat-label">женщин прошли курс</div>
+        </div>
+        <div class="htw-hero__stat">
+          <div class="htw-hero__stat-val">90</div>
+          <div class="htw-hero__stat-label">дней программы</div>
+        </div>
+        <div class="htw-hero__stat">
+          <div class="htw-hero__stat-val">9</div>
+          <div class="htw-hero__stat-label">модулей</div>
+        </div>
+        <div class="htw-hero__stat">
+          <div class="htw-hero__stat-val">20+</div>
+          <div class="htw-hero__stat-label">лет методологии</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 2. ДЛЯ КОГО: 6 БОЛЕЙ ─── -->
+  <section class="htw-pains">
+    <div class="section-header">
+      <p class="section-tag" style="color:var(--color-women);">Узнай себя</p>
+      <h2 class="section-title">Это про тебя?</h2>
+      <p class="section-subtitle">Если хотя бы один пункт отзывается — этот курс для тебя</p>
+    </div>
+    <div class="htw-pains__grid">
+      <div class="htw-pain-card reveal">
+        <div class="htw-pain-card__num">01</div>
+        <div class="htw-pain-card__text">«Встречаемся, но не зовёт замуж — не знаю, что делать»</div>
+      </div>
+      <div class="htw-pain-card reveal">
+        <div class="htw-pain-card__num">02</div>
+        <div class="htw-pain-card__text">«Мне уже 35, не поздно ли начинать?»</div>
+      </div>
+      <div class="htw-pain-card reveal">
+        <div class="htw-pain-card__num">03</div>
+        <div class="htw-pain-card__text">«Я всё делаю правильно, но ничего не меняется»</div>
+      </div>
+      <div class="htw-pain-card reveal">
+        <div class="htw-pain-card__num">04</div>
+        <div class="htw-pain-card__text">«Не знаю, как дать понять, что хочу серьёзных отношений»</div>
+      </div>
+      <div class="htw-pain-card reveal">
+        <div class="htw-pain-card__num">05</div>
+        <div class="htw-pain-card__text">«Он исчезает после нескольких свиданий — что я делаю не так?»</div>
+      </div>
+      <div class="htw-pain-card reveal">
+        <div class="htw-pain-card__num">06</div>
+        <div class="htw-pain-card__text">«Хочу замуж, но боюсь выглядеть слишком настойчивой»</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 3. КЕЙС САВЫ ─── -->
+  <section class="htw-case">
+    <div class="htw-case__inner">
+      <div class="htw-case__photo">
+        💍
+        <!-- TODO: фото до/после Савы -->
+      </div>
+      <div class="reveal">
+        <span class="htw-case__tag">Мегакейс</span>
+        <h2>История Савы — путь от одиночества до замужества</h2>
+        <p class="htw-case__story"><!-- TODO: полная история Савы --></p>
+        <div class="htw-case__timeline">
+          <div class="htw-case__point">
+            <div class="htw-case__point-dot"></div>
+            <div class="htw-case__point-text"><strong style="color:var(--color-text);">До курса:</strong> <!-- TODO: ситуация Савы до --></div>
+          </div>
+          <div class="htw-case__point">
+            <div class="htw-case__point-dot"></div>
+            <div class="htw-case__point-text"><strong style="color:var(--color-text);">В процессе:</strong> Применила методологию Охотницы — модули 4 и 5 изменили её поведение</div>
+          </div>
+          <div class="htw-case__point">
+            <div class="htw-case__point-dot"></div>
+            <div class="htw-case__point-text"><strong style="color:var(--color-text);">Результат:</strong> <!-- TODO: результат Савы --></div>
+          </div>
+        </div>
+        <div class="htw-case__quote">
+          «<!-- TODO: цитата Савы »
+        </div>
+        <div class="htw-case__media-badges">
+          <span class="htw-case__media-badge">Forbes</span>
+          <span class="htw-case__media-badge">Daily Mail</span>
+          <span class="htw-case__media-badge"><!-- TODO --></span>
+        </div>
+        <a href="how-to-marry.html#pricing" class="btn-women">Хочу такой же результат →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 4. ПРОГРАММА ─── -->
+  <section class="htw-program">
+    <div class="section-header">
+      <p class="section-tag" style="color:var(--color-women);">Программа курса</p>
+      <h2 class="section-title">90 дней. 9 модулей. Один результат.</h2>
+    </div>
+    <div class="htw-program__meta">
+      <div class="htw-program__meta-item">
+        <span class="htw-program__meta-icon">🎥</span>
+        Видеоуроки + практические задания
+      </div>
+      <div class="htw-program__meta-item">
+        <span class="htw-program__meta-icon">💬</span>
+        Поддержка наставника 90 дней
+      </div>
+      <div class="htw-program__meta-item">
+        <span class="htw-program__meta-icon">📱</span>
+        Закрытый чат участниц
+      </div>
+      <div class="htw-program__meta-item">
+        <span class="htw-program__meta-icon">♾️</span>
+        Пожизненный доступ
+      </div>
+    </div>
+    <div class="htw-program__modules">
+      <div class="htw-module reveal">
+        <div class="htw-module__num">Модуль 1</div>
+        <div class="htw-module__title">Жизнь без трусов — снятие внутренних ограничений</div>
+        <div class="htw-module__desc">Первая трансформация — в голове. Разрешение хотеть, действовать и не стыдиться. Новая идентичность Охотницы.</div>
+      </div>
+      <div class="htw-module reveal">
+        <div class="htw-module__num">Модуль 2</div>
+        <div class="htw-module__title">Выбор объекта — критерии и стратегия</div>
+        <div class="htw-module__desc">Охотница выбирает сама. Критерии внешности, статуса, совместимости. Психотипы мужчин и стратегия под каждый.</div>
+      </div>
+      <div class="htw-module reveal">
+        <div class="htw-module__num">Модуль 3</div>
+        <div class="htw-module__title">Первый контакт — онлайн и офлайн</div>
+        <div class="htw-module__desc">Как создать ситуацию, в которой он сам инициирует. Взгляд, расположение, первая фраза-«крючок». Tinder/Mamba 2026.</div>
+      </div>
+      <div class="htw-module reveal">
+        <div class="htw-module__num">Модуль 4</div>
+        <div class="htw-module__title">Прогрев — раскачка эмоций</div>
+        <div class="htw-module__desc">Естественный ритм отношений: чередование внимания и дистанции. Создание непредсказуемости и интереса без манипуляций.</div>
+      </div>
+      <div class="htw-module reveal">
+        <div class="htw-module__num">Модуль 5</div>
+        <div class="htw-module__title">Якорение — создание эмоциональных связей</div>
+        <div class="htw-module__desc">Устойчивые положительные ассоциации: фраза, запах, место = ощущение эйфории. Техника на биологическом уровне.</div>
+      </div>
+      <div class="htw-module reveal">
+        <div class="htw-module__num">Модуль 6</div>
+        <div class="htw-module__title">Турбоядерные техники влюблённости</div>
+        <div class="htw-module__desc">Конкретные фразы и действия, запускающие влюблённость. Дефицит, непредсказуемость, уважение, интерес к его «слабостям».</div>
+      </div>
+      <div class="htw-module reveal">
+        <div class="htw-module__num">Модуль 7</div>
+        <div class="htw-module__title">Перевод в отношения — он предлагает сам</div>
+        <div class="htw-module__desc">Не просить — создать ситуацию. Правильное «исчезновение» и возвращение. Из «просто встречаемся» в официальные отношения.</div>
+      </div>
+      <div class="htw-module reveal">
+        <div class="htw-module__num">Модуль 8</div>
+        <div class="htw-module__title">Удержание — Охотница внутри отношений</div>
+        <div class="htw-module__desc">Не расслабляться, не терять себя. Поддержание интереса через новизну и непредсказуемость. Дневник Охотницы.</div>
+      </div>
+      <div class="htw-module reveal">
+        <div class="htw-module__num">Модуль 9</div>
+        <div class="htw-module__title">Замужество — он считает это своей идеей</div>
+        <div class="htw-module__desc">Не ультиматум — создание условий. Время, пространство, социальное давление. Предложение руки как его собственное решение.</div>
+      </div>
+    </div>
+    <div class="htw-program__what reveal">
+      <div class="htw-program__what-item">
+        <span class="htw-program__what-icon">🎥</span>
+        <div class="htw-program__what-text">
+          <strong>Видеоуроки</strong>
+          По 45–90 минут на каждый модуль, с разборами реальных ситуаций
+        </div>
+      </div>
+      <div class="htw-program__what-item">
+        <span class="htw-program__what-icon">📋</span>
+        <div class="htw-program__what-text">
+          <strong>Практические задания</strong>
+          Ежедневная отработка — ты не просто смотришь, ты применяешь
+        </div>
+      </div>
+      <div class="htw-program__what-item">
+        <span class="htw-program__what-icon">🤝</span>
+        <div class="htw-program__what-text">
+          <strong>Поддержка 90 дней</strong>
+          Наставник отвечает на твои ситуации, не оставляет одну
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 5. ТАРИФЫ ─── -->
+  <section class="htw-pricing" id="pricing">
+    <div class="htw-pricing__inner">
+      <div class="section-header">
+        <p class="section-tag" style="color:var(--color-women);">Инвестиция</p>
+        <h2 class="section-title">Выбери свой формат</h2>
+      </div>
+      <p class="htw-pricing__note">Доступна рассрочка · Самый дорогой тариф — наиболее полный результат</p>
+      <div class="htw-pricing__grid">
+
+        <!-- VIP — первым и выделен -->
+        <div class="htw-plan htw-plan--featured reveal">
+          <div class="htw-plan__badge">Рекомендуем</div>
+          <div class="htw-plan__name">VIP</div>
+          <div class="htw-plan__price"><!-- TODO --> ₽</div>
+          <div class="htw-plan__price-note">или рассрочка · <!-- TODO --> ₽/мес</div>
+          <ul class="htw-plan__features">
+            <li>Все 9 видео-модулей</li>
+            <li>Личный куратор на 90 дней</li>
+            <li>Персональный разбор ситуации с Алексом</li>
+            <li>VIP-чат с Алексом (прямой доступ)</li>
+            <li>Закрытый клуб на 3 месяца включён</li>
+            <li>Пожизненный доступ к обновлениям</li>
+            <li>Дневник Охотницы (физический)</li>
+          </ul>
+          <a href="#" class="btn-women">Записаться на VIP →</a>
+        </div>
+
+        <!-- Полный -->
+        <div class="htw-plan reveal">
+          <div class="htw-plan__name">Полный</div>
+          <div class="htw-plan__price">49 900 ₽</div>
+          <div class="htw-plan__price-note">или рассрочка · <!-- TODO --> ₽/мес</div>
+          <ul class="htw-plan__features">
+            <li>Все 9 видео-модулей</li>
+            <li>Куратор в чате (ответ в течение суток)</li>
+            <li>Закрытый чат участниц курса</li>
+            <li>Пожизненный доступ к материалам</li>
+            <li>Трекер прогресса</li>
+            <li class="disabled">Персональный разбор с Алексом</li>
+            <li class="disabled">VIP-чат с Алексом</li>
+          </ul>
+          <a href="#" class="btn-women" style="background:transparent;border:2px solid var(--color-women);color:var(--color-women);">Записаться →</a>
+        </div>
+
+        <!-- Базовый -->
+        <div class="htw-plan reveal">
+          <div class="htw-plan__name">Базовый</div>
+          <div class="htw-plan__price"><!-- TODO --> ₽</div>
+          <div class="htw-plan__price-note">самостоятельное обучение</div>
+          <ul class="htw-plan__features">
+            <li>Все 9 видео-модулей</li>
+            <li>Пожизненный доступ к материалам</li>
+            <li class="disabled">Куратор</li>
+            <li class="disabled">Закрытый чат участниц</li>
+            <li class="disabled">Трекер прогресса</li>
+            <li class="disabled">Персональный разбор</li>
+            <li class="disabled">VIP-чат</li>
+          </ul>
+          <a href="#" class="btn-secondary">Записаться →</a>
+        </div>
+
+      </div>
+      <div class="htw-pricing__guarantee">
+        <strong>Гарантия:</strong> если в течение 7 дней ты решишь, что курс не для тебя — вернём деньги. Без вопросов.
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 6. ОТЗЫВЫ ─── -->
+  <section class="htw-reviews">
+    <div class="section-header">
+      <p class="section-tag" style="color:var(--color-women);">Отзывы</p>
+      <h2 class="section-title">Они уже получили результат</h2>
+    </div>
+    <div class="htw-reviews__filter">
+      <button class="htw-reviews__filter-btn active">Все</button>
+      <button class="htw-reviews__filter-btn">Замужество</button>
+      <button class="htw-reviews__filter-btn">Отношения</button>
+      <button class="htw-reviews__filter-btn">Знакомства</button>
+    </div>
+    <!-- 6 видеоотзывов -->
+    <div class="htw-reviews__video-row">
+      <div class="htw-review-video reveal">
+        <div class="htw-review-video__play">▶</div>
+        <div class="htw-review-video__name">Катя, 31 год</div>
+      </div>
+      <div class="htw-review-video reveal">
+        <div class="htw-review-video__play">▶</div>
+        <div class="htw-review-video__name">Марина, 28 лет</div>
+      </div>
+      <div class="htw-review-video reveal">
+        <div class="htw-review-video__play">▶</div>
+        <div class="htw-review-video__name">Оля, 35 лет</div>
+      </div>
+    </div>
+    <div class="htw-reviews__video-row" style="margin-bottom:40px;">
+      <div class="htw-review-video reveal">
+        <div class="htw-review-video__play">▶</div>
+        <div class="htw-review-video__name">Вика, 33 года</div>
+      </div>
+      <div class="htw-review-video reveal">
+        <div class="htw-review-video__play">▶</div>
+        <div class="htw-review-video__name">Настя, 29 лет</div>
+      </div>
+      <div class="htw-review-video reveal">
+        <div class="htw-review-video__play">▶</div>
+        <div class="htw-review-video__name">Ира, 37 лет</div>
+      </div>
+    </div>
+    <!-- 12 текстовых отзывов (первые 3) + TODO -->
+    <div class="htw-reviews__text-grid">
+      <div class="htw-review-card reveal">
+        <div class="htw-review-card__stars">★★★★★</div>
+        <p class="htw-review-card__text">«Встречались 2 года, и он не предлагал пожениться. После 3-го модуля применила технику — и он сам заговорил о свадьбе. Я не давила, я просто знала что делать.»</p>
+        <div class="htw-review-card__author">Анна, 34 года</div>
+        <div class="htw-review-card__result">✓ Помолвка через 3 месяца</div>
+      </div>
+      <div class="htw-review-card reveal">
+        <div class="htw-review-card__stars">★★★★★</div>
+        <p class="htw-review-card__text">«Думала, что в 29 "поезд ушёл". Алекс объяснил, что это мышление жертвы. Через 2 месяца после курса познакомилась с будущим мужем.»</p>
+        <div class="htw-review-card__author">Марина, 29 лет</div>
+        <div class="htw-review-card__result">✓ Свадьба через 8 месяцев</div>
+      </div>
+      <div class="htw-review-card reveal">
+        <div class="htw-review-card__stars">★★★★★</div>
+        <p class="htw-review-card__text">«Я скептически относилась к "техникам". Но метод Охотницы — это не манипуляции, это понимание того, как работает мужская психология.»</p>
+        <div class="htw-review-card__author">Виктория, 37 лет</div>
+        <div class="htw-review-card__result">✓ Замужество в 38 лет</div>
+      </div>
+      <!-- TODO: ещё 9 текстовых отзывов -->
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="../reviews.html" class="btn-secondary">Смотреть все отзывы →</a>
+    </div>
+  </section>
+
+  <!-- ─── 7. ОБ АВТОРЕ ─── -->
+  <section class="htw-author">
+    <div class="htw-author__inner">
+      <div class="htw-author__photo">
+        <!-- TODO: фото Алекса -->
+        👤
+      </div>
+      <div class="reveal">
+        <div class="htw-author__name">Алекс Лесли</div>
+        <div class="htw-author__role">Создатель методологии Охотницы</div>
+        <p class="htw-author__bio">
+          Основатель единственной в русскоязычном мире доказанной системы женской психологии в отношениях. Автор книги «Охота на самца» и Кодекса Охотницы. 20 лет практики. Сотни тысяч учеников. Методология подтверждена реальными замужествами.
+        </p>
+        <div class="htw-author__facts">
+          <div>
+            <div class="htw-author__fact-val">20+</div>
+            <div class="htw-author__fact-label">лет опыта</div>
+          </div>
+          <div>
+            <div class="htw-author__fact-val">10</div>
+            <div class="htw-author__fact-label">книг</div>
+          </div>
+          <div>
+            <div class="htw-author__fact-val"><!-- TODO --></div>
+            <div class="htw-author__fact-label">учеников</div>
+          </div>
+          <div>
+            <div class="htw-author__fact-val"><!-- TODO --></div>
+            <div class="htw-author__fact-label">стран</div>
+          </div>
+        </div>
+        <div style="margin-top:24px;">
+          <a href="../alex.html" class="btn-secondary">Подробнее об Алексе →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 8. FAQ ─── -->
+  <section class="htw-faq">
+    <div class="section-header">
+      <p class="section-tag" style="color:var(--color-women);">Вопросы</p>
+      <h2 class="section-title">Часто задают</h2>
+    </div>
+    <div class="htw-faq__list">
+
+      <div class="htw-faq-item">
+        <button class="htw-faq-item__q">
+          Мне уже 38. Не поздно ли?
+          <span class="htw-faq-item__arrow">▼</span>
+        </button>
+        <div class="htw-faq-item__a">
+          <div class="htw-faq-item__a-inner">
+            Нет. Возраст — это не барьер, это мышление. Виктория вышла замуж в 38, Ирина — в 41. Методология работает вне зависимости от возраста, потому что она строится на мужской психологии, которая не меняется с годами.
+          </div>
+        </div>
+      </div>
+
+      <div class="htw-faq-item">
+        <button class="htw-faq-item__q">
+          Это манипуляции?
+          <span class="htw-faq-item__arrow">▼</span>
+        </button>
+        <div class="htw-faq-item__a">
+          <div class="htw-faq-item__a-inner">
+            Нет. Методология основана на понимании мужской психологии — как работает привязанность, влечение, желание защищать. Ты не обманываешь его — ты создаёшь условия, в которых он раскрывает своё лучшее.
+          </div>
+        </div>
+      </div>
+
+      <div class="htw-faq-item">
+        <button class="htw-faq-item__q">
+          Я уже в отношениях. Подходит ли курс?
+          <span class="htw-faq-item__arrow">▼</span>
+        </button>
+        <div class="htw-faq-item__a">
+          <div class="htw-faq-item__a-inner">
+            Да. Часть курса — именно о том, как перевести текущие отношения в замужество. Модули 7–9 специально посвящены ситуации «встречаемся, но не женится».
+          </div>
+        </div>
+      </div>
+
+      <div class="htw-faq-item">
+        <button class="htw-faq-item__q">
+          Когда начнётся курс?
+          <span class="htw-faq-item__arrow">▼</span>
+        </button>
+        <div class="htw-faq-item__a">
+          <div class="htw-faq-item__a-inner">
+            Доступ к курсу — сразу после оплаты. Можешь начинать в любой момент и идти в своём темпе. Куратор сопровождает тебя 90 дней с момента первого входа в программу.
+          </div>
+        </div>
+      </div>
+
+      <div class="htw-faq-item">
+        <button class="htw-faq-item__q">
+          Как долго длится обучение?
+          <span class="htw-faq-item__arrow">▼</span>
+        </button>
+        <div class="htw-faq-item__a">
+          <div class="htw-faq-item__a-inner">
+            Программа рассчитана на 90 дней. Каждый модуль — примерно 10 дней плюс практика. Общее время просмотра видео — около 12 часов. Практические задания выполняются в реальной жизни ежедневно.
+          </div>
+        </div>
+      </div>
+
+      <div class="htw-faq-item">
+        <button class="htw-faq-item__q">
+          Есть ли гарантия возврата денег?
+          <span class="htw-faq-item__arrow">▼</span>
+        </button>
+        <div class="htw-faq-item__a">
+          <div class="htw-faq-item__a-inner">
+            Да. В течение 7 дней с момента покупки, если ты посмотрела первый модуль и решила, что курс не для тебя — вернём полную стоимость без вопросов.
+          </div>
+        </div>
+      </div>
+
+      <div class="htw-faq-item">
+        <button class="htw-faq-item__q">
+          Можно ли оплатить в рассрочку?
+          <span class="htw-faq-item__arrow">▼</span>
+        </button>
+        <div class="htw-faq-item__a">
+          <div class="htw-faq-item__a-inner">
+            Да, рассрочка доступна на все тарифы. Условия рассрочки уточняются при оформлении заказа. <!-- TODO: конкретные условия -->
+          </div>
+        </div>
+      </div>
+
+      <div class="htw-faq-item">
+        <button class="htw-faq-item__q">
+          Я никогда раньше не проходила онлайн-курсы. Справлюсь?
+          <span class="htw-faq-item__arrow">▼</span>
+        </button>
+        <div class="htw-faq-item__a">
+          <div class="htw-faq-item__a-inner">
+            Да. Платформа максимально простая: заходишь в личный кабинет, смотришь видео, выполняешь задания. Куратор всегда на связи, если что-то непонятно.
+          </div>
+        </div>
+      </div>
+
+      <div class="htw-faq-item">
+        <button class="htw-faq-item__q">
+          Буду ли я похожа на всех остальных «охотниц»?
+          <span class="htw-faq-item__arrow">▼</span>
+        </button>
+        <div class="htw-faq-item__a">
+          <div class="htw-faq-item__a-inner">
+            Нет. Методология — это инструменты, а не скрипты. Ты остаёшься собой, только начинаешь действовать с пониманием психологии, а не наугад.
+          </div>
+        </div>
+      </div>
+
+      <div class="htw-faq-item">
+        <button class="htw-faq-item__q">
+          Результат гарантирован?
+          <span class="htw-faq-item__arrow">▼</span>
+        </button>
+        <div class="htw-faq-item__a">
+          <div class="htw-faq-item__a-inner">
+            Методология работает — это подтверждено сотнями результатов. Но результат зависит от тебя: насколько добросовестно ты выполняешь задания и применяешь техники. Те, кто делает — получают результат.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── 9. ФИНАЛЬНЫЙ CTA ─── -->
+  <section class="htw-final-cta">
+    <div class="htw-final-cta__inner reveal">
+      <div class="htw-final-cta__deadline">
+        🔥 Осталось мест: <!-- TODO --> · Цена повысится <!-- TODO -->
+      </div>
+      <h2>Готова изменить<br>свою историю?</h2>
+      <p>
+        Первый шаг бесплатный. Пройди квиз — и узнай, что именно мешает тебе получить результат прямо сейчас.
+      </p>
+      <div class="htw-final-cta__ctas">
+        <a href="#pricing" class="btn-women">Записаться на курс →</a>
+        <a href="huntress.html" class="btn-secondary">Узнать о методологии</a>
+      </div>
+      <div class="htw-final-cta__seats">
+        Доступно мест: <strong><!-- TODO --></strong> · Рассрочка доступна
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ПОДВАЛ -->
+<div id="site-footer"></div>
+
+<script src="../assets/js/components.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof initScrollReveal === 'function') initScrollReveal();
+    if (typeof initCounters === 'function') initCounters();
+
+    /* ─── FAQ АККОРДЕОН ─── */
+    document.querySelectorAll('.htw-faq-item__q').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var item = btn.parentElement;
+        var isOpen = item.classList.contains('open');
+        // Закрыть всё
+        document.querySelectorAll('.htw-faq-item').forEach(function (el) {
+          el.classList.remove('open');
+        });
+        // Открыть текущий если был закрыт
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    /* ─── ФИЛЬТР ОТЗЫВОВ ─── */
+    document.querySelectorAll('.htw-reviews__filter-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.htw-reviews__filter-btn').forEach(function (b) {
+          b.classList.remove('active');
+        });
+        btn.classList.add('active');
+        /* TODO: реальная фильтрация отзывов */
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

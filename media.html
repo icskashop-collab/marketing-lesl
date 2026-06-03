@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Медиа Алекса Лесли — YouTube-канал, подкасты, интервью и эфиры. Смотрите лучшие видео об отношениях и методологии." />
+  <meta property="og:title" content="Медиа — Alex Leslie" />
+  <meta property="og:description" content="YouTube-канал, подкасты и лекции Алекса Лесли." />
+  <meta property="og:type" content="website" />
+  <title>Медиа — Alex Leslie</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+
+  <style>
+  /* ─── MEDIA PAGE ─── */
+  .media-hero {
+    position: relative;
+    padding: calc(var(--header-h, 72px) + 80px) 0 80px;
+    text-align: center;
+    background: var(--color-bg);
+    overflow: hidden;
+  }
+  .media-hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 30% 50%, rgba(212,160,23,.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 60% at 70% 50%, rgba(212,160,23,.05) 0%, transparent 70%),
+      var(--color-bg);
+    z-index: 0;
+  }
+  .media-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 var(--container-px, 24px);
+  }
+  .media-hero__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--color-gold, #D4A017);
+    padding: 8px 20px;
+    border: 1px solid rgba(212,160,23,.3);
+    border-radius: 40px;
+    margin-bottom: 24px;
+  }
+  .media-hero__title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .media-hero__subtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-muted, #B0B8C1);
+    max-width: 520px;
+    margin: 0 auto 32px;
+  }
+
+  /* Табы каналов */
+  .media-tabs {
+    background: var(--color-card, #1A1A2E);
+    border-bottom: 1px solid var(--color-border-light, rgba(255,255,255,.08));
+    position: sticky;
+    top: var(--header-h, 72px);
+    z-index: 10;
+  }
+  .media-tabs__inner {
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--container-px, 24px);
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .media-tabs__inner::-webkit-scrollbar { display: none; }
+  .media-tab {
+    padding: 16px 24px;
+    font-size: .875rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: var(--transition);
+    white-space: nowrap;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  .media-tab.active,
+  .media-tab:hover {
+    color: var(--color-gold);
+    border-bottom-color: var(--color-gold);
+  }
+
+  /* Секции */
+  .media-section {
+    padding: var(--section-py, 120px) 0;
+  }
+  .media-section:nth-child(even) {
+    background: rgba(26,26,46,.4);
+  }
+  .media-section__container {
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--container-px, 24px);
+  }
+  .media-section__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .media-section__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 12px;
+  }
+  .media-section__title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  .media-section__sub {
+    color: var(--color-text-muted);
+    margin-top: 8px;
+    font-size: .95rem;
+  }
+  .media-section__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-gold);
+    font-weight: 600;
+    font-size: .875rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: var(--transition);
+  }
+  .media-section__link:hover { color: var(--color-gold-hover); gap: 12px; }
+
+  /* Главное видео */
+  .featured-video {
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    position: relative;
+    background: #000;
+    aspect-ratio: 16/9;
+    margin-bottom: 48px;
+    box-shadow: var(--shadow-card);
+  }
+  .featured-video iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+  }
+
+  /* Сетка видео */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .video-card {
+    background: var(--color-card);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    border: 1px solid var(--color-border-light);
+    transition: var(--transition);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .video-card:hover {
+    border-color: var(--color-border);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+  }
+  .video-card__thumb {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: #111;
+  }
+  .video-card__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease;
+  }
+  .video-card:hover .video-card__thumb img { transform: scale(1.05); }
+  .video-card__play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.3);
+    transition: var(--transition);
+  }
+  .video-card:hover .video-card__play { background: rgba(0,0,0,.5); }
+  .video-card__play-btn {
+    width: 52px;
+    height: 52px;
+    background: var(--color-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+  }
+  .video-card:hover .video-card__play-btn { transform: scale(1.1); background: var(--color-gold-hover); }
+  .video-card__duration {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0,0,0,.8);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .video-card__body { padding: 16px; }
+  .video-card__tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 8px;
+  }
+  .video-card__title {
+    font-size: .95rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .video-card__meta {
+    font-size: .8rem;
+    color: var(--color-text-muted);
+    display: flex;
+    gap: 12px;
+  }
+
+  /* Telegram */
+  .tg-featured {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  .tg-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .tg-stat {
+    background: rgba(212,160,23,.07);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    text-align: center;
+  }
+  .tg-stat__num {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--color-gold);
+    display: block;
+  }
+  .tg-stat__label { font-size: .8rem; color: var(--color-text-muted); margin-top: 4px; }
+  .tg-preview {
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+  }
+  .tg-preview__header {
+    background: #2AABEE;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .tg-preview__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .tg-preview__name { font-weight: 700; color: #fff; font-size: .9rem; }
+  .tg-preview__subs { font-size: .75rem; color: rgba(255,255,255,.8); }
+  .tg-post {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+  .tg-post:last-child { border-bottom: none; }
+  .tg-post__date { font-size: .75rem; color: var(--color-text-muted); margin-bottom: 6px; }
+  .tg-post__text { font-size: .875rem; line-height: 1.6; }
+  .tg-post__views { font-size: .75rem; color: var(--color-text-muted); margin-top: 8px; }
+
+  /* Подкасты */
+  .podcast-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .podcast-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 24px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    transition: var(--transition);
+    text-decoration: none;
+    color: inherit;
+  }
+  .podcast-card:hover {
+    border-color: var(--color-border);
+    transform: translateY(-2px);
+  }
+  .podcast-card__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background: var(--color-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 24px;
+  }
+  .podcast-card__title { font-weight: 700; margin-bottom: 6px; }
+  .podcast-card__desc { font-size: .85rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 12px; }
+  .podcast-card__meta { font-size: .8rem; color: var(--color-gold); font-weight: 600; }
+
+  /* Медиаупоминания */
+  .media-mentions {
+    background: rgba(212,160,23,.04);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    padding: 40px;
+    text-align: center;
+  }
+  .media-mentions__title { font-size: 1.125rem; color: var(--color-text-muted); margin-bottom: 32px; }
+  .media-logos {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .media-logo {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: rgba(255,255,255,.3);
+    letter-spacing: .05em;
+    transition: var(--transition);
+  }
+  .media-logo:hover { color: rgba(255,255,255,.7); }
+
+  /* CTA */
+  .media-cta {
+    text-align: center;
+    padding: var(--section-py) 0;
+    background: linear-gradient(135deg, rgba(212,160,23,.05) 0%, transparent 50%, rgba(212,160,23,.05) 100%);
+  }
+  .media-cta__title {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 800;
+    margin-bottom: 16px;
+  }
+  .media-cta__sub { color: var(--color-text-muted); margin-bottom: 32px; }
+  .media-cta__btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .video-grid { grid-template-columns: 1fr; }
+    .tg-featured { grid-template-columns: 1fr; }
+    .podcast-grid { grid-template-columns: 1fr; }
+    .media-section { padding: var(--section-py-mob, 64px) 0; }
+  }
+  @media (max-width: 1024px) {
+    .video-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <!-- HERO -->
+  <section class="media-hero">
+    <div class="media-hero__bg"></div>
+    <div class="media-hero__inner">
+      <div class="media-hero__tag">📺 Медиа</div>
+      <h1 class="media-hero__title">Смотреть, слушать,<br><span style="color:var(--color-gold)">погружаться</span></h1>
+      <p class="media-hero__subtitle">YouTube-канал, Telegram, подкасты и интервью. Всё медиа Алекса Лесли — в одном месте.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="btn-primary">▶ YouTube-канал</a>
+        <a href="https://t.me/alexlesley" target="_blank" rel="noopener" class="btn-secondary">✈ Telegram</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ТАБЫ -->
+  <nav class="media-tabs">
+    <div class="media-tabs__inner">
+      <button class="media-tab active" onclick="scrollToSection('youtube')">YouTube</button>
+      <button class="media-tab" onclick="scrollToSection('telegram')">Telegram</button>
+      <button class="media-tab" onclick="scrollToSection('podcasts')">Подкасты</button>
+      <button class="media-tab" onclick="scrollToSection('lectures')">Лекции</button>
+      <button class="media-tab" onclick="scrollToSection('press')">Пресса</button>
+    </div>
+  </nav>
+
+  <!-- YOUTUBE -->
+  <section class="media-section" id="youtube">
+    <div class="media-section__container">
+      <div class="media-section__header">
+        <div>
+          <div class="media-section__badge">▶ YouTube</div>
+          <h2 class="media-section__title">YouTube-канал</h2>
+          <p class="media-section__sub"><!-- TODO: Число подписчиков --> подписчиков · <!-- TODO --> видео · <!-- TODO --> млн просмотров</p>
+        </div>
+        <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="media-section__link">
+          Все видео →
+        </a>
+      </div>
+
+      <!-- Главное видео -->
+      <div class="featured-video">
+        <!-- TODO: Заменить на реальный ID видео -->
+        <iframe
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          title="Алекс Лесли — главное видео"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <!-- Сетка видео -->
+      <div class="video-grid">
+
+        <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="video-card">
+          <div class="video-card__thumb">
+            <img src="assets/img/placeholder-video-1.jpg" alt="Техника Охотницы" onerror="this.style.background='#1A1A2E';this.style.height='180px'" />
+            <div class="video-card__play">
+              <div class="video-card__play-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="4,2 14,8 4,14" fill="#000"/></svg>
+              </div>
+            </div>
+            <span class="video-card__duration">24:18</span>
+          </div>
+          <div class="video-card__body">
+            <div class="video-card__tag">Женское</div>
+            <div class="video-card__title"><!-- TODO --> Почему он не зовёт замуж — настоящая причина</div>
+            <div class="video-card__meta">
+              <span><!-- TODO --> тыс. просмотров</span>
+              <span><!-- TODO --> дата</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="video-card">
+          <div class="video-card__thumb">
+            <img src="assets/img/placeholder-video-2.jpg" alt="Стиль соблазнения" onerror="this.style.background='#1A1A2E';this.style.height='180px'" />
+            <div class="video-card__play">
+              <div class="video-card__play-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="4,2 14,8 4,14" fill="#000"/></svg>
+              </div>
+            </div>
+            <span class="video-card__duration">31:42</span>
+          </div>
+          <div class="video-card__body">
+            <div class="video-card__tag">Мужское</div>
+            <div class="video-card__title"><!-- TODO --> 5 ошибок, которые убивают интерес женщины</div>
+            <div class="video-card__meta">
+              <span><!-- TODO --> тыс. просмотров</span>
+              <span><!-- TODO --> дата</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="video-card">
+          <div class="video-card__thumb">
+            <img src="assets/img/placeholder-video-3.jpg" alt="Психология отношений" onerror="this.style.background='#1A1A2E';this.style.height='180px'" />
+            <div class="video-card__play">
+              <div class="video-card__play-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="4,2 14,8 4,14" fill="#000"/></svg>
+              </div>
+            </div>
+            <span class="video-card__duration">18:55</span>
+          </div>
+          <div class="video-card__body">
+            <div class="video-card__tag">Психология</div>
+            <div class="video-card__title"><!-- TODO --> Как работает мужская логика — разбор</div>
+            <div class="video-card__meta">
+              <span><!-- TODO --> тыс. просмотров</span>
+              <span><!-- TODO --> дата</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="video-card">
+          <div class="video-card__thumb">
+            <img src="assets/img/placeholder-video-4.jpg" alt="Кейс Савы" onerror="this.style.background='#1A1A2E';this.style.height='180px'" />
+            <div class="video-card__play">
+              <div class="video-card__play-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="4,2 14,8 4,14" fill="#000"/></svg>
+              </div>
+            </div>
+            <span class="video-card__duration">42:10</span>
+          </div>
+          <div class="video-card__body">
+            <div class="video-card__tag">Кейс</div>
+            <div class="video-card__title"><!-- TODO --> История Савы: как ученица вышла замуж за мультимиллионера</div>
+            <div class="video-card__meta">
+              <span><!-- TODO --> тыс. просмотров</span>
+              <span><!-- TODO --> дата</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="video-card">
+          <div class="video-card__thumb">
+            <img src="assets/img/placeholder-video-5.jpg" alt="Первое свидание" onerror="this.style.background='#1A1A2E';this.style.height='180px'" />
+            <div class="video-card__play">
+              <div class="video-card__play-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="4,2 14,8 4,14" fill="#000"/></svg>
+              </div>
+            </div>
+            <span class="video-card__duration">27:33</span>
+          </div>
+          <div class="video-card__body">
+            <div class="video-card__tag">Практика</div>
+            <div class="video-card__title"><!-- TODO --> Первое свидание: что говорить, чтобы он влюбился</div>
+            <div class="video-card__meta">
+              <span><!-- TODO --> тыс. просмотров</span>
+              <span><!-- TODO --> дата</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="video-card">
+          <div class="video-card__thumb">
+            <img src="assets/img/placeholder-video-6.jpg" alt="Методология" onerror="this.style.background='#1A1A2E';this.style.height='180px'" />
+            <div class="video-card__play">
+              <div class="video-card__play-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="4,2 14,8 4,14" fill="#000"/></svg>
+              </div>
+            </div>
+            <span class="video-card__duration">55:07</span>
+          </div>
+          <div class="video-card__body">
+            <div class="video-card__tag">Методология</div>
+            <div class="video-card__title"><!-- TODO --> Охотница: полная методология за 55 минут</div>
+            <div class="video-card__meta">
+              <span><!-- TODO --> тыс. просмотров</span>
+              <span><!-- TODO --> дата</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <div style="text-align:center;margin-top:40px;">
+        <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="btn-secondary">
+          Смотреть все видео на YouTube →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TELEGRAM -->
+  <section class="media-section" id="telegram">
+    <div class="media-section__container">
+      <div class="media-section__header">
+        <div>
+          <div class="media-section__badge">✈ Telegram</div>
+          <h2 class="media-section__title">Telegram-канал</h2>
+          <p class="media-section__sub">Ежедневный контент, техники, кейсы и анонсы</p>
+        </div>
+        <a href="https://t.me/alexlesley" target="_blank" rel="noopener" class="media-section__link">
+          Подписаться →
+        </a>
+      </div>
+
+      <div class="tg-featured">
+        <div>
+          <div class="tg-stats">
+            <div class="tg-stat">
+              <span class="tg-stat__num"><!-- TODO --><span style="color:var(--color-text-muted);font-size:1.2rem">К+</span></span>
+              <div class="tg-stat__label">подписчиков</div>
+            </div>
+            <div class="tg-stat">
+              <span class="tg-stat__num"><!-- TODO --></span>
+              <div class="tg-stat__label">постов</div>
+            </div>
+            <div class="tg-stat">
+              <span class="tg-stat__num"><!-- TODO --></span>
+              <div class="tg-stat__label">просмотров / пост</div>
+            </div>
+            <div class="tg-stat">
+              <span class="tg-stat__num"><!-- TODO --></span>
+              <div class="tg-stat__label">лет канала</div>
+            </div>
+          </div>
+          <p style="color:var(--color-text-muted);margin-bottom:24px;line-height:1.7;">
+            Каждый день — новые техники, разборы ситуаций, истории учениц и анонсы мероприятий.
+            Telegram-канал Алекса Лесли — это пульс методологии в реальном времени.
+          </p>
+          <a href="https://t.me/alexlesley" target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px;">
+            ✈ Подписаться на канал
+          </a>
+        </div>
+
+        <div class="tg-preview">
+          <div class="tg-preview__header">
+            <div class="tg-preview__avatar">🦅</div>
+            <div>
+              <div class="tg-preview__name">Алекс Лесли</div>
+              <div class="tg-preview__subs"><!-- TODO --> подписчиков</div>
+            </div>
+          </div>
+          <div class="tg-post">
+            <div class="tg-post__date"><!-- TODO: дата --></div>
+            <div class="tg-post__text"><!-- TODO: Реальный пост из канала --><br><br>Техника «правильное молчание» — одна из самых мощных в арсенале Охотницы...</div>
+            <div class="tg-post__views">👁 <!-- TODO --> просмотров</div>
+          </div>
+          <div class="tg-post">
+            <div class="tg-post__date"><!-- TODO: дата --></div>
+            <div class="tg-post__text"><!-- TODO: Реальный пост из канала --><br><br>Кейс недели: ещё одна ученица сообщила о помолвке...</div>
+            <div class="tg-post__views">👁 <!-- TODO --> просмотров</div>
+          </div>
+          <div class="tg-post" style="text-align:center;padding:20px;">
+            <a href="https://t.me/alexlesley" target="_blank" rel="noopener" style="color:var(--color-gold);font-weight:600;text-decoration:none;font-size:.875rem;">
+              Читать все посты →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПОДКАСТЫ -->
+  <section class="media-section" id="podcasts">
+    <div class="media-section__container">
+      <div class="media-section__header">
+        <div>
+          <div class="media-section__badge">🎙 Подкасты</div>
+          <h2 class="media-section__title">Подкасты и интервью</h2>
+          <p class="media-section__sub">Глубокие разговоры о методологии, психологии и результатах</p>
+        </div>
+      </div>
+
+      <div class="podcast-grid">
+
+        <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="podcast-card">
+          <div class="podcast-card__icon">🎙</div>
+          <div>
+            <div class="podcast-card__title"><!-- TODO --> Подкаст «Охотница»</div>
+            <div class="podcast-card__desc">Еженедельные эпизоды о методологии, техниках и историях учениц. Слушать на YouTube и в Telegram.</div>
+            <div class="podcast-card__meta"><!-- TODO --> эпизодов · Слушать →</div>
+          </div>
+        </a>
+
+        <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="podcast-card">
+          <div class="podcast-card__icon">🎧</div>
+          <div>
+            <div class="podcast-card__title"><!-- TODO --> Интервью с мужчинами</div>
+            <div class="podcast-card__desc">Откровенные разговоры с мужчинами: почему они женятся, что их останавливает, чего они действительно хотят.</div>
+            <div class="podcast-card__meta"><!-- TODO --> выпусков · Смотреть →</div>
+          </div>
+        </a>
+
+        <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="podcast-card">
+          <div class="podcast-card__icon">💍</div>
+          <div>
+            <div class="podcast-card__title"><!-- TODO --> Истории замужества</div>
+            <div class="podcast-card__desc">Документальные интервью с ученицами, которые вышли замуж по методологии Алекса Лесли.</div>
+            <div class="podcast-card__meta"><!-- TODO --> историй · Смотреть →</div>
+          </div>
+        </a>
+
+        <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="podcast-card">
+          <div class="podcast-card__icon">🧠</div>
+          <div>
+            <div class="podcast-card__title"><!-- TODO --> Психология отношений</div>
+            <div class="podcast-card__desc">Разборы реальных ситуаций: переписки, свидания, отношения — с анализом и рекомендациями.</div>
+            <div class="podcast-card__meta"><!-- TODO --> выпусков · Смотреть →</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ЛЕКЦИИ -->
+  <section class="media-section" id="lectures">
+    <div class="media-section__container">
+      <div class="media-section__header">
+        <div>
+          <div class="media-section__badge">🎓 Лекции</div>
+          <h2 class="media-section__title">Публичные лекции</h2>
+          <p class="media-section__sub">Выступления на конференциях, эфиры и мастер-классы</p>
+        </div>
+        <a href="events.html" class="media-section__link">Ближайшие события →</a>
+      </div>
+
+      <div class="video-grid">
+
+        <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="video-card">
+          <div class="video-card__thumb">
+            <img src="assets/img/placeholder-lecture-1.jpg" alt="Лекция" onerror="this.style.background='#111827';this.style.height='180px'" />
+            <div class="video-card__play">
+              <div class="video-card__play-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="4,2 14,8 4,14" fill="#000"/></svg>
+              </div>
+            </div>
+            <span class="video-card__duration"><!-- TODO --></span>
+          </div>
+          <div class="video-card__body">
+            <div class="video-card__tag">Лекция</div>
+            <div class="video-card__title"><!-- TODO --> Название публичной лекции</div>
+            <div class="video-card__meta"><span><!-- TODO --> дата · место</span></div>
+          </div>
+        </a>
+
+        <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="video-card">
+          <div class="video-card__thumb">
+            <img src="assets/img/placeholder-lecture-2.jpg" alt="Эфир" onerror="this.style.background='#111827';this.style.height='180px'" />
+            <div class="video-card__play">
+              <div class="video-card__play-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="4,2 14,8 4,14" fill="#000"/></svg>
+              </div>
+            </div>
+            <span class="video-card__duration"><!-- TODO --></span>
+          </div>
+          <div class="video-card__body">
+            <div class="video-card__tag">Эфир</div>
+            <div class="video-card__title"><!-- TODO --> Название прямого эфира</div>
+            <div class="video-card__meta"><span><!-- TODO --> дата</span></div>
+          </div>
+        </a>
+
+        <a href="https://youtube.com/@alexlesley" target="_blank" rel="noopener" class="video-card">
+          <div class="video-card__thumb">
+            <img src="assets/img/placeholder-lecture-3.jpg" alt="Мастер-класс" onerror="this.style.background='#111827';this.style.height='180px'" />
+            <div class="video-card__play">
+              <div class="video-card__play-btn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="4,2 14,8 4,14" fill="#000"/></svg>
+              </div>
+            </div>
+            <span class="video-card__duration"><!-- TODO --></span>
+          </div>
+          <div class="video-card__body">
+            <div class="video-card__tag">Мастер-класс</div>
+            <div class="video-card__title"><!-- TODO --> Название мастер-класса</div>
+            <div class="video-card__meta"><span><!-- TODO --> дата</span></div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ПРЕССА -->
+  <section class="media-section" id="press">
+    <div class="media-section__container">
+      <div class="media-section__header">
+        <div>
+          <div class="media-section__badge">📰 Пресса</div>
+          <h2 class="media-section__title">СМИ о Алексе Лесли</h2>
+          <p class="media-section__sub">Упоминания в ведущих изданиях</p>
+        </div>
+      </div>
+
+      <div class="media-mentions">
+        <div class="media-mentions__title">Алекс Лесли и его ученицы в СМИ</div>
+        <div class="media-logos">
+          <div class="media-logo">Forbes</div>
+          <div class="media-logo">Daily Mail</div>
+          <div class="media-logo">РБК</div>
+          <div class="media-logo">Meduza</div>
+          <div class="media-logo">Cosmopolitan</div>
+          <div class="media-logo">Elle</div>
+          <div class="media-logo"><!-- TODO --></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="media-cta">
+    <div class="media-section__container">
+      <h2 class="media-cta__title">Хочешь большего?</h2>
+      <p class="media-cta__sub">Начни с методологии — запишись на курс или вступи в клуб</p>
+      <div class="media-cta__btns">
+        <a href="women/how-to-marry.html" class="btn-primary">Курс «Как выйти замуж»</a>
+        <a href="club.html" class="btn-secondary">Закрытый клуб</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/components.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelectorAll('.media-tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    // Scroll-reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.video-card, .podcast-card, .tg-stat').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity .5s ease, transform .5s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

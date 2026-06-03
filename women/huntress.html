@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Методология Охотницы — 9 шагов системы Алекса Лесли. Философия активной женщины, которая создаёт условия для замужества." />
+  <meta property="og:title" content="Методология Охотницы — Alex Leslie" />
+  <meta property="og:description" content="9 шагов. От первого разрешения до замужества. Доказанная система." />
+  <meta property="og:type" content="website" />
+  <title>Методология Охотницы — Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon" />
+
+  <style>
+  :root {
+    --color-women: #C2185B;
+    --color-women-light: #E91E63;
+    --color-women-glow: rgba(194, 24, 91, 0.15);
+  }
+
+  /* ─── HERO ─── */
+  .hn-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--color-bg);
+  }
+  .hn-hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 80% at 20% 60%, var(--color-women-glow) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 90% 20%, rgba(212,160,23,.06) 0%, transparent 50%),
+      var(--color-bg);
+    z-index: 0;
+  }
+  .hn-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: calc(var(--header-h) + 80px) var(--container-px) 80px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .hn-hero__tag {
+    display: inline-block;
+    background: var(--color-women-glow);
+    color: var(--color-women);
+    border: 1px solid rgba(194,24,91,.3);
+    border-radius: 100px;
+    padding: 6px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hn-hero h1 {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 24px;
+  }
+  .hn-hero h1 em {
+    font-style: italic;
+    color: var(--color-women);
+    font-family: 'Playfair Display', serif;
+  }
+  .hn-hero__sub {
+    font-size: 18px;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    max-width: 540px;
+    margin-bottom: 32px;
+  }
+  .btn-women {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-women);
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    padding: 16px 36px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-women:hover {
+    background: var(--color-women-light);
+    transform: scale(1.03);
+  }
+  .hn-hero__visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hn-hero__circle {
+    width: 440px;
+    height: 440px;
+    border-radius: 50%;
+    border: 2px solid rgba(194,24,91,.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: radial-gradient(circle, var(--color-women-glow) 0%, transparent 70%);
+  }
+  .hn-hero__circle-inner {
+    text-align: center;
+  }
+  .hn-hero__circle-icon {
+    font-size: 80px;
+    display: block;
+    margin-bottom: 16px;
+  }
+  .hn-hero__circle-text {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--color-women);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+  }
+  .hn-hero__orbit-item {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--color-bg-card);
+    border: 2px solid rgba(194,24,91,.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--color-women);
+  }
+  .hn-hero__orbit-item:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%) translateY(-50%); }
+  .hn-hero__orbit-item:nth-child(2) { top: 14%; right: 0; }
+  .hn-hero__orbit-item:nth-child(3) { bottom: 14%; right: 0; }
+  .hn-hero__orbit-item:nth-child(4) { bottom: 0; left: 50%; transform: translateX(-50%) translateY(50%); }
+  .hn-hero__orbit-item:nth-child(5) { bottom: 14%; left: 0; }
+  .hn-hero__orbit-item:nth-child(6) { top: 14%; left: 0; }
+
+  /* ─── ФИЛОСОФИЯ ─── */
+  .hn-philosophy {
+    background: var(--color-bg-card);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--section-py) var(--container-px);
+  }
+  .hn-philosophy__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .hn-philosophy__quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(22px, 3vw, 36px);
+    color: var(--color-text);
+    line-height: 1.5;
+    text-align: center;
+    max-width: 800px;
+    margin: 48px auto;
+    border: none;
+    position: relative;
+  }
+  .hn-philosophy__quote::before {
+    content: '"';
+    font-size: 120px;
+    color: var(--color-women);
+    opacity: 0.2;
+    position: absolute;
+    top: -40px;
+    left: -20px;
+    line-height: 1;
+    font-family: 'Playfair Display', serif;
+  }
+  .hn-philosophy__pillars {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .hn-philosophy__pillar {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .hn-philosophy__pillar:hover {
+    border-color: rgba(194,24,91,.4);
+    transform: translateY(-4px);
+  }
+  .hn-philosophy__pillar-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .hn-philosophy__pillar-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 8px;
+  }
+  .hn-philosophy__pillar-desc {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  /* ─── 9 ШАГОВ ─── */
+  .hn-steps {
+    padding: var(--section-py) var(--container-px);
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .hn-steps__list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 48px;
+    position: relative;
+  }
+  .hn-steps__list::before {
+    content: '';
+    position: absolute;
+    left: 32px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--color-women) 0%, rgba(194,24,91,.1) 100%);
+  }
+  .hn-step {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 32px;
+    align-items: flex-start;
+    position: relative;
+  }
+  .hn-step__num {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--color-women);
+    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 8px 24px rgba(194,24,91,.35);
+    position: relative;
+    z-index: 1;
+  }
+  .hn-step__body {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 28px 32px;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: default;
+  }
+  .hn-step__body:hover {
+    border-color: rgba(194,24,91,.4);
+    transform: translateX(8px);
+  }
+  .hn-step__title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hn-step__title-icon {
+    font-size: 24px;
+  }
+  .hn-step__desc {
+    font-size: 15px;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  .hn-step__tools {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .hn-step__tool-tag {
+    background: var(--color-women-glow);
+    color: var(--color-women);
+    border: 1px solid rgba(194,24,91,.2);
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* ─── 6 СЦЕНАРИЕВ ─── */
+  .hn-scenarios {
+    background: var(--color-bg-card);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--section-py) var(--container-px);
+  }
+  .hn-scenarios__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .hn-scenarios__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .hn-scenario {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.2s, transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .hn-scenario:hover {
+    border-color: rgba(194,24,91,.4);
+    transform: translateY(-4px);
+  }
+  .hn-scenario__num {
+    font-size: 12px;
+    color: var(--color-women);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .hn-scenario__title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.3;
+  }
+  .hn-scenario__desc {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .hn-scenario__demand {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-women);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ─── ОХОТНИЦА vs ЖЕРТВА ─── */
+  .hn-compare {
+    padding: var(--section-py) var(--container-px);
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .hn-compare__table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: 48px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+  }
+  .hn-compare__col {
+    padding: 0;
+  }
+  .hn-compare__col-header {
+    padding: 24px 32px;
+    font-size: 18px;
+    font-weight: 800;
+    text-align: center;
+  }
+  .hn-compare__col--left .hn-compare__col-header {
+    background: var(--color-women);
+    color: #fff;
+  }
+  .hn-compare__col--right .hn-compare__col-header {
+    background: var(--color-bg-card);
+    color: var(--color-text-muted);
+  }
+  .hn-compare__item {
+    padding: 16px 32px;
+    font-size: 15px;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hn-compare__col--left .hn-compare__item {
+    background: rgba(194,24,91,.05);
+    color: var(--color-text);
+  }
+  .hn-compare__col--right .hn-compare__item {
+    background: var(--color-bg-card);
+    color: var(--color-text-muted);
+  }
+  .hn-compare__item-icon {
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+
+  /* ─── КОДЕКС ─── */
+  .hn-codex {
+    background: linear-gradient(135deg, #0D0A1A, #1A0A18);
+    padding: var(--section-py) var(--container-px);
+    position: relative;
+    overflow: hidden;
+  }
+  .hn-codex::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 50%, var(--color-women-glow) 0%, transparent 70%);
+  }
+  .hn-codex__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hn-codex__rules {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .hn-codex__rule {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 16px;
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
+  .hn-codex__rule:hover {
+    border-color: rgba(194,24,91,.4);
+  }
+  .hn-codex__rule-num {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--color-women);
+    opacity: 0.4;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .hn-codex__rule-text {
+    font-size: 15px;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* ─── CTA ─── */
+  .hn-cta {
+    padding: var(--section-py) var(--container-px);
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .hn-cta h2 {
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .hn-cta h2 em {
+    font-style: italic;
+    color: var(--color-women);
+    font-family: 'Playfair Display', serif;
+  }
+  .hn-cta p {
+    font-size: 18px;
+    color: var(--color-text-muted);
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+  .hn-cta__btns {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ─── АДАПТИВ ─── */
+  @media (max-width: 1200px) {
+    .hn-philosophy__pillars { grid-template-columns: repeat(2, 1fr); }
+    .hn-codex__rules { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .hn-hero__inner { grid-template-columns: 1fr; gap: 40px; padding-top: calc(var(--header-h) + 40px); }
+    .hn-hero__visual { order: -1; }
+    .hn-hero__circle { width: 300px; height: 300px; }
+    .hn-steps__list::before { left: 24px; }
+    .hn-step { grid-template-columns: 48px 1fr; gap: 16px; }
+    .hn-step__num { width: 48px; height: 48px; font-size: 16px; }
+    .hn-step__body { padding: 20px; }
+    .hn-scenarios__grid { grid-template-columns: 1fr 1fr; }
+    .hn-compare__table { grid-template-columns: 1fr; }
+    .hn-compare__col--right { display: none; }
+    .hn-codex__rules { grid-template-columns: 1fr; }
+    .hn-philosophy__pillars { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 375px) {
+    .hn-scenarios__grid { grid-template-columns: 1fr; }
+    .hn-philosophy__pillars { grid-template-columns: 1fr; }
+    .hn-cta__btns { flex-direction: column; align-items: center; }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ХЕДЕР -->
+<div id="site-header"></div>
+
+<main>
+
+  <!-- ─── HERO ─── -->
+  <section class="hn-hero">
+    <div class="hn-hero__bg"></div>
+    <div class="hn-hero__inner">
+      <div class="hn-hero__content">
+        <span class="hn-hero__tag">Методология</span>
+        <h1>Охотница —<br><em>9 шагов</em><br>к замужеству</h1>
+        <p class="hn-hero__sub">
+          Не «быть удобной» и не ждать. Охотница создаёт условия, при которых он сам ведёт к загсу. Это не манипуляция — это понимание психологии.
+        </p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <a href="how-to-marry.html" class="btn-women">Начать курс →</a>
+          <a href="#steps" class="btn-secondary">Узнать 9 шагов</a>
+        </div>
+      </div>
+      <div class="hn-hero__visual reveal">
+        <div class="hn-hero__circle">
+          <div class="hn-hero__orbit-item">1</div>
+          <div class="hn-hero__orbit-item">2</div>
+          <div class="hn-hero__orbit-item">3</div>
+          <div class="hn-hero__orbit-item">4</div>
+          <div class="hn-hero__orbit-item">5</div>
+          <div class="hn-hero__orbit-item">6</div>
+          <div class="hn-hero__circle-inner">
+            <span class="hn-hero__circle-icon">🎯</span>
+            <div class="hn-hero__circle-text">Охотница</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ФИЛОСОФИЯ ─── -->
+  <section class="hn-philosophy">
+    <div class="hn-philosophy__inner">
+      <div class="section-header">
+        <p class="section-tag" style="color:var(--color-women);">Основа</p>
+        <h2 class="section-title">Философия Охотницы</h2>
+      </div>
+      <div class="hn-philosophy__quote reveal">
+        Охотница не добивается — она создаёт условия. Не просит — конструирует ситуацию. Не ждёт — выбирает сама.
+      </div>
+      <div class="hn-philosophy__pillars">
+        <div class="hn-philosophy__pillar reveal">
+          <span class="hn-philosophy__pillar-icon">🔓</span>
+          <div class="hn-philosophy__pillar-title">Разрешение</div>
+          <div class="hn-philosophy__pillar-desc">Не стыдно хотеть замуж. Не стыдно действовать. «Жизнь без трусов» — первый принцип.</div>
+        </div>
+        <div class="hn-philosophy__pillar reveal">
+          <span class="hn-philosophy__pillar-icon">🎯</span>
+          <div class="hn-philosophy__pillar-title">Активный выбор</div>
+          <div class="hn-philosophy__pillar-desc">Охотница выбирает сама — она не ждёт, пока выберут её. Критерии определяются до, не во время.</div>
+        </div>
+        <div class="hn-philosophy__pillar reveal">
+          <span class="hn-philosophy__pillar-icon">🧠</span>
+          <div class="hn-philosophy__pillar-title">Понимание психологии</div>
+          <div class="hn-philosophy__pillar-desc">Не угадывание — знание. Как работает привязанность, дефицит, уважение в мужской голове.</div>
+        </div>
+        <div class="hn-philosophy__pillar reveal">
+          <span class="hn-philosophy__pillar-icon">♟</span>
+          <div class="hn-philosophy__pillar-title">Осознанная игра</div>
+          <div class="hn-philosophy__pillar-desc">Отношения — это игра. Охотница знает правила. Остальные играют вслепую.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 9 ШАГОВ ─── -->
+  <section class="hn-steps" id="steps">
+    <div class="section-header">
+      <p class="section-tag" style="color:var(--color-women);">Система</p>
+      <h2 class="section-title">9 шагов полной модели</h2>
+      <p class="section-subtitle">Реконструкция методологии из книг Алекса Лесли — адаптация 2026</p>
+    </div>
+    <div class="hn-steps__list">
+
+      <div class="hn-step reveal">
+        <div class="hn-step__num">1</div>
+        <div class="hn-step__body">
+          <div class="hn-step__title">
+            <span class="hn-step__title-icon">🔓</span>
+            Разрешение — жизнь без трусов
+          </div>
+          <p class="hn-step__desc">
+            Охотница начинает с снятия внутренних ограничений. Ей не стыдно хотеть замуж. Ей не стыдно действовать. Первая трансформация происходит в голове, не в технике. Без этого шага остальные не работают.
+          </p>
+          <div class="hn-step__tools">
+            <span class="hn-step__tool-tag">Кодекс Охотницы</span>
+            <span class="hn-step__tool-tag">Смена идентичности</span>
+            <span class="hn-step__tool-tag">«21 правило»</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hn-step reveal">
+        <div class="hn-step__num">2</div>
+        <div class="hn-step__body">
+          <div class="hn-step__title">
+            <span class="hn-step__title-icon">🎯</span>
+            Выбор объекта — критерии до охоты
+          </div>
+          <p class="hn-step__desc">
+            Охотница выбирает сама — она не ждёт, пока выберут её. Критерии: внешность, статус, совместимость — определяются до начала охоты, не во время. Психотип мужчины определяет стратегию.
+          </p>
+          <div class="hn-step__tools">
+            <span class="hn-step__tool-tag">Психотипы мужчин</span>
+            <span class="hn-step__tool-tag">Тест «Определи его тип»</span>
+            <span class="hn-step__tool-tag">Критерии выбора</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hn-step reveal">
+        <div class="hn-step__num">3</div>
+        <div class="hn-step__body">
+          <div class="hn-step__title">
+            <span class="hn-step__title-icon">👁</span>
+            Первый контакт — он инициирует сам
+          </div>
+          <p class="hn-step__desc">
+            Создать ситуацию, в которой он сам инициирует знакомство. Инструменты: техника первого взгляда, расположение в пространстве, первая фраза-«крючок». Онлайн: Tinder/Mamba — шаблоны первого сообщения 2026.
+          </p>
+          <div class="hn-step__tools">
+            <span class="hn-step__tool-tag">Техника первого взгляда</span>
+            <span class="hn-step__tool-tag">Фраза-«крючок»</span>
+            <span class="hn-step__tool-tag">Онлайн-знакомства</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hn-step reveal">
+        <div class="hn-step__num">4</div>
+        <div class="hn-step__body">
+          <div class="hn-step__title">
+            <span class="hn-step__title-icon">🌊</span>
+            Прогрев — естественный ритм отношений
+          </div>
+          <p class="hn-step__desc">
+            Чередование внимания и дистанции создаёт интерес и непредсказуемость. Не манипуляция — это естественный биологический ритм привязанности. Правило: когда он ведёт себя хорошо — чуть больше дистанции.
+          </p>
+          <div class="hn-step__tools">
+            <span class="hn-step__tool-tag">Push-Pull</span>
+            <span class="hn-step__tool-tag">Правило 72 часов</span>
+            <span class="hn-step__tool-tag">Техника «молчания»</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hn-step reveal">
+        <div class="hn-step__num">5</div>
+        <div class="hn-step__body">
+          <div class="hn-step__title">
+            <span class="hn-step__title-icon">⚓</span>
+            Якорение — эмоциональные триггеры
+          </div>
+          <p class="hn-step__desc">
+            Создание устойчивых положительных ассоциаций: определённая фраза, запах, место — становятся якорями эйфории. Повторяется несколько раз. Он начинает связывать тебя с лучшими состояниями.
+          </p>
+          <div class="hn-step__tools">
+            <span class="hn-step__tool-tag">Якорение (Anchoring)</span>
+            <span class="hn-step__tool-tag">Эмоциональные триггеры</span>
+            <span class="hn-step__tool-tag">Техника «зеркало»</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hn-step reveal">
+        <div class="hn-step__num">6</div>
+        <div class="hn-step__body">
+          <div class="hn-step__title">
+            <span class="hn-step__title-icon">⚡</span>
+            Турбоядерные техники влюблённости
+          </div>
+          <p class="hn-step__desc">
+            Конкретные фразы и действия, запускающие влюблённость. Работают на «мужскую психологию» — используют биологические триггеры: дефицит, непредсказуемость, уважение, интерес к его «слабостям».
+          </p>
+          <div class="hn-step__tools">
+            <span class="hn-step__tool-tag">Дефицит</span>
+            <span class="hn-step__tool-tag">Техника «удивления»</span>
+            <span class="hn-step__tool-tag">«Слабое место»</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hn-step reveal">
+        <div class="hn-step__num">7</div>
+        <div class="hn-step__body">
+          <div class="hn-step__title">
+            <span class="hn-step__title-icon">🔄</span>
+            Перевод в отношения — он предлагает
+          </div>
+          <p class="hn-step__desc">
+            Не просить — создать ситуацию, в которой он сам предложит статус. Инструмент: правильное «исчезновение» + возвращение. Из «просто встречаемся» в официальные отношения без ультиматумов.
+          </p>
+          <div class="hn-step__tools">
+            <span class="hn-step__tool-tag">Техника «исчезновения»</span>
+            <span class="hn-step__tool-tag">Перевод в статус</span>
+            <span class="hn-step__tool-tag">Скрипт возвращения</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hn-step reveal">
+        <div class="hn-step__num">8</div>
+        <div class="hn-step__body">
+          <div class="hn-step__title">
+            <span class="hn-step__title-icon">🔥</span>
+            Удержание — Охотница внутри отношений
+          </div>
+          <p class="hn-step__desc">
+            Охотница продолжает «игру» внутри отношений. Не расслабляется, не теряет себя. Поддерживает интерес через новизну и непредсказуемость. Дневник Охотницы + Трекер прогресса.
+          </p>
+          <div class="hn-step__tools">
+            <span class="hn-step__tool-tag">Дневник Охотницы</span>
+            <span class="hn-step__tool-tag">Марафон 21 день</span>
+            <span class="hn-step__tool-tag">Мультиличность</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hn-step reveal">
+        <div class="hn-step__num">9</div>
+        <div class="hn-step__body">
+          <div class="hn-step__title">
+            <span class="hn-step__title-icon">💍</span>
+            Замужество — его собственная идея
+          </div>
+          <p class="hn-step__desc">
+            Не ультиматум — создание условий, при которых брак кажется ему собственной идеей. Время, пространство, социальное давление — Охотница умеет использовать всё это без прямого запроса.
+          </p>
+          <div class="hn-step__tools">
+            <span class="hn-step__tool-tag">Предложение руки</span>
+            <span class="hn-step__tool-tag">Социальное давление</span>
+            <span class="hn-step__tool-tag">Без ультиматумов</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── 6 СЦЕНАРИЕВ ─── -->
+  <section class="hn-scenarios">
+    <div class="hn-scenarios__inner">
+      <div class="section-header">
+        <p class="section-tag" style="color:var(--color-women);">Практика</p>
+        <h2 class="section-title">6 сценариев нового продукта</h2>
+        <p class="section-subtitle">Каждый сценарий — это отдельный модуль курса с конкретным решением</p>
+      </div>
+      <div class="hn-scenarios__grid">
+
+        <div class="hn-scenario reveal">
+          <div class="hn-scenario__num">Сценарий 1</div>
+          <div class="hn-scenario__title">«Первый контакт в онлайн»</div>
+          <p class="hn-scenario__desc">Tinder/Mamba/ВКонтакте — как написать первой или ответить так, чтобы он продолжил. Готовые шаблоны с психологическим обоснованием.</p>
+          <div class="hn-scenario__demand">🔥 Очень высокий спрос</div>
+        </div>
+
+        <div class="hn-scenario reveal">
+          <div class="hn-scenario__num">Сценарий 2</div>
+          <div class="hn-scenario__title">«Первое свидание»</div>
+          <p class="hn-scenario__desc">Что надеть, что сказать, как вести себя, как создать якорь. Конкретный скрипт: до, во время, после. Готовый мини-продукт.</p>
+          <div class="hn-scenario__demand">⚡ Высокий спрос</div>
+        </div>
+
+        <div class="hn-scenario reveal">
+          <div class="hn-scenario__num">Сценарий 3</div>
+          <div class="hn-scenario__title">«Он пропал — что делать»</div>
+          <p class="hn-scenario__desc">Он не отвечает 2-3 дня. Правильное «исчезновение» Охотницы в ответ. Скрипт возвращения. Очень высокий спрос именно на этот сценарий.</p>
+          <div class="hn-scenario__demand">🔥 Очень высокий спрос</div>
+        </div>
+
+        <div class="hn-scenario reveal">
+          <div class="hn-scenario__num">Сценарий 4</div>
+          <div class="hn-scenario__title">«Перевод в отношения»</div>
+          <p class="hn-scenario__desc">Встречаемся 2 месяца, он не говорит о статусе. Техники создания ситуации, в которой он сам предлагает быть вместе.</p>
+          <div class="hn-scenario__demand">⚡ Высокий спрос</div>
+        </div>
+
+        <div class="hn-scenario reveal">
+          <div class="hn-scenario__num">Сценарий 5</div>
+          <div class="hn-scenario__title">«Предложение руки»</div>
+          <p class="hn-scenario__desc">В отношениях 1-2 года. Как приблизить замужество без ультиматумов. Пошаговый план. Флагманская часть курса.</p>
+          <div class="hn-scenario__demand">👑 Флагман</div>
+        </div>
+
+        <div class="hn-scenario reveal">
+          <div class="hn-scenario__num">Сценарий 6</div>
+          <div class="hn-scenario__title">«Привлечь успешного»</div>
+          <p class="hn-scenario__desc">Как познакомиться с обеспеченным мужчиной, как не потерять его в первые 5 минут. Кейс Савы как ориентир. VIP-продукт.</p>
+          <div class="hn-scenario__demand">💎 VIP</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ОХОТНИЦА vs ЖЕРТВА ─── -->
+  <section class="hn-compare">
+    <div class="section-header">
+      <p class="section-tag" style="color:var(--color-women);">Разница</p>
+      <h2 class="section-title">Охотница vs Жертва</h2>
+      <p class="section-subtitle">Два способа существовать в отношениях — выбор за тобой</p>
+    </div>
+    <div class="hn-compare__table reveal">
+      <div class="hn-compare__col hn-compare__col--left">
+        <div class="hn-compare__col-header">🎯 Охотница</div>
+        <div class="hn-compare__item"><span class="hn-compare__item-icon">✓</span>Выбирает сама — не ждёт</div>
+        <div class="hn-compare__item"><span class="hn-compare__item-icon">✓</span>Знает, чего хочет — до знакомства</div>
+        <div class="hn-compare__item"><span class="hn-compare__item-icon">✓</span>Создаёт условия — не просит</div>
+        <div class="hn-compare__item"><span class="hn-compare__item-icon">✓</span>Управляет темпом — не суетится</div>
+        <div class="hn-compare__item"><span class="hn-compare__item-icon">✓</span>Исчезает, когда нужно</div>
+        <div class="hn-compare__item"><span class="hn-compare__item-icon">✓</span>Остаётся собой в отношениях</div>
+        <div class="hn-compare__item"><span class="hn-compare__item-icon">✓</span>Он считает замужество своей идеей</div>
+      </div>
+      <div class="hn-compare__col hn-compare__col--right">
+        <div class="hn-compare__col-header">😔 Жертва</div>
+        <div class="hn-compare__item"><span class="hn-compare__item-icon">–</span>Ждёт, пока выберут её</div>
+        <div class="hn-compare__item"><span class="hn-compare__item-icon">–</span>Надеется, что «само получится»</div>
+        <div class="hn-compare__item"><span class="hn-compare__item-icon">–</span>Намекает и боится спросить напрямую</div>
+        <div class="hn-compare__item"><span class="hn-compare__item-icon">–</span>Подстраивается под его темп</div>
+        <div class="hn-compare__item"><span class="hn-compare__item-icon">–</span>Всегда доступна — нет дефицита</div>
+        <div class="hn-compare__item"><span class="hn-compare__item-icon">–</span>Теряет себя, угождая ему</div>
+        <div class="hn-compare__item"><span class="hn-compare__item-icon">–</span>Даёт ультиматум и теряет его</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── КОДЕКС ─── -->
+  <section class="hn-codex">
+    <div class="hn-codex__inner">
+      <div class="section-header">
+        <p class="section-tag" style="color:var(--color-women);">Правила</p>
+        <h2 class="section-title" style="color:#fff;">Кодекс Охотницы</h2>
+        <p class="section-subtitle">Обновлённая версия 2026 — без лишнего, только суть</p>
+      </div>
+      <div class="hn-codex__rules">
+        <div class="hn-codex__rule reveal">
+          <div class="hn-codex__rule-num">01</div>
+          <div class="hn-codex__rule-text">«Охотница никогда не объясняет своё отсутствие. Исчезновение — это инструмент, не обида.»</div>
+        </div>
+        <div class="hn-codex__rule reveal">
+          <div class="hn-codex__rule-num">02</div>
+          <div class="hn-codex__rule-text">«Охотница знает, чего хочет, прежде чем начинает охоту. Цель определяется до, не во время.»</div>
+        </div>
+        <div class="hn-codex__rule reveal">
+          <div class="hn-codex__rule-num">03</div>
+          <div class="hn-codex__rule-text">«Охотница не добивается. Она создаёт условия, в которых он сам приходит к нужному решению.»</div>
+        </div>
+        <div class="hn-codex__rule reveal">
+          <div class="hn-codex__rule-num">04</div>
+          <div class="hn-codex__rule-text">«Охотница остаётся собой в любых обстоятельствах. Она не растворяется в мужчине.»</div>
+        </div>
+        <div class="hn-codex__rule reveal">
+          <div class="hn-codex__rule-num">05</div>
+          <div class="hn-codex__rule-text">«Охотница понимает мужскую психологию — не угадывает, а знает. Это её главное оружие.»</div>
+        </div>
+        <div class="hn-codex__rule reveal">
+          <div class="hn-codex__rule-num">06</div>
+          <div class="hn-codex__rule-text">«Охотница создаёт дефицит — она не всегда доступна. Редкость создаёт ценность.»</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ─── -->
+  <section class="hn-cta">
+    <div class="reveal">
+      <p class="section-tag" style="color:var(--color-women);">Начни путь</p>
+      <h2>Готова стать<br><em>Охотницей?</em></h2>
+      <p>
+        Методология работает. Это подтверждено сотнями замужеств. Курс «Как выйти замуж» — 9 модулей, 90 дней, один результат.
+      </p>
+      <div class="hn-cta__btns">
+        <a href="how-to-marry.html" class="btn-women">Начать путь к замужеству →</a>
+        <a href="../club.html" class="btn-secondary">Вступить в клуб</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ПОДВАЛ -->
+<div id="site-footer"></div>
+
+<script src="../assets/js/components.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof initScrollReveal === 'function') initScrollReveal();
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модуль 3: Женское направление | Маркетинг | Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <style>
+    .mod-nav { display:flex; gap:12px; flex-wrap:wrap; padding:20px 0 0; }
+    .mod-nav a {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:13px; font-weight:600; color:var(--color-text-muted);
+      text-decoration:none; padding:6px 14px;
+      border:1px solid rgba(255,255,255,0.1); border-radius:20px; transition:all 0.2s;
+    }
+    .mod-nav a:hover { color:var(--color-gold); border-color:var(--color-gold); }
+
+    .mod-header { padding:32px 0 24px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:40px; }
+    .mod-header__num { font-size:11px; font-weight:700; letter-spacing:3px; color:var(--color-gold); text-transform:uppercase; margin-bottom:8px; }
+    .mod-header__title { font-size:clamp(24px,4vw,40px); font-weight:800; margin-bottom:8px; }
+    .mod-header__sub { color:var(--color-text-muted); font-size:15px; }
+
+    .section { margin-bottom:56px; }
+    .section__title {
+      font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+      color:var(--color-gold); margin-bottom:20px; display:flex; align-items:center; gap:10px;
+    }
+    .section__title::after { content:''; flex:1; height:1px; background:rgba(212,160,23,0.2); }
+
+    /* ── 9 ШАГОВ ── */
+    .steps-path {
+      display:flex; flex-direction:column; gap:0;
+      position:relative; padding-left:32px;
+    }
+    .steps-path::before {
+      content:''; position:absolute; left:15px; top:20px; bottom:20px;
+      width:2px; background:linear-gradient(to bottom, var(--color-women), var(--color-gold));
+    }
+    .step-item {
+      position:relative; padding:0 0 24px 24px; cursor:pointer;
+    }
+    .step-dot {
+      position:absolute; left:-24px; top:4px;
+      width:18px; height:18px; border-radius:50%;
+      background:var(--color-card); border:2px solid var(--color-women);
+      display:flex; align-items:center; justify-content:center;
+      font-size:10px; font-weight:800; color:var(--color-women);
+      transition:all 0.2s; z-index:1;
+    }
+    .step-item.active .step-dot,
+    .step-item:hover .step-dot {
+      background:var(--color-women); color:#fff; transform:scale(1.2);
+    }
+    .step-header {
+      display:flex; align-items:center; gap:12px;
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px; padding:14px 18px; transition:border-color 0.2s;
+    }
+    .step-item.active .step-header,
+    .step-item:hover .step-header { border-color:rgba(194,24,91,0.4); }
+    .step-icon { font-size:22px; }
+    .step-num-label { font-size:10px; font-weight:700; color:var(--color-women); letter-spacing:1px; }
+    .step-title { font-size:15px; font-weight:700; }
+    .step-desc {
+      display:none; background:rgba(194,24,91,0.07); border:1px solid rgba(194,24,91,0.2);
+      border-top:none; border-radius:0 0 12px 12px;
+      padding:14px 18px; font-size:13px; color:var(--color-text-muted); line-height:1.7;
+    }
+    .step-item.active .step-desc { display:block; }
+
+    /* ── ЧТО АКТУАЛЬНО В 2026 ── */
+    .updates-table-wrap { overflow-x:auto; }
+    .updates-table {
+      width:100%; border-collapse:collapse; font-size:13px;
+    }
+    .updates-table th {
+      text-align:left; padding:10px 14px; font-size:10px; font-weight:700;
+      letter-spacing:1.5px; text-transform:uppercase; color:var(--color-text-muted);
+      border-bottom:1px solid rgba(255,255,255,0.07); white-space:nowrap;
+    }
+    .updates-table td { padding:11px 14px; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:top; line-height:1.5; }
+    .updates-table tr:hover td { background:rgba(255,255,255,0.03); }
+    .tag { display:inline-block; font-size:10px; font-weight:700; padding:2px 8px; border-radius:4px; }
+    .tag--актуально { background:rgba(76,175,80,0.2); color:#A5D6A7; }
+    .tag--требует { background:rgba(255,152,0,0.2); color:#FFCC80; }
+    .tag--основа { background:rgba(212,160,23,0.2); color:var(--color-gold); }
+
+    /* ── 6 СЦЕНАРИЕВ ── */
+    .scenarios-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
+    .scenario-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:16px; padding:22px; transition:transform 0.2s, border-color 0.2s;
+    }
+    .scenario-card:hover { transform:translateY(-2px); border-color:rgba(194,24,91,0.4); }
+    .scenario-card__top { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+    .scenario-card__icon { font-size:28px; }
+    .scenario-card__num { font-size:10px; font-weight:700; color:var(--color-women); letter-spacing:1px; }
+    .scenario-card__title { font-size:15px; font-weight:700; line-height:1.3; }
+    .scenario-card__desc { font-size:13px; color:var(--color-text-muted); line-height:1.6; margin-bottom:10px; }
+    .scenario-card__meta { display:flex; gap:8px; flex-wrap:wrap; }
+    .meta-badge { font-size:10px; font-weight:700; padding:2px 8px; border-radius:4px; }
+    .meta-demand { background:rgba(194,24,91,0.2); color:#F06292; }
+    .meta-product { background:rgba(212,160,23,0.15); color:var(--color-gold); border:1px solid rgba(212,160,23,0.3); }
+
+    /* ── ТЕХНИКИ ── */
+    .techniques-layout { display:grid; grid-template-columns:1fr 280px; gap:24px; }
+    .tech-filters { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+    .tech-filter-btn {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.1);
+      color:var(--color-text-muted); font-size:12px; font-weight:600;
+      padding:4px 12px; border-radius:20px; cursor:pointer; transition:all 0.2s;
+    }
+    .tech-filter-btn.active, .tech-filter-btn:hover {
+      border-color:var(--color-gold); color:var(--color-gold);
+      background:rgba(212,160,23,0.1);
+    }
+    .tech-search {
+      width:100%; background:var(--color-card); border:1px solid rgba(255,255,255,0.1);
+      border-radius:8px; padding:9px 14px; color:var(--color-text);
+      font-family:'Inter',sans-serif; font-size:13px; outline:none; margin-bottom:14px; box-sizing:border-box;
+    }
+    .tech-search:focus { border-color:var(--color-gold); }
+    .tech-search::placeholder { color:var(--color-text-muted); }
+
+    .tech-table-wrap { overflow-x:auto; }
+    .tech-table {
+      width:100%; border-collapse:collapse; font-size:12px;
+    }
+    .tech-table th {
+      text-align:left; padding:8px 12px; font-size:10px; font-weight:700;
+      letter-spacing:1.5px; text-transform:uppercase; color:var(--color-text-muted);
+      border-bottom:1px solid rgba(255,255,255,0.07); white-space:nowrap;
+    }
+    .tech-table td { padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:top; line-height:1.5; }
+    .tech-table tr:hover td { background:rgba(255,255,255,0.03); }
+    .tech-num { font-weight:800; color:var(--color-gold); }
+    .tech-name { font-weight:700; }
+    .level-badge { display:inline-block; font-size:10px; font-weight:700; padding:2px 7px; border-radius:4px; }
+    .level-лидмагнит { background:rgba(76,175,80,0.2); color:#A5D6A7; }
+    .level-трипваер { background:rgba(255,152,0,0.2); color:#FFCC80; }
+    .level-основной { background:rgba(212,160,23,0.2); color:var(--color-gold); }
+    .level-клуб { background:rgba(194,24,91,0.2); color:#F06292; }
+    .level-VIP { background:rgba(156,39,176,0.2); color:#CE93D8; }
+
+    .dist-chart-wrap {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:16px; padding:20px; position:sticky; top:80px; height:fit-content;
+    }
+    .dist-chart-wrap__title { font-size:12px; font-weight:700; color:var(--color-text-muted); letter-spacing:1px; margin-bottom:16px; text-transform:uppercase; }
+    .dist-legend { margin-top:16px; display:flex; flex-direction:column; gap:8px; }
+    .dist-legend-item { display:flex; align-items:center; gap:8px; font-size:12px; color:var(--color-text-muted); }
+    .dist-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+
+    @media (max-width:768px) {
+      .techniques-layout { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <div class="container">
+    <nav class="mod-nav">
+      <a href="../index.html">← Вернуться на главную</a>
+      <a href="index.html">← В Маркетинг</a>
+    </nav>
+
+    <div class="mod-header">
+      <div class="mod-header__num">Модуль 3</div>
+      <h1 class="mod-header__title">Женское направление</h1>
+      <p class="mod-header__sub">Источник: Анализ книг Алекса Лесли, блоки 4, 5</p>
+    </div>
+
+    <!-- 1. 9 ШАГОВ ОХОТНИЦЫ -->
+    <section class="section">
+      <div class="section__title">Модель «Охотницы» — 9 шагов</div>
+      <div style="font-size:13px;color:var(--color-text-muted);margin-bottom:20px;">Нажми на шаг, чтобы раскрыть полное описание.</div>
+      <div class="steps-path" id="steps-path"></div>
+    </section>
+
+    <!-- 2. ЧТО АКТУАЛЬНО В 2026 -->
+    <section class="section">
+      <div class="section__title">Что актуально в 2026</div>
+      <div class="updates-table-wrap">
+        <table class="updates-table">
+          <thead>
+            <tr>
+              <th>Элемент методологии</th>
+              <th>Статус в 2026</th>
+              <th>Что обновить</th>
+            </tr>
+          </thead>
+          <tbody id="updates-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3. 6 СЦЕНАРИЕВ -->
+    <section class="section">
+      <div class="section__title">6 сценариев для нового продукта</div>
+      <div class="scenarios-grid" id="scenarios-grid"></div>
+    </section>
+
+    <!-- 4. КАТАЛОГ ТЕХНИК -->
+    <section class="section">
+      <div class="section__title">Каталог техник (20)</div>
+      <div class="techniques-layout">
+        <div>
+          <div class="tech-filters" id="tech-filters">
+            <button class="tech-filter-btn active" data-level="all">Все (20)</button>
+            <button class="tech-filter-btn" data-level="лидмагнит">Лид-магнит</button>
+            <button class="tech-filter-btn" data-level="трипваер">Трипваер</button>
+            <button class="tech-filter-btn" data-level="основной">Основной курс</button>
+            <button class="tech-filter-btn" data-level="клуб">Клуб</button>
+            <button class="tech-filter-btn" data-level="VIP">VIP</button>
+          </div>
+          <input type="text" class="tech-search" id="tech-search" placeholder="Поиск по названию, источнику, описанию…">
+          <div class="tech-table-wrap">
+            <table class="tech-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Техника</th>
+                  <th>Источник</th>
+                  <th>Суть</th>
+                  <th>Применение</th>
+                  <th>Уровень продукта</th>
+                </tr>
+              </thead>
+              <tbody id="tech-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="dist-chart-wrap">
+          <div class="dist-chart-wrap__title">Распределение по уровням</div>
+          <canvas id="dist-chart" height="200"></canvas>
+          <div class="dist-legend" id="dist-legend"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/data/m3.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    var d = window.M3;
+
+    /* ── 9 ШАГОВ ── */
+    (function() {
+      var path = document.getElementById('steps-path');
+      d.steps.forEach(function(s) {
+        var el = document.createElement('div');
+        el.className = 'step-item';
+        el.innerHTML = '<div class="step-dot">' + s.step + '</div>' +
+          '<div class="step-header">' +
+          '<div class="step-icon">' + s.icon + '</div>' +
+          '<div><div class="step-num-label">Шаг ' + s.step + '</div><div class="step-title">' + s.title + '</div></div>' +
+          '</div>' +
+          '<div class="step-desc">' + s.desc + '</div>';
+        el.addEventListener('click', function() {
+          el.classList.toggle('active');
+        });
+        path.appendChild(el);
+      });
+      // Open first by default
+      path.children[0].classList.add('active');
+    })();
+
+    /* ── ЧТО АКТУАЛЬНО ── */
+    (function() {
+      var tbody = document.getElementById('updates-body');
+      d.updates.forEach(function(u) {
+        var tagClass = u.statusTag === 'актуально' ? 'tag--актуально' :
+                       u.statusTag === 'основа продукта' ? 'tag--основа' : 'tag--требует';
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td style="font-weight:600;">' + u.element + '</td>' +
+          '<td><span class="tag ' + tagClass + '">' + u.status + '</span></td>' +
+          '<td style="color:var(--color-text-muted);">' + u.update + '</td>';
+        tbody.appendChild(tr);
+      });
+    })();
+
+    /* ── 6 СЦЕНАРИЕВ ── */
+    (function() {
+      var grid = document.getElementById('scenarios-grid');
+      d.scenarios.forEach(function(s) {
+        var el = document.createElement('div');
+        el.className = 'scenario-card';
+        el.innerHTML = '<div class="scenario-card__top">' +
+          '<div class="scenario-card__icon">' + s.icon + '</div>' +
+          '<div><div class="scenario-card__num">Сценарий ' + s.id + '</div>' +
+          '<div class="scenario-card__title">' + s.title + '</div></div>' +
+          '</div>' +
+          '<div class="scenario-card__desc">' + s.desc + '<br><span style="font-size:12px;font-style:italic;">' + s.detail + '</span></div>' +
+          '<div class="scenario-card__meta">' +
+          '<span class="meta-badge meta-demand">Спрос: ' + s.demand + '</span>' +
+          '<span class="meta-badge meta-product">' + s.product + '</span>' +
+          '</div>';
+        grid.appendChild(el);
+      });
+    })();
+
+    /* ── КАТАЛОГ ТЕХНИК ── */
+    (function() {
+      var tbody = document.getElementById('tech-body');
+      var searchInput = document.getElementById('tech-search');
+      var currentLevel = 'all';
+
+      function renderTechs() {
+        var q = searchInput.value.toLowerCase();
+        tbody.innerHTML = '';
+        d.techniques.forEach(function(t) {
+          if (currentLevel !== 'all' && t.level !== currentLevel) return;
+          if (q) {
+            var hay = (t.name + t.source + t.desc + t.apply).toLowerCase();
+            if (hay.indexOf(q) === -1) return;
+          }
+          var tr = document.createElement('tr');
+          tr.innerHTML = '<td class="tech-num">' + t.id + '</td>' +
+            '<td class="tech-name">' + t.name + '</td>' +
+            '<td style="color:var(--color-text-muted);font-style:italic;white-space:nowrap;">' + t.source + '</td>' +
+            '<td style="color:var(--color-text-muted);max-width:200px;">' + t.desc + '</td>' +
+            '<td style="color:var(--color-text-muted);max-width:180px;">' + t.apply + '</td>' +
+            '<td><span class="level-badge level-' + t.level + '">' + t.level + '</span></td>';
+          tbody.appendChild(tr);
+        });
+      }
+
+      document.querySelectorAll('.tech-filter-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.tech-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          currentLevel = btn.dataset.level;
+          renderTechs();
+        });
+      });
+      searchInput.addEventListener('input', renderTechs);
+      renderTechs();
+
+      // Distribution chart
+      var dist = d.levelDistribution;
+      var labels = Object.keys(dist).map(function(k) { return dist[k].label; });
+      var counts = Object.keys(dist).map(function(k) { return dist[k].count; });
+      var colors = Object.keys(dist).map(function(k) { return dist[k].color; });
+
+      var ctx = document.getElementById('dist-chart').getContext('2d');
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: labels,
+          datasets: [{ data: counts, backgroundColor: colors, borderWidth: 0, hoverOffset: 4 }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false }, tooltip: { callbacks: {
+            label: function(c) { return ' ' + c.label + ': ' + c.raw + ' техн.'; }
+          }}}
+        }
+      });
+
+      // Legend
+      var legend = document.getElementById('dist-legend');
+      Object.keys(dist).forEach(function(k) {
+        var item = dist[k];
+        var el = document.createElement('div');
+        el.className = 'dist-legend-item';
+        el.innerHTML = '<div class="dist-dot" style="background:' + item.color + ';"></div>' +
+          '<span>' + item.label + '</span>' +
+          '<span style="margin-left:auto;font-weight:700;color:var(--color-text);">' + item.count + '</span>' +
+          '<span style="color:var(--color-gold);font-size:11px;">' + item.price + '</span>';
+        legend.appendChild(el);
+      });
+    })();
+  </script>
+</body>
+</html>

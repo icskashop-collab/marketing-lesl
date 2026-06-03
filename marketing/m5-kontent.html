@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модуль 5: Контентная машина | Маркетинг | Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <style>
+    .mod-nav { display:flex; gap:12px; flex-wrap:wrap; padding:20px 0 0; }
+    .mod-nav a {
+      display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600;
+      color:var(--color-text-muted); text-decoration:none; padding:6px 14px;
+      border:1px solid rgba(255,255,255,0.1); border-radius:20px; transition:all 0.2s;
+    }
+    .mod-nav a:hover { color:var(--color-gold); border-color:var(--color-gold); }
+    .mod-header { padding:32px 0 24px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:40px; }
+    .mod-header__num { font-size:11px; font-weight:700; letter-spacing:3px; color:var(--color-gold); text-transform:uppercase; margin-bottom:8px; }
+    .mod-header__title { font-size:clamp(24px,4vw,40px); font-weight:800; margin-bottom:8px; }
+    .mod-header__sub { color:var(--color-text-muted); font-size:15px; }
+    .section { margin-bottom:56px; }
+    .section__title {
+      font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+      color:var(--color-gold); margin-bottom:20px; display:flex; align-items:center; gap:10px;
+    }
+    .section__title::after { content:''; flex:1; height:1px; background:rgba(212,160,23,0.2); }
+
+    /* ── СВОДКА ── */
+    .summary-row { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px; margin-bottom:24px; }
+    .summary-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px; padding:16px; position:relative; overflow:hidden;
+      cursor:pointer; transition:all 0.2s;
+    }
+    .summary-card.active, .summary-card:hover { border-color:rgba(212,160,23,0.4); }
+    .summary-card.active { background:rgba(212,160,23,0.08); }
+    .summary-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+    .summary-card__icon { font-size:24px; margin-bottom:6px; }
+    .summary-card__type { font-size:14px; font-weight:800; }
+    .summary-card__count { font-size:22px; font-weight:900; color:var(--color-gold); }
+    .summary-card__badges { display:flex; gap:4px; margin-top:6px; flex-wrap:wrap; }
+    .badge-pill {
+      font-size:9px; font-weight:700; padding:2px 6px; border-radius:3px;
+      background:rgba(255,255,255,0.07); color:var(--color-text-muted);
+    }
+    .badge-pill span { color:var(--color-gold); }
+    .summary-card__desc { font-size:11px; color:var(--color-text-muted); margin-top:6px; line-height:1.4; }
+
+    /* ── БИБЛИОТЕКА ── */
+    .library-controls { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px; align-items:center; }
+    .filter-group { display:flex; gap:6px; flex-wrap:wrap; }
+    .filter-btn {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.1);
+      color:var(--color-text-muted); font-size:12px; font-weight:600;
+      padding:5px 12px; border-radius:20px; cursor:pointer; transition:all 0.2s;
+    }
+    .filter-btn.active, .filter-btn:hover { border-color:var(--color-gold); color:var(--color-gold); background:rgba(212,160,23,0.1); }
+    .library-search {
+      flex:1; min-width:200px; background:var(--color-card); border:1px solid rgba(255,255,255,0.1);
+      border-radius:8px; padding:8px 14px; color:var(--color-text);
+      font-family:'Inter',sans-serif; font-size:13px; outline:none;
+    }
+    .library-search:focus { border-color:var(--color-gold); }
+    .library-search::placeholder { color:var(--color-text-muted); }
+
+    .categories-list { display:flex; flex-direction:column; gap:12px; }
+    .category-block {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:16px; overflow:hidden;
+    }
+    .category-header {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 20px; cursor:pointer; transition:background 0.2s;
+    }
+    .category-header:hover { background:rgba(255,255,255,0.03); }
+    .category-header__left { display:flex; align-items:center; gap:10px; }
+    .category-header__type { font-size:10px; font-weight:700; letter-spacing:1px; padding:2px 8px; border-radius:4px; }
+    .type-Reels    { background:rgba(233,30,99,0.2); color:#F48FB1; }
+    .type-Shorts   { background:rgba(255,87,34,0.2); color:#FFAB91; }
+    .type-TG       { background:rgba(33,150,243,0.2); color:#90CAF9; }
+    .type-Эфиры   { background:rgba(156,39,176,0.2); color:#CE93D8; }
+    .type-Вебинары { background:rgba(212,160,23,0.2); color:var(--color-gold); }
+    .category-header__name { font-size:14px; font-weight:700; }
+    .category-header__badges { display:flex; gap:6px; }
+    .cat-badge { font-size:10px; font-weight:700; padding:2px 6px; border-radius:3px; background:rgba(255,255,255,0.07); color:var(--color-text-muted); }
+    .cat-badge span { color:var(--color-gold); }
+    .category-ideas { display:none; padding:0 20px 16px; }
+    .category-block.open .category-ideas { display:block; }
+    .ideas-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:4px; }
+    .ideas-list li {
+      font-size:13px; color:var(--color-text-muted); padding:6px 0 6px 22px;
+      border-bottom:1px solid rgba(255,255,255,0.04); position:relative; line-height:1.5;
+    }
+    .ideas-list li:last-child { border-bottom:none; }
+    .ideas-list li::before { content:'→'; position:absolute; left:0; color:var(--color-gold); font-size:11px; top:7px; }
+    .result-count { font-size:12px; color:var(--color-text-muted); margin-bottom:12px; }
+
+    /* ── КОНТЕНТ-ПЛАНЫ ── */
+    .plans-tabs { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+    .plan-tab {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.1);
+      color:var(--color-text-muted); font-size:13px; font-weight:700;
+      padding:8px 18px; border-radius:20px; cursor:pointer; transition:all 0.2s;
+    }
+    .plan-tab.active { background:rgba(212,160,23,0.15); border-color:var(--color-gold); color:var(--color-gold); }
+    .plan-panel { display:none; }
+    .plan-panel.active { display:block; }
+    .plan-principle {
+      background:linear-gradient(135deg,rgba(212,160,23,0.1),rgba(212,160,23,0.03));
+      border:1px solid rgba(212,160,23,0.2); border-radius:10px;
+      padding:14px 18px; font-size:14px; color:var(--color-text); margin-bottom:16px; font-style:italic;
+    }
+    .schedule-table-wrap { overflow-x:auto; }
+    .schedule-table { width:100%; border-collapse:collapse; font-size:13px; }
+    .schedule-table th {
+      text-align:left; padding:10px 14px; font-size:10px; font-weight:700;
+      letter-spacing:1.5px; text-transform:uppercase; color:var(--color-text-muted);
+      border-bottom:1px solid rgba(255,255,255,0.07); white-space:nowrap;
+    }
+    .schedule-table td { padding:11px 14px; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:top; line-height:1.5; }
+    .schedule-table tr:hover td { background:rgba(255,255,255,0.03); }
+    .freq-badge { font-size:11px; font-weight:700; color:var(--color-gold); white-space:nowrap; }
+
+    @media (max-width:768px) {
+      .summary-row { grid-template-columns:repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <div class="container">
+    <nav class="mod-nav">
+      <a href="../index.html">← Вернуться на главную</a>
+      <a href="index.html">← В Маркетинг</a>
+    </nav>
+    <div class="mod-header">
+      <div class="mod-header__num">Модуль 5</div>
+      <h1 class="mod-header__title">Контентная машина</h1>
+      <p class="mod-header__sub">Источник: Анализ книг блок 7; Маркетинговая стратегия блоки 6, 7, 8</p>
+    </div>
+
+    <!-- 1. СВОДКА -->
+    <section class="section">
+      <div class="section__title">Сводка по типам контента — 1 800+ идей</div>
+      <div class="summary-row" id="summary-row"></div>
+      <div style="margin-top:8px;">
+        <canvas id="summary-chart" height="60"></canvas>
+      </div>
+    </section>
+
+    <!-- 2. БИБЛИОТЕКА ИДЕЙ -->
+    <section class="section">
+      <div class="section__title">Библиотека идей</div>
+      <div class="library-controls">
+        <div class="filter-group" id="type-filters">
+          <button class="filter-btn active" data-type="all">Все типы</button>
+          <button class="filter-btn" data-type="Reels">📱 Reels</button>
+          <button class="filter-btn" data-type="Shorts">▶️ Shorts</button>
+          <button class="filter-btn" data-type="TG-посты">✈️ TG-посты</button>
+          <button class="filter-btn" data-type="Эфиры">🔴 Эфиры</button>
+          <button class="filter-btn" data-type="Вебинары">🎓 Вебинары</button>
+        </div>
+        <input type="text" class="library-search" id="lib-search" placeholder="Поиск по идее, категории…">
+      </div>
+      <div class="result-count" id="result-count"></div>
+      <div class="categories-list" id="categories-list"></div>
+    </section>
+
+    <!-- 3. КОНТЕНТ-ПЛАНЫ ПО КАНАЛАМ -->
+    <section class="section">
+      <div class="section__title">Контент-планы по каналам</div>
+      <div class="plans-tabs" id="plans-tabs"></div>
+      <div id="plans-panels"></div>
+    </section>
+
+  </div>
+  <div id="site-footer"></div>
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/data/m5.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    var d = window.M5;
+    var typeColors = { 'Reels':'#E91E63','Shorts':'#FF5722','TG-посты':'#2196F3','Эфиры':'#9C27B0','Вебинары':'#D4A017' };
+    var typeCssClass = { 'Reels':'Reels','Shorts':'Shorts','TG-посты':'TG','Эфиры':'Эфиры','Вебинары':'Вебинары' };
+
+    /* ── СВОДКА ── */
+    (function() {
+      var row = document.getElementById('summary-row');
+      d.summary.forEach(function(s) {
+        var el = document.createElement('div');
+        el.className = 'summary-card';
+        el.setAttribute('data-type', s.type);
+        el.style.setProperty('--c', typeColors[s.type] || '#D4A017');
+        el.innerHTML = '<style>.summary-card::before{background:' + (typeColors[s.type]||'#D4A017') + ';}</style>' +
+          '<div class="summary-card__icon">' + s.icon + '</div>' +
+          '<div class="summary-card__type">' + s.type + '</div>' +
+          '<div class="summary-card__count">' + s.count + '</div>' +
+          '<div class="summary-card__badges">' +
+            '<span class="badge-pill">В:<span>' + s.badges.В + '★</span></span>' +
+            '<span class="badge-pill">Вир:<span>' + s.badges.Вир + '★</span></span>' +
+            '<span class="badge-pill">Пр:<span>' + s.badges.Пр + '★</span></span>' +
+          '</div>' +
+          '<div class="summary-card__desc">' + s.desc + '</div>';
+        el.addEventListener('click', function() {
+          var btns = document.querySelectorAll('.filter-btn');
+          btns.forEach(function(b) { b.classList.remove('active'); });
+          var btn = document.querySelector('[data-type="' + s.type + '"]');
+          if (btn) { btn.classList.add('active'); currentType = s.type; renderLib(); }
+          document.querySelectorAll('.summary-card').forEach(function(c) { c.classList.remove('active'); });
+          el.classList.add('active');
+        });
+        row.appendChild(el);
+      });
+
+      // Chart
+      var ctx = document.getElementById('summary-chart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: d.summary.map(function(s) { return s.type; }),
+          datasets: [{
+            data: d.summary.map(function(s) { return s.count; }),
+            backgroundColor: d.summary.map(function(s) { return (typeColors[s.type]||'#D4A017') + '99'; }),
+            borderColor: d.summary.map(function(s) { return typeColors[s.type]||'#D4A017'; }),
+            borderWidth: 1, borderRadius: 4,
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c) { return ' ' + c.raw + ' идей'; }}}},
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#B0B8C1' }},
+            y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#B0B8C1' }}
+          }
+        }
+      });
+    })();
+
+    /* ── БИБЛИОТЕКА ── */
+    var currentType = 'all';
+    var currentSearch = '';
+
+    function renderLib() {
+      var list = document.getElementById('categories-list');
+      var countEl = document.getElementById('result-count');
+      list.innerHTML = '';
+      var total = 0;
+      d.library.forEach(function(cat) {
+        if (currentType !== 'all' && cat.type !== currentType) return;
+        var filteredIdeas = cat.ideas.filter(function(idea) {
+          return !currentSearch || idea.toLowerCase().indexOf(currentSearch) !== -1 ||
+                 cat.category.toLowerCase().indexOf(currentSearch) !== -1;
+        });
+        if (filteredIdeas.length === 0) return;
+        total += filteredIdeas.length;
+        var block = document.createElement('div');
+        block.className = 'category-block';
+        var typeClass = 'type-' + (typeCssClass[cat.type] || cat.type.split('-')[0]);
+        var badgesHtml =
+          '<span class="cat-badge">В:<span>' + cat.В + '★</span></span>' +
+          '<span class="cat-badge">Вир:<span>' + cat.Вир + '★</span></span>' +
+          '<span class="cat-badge">Пр:<span>' + cat.Пр + '★</span></span>';
+        block.innerHTML =
+          '<div class="category-header">' +
+            '<div class="category-header__left">' +
+              '<span class="category-header__type ' + typeClass + '">' + cat.type + '</span>' +
+              '<span class="category-header__name">' + cat.category + ' <span style="color:var(--color-text-muted);font-size:12px;font-weight:400;">(' + filteredIdeas.length + ' идей)</span></span>' +
+            '</div>' +
+            '<div class="category-header__badges">' + badgesHtml + '</div>' +
+          '</div>' +
+          '<div class="category-ideas">' +
+            '<ul class="ideas-list">' +
+              filteredIdeas.map(function(i) {
+                var text = currentSearch ? i.replace(new RegExp('(' + currentSearch + ')', 'gi'), '<mark style="background:rgba(212,160,23,0.3);color:inherit;">$1</mark>') : i;
+                return '<li>' + text + '</li>';
+              }).join('') +
+            '</ul>' +
+          '</div>';
+        block.querySelector('.category-header').addEventListener('click', function() {
+          block.classList.toggle('open');
+        });
+        list.appendChild(block);
+      });
+      countEl.textContent = 'Показано идей: ' + total;
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        currentType = btn.dataset.type;
+        document.querySelectorAll('.summary-card').forEach(function(c) { c.classList.remove('active'); });
+        renderLib();
+      });
+    });
+    document.getElementById('lib-search').addEventListener('input', function() {
+      currentSearch = this.value.toLowerCase();
+      renderLib();
+    });
+    renderLib();
+
+    /* ── КОНТЕНТ-ПЛАНЫ ── */
+    (function() {
+      var tabs = document.getElementById('plans-tabs');
+      var panels = document.getElementById('plans-panels');
+      var keys = Object.keys(d.contentPlans);
+      keys.forEach(function(key, idx) {
+        var plan = d.contentPlans[key];
+        var tab = document.createElement('button');
+        tab.className = 'plan-tab' + (idx === 0 ? ' active' : '');
+        tab.textContent = plan.icon + ' ' + plan.title;
+        tab.setAttribute('data-key', key);
+        tab.addEventListener('click', function() {
+          document.querySelectorAll('.plan-tab').forEach(function(t) { t.classList.remove('active'); });
+          document.querySelectorAll('.plan-panel').forEach(function(p) { p.classList.remove('active'); });
+          tab.classList.add('active');
+          document.getElementById('panel-' + key).classList.add('active');
+        });
+        tabs.appendChild(tab);
+
+        var panel = document.createElement('div');
+        panel.className = 'plan-panel' + (idx === 0 ? ' active' : '');
+        panel.id = 'panel-' + key;
+        var rowsHtml = plan.schedule.map(function(r) {
+          return '<tr><td style="font-weight:600;">' + r.type + '</td>' +
+            '<td class="freq-badge">' + r.freq + '</td>' +
+            '<td style="color:var(--color-text-muted);">' + r.goal + '</td>' +
+            '<td style="color:var(--color-text-muted);max-width:250px;">' + r.examples + '</td></tr>';
+        }).join('');
+        panel.innerHTML =
+          '<div class="plan-principle">' + plan.principle + '</div>' +
+          '<div class="schedule-table-wrap"><table class="schedule-table">' +
+            '<thead><tr><th>Тип контента</th><th>Частота</th><th>Цель</th><th>Примеры</th></tr></thead>' +
+            '<tbody>' + rowsHtml + '</tbody></table></div>';
+        panels.appendChild(panel);
+      });
+    })();
+  </script>
+</body>
+</html>

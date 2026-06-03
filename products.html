@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Все продукты Алекса Лесли — курсы, тренинги, клуб, книги, VIP-программы. Выберите свой путь." />
+  <meta property="og:title" content="Все продукты — Alex Leslie" />
+  <meta property="og:description" content="Полный каталог продуктов: от бесплатных материалов до VIP-коучинга." />
+  <meta property="og:type" content="website" />
+  <title>Все продукты — Alex Leslie</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
+
+  <style>
+  /* ─── HERO ─── */
+  .p-hero {
+    position: relative;
+    padding: calc(var(--header-h) + 80px) var(--container-px) 80px;
+    text-align: center;
+    background: var(--color-bg);
+    overflow: hidden;
+  }
+  .p-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(212,160,23,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .p-hero__inner { max-width: var(--container-max); margin: 0 auto; position: relative; z-index: 1; }
+  .p-hero__tag {
+    display: inline-block;
+    background: rgba(212,160,23,0.12);
+    color: var(--color-gold);
+    border: 1px solid rgba(212,160,23,0.25);
+    border-radius: 100px;
+    padding: 6px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .p-hero h1 {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .p-hero h1 span { color: var(--color-gold); }
+  .p-hero__sub {
+    font-size: 18px;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto 48px;
+    line-height: 1.7;
+  }
+
+  /* ─── FILTER TABS ─── */
+  .p-filter {
+    background: var(--color-card);
+    padding: 24px var(--container-px);
+    position: sticky;
+    top: var(--header-h);
+    z-index: 10;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+  .p-filter__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .p-filter-btn {
+    padding: 8px 20px;
+    border-radius: 100px;
+    border: 1px solid var(--color-border-light);
+    background: transparent;
+    color: var(--color-text-muted);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-base);
+    transition: all var(--transition);
+  }
+  .p-filter-btn:hover { border-color: var(--color-gold); color: var(--color-gold); }
+  .p-filter-btn.active {
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+    color: #0D0D1A;
+  }
+
+  /* ─── SECTION ─── */
+  .p-section {
+    padding: 80px var(--container-px);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+  .p-section:last-of-type { border-bottom: none; }
+  .p-section--dark { background: var(--color-bg); }
+  .p-section--card { background: var(--color-card); }
+  .p-section__inner { max-width: var(--container-max); margin: 0 auto; }
+  .p-section__header { margin-bottom: 40px; }
+  .p-section__tier {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 20px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+  .tier-free { background: rgba(39,174,96,0.12); color: #27AE60; border: 1px solid rgba(39,174,96,0.2); }
+  .tier-trip { background: rgba(212,160,23,0.12); color: var(--color-gold); border: 1px solid rgba(212,160,23,0.2); }
+  .tier-main { background: rgba(21,101,192,0.12); color: #1565C0; border: 1px solid rgba(21,101,192,0.2); }
+  .tier-club { background: rgba(212,160,23,0.12); color: var(--color-gold); border: 1px solid rgba(212,160,23,0.2); }
+  .tier-vip  { background: rgba(192,57,43,0.12); color: #E74C3C; border: 1px solid rgba(192,57,43,0.2); }
+  .tier-offline { background: rgba(142,68,173,0.12); color: #9B59B6; border: 1px solid rgba(142,68,173,0.2); }
+  .tier-books { background: rgba(22,160,133,0.12); color: #16A085; border: 1px solid rgba(22,160,133,0.2); }
+
+  .p-section__title { font-size: clamp(24px, 3vw, 36px); font-weight: 800; line-height: 1.2; }
+  .p-section__desc { font-size: 16px; color: var(--color-text-muted); margin-top: 10px; max-width: 600px; line-height: 1.6; }
+
+  /* ─── PRODUCT GRID ─── */
+  .p-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .p-grid--2 { grid-template-columns: repeat(2, 1fr); }
+  .p-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+  .p-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-card);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  }
+  .p-section--card .p-card { background: var(--color-bg); }
+  .p-card:hover { border-color: rgba(212,160,23,0.4); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+  .p-card.featured { border-color: var(--color-gold); }
+  .p-card__icon { font-size: 36px; margin-bottom: 16px; }
+  .p-card__badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 12px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+    width: fit-content;
+  }
+  .p-card__badge-women { background: rgba(194,24,91,0.12); color: #C2185B; border: 1px solid rgba(194,24,91,0.2); }
+  .p-card__badge-men { background: rgba(21,101,192,0.12); color: #1565C0; border: 1px solid rgba(21,101,192,0.2); }
+  .p-card__badge-all { background: rgba(212,160,23,0.12); color: var(--color-gold); border: 1px solid rgba(212,160,23,0.2); }
+  .p-card__title { font-size: 17px; font-weight: 700; color: var(--color-text); margin-bottom: 8px; line-height: 1.4; }
+  .p-card__format { font-size: 13px; color: var(--color-text-muted); margin-bottom: 16px; }
+  .p-card__desc { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 24px; flex: 1; }
+  .p-card__footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: auto; }
+  .p-card__price { font-size: 22px; font-weight: 800; color: var(--color-gold); }
+  .p-card__price.free { color: #27AE60; font-size: 18px; }
+  .p-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    background: var(--color-gold);
+    color: #0D0D1A;
+    transition: background var(--transition), transform var(--transition);
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-base);
+  }
+  .p-card__cta:hover { background: var(--color-gold-hover); transform: scale(1.03); }
+  .p-card__cta.secondary {
+    background: transparent;
+    border: 1px solid var(--color-gold);
+    color: var(--color-gold);
+  }
+  .p-card__cta.secondary:hover { background: var(--color-gold); color: #0D0D1A; }
+
+  /* ─── ECOSYSTEM MAP ─── */
+  .p-map {
+    padding: var(--section-py) var(--container-px);
+    background: var(--color-bg);
+    text-align: center;
+  }
+  .p-map__inner { max-width: var(--container-max); margin: 0 auto; }
+  .p-funnel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin-top: 48px;
+    position: relative;
+  }
+  .p-funnel-step {
+    width: 100%;
+    max-width: 640px;
+    padding: 20px 32px;
+    border-radius: var(--radius-card);
+    text-align: left;
+    position: relative;
+  }
+  .p-funnel-step::after {
+    content: '↓';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    color: var(--color-text-muted);
+    z-index: 1;
+  }
+  .p-funnel-step:last-child::after { display: none; }
+  .pf-0 { background: rgba(39,174,96,0.08); border: 1px solid rgba(39,174,96,0.2); margin-bottom: 24px; }
+  .pf-1 { background: rgba(212,160,23,0.08); border: 1px solid rgba(212,160,23,0.2); margin-bottom: 24px; }
+  .pf-2 { background: rgba(21,101,192,0.08); border: 1px solid rgba(21,101,192,0.2); margin-bottom: 24px; }
+  .pf-3 { background: rgba(212,160,23,0.12); border: 1px solid rgba(212,160,23,0.3); margin-bottom: 24px; }
+  .pf-4 { background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.2); }
+  .pf-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .pf-0 .pf-label { color: #27AE60; }
+  .pf-1 .pf-label { color: var(--color-gold); }
+  .pf-2 .pf-label { color: #1565C0; }
+  .pf-3 .pf-label { color: var(--color-gold); }
+  .pf-4 .pf-label { color: #E74C3C; }
+  .pf-title { font-size: 16px; font-weight: 700; color: var(--color-text); margin-bottom: 4px; }
+  .pf-range { font-size: 14px; color: var(--color-text-muted); }
+  .pf-ltv {
+    margin-top: 40px;
+    display: inline-block;
+    background: rgba(212,160,23,0.1);
+    border: 1px solid rgba(212,160,23,0.3);
+    border-radius: var(--radius-card);
+    padding: 24px 40px;
+    text-align: center;
+  }
+  .pf-ltv-num { font-size: 36px; font-weight: 800; color: var(--color-gold); }
+  .pf-ltv-label { font-size: 14px; color: var(--color-text-muted); margin-top: 4px; }
+
+  /* ─── ADAPTIVE ─── */
+  @media (max-width: 1024px) {
+    .p-grid { grid-template-columns: repeat(2, 1fr); }
+    .p-grid--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .p-grid { grid-template-columns: 1fr; }
+    .p-grid--2 { grid-template-columns: 1fr; }
+    .p-grid--4 { grid-template-columns: 1fr; }
+    .p-filter__inner { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
+    .p-card__footer { flex-direction: column; align-items: flex-start; }
+  }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <!-- HERO -->
+  <section class="p-hero reveal">
+    <div class="p-hero__inner">
+      <div class="p-hero__tag">Каталог продуктов</div>
+      <h1>Все продукты<br><span>экосистемы Лесли</span></h1>
+      <p class="p-hero__sub">
+        От бесплатного входа до VIP-коучинга. Каждый продукт — шаг к следующему уровню.
+        Средний LTV в экосистеме — 90 000–120 000 руб.
+      </p>
+    </div>
+  </section>
+
+  <!-- ФИЛЬТР -->
+  <div class="p-filter">
+    <div class="p-filter__inner">
+      <button class="p-filter-btn active" data-filter="all">Все</button>
+      <button class="p-filter-btn" data-filter="free">Бесплатно</button>
+      <button class="p-filter-btn" data-filter="women">Женское</button>
+      <button class="p-filter-btn" data-filter="men">Мужское</button>
+      <button class="p-filter-btn" data-filter="club">Клуб</button>
+      <button class="p-filter-btn" data-filter="vip">VIP</button>
+      <button class="p-filter-btn" data-filter="offline">Офлайн</button>
+      <button class="p-filter-btn" data-filter="books">Книги</button>
+    </div>
+  </div>
+
+  <!-- БЕСПЛАТНО -->
+  <section class="p-section p-section--dark" data-tier="free">
+    <div class="p-section__inner">
+      <div class="p-section__header">
+        <div class="p-section__tier tier-free">🎁 Бесплатно</div>
+        <div class="p-section__title">Начни бесплатно</div>
+        <div class="p-section__desc">Вход в экосистему. Реальная ценность без оплаты — первый шаг к результату.</div>
+      </div>
+      <div class="p-grid p-grid--4">
+        <div class="p-card reveal" data-category="free women">
+          <div class="p-card__icon">🧩</div>
+          <div class="p-card__badge p-card__badge-women">Женское</div>
+          <div class="p-card__title">Квиз «Готова ли ты выйти замуж?»</div>
+          <div class="p-card__format">TG-бот · 5 минут</div>
+          <div class="p-card__desc">Персональный результат + план действий на основе твоего типа поведения в отношениях.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price free">Бесплатно</div>
+            <a href="#" class="p-card__cta secondary">Пройти →</a>
+          </div>
+        </div>
+        <div class="p-card reveal" data-category="free women">
+          <div class="p-card__icon">📄</div>
+          <div class="p-card__badge p-card__badge-women">Женское</div>
+          <div class="p-card__title">PDF «5 ошибок, мешающих замужеству»</div>
+          <div class="p-card__format">Лид-магнит · PDF</div>
+          <div class="p-card__desc">Самые частые ошибки, которые удерживают от замужества. Конкретный разбор и что делать.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price free">Бесплатно</div>
+            <a href="#" class="p-card__cta secondary">Получить →</a>
+          </div>
+        </div>
+        <div class="p-card reveal" data-category="free women">
+          <div class="p-card__icon">🎙️</div>
+          <div class="p-card__badge p-card__badge-women">Женское</div>
+          <div class="p-card__title">Вебинар «Почему он не женится и что с этим делать»</div>
+          <div class="p-card__format">Live-вебинар · 90 мин</div>
+          <div class="p-card__desc">Разбор главной причины затяжных отношений без статуса. Прямой ответ без воды.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price free">Бесплатно</div>
+            <a href="#" class="p-card__cta secondary">Записаться →</a>
+          </div>
+        </div>
+        <div class="p-card reveal" data-category="free all">
+          <div class="p-card__icon">▶️</div>
+          <div class="p-card__badge p-card__badge-all">Для всех</div>
+          <div class="p-card__title">YouTube-канал Алекса Лесли</div>
+          <div class="p-card__format">Видео · Регулярный контент</div>
+          <div class="p-card__desc">Техники, философия, разборы кейсов. Неисчерпаемый источник методологии в открытом доступе.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price free">Бесплатно</div>
+            <a href="media.html" class="p-card__cta secondary">Смотреть →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ТРИПВАЕРЫ -->
+  <section class="p-section p-section--card" data-tier="trip">
+    <div class="p-section__inner">
+      <div class="p-section__header">
+        <div class="p-section__tier tier-trip">⚡ Трипваер</div>
+        <div class="p-section__title">Первый шаг с результатом</div>
+        <div class="p-section__desc">Конкретный продукт под конкретную боль. Быстрый результат, минимальный риск.</div>
+      </div>
+      <div class="p-grid">
+        <div class="p-card reveal" data-category="trip women">
+          <div class="p-card__icon">💌</div>
+          <div class="p-card__badge p-card__badge-women">Женское</div>
+          <div class="p-card__title">«Первое свидание: он позвонит»</div>
+          <div class="p-card__format">Видеокурс · 2 часа</div>
+          <div class="p-card__desc">Полный алгоритм первого свидания: до, во время, после. Конкретный скрипт и разбор типовых ошибок.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price">990 ₽</div>
+            <a href="#" class="p-card__cta">Купить</a>
+          </div>
+        </div>
+        <div class="p-card reveal" data-category="trip women">
+          <div class="p-card__icon">📲</div>
+          <div class="p-card__badge p-card__badge-women">Женское</div>
+          <div class="p-card__title">«Переписка, которая влюбляет»</div>
+          <div class="p-card__format">PDF + видео</div>
+          <div class="p-card__desc">Готовые шаблоны сообщений с психологическим обоснованием. Разбор реальных переписок.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price">990 ₽</div>
+            <a href="#" class="p-card__cta">Купить</a>
+          </div>
+        </div>
+        <div class="p-card reveal" data-category="trip women">
+          <div class="p-card__icon">📱</div>
+          <div class="p-card__badge p-card__badge-women">Женское</div>
+          <div class="p-card__title">«Профиль в приложении знакомств: разбор»</div>
+          <div class="p-card__format">Видеоразбор · 1 час</div>
+          <div class="p-card__desc">Полный аудит профиля на Tinder/Mamba с правилами оформления, которые привлекают серьёзных мужчин.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price">1 490 ₽</div>
+            <a href="#" class="p-card__cta">Купить</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ОСНОВНЫЕ КУРСЫ -->
+  <section class="p-section p-section--dark" data-tier="main">
+    <div class="p-section__inner">
+      <div class="p-section__header">
+        <div class="p-section__tier tier-main">🎓 Основные курсы</div>
+        <div class="p-section__title">Флагманские программы</div>
+        <div class="p-section__desc">Полная трансформация. Системный результат, подтверждённый тысячами кейсов.</div>
+      </div>
+      <div class="p-grid p-grid--2">
+        <div class="p-card featured reveal" data-category="main women">
+          <div class="p-card__icon">💍</div>
+          <div class="p-card__badge p-card__badge-women">Женское · Флагман</div>
+          <div class="p-card__title">«Как выйти замуж: 90-дневная программа»</div>
+          <div class="p-card__format">Онлайн-курс · 9 модулей · Поддержка тренера</div>
+          <div class="p-card__desc">
+            Флагманский курс женского направления. 90 дней практики: от знакомства до замужества.
+            Включает разборы, закрытый чат, домашние задания. Кейс Савы — флагманский social proof.
+          </div>
+          <div class="p-card__footer">
+            <div class="p-card__price">49 900 ₽</div>
+            <a href="women/how-to-marry.html" class="p-card__cta">Подробнее →</a>
+          </div>
+        </div>
+        <div class="p-card reveal" data-category="main women">
+          <div class="p-card__icon">🏆</div>
+          <div class="p-card__badge p-card__badge-women">Женское · Premium</div>
+          <div class="p-card__title">«Охотница 2.0: полное погружение»</div>
+          <div class="p-card__format">Курс + персональная поддержка</div>
+          <div class="p-card__desc">
+            Расширенная программа для тех, кто хочет максимального результата. Включает личные
+            разборы с тренером и доступ к закрытым материалам.
+          </div>
+          <div class="p-card__footer">
+            <div class="p-card__price">89 900 ₽</div>
+            <a href="#" class="p-card__cta">Записаться</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ТРЕНИНГИ -->
+  <section class="p-section p-section--card" data-tier="men">
+    <div class="p-section__inner">
+      <div class="p-section__header">
+        <div class="p-section__tier" style="background:rgba(21,101,192,0.12);color:#1565C0;border:1px solid rgba(21,101,192,0.2);">🎯 Тренинги для мужчин</div>
+        <div class="p-section__title">Мужское направление</div>
+        <div class="p-section__desc">Живые тренинги с реальной практикой. Воронка: видео → тренинг → клуб.</div>
+      </div>
+      <div class="p-grid p-grid--2">
+        <div class="p-card reveal" data-category="main men">
+          <div class="p-card__icon">⚡</div>
+          <div class="p-card__badge p-card__badge-men">Мужское</div>
+          <div class="p-card__title">Тренинг «Стиль соблазнения»</div>
+          <div class="p-card__format">Офлайн / Онлайн · 3 дня</div>
+          <div class="p-card__desc">
+            3-дневная программа с реальной практикой выходов. Техники первого контакта,
+            свидания, удержания. Результат с первого дня тренинга.
+          </div>
+          <div class="p-card__footer">
+            <div class="p-card__price">от 15 000 ₽</div>
+            <a href="men/seduction.html" class="p-card__cta" style="background:#1565C0;color:#fff;">Подробнее →</a>
+          </div>
+        </div>
+        <div class="p-card reveal" data-category="main men">
+          <div class="p-card__icon">✈️</div>
+          <div class="p-card__badge p-card__badge-men">Мужское · VIP</div>
+          <div class="p-card__title">Выездной тренинг (NYC, Дубай и др.)</div>
+          <div class="p-card__format">Офлайн за рубежом · 3 дня</div>
+          <div class="p-card__desc">
+            Интенсивная программа за рубежом. Малая группа (до 12 человек),
+            максимальная практика в незнакомой среде, VIP-нетворкинг.
+          </div>
+          <div class="p-card__footer">
+            <div class="p-card__price">~62 000 ₽</div>
+            <a href="men/seduction.html" class="p-card__cta" style="background:#1565C0;color:#fff;">Записаться</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- КЛУБ -->
+  <section class="p-section p-section--dark" data-tier="club">
+    <div class="p-section__inner">
+      <div class="p-section__header">
+        <div class="p-section__tier tier-club">👑 Клуб</div>
+        <div class="p-section__title">Закрытый клуб — подписка</div>
+        <div class="p-section__desc">Ежемесячная практика, комьюнити и поддержка. Первый месяц — бесплатно.</div>
+      </div>
+      <div class="p-grid">
+        <div class="p-card reveal" data-category="club women all">
+          <div class="p-card__icon">🔥</div>
+          <div class="p-card__badge p-card__badge-women">Женское</div>
+          <div class="p-card__title">Клуб СТАРТ</div>
+          <div class="p-card__format">TG-клуб · Подписка / мес</div>
+          <div class="p-card__desc">Еженедельные задания по методологии, закрытый чат, разборы. Первый месяц — бесплатно.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price">2 990 ₽/мес</div>
+            <a href="club.html" class="p-card__cta">Вступить</a>
+          </div>
+        </div>
+        <div class="p-card featured reveal" data-category="club women all">
+          <div class="p-card__icon">💎</div>
+          <div class="p-card__badge p-card__badge-women">Женское · Рекомендован</div>
+          <div class="p-card__title">Клуб БАЗА</div>
+          <div class="p-card__format">Курс + TG-клуб · Подписка / мес</div>
+          <div class="p-card__desc">Полный доступ к флагманскому курсу + закрытый клуб + база техник + еженедельные разборы.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price">9 900 ₽/мес</div>
+            <a href="club.html" class="p-card__cta">Вступить</a>
+          </div>
+        </div>
+        <div class="p-card reveal" data-category="club all">
+          <div class="p-card__icon">🎤</div>
+          <div class="p-card__badge p-card__badge-all">Закрытый TG</div>
+          <div class="p-card__title">Закрытый Telegram-канал 18+</div>
+          <div class="p-card__format">Подписка TG · Для М и Ж</div>
+          <div class="p-card__desc">Книги, аудио, эфиры в закрытом формате. Прямой контакт с методологией и подписчиками.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price">2 000 ₽/мес</div>
+            <a href="#" class="p-card__cta">Подписаться</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIP -->
+  <section class="p-section p-section--card" data-tier="vip">
+    <div class="p-section__inner">
+      <div class="p-section__header">
+        <div class="p-section__tier tier-vip">💎 VIP</div>
+        <div class="p-section__title">VIP-программы</div>
+        <div class="p-section__desc">Максимальный результат. Личный контакт. Ограниченный набор.</div>
+      </div>
+      <div class="p-grid">
+        <div class="p-card reveal" data-category="vip women">
+          <div class="p-card__icon">⭐</div>
+          <div class="p-card__badge p-card__badge-women">Женское · VIP</div>
+          <div class="p-card__title">VIP-группа (30 чел.)</div>
+          <div class="p-card__format">Группа + эфиры · Подписка / мес</div>
+          <div class="p-card__desc">Закрытая группа из 30 участниц. Еженедельные эфиры, личные разборы, персональная обратная связь.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price">29 900 ₽/мес</div>
+            <a href="#" class="p-card__cta">Оставить заявку</a>
+          </div>
+        </div>
+        <div class="p-card reveal" data-category="vip all">
+          <div class="p-card__icon">🏅</div>
+          <div class="p-card__badge p-card__badge-all">Для М и Ж</div>
+          <div class="p-card__title">Индивидуальный коучинг</div>
+          <div class="p-card__format">3-месячная личная программа</div>
+          <div class="p-card__desc">Работа один на один по всей методологии. Гарантия результата. Отбор кандидатов. Ограниченный набор.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price">150 000–250 000 ₽</div>
+            <a href="contacts.html" class="p-card__cta">Написать</a>
+          </div>
+        </div>
+        <div class="p-card reveal" data-category="vip women offline">
+          <div class="p-card__icon">🌍</div>
+          <div class="p-card__badge p-card__badge-women">Женское · Офлайн</div>
+          <div class="p-card__title">VIP-ретрит (3–5 дней)</div>
+          <div class="p-card__format">Офлайн за рубежом · Малая группа</div>
+          <div class="p-card__desc">Выездной ретрит с Алексом за рубежом. Практика в реальных условиях, нетворкинг с ТОП-участницами.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price">120 000–200 000 ₽</div>
+            <a href="contacts.html" class="p-card__cta">Узнать подробнее</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ОФЛАЙН -->
+  <section class="p-section p-section--dark" data-tier="offline">
+    <div class="p-section__inner">
+      <div class="p-section__header">
+        <div class="p-section__tier tier-offline">🎪 Офлайн</div>
+        <div class="p-section__title">Живые мероприятия</div>
+        <div class="p-section__desc">Практика, нетворкинг и живой контакт с методологией.</div>
+      </div>
+      <div class="p-grid p-grid--2">
+        <div class="p-card reveal" data-category="offline women">
+          <div class="p-card__icon">🏟️</div>
+          <div class="p-card__badge p-card__badge-women">Женское</div>
+          <div class="p-card__title">Женский интенсив «Жизнь без трусов» (2 дня)</div>
+          <div class="p-card__format">Офлайн · 2 дня</div>
+          <div class="p-card__desc">Живой 2-дневный интенсив с практикой. Разборы, задания, нетворкинг с участницами со всей страны.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price">35 000 ₽</div>
+            <a href="events.html" class="p-card__cta">Зарегистрироваться</a>
+          </div>
+        </div>
+        <div class="p-card reveal" data-category="offline women vip">
+          <div class="p-card__icon">✈️</div>
+          <div class="p-card__badge p-card__badge-women">Женское · VIP</div>
+          <div class="p-card__title">VIP-ретрит за рубежом</div>
+          <div class="p-card__format">Офлайн за рубежом · 3–5 дней</div>
+          <div class="p-card__desc">Интенсив в другой стране. Максимальная практика в нестандартных условиях. Малая группа. Отбор участниц.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price">120 000–200 000 ₽</div>
+            <a href="contacts.html" class="p-card__cta">Записаться</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- КНИГИ -->
+  <section class="p-section p-section--card" data-tier="books">
+    <div class="p-section__inner">
+      <div class="p-section__header">
+        <div class="p-section__tier tier-books">📚 Книги</div>
+        <div class="p-section__title">Книги Алекса Лесли</div>
+        <div class="p-section__desc">Философия методологии в книжном формате. Доступна на Litres, Wildberries, Ozon.</div>
+      </div>
+      <div class="p-grid p-grid--4">
+        <div class="p-card reveal" data-category="books women">
+          <div class="p-card__icon">📖</div>
+          <div class="p-card__badge p-card__badge-women">Женское</div>
+          <div class="p-card__title">«Охота на самца»</div>
+          <div class="p-card__format">Книга / Электронная версия</div>
+          <div class="p-card__desc">Флагманская книга женского направления. Методология Охотницы, 9 шагов, Кодекс.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price">590 ₽</div>
+            <a href="books.html" class="p-card__cta secondary">Подробнее →</a>
+          </div>
+        </div>
+        <div class="p-card reveal" data-category="books women">
+          <div class="p-card__icon">📖</div>
+          <div class="p-card__badge p-card__badge-women">Женское</div>
+          <div class="p-card__title">«Игра Мастера и Охотницы»</div>
+          <div class="p-card__format">Книга / Электронная версия</div>
+          <div class="p-card__desc">Системная философия. Кодекс. Иерархия уровней. Мастер как высший архетип.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price">590 ₽</div>
+            <a href="books.html" class="p-card__cta secondary">Подробнее →</a>
+          </div>
+        </div>
+        <div class="p-card reveal" data-category="books men">
+          <div class="p-card__icon">📖</div>
+          <div class="p-card__badge p-card__badge-men">Мужское</div>
+          <div class="p-card__title">«Жизнь без трусов»</div>
+          <div class="p-card__format">Книга / Электронная версия</div>
+          <div class="p-card__desc">Стартовая точка методологии. Техники знакомства, первого контакта, свидания.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price">590 ₽</div>
+            <a href="books.html" class="p-card__cta secondary">Подробнее →</a>
+          </div>
+        </div>
+        <div class="p-card reveal" data-category="books all">
+          <div class="p-card__icon">📒</div>
+          <div class="p-card__badge p-card__badge-all">Для всех</div>
+          <div class="p-card__title">«Метод Лесли: рабочая тетрадь»</div>
+          <div class="p-card__format">Книга / PDF-версия</div>
+          <div class="p-card__desc">Практическое дополнение к методологии. Задания, трекер, дневник соблазнения.</div>
+          <div class="p-card__footer">
+            <div class="p-card__price">990 ₽</div>
+            <a href="books.html" class="p-card__cta secondary">Подробнее →</a>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:32px; text-align:center;">
+        <a href="books.html" class="btn-secondary">Все книги →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- КАРТА МОНЕТИЗАЦИИ -->
+  <section class="p-map reveal">
+    <div class="p-map__inner">
+      <div class="section-tag" style="display:inline-block;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--color-gold);margin-bottom:16px;">Путь пользователя</div>
+      <h2 class="section-h2" style="font-size:clamp(28px,4vw,44px);font-weight:800;margin-bottom:20px;">Карта монетизации экосистемы</h2>
+      <p style="font-size:17px;color:var(--color-text-muted);max-width:560px;margin:0 auto 8px;line-height:1.7;">Каждый шаг приближает к следующему уровню. Средний LTV — 90 000–120 000 ₽.</p>
+      <div class="p-funnel">
+        <div class="p-funnel-step pf-0">
+          <div class="pf-label">Вход</div>
+          <div class="pf-title">Бесплатные материалы: квиз, PDF, вебинар, YouTube</div>
+          <div class="pf-range">0 ₽</div>
+        </div>
+        <div class="p-funnel-step pf-1">
+          <div class="pf-label">Трипваер</div>
+          <div class="pf-title">Первое свидание, переписка, профиль на сайте знакомств</div>
+          <div class="pf-range">990 — 1 490 ₽</div>
+        </div>
+        <div class="p-funnel-step pf-2">
+          <div class="pf-label">Флагман</div>
+          <div class="pf-title">«Как выйти замуж: 90-дневная программа» / Тренинг «Стиль соблазнения»</div>
+          <div class="pf-range">15 000 — 89 900 ₽</div>
+        </div>
+        <div class="p-funnel-step pf-3">
+          <div class="pf-label">Подписка</div>
+          <div class="pf-title">Клуб СТАРТ / БАЗА / VIP-группа</div>
+          <div class="pf-range">2 990 — 29 900 ₽/мес</div>
+        </div>
+        <div class="p-funnel-step pf-4">
+          <div class="pf-label">VIP</div>
+          <div class="pf-title">Индивидуальный коучинг 3 месяца / VIP-ретрит</div>
+          <div class="pf-range">120 000 — 250 000 ₽</div>
+        </div>
+      </div>
+      <div class="pf-ltv">
+        <div class="pf-ltv-num">90 000–120 000 ₽</div>
+        <div class="pf-ltv-label">Средний LTV по всем уровням</div>
+      </div>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/components.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Filter
+    const filterBtns = document.querySelectorAll('.p-filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+
+        if (filter === 'all') {
+          document.querySelectorAll('.p-section').forEach(s => s.style.display = '');
+          document.querySelectorAll('.p-card').forEach(c => c.style.display = '');
+        } else {
+          document.querySelectorAll('.p-section').forEach(section => {
+            const tier = section.dataset.tier;
+            const cards = section.querySelectorAll('.p-card');
+            let visibleCards = 0;
+            cards.forEach(card => {
+              const cats = (card.dataset.category || '').split(' ');
+              if (cats.includes(filter)) {
+                card.style.display = '';
+                visibleCards++;
+              } else {
+                card.style.display = 'none';
+              }
+            });
+            section.style.display = visibleCards === 0 ? 'none' : '';
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

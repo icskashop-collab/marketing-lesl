@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модуль 6: Каналы и рост | Маркетинг | Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <style>
+    .mod-nav { display:flex; gap:12px; flex-wrap:wrap; padding:20px 0 0; }
+    .mod-nav a {
+      display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600;
+      color:var(--color-text-muted); text-decoration:none; padding:6px 14px;
+      border:1px solid rgba(255,255,255,0.1); border-radius:20px; transition:all 0.2s;
+    }
+    .mod-nav a:hover { color:var(--color-gold); border-color:var(--color-gold); }
+    .mod-header { padding:32px 0 24px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:40px; }
+    .mod-header__num { font-size:11px; font-weight:700; letter-spacing:3px; color:var(--color-gold); text-transform:uppercase; margin-bottom:8px; }
+    .mod-header__title { font-size:clamp(24px,4vw,40px); font-weight:800; margin-bottom:8px; }
+    .mod-header__sub { color:var(--color-text-muted); font-size:15px; }
+    .section { margin-bottom:56px; }
+    .section__title {
+      font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+      color:var(--color-gold); margin-bottom:20px; display:flex; align-items:center; gap:10px;
+    }
+    .section__title::after { content:''; flex:1; height:1px; background:rgba(212,160,23,0.2); }
+
+    /* ── ВКЛАДКИ КАНАЛОВ ── */
+    .channel-tabs { display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; }
+    .channel-tab {
+      display:flex; align-items:center; gap:8px;
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.1);
+      color:var(--color-text-muted); font-size:14px; font-weight:700;
+      padding:10px 20px; border-radius:20px; cursor:pointer; transition:all 0.2s;
+    }
+    .channel-tab.active { border-color:var(--color-gold); color:var(--color-gold); background:rgba(212,160,23,0.1); }
+    .channel-panel { display:none; }
+    .channel-panel.active { display:block; }
+
+    /* ── KPI ТАБЛИЦА ── */
+    .kpi-table-wrap { overflow-x:auto; margin-bottom:28px; }
+    .kpi-table { width:100%; border-collapse:collapse; font-size:13px; }
+    .kpi-table th {
+      text-align:left; padding:10px 14px; font-size:10px; font-weight:700;
+      letter-spacing:1.5px; text-transform:uppercase; color:var(--color-text-muted);
+      border-bottom:1px solid rgba(255,255,255,0.07); white-space:nowrap;
+    }
+    .kpi-table td { padding:10px 14px; border-bottom:1px solid rgba(255,255,255,0.04); }
+    .kpi-table tr:hover td { background:rgba(255,255,255,0.03); }
+    .kpi-metric { font-weight:600; }
+    .kpi-val { color:var(--color-gold); font-weight:700; }
+
+    /* ── ECOSYSTEM / GRID ── */
+    .ecosystem-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
+    .eco-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px; padding:16px;
+    }
+    .eco-card__name { font-size:13px; font-weight:700; color:var(--color-gold); margin-bottom:6px; }
+    .eco-card__role { font-size:12px; color:var(--color-text); margin-bottom:4px; }
+    .eco-card__meta { font-size:11px; color:var(--color-text-muted); }
+
+    /* ── AUTOVORONKA ── */
+    .voronka-steps { display:flex; flex-direction:column; gap:0; }
+    .v-step {
+      display:grid; grid-template-columns:48px 1fr;
+      gap:0 16px; align-items:start; padding:16px 0;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+    .v-step:last-child { border-bottom:none; }
+    .v-step__num {
+      width:40px; height:40px; border-radius:50%;
+      background:rgba(212,160,23,0.15); border:2px solid var(--color-gold);
+      display:flex; align-items:center; justify-content:center;
+      font-size:15px; font-weight:800; color:var(--color-gold); flex-shrink:0;
+    }
+    .v-step__title { font-size:14px; font-weight:700; margin-bottom:4px; }
+    .v-step__desc { font-size:13px; color:var(--color-text-muted); line-height:1.5; }
+
+    /* ── IG CATEGORIES ── */
+    .ig-cats { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
+    .ig-cat {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:16px;
+    }
+    .ig-cat__header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+    .ig-cat__name { font-size:13px; font-weight:700; }
+    .ig-cat__count { font-size:11px; color:var(--color-gold); font-weight:700; }
+    .ig-cat__items { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:4px; }
+    .ig-cat__items li { font-size:11px; color:var(--color-text-muted); padding-left:14px; position:relative; }
+    .ig-cat__items li::before { content:'·'; position:absolute; left:0; color:var(--color-gold); }
+
+    /* ── YT ARCHITECTURE ── */
+    .yt-arch { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; margin-bottom:24px; }
+    .yt-format {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:16px;
+      border-left:3px solid #FF5722;
+    }
+    .yt-format__name { font-size:13px; font-weight:700; margin-bottom:6px; }
+    .yt-format__row { display:flex; justify-content:space-between; font-size:11px; color:var(--color-text-muted); margin-bottom:2px; }
+    .yt-format__row span { color:var(--color-text); }
+
+    /* ── СБОР АУДИТОРИИ ── */
+    .audience-table-wrap { overflow-x:auto; }
+    .audience-table { width:100%; border-collapse:collapse; font-size:12px; }
+    .audience-table th {
+      text-align:left; padding:10px 12px; font-size:10px; font-weight:700;
+      letter-spacing:1.5px; text-transform:uppercase; color:var(--color-text-muted);
+      border-bottom:1px solid rgba(255,255,255,0.07); white-space:nowrap;
+    }
+    .audience-table td { padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:top; line-height:1.5; }
+    .audience-table tr:hover td { background:rgba(255,255,255,0.03); }
+    .platform-name { font-weight:700; color:var(--color-gold); white-space:nowrap; }
+    .conv-badge { font-size:11px; font-weight:700; color:#4CAF50; }
+
+    /* ── GROWTH HACKING ── */
+    .gh-controls { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+    .gh-filter-btn {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.1);
+      color:var(--color-text-muted); font-size:11px; font-weight:700;
+      padding:4px 12px; border-radius:20px; cursor:pointer; transition:all 0.2s;
+    }
+    .gh-filter-btn.active, .gh-filter-btn:hover { border-color:var(--color-gold); color:var(--color-gold); background:rgba(212,160,23,0.1); }
+    .gh-search {
+      flex:1; min-width:200px; background:var(--color-card); border:1px solid rgba(255,255,255,0.1);
+      border-radius:8px; padding:7px 14px; color:var(--color-text);
+      font-family:'Inter',sans-serif; font-size:13px; outline:none;
+    }
+    .gh-search:focus { border-color:var(--color-gold); }
+    .gh-search::placeholder { color:var(--color-text-muted); }
+    .gh-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:10px; }
+    .gh-item {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:10px; padding:12px 14px; display:flex; gap:10px; align-items:flex-start;
+    }
+    .gh-item__num { font-size:11px; font-weight:800; color:var(--color-gold); width:22px; flex-shrink:0; padding-top:2px; }
+    .gh-item__text { font-size:12px; color:var(--color-text-muted); line-height:1.5; flex:1; }
+    .gh-item__cat {
+      font-size:9px; font-weight:700; letter-spacing:1px; padding:2px 6px; border-radius:3px;
+      background:rgba(255,255,255,0.07); color:var(--color-text-muted); white-space:nowrap; flex-shrink:0; margin-top:2px;
+    }
+    .gh-count { font-size:12px; color:var(--color-text-muted); margin-bottom:12px; }
+
+    @media (max-width:768px) {
+      .kpi-table th:nth-child(n+4), .kpi-table td:nth-child(n+4) { display:none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <div class="container">
+    <nav class="mod-nav">
+      <a href="../index.html">← Вернуться на главную</a>
+      <a href="index.html">← В Маркетинг</a>
+    </nav>
+    <div class="mod-header">
+      <div class="mod-header__num">Модуль 6</div>
+      <h1 class="mod-header__title">Каналы и рост</h1>
+      <p class="mod-header__sub">Источник: Маркетинговая стратегия блоки 6, 7, 8, 9, 16</p>
+    </div>
+
+    <!-- 1. КАНАЛЫ -->
+    <section class="section">
+      <div class="section__title">Стратегии по каналам с KPI-графиками</div>
+      <div class="channel-tabs" id="channel-tabs">
+        <button class="channel-tab active" data-ch="telegram">✈️ Telegram</button>
+        <button class="channel-tab" data-ch="instagram">📸 Instagram</button>
+        <button class="channel-tab" data-ch="youtube">▶️ YouTube</button>
+      </div>
+
+      <!-- TELEGRAM -->
+      <div class="channel-panel active" id="panel-telegram">
+        <div style="font-size:13px;font-weight:700;color:var(--color-text-muted);margin-bottom:14px;letter-spacing:1px;">ЭКОСИСТЕМА TELEGRAM</div>
+        <div class="ecosystem-grid" id="tg-eco"></div>
+
+        <div style="margin-top:32px;font-size:13px;font-weight:700;color:var(--color-text-muted);margin-bottom:16px;letter-spacing:1px;">АВТОВОРОНКА ЧЕРЕЗ БОТ (7 ШАГОВ)</div>
+        <div class="voronka-steps" id="tg-voronka"></div>
+
+        <div style="margin-top:32px;font-size:13px;font-weight:700;color:var(--color-text-muted);margin-bottom:16px;letter-spacing:1px;">KPI TELEGRAM (12 МЕСЯЦЕВ)</div>
+        <div class="kpi-table-wrap">
+          <table class="kpi-table" id="tg-kpi-table">
+            <thead><tr><th>Метрика</th><th>Мес 1</th><th>Мес 3</th><th>Мес 6</th><th>Мес 12</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <canvas id="tg-chart" height="120"></canvas>
+      </div>
+
+      <!-- INSTAGRAM -->
+      <div class="channel-panel" id="panel-instagram">
+        <div style="font-size:13px;font-weight:700;color:var(--color-text-muted);margin-bottom:14px;letter-spacing:1px;">КАТЕГОРИИ КОНТЕНТА (300+ идей)</div>
+        <div class="ig-cats" id="ig-cats"></div>
+
+        <div style="margin-top:32px;font-size:13px;font-weight:700;color:var(--color-text-muted);margin-bottom:16px;letter-spacing:1px;">KPI INSTAGRAM (12 МЕСЯЦЕВ)</div>
+        <div class="kpi-table-wrap">
+          <table class="kpi-table" id="ig-kpi-table">
+            <thead><tr><th>Метрика</th><th>Мес 1</th><th>Мес 3</th><th>Мес 6</th><th>Мес 12</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <canvas id="ig-chart" height="120"></canvas>
+      </div>
+
+      <!-- YOUTUBE -->
+      <div class="channel-panel" id="panel-youtube">
+        <div style="font-size:13px;font-weight:700;color:var(--color-text-muted);margin-bottom:14px;letter-spacing:1px;">АРХИТЕКТУРА КОНТЕНТА</div>
+        <div class="yt-arch" id="yt-arch"></div>
+
+        <div style="font-size:13px;font-weight:700;color:var(--color-text-muted);margin-bottom:14px;letter-spacing:1px;">ТОП-10 ТЕМ (по потенциалу)</div>
+        <div class="kpi-table-wrap">
+          <table class="kpi-table" id="yt-topics-table">
+            <thead><tr><th>#</th><th>Тема видео</th><th>Просмотры</th><th>Вирал</th><th>Продажи</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div style="margin-top:24px;font-size:13px;font-weight:700;color:var(--color-text-muted);margin-bottom:16px;letter-spacing:1px;">KPI YOUTUBE (18 МЕСЯЦЕВ)</div>
+        <div class="kpi-table-wrap">
+          <table class="kpi-table" id="yt-kpi-table">
+            <thead><tr><th>Метрика</th><th>Мес 1</th><th>Мес 3</th><th>Мес 6</th><th>Мес 12</th><th>Мес 18</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <canvas id="yt-chart" height="120"></canvas>
+      </div>
+    </section>
+
+    <!-- 2. СБОР АУДИТОРИИ -->
+    <section class="section">
+      <div class="section__title">Сбор аудитории — где и как</div>
+      <div class="audience-table-wrap">
+        <table class="audience-table" id="audience-table">
+          <thead>
+            <tr>
+              <th>Платформа</th>
+              <th>Где находится ЦА</th>
+              <th>Как находить</th>
+              <th>Как привлекать</th>
+              <th>Конверсия</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3. GROWTH HACKING -->
+    <section class="section">
+      <div class="section__title">Growth hacking — 100 способов роста</div>
+      <div style="font-size:12px;color:var(--color-text-muted);margin-bottom:16px;">Без рекламного бюджета. Минимальные вложения. Максимальный эффект.</div>
+      <div class="gh-controls">
+        <div id="gh-filters" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+        <input type="text" class="gh-search" id="gh-search" placeholder="Поиск по способу…">
+      </div>
+      <div class="gh-count" id="gh-count"></div>
+      <div class="gh-grid" id="gh-grid"></div>
+    </section>
+
+  </div>
+  <div id="site-footer"></div>
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/data/m6.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    var d = window.M6;
+
+    /* ── ВКЛАДКИ КАНАЛОВ ── */
+    document.querySelectorAll('.channel-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.channel-tab').forEach(function(t) { t.classList.remove('active'); });
+        document.querySelectorAll('.channel-panel').forEach(function(p) { p.classList.remove('active'); });
+        tab.classList.add('active');
+        document.getElementById('panel-' + tab.dataset.ch).classList.add('active');
+      });
+    });
+
+    function stars(n) { var s=''; for(var i=0;i<5;i++) s+= i<n?'★':'☆'; return s; }
+
+    /* ── TELEGRAM ── */
+    (function() {
+      var eco = document.getElementById('tg-eco');
+      d.telegram.ecosystem.forEach(function(e) {
+        var card = document.createElement('div');
+        card.className = 'eco-card';
+        card.innerHTML = '<div class="eco-card__name">' + e.element + '</div>' +
+          '<div class="eco-card__role">' + e.role + '</div>' +
+          '<div class="eco-card__meta">Аудитория: ' + e.audience + '</div>' +
+          '<div class="eco-card__meta" style="color:var(--color-gold);">Монетизация: ' + e.monetization + '</div>';
+        eco.appendChild(card);
+      });
+
+      var voronka = document.getElementById('tg-voronka');
+      d.telegram.autovoronka.forEach(function(v) {
+        var el = document.createElement('div');
+        el.className = 'v-step';
+        el.innerHTML = '<div class="v-step__num">' + v.step + '</div>' +
+          '<div><div class="v-step__title">' + v.title + '</div>' +
+          '<div class="v-step__desc">' + v.desc + '</div></div>';
+        voronka.appendChild(el);
+      });
+
+      var tbody = document.getElementById('tg-kpi-table').querySelector('tbody');
+      d.telegram.kpi.forEach(function(k) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td class="kpi-metric">' + k.metric + '</td>' +
+          '<td>' + k.m1 + '</td><td>' + k.m3 + '</td>' +
+          '<td class="kpi-val">' + k.m6 + '</td><td class="kpi-val">' + k.m12 + '</td>';
+        tbody.appendChild(tr);
+      });
+
+      var ctx = document.getElementById('tg-chart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Мес 1','Мес 3','Мес 6','Мес 12'],
+          datasets: [
+            { label: 'Подписчики канала', data: [5000,20000,50000,100000],
+              borderColor:'#2196F3', backgroundColor:'rgba(33,150,243,0.1)', tension:0.4, fill:true },
+            { label: 'Подписчики клуба', data: [100,500,1500,3000],
+              borderColor:'#D4A017', backgroundColor:'rgba(212,160,23,0.1)', tension:0.4, fill:true, yAxisID:'y1' },
+          ]
+        },
+        options: { responsive:true,
+          plugins:{ legend:{ labels:{ color:'#B0B8C1', font:{ size:11 }}}},
+          scales:{
+            x:{ ticks:{ color:'#B0B8C1' }, grid:{ color:'rgba(255,255,255,0.05)' }},
+            y:{ ticks:{ color:'#B0B8C1' }, grid:{ color:'rgba(255,255,255,0.05)' }, title:{ display:true, text:'Подписчики канала', color:'#B0B8C1', font:{ size:10 }}},
+            y1:{ position:'right', ticks:{ color:'#D4A017' }, grid:{ display:false }, title:{ display:true, text:'Клуб', color:'#D4A017', font:{ size:10 }}}
+          }
+        }
+      });
+    })();
+
+    /* ── INSTAGRAM ── */
+    (function() {
+      var cats = document.getElementById('ig-cats');
+      d.instagram.categories.forEach(function(c) {
+        var el = document.createElement('div');
+        el.className = 'ig-cat';
+        el.innerHTML = '<div class="ig-cat__header">' +
+          '<div class="ig-cat__name">' + c.name + '</div>' +
+          '<div class="ig-cat__count">' + c.ideas + ' идей</div></div>' +
+          '<ul class="ig-cat__items">' + c.top.map(function(t) { return '<li>' + t + '</li>'; }).join('') + '</ul>';
+        cats.appendChild(el);
+      });
+
+      var tbody = document.getElementById('ig-kpi-table').querySelector('tbody');
+      d.instagram.kpi.forEach(function(k) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td class="kpi-metric">' + k.metric + '</td>' +
+          '<td>' + k.m1 + '</td><td>' + k.m3 + '</td>' +
+          '<td class="kpi-val">' + k.m6 + '</td><td class="kpi-val">' + k.m12 + '</td>';
+        tbody.appendChild(tr);
+      });
+
+      var ctx = document.getElementById('ig-chart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Мес 1','Мес 3','Мес 6','Мес 12'],
+          datasets: [{
+            label: 'Подписчики Instagram', data: [2000,15000,60000,200000],
+            borderColor:'#E91E63', backgroundColor:'rgba(233,30,99,0.1)', tension:0.4, fill:true
+          }]
+        },
+        options: { responsive:true,
+          plugins:{ legend:{ labels:{ color:'#B0B8C1', font:{ size:11 }}}},
+          scales:{
+            x:{ ticks:{ color:'#B0B8C1' }, grid:{ color:'rgba(255,255,255,0.05)' }},
+            y:{ ticks:{ color:'#B0B8C1' }, grid:{ color:'rgba(255,255,255,0.05)' }}
+          }
+        }
+      });
+    })();
+
+    /* ── YOUTUBE ── */
+    (function() {
+      var arch = document.getElementById('yt-arch');
+      d.youtube.architecture.forEach(function(f) {
+        var el = document.createElement('div');
+        el.className = 'yt-format';
+        el.innerHTML = '<div class="yt-format__name">' + f.format + '</div>' +
+          '<div class="yt-format__row"><span>' + f.length + '</span>' + f.freq + '</div>' +
+          '<div class="yt-format__row"><span>' + f.goal + '</span></div>' +
+          '<div class="yt-format__row" style="color:#FF5722;">Охват: <span>' + f.views + '</span></div>';
+        arch.appendChild(el);
+      });
+
+      var topTbody = document.getElementById('yt-topics-table').querySelector('tbody');
+      d.youtube.topTopics.forEach(function(t, i) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td style="color:var(--color-gold);font-weight:700;">' + (i+1) + '</td>' +
+          '<td style="font-weight:600;">' + t.name + '</td>' +
+          '<td style="color:#FF5722;">' + stars(t.П) + '</td>' +
+          '<td style="color:#E91E63;">' + stars(t.В) + '</td>' +
+          '<td style="color:var(--color-gold);">' + stars(t.Пр) + '</td>';
+        topTbody.appendChild(tr);
+      });
+
+      var tbody = document.getElementById('yt-kpi-table').querySelector('tbody');
+      d.youtube.kpi.forEach(function(k) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td class="kpi-metric">' + k.metric + '</td>' +
+          '<td>' + k.m1 + '</td><td>' + k.m3 + '</td>' +
+          '<td>' + k.m6 + '</td><td class="kpi-val">' + k.m12 + '</td><td class="kpi-val">' + k.m18 + '</td>';
+        tbody.appendChild(tr);
+      });
+
+      var ctx = document.getElementById('yt-chart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Мес 1','Мес 3','Мес 6','Мес 12','Мес 18'],
+          datasets: [{
+            label: 'Подписчики YouTube', data: [1000,10000,50000,200000,500000],
+            borderColor:'#FF5722', backgroundColor:'rgba(255,87,34,0.1)', tension:0.4, fill:true
+          }]
+        },
+        options: { responsive:true,
+          plugins:{ legend:{ labels:{ color:'#B0B8C1', font:{ size:11 }}}},
+          scales:{
+            x:{ ticks:{ color:'#B0B8C1' }, grid:{ color:'rgba(255,255,255,0.05)' }},
+            y:{ ticks:{ color:'#B0B8C1' }, grid:{ color:'rgba(255,255,255,0.05)' }}
+          }
+        }
+      });
+    })();
+
+    /* ── СБОР АУДИТОРИИ ── */
+    (function() {
+      var tbody = document.getElementById('audience-table').querySelector('tbody');
+      d.audienceCollection.forEach(function(a) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td class="platform-name">' + a.platform + '</td>' +
+          '<td style="color:var(--color-text-muted);max-width:140px;">' + a.whereToFind + '</td>' +
+          '<td style="color:var(--color-text-muted);max-width:140px;">' + a.howToFind + '</td>' +
+          '<td style="color:var(--color-text-muted);max-width:160px;">' + a.howToAttract + '</td>' +
+          '<td class="conv-badge">' + a.conv + '</td>';
+        tbody.appendChild(tr);
+      });
+    })();
+
+    /* ── GROWTH HACKING ── */
+    (function() {
+      var filtersWrap = document.getElementById('gh-filters');
+      var grid = document.getElementById('gh-grid');
+      var countEl = document.getElementById('gh-count');
+      var currentCat = 'Все';
+      var currentSearch = '';
+
+      d.growthCategories.forEach(function(cat) {
+        var btn = document.createElement('button');
+        btn.className = 'gh-filter-btn' + (cat === 'Все' ? ' active' : '');
+        btn.textContent = cat;
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.gh-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          currentCat = cat;
+          render();
+        });
+        filtersWrap.appendChild(btn);
+      });
+
+      document.getElementById('gh-search').addEventListener('input', function() {
+        currentSearch = this.value.toLowerCase();
+        render();
+      });
+
+      function render() {
+        grid.innerHTML = '';
+        var items = d.growthHacking.filter(function(h) {
+          if (currentCat !== 'Все' && h.category !== currentCat) return false;
+          if (currentSearch && h.text.toLowerCase().indexOf(currentSearch) === -1 &&
+              h.category.toLowerCase().indexOf(currentSearch) === -1) return false;
+          return true;
+        });
+        countEl.textContent = 'Показано: ' + items.length + ' / ' + d.growthHacking.length;
+        items.forEach(function(h) {
+          var el = document.createElement('div');
+          el.className = 'gh-item';
+          var text = currentSearch ? h.text.replace(new RegExp('(' + currentSearch + ')', 'gi'), '<mark style="background:rgba(212,160,23,0.3);color:inherit;">$1</mark>') : h.text;
+          el.innerHTML = '<span class="gh-item__num">' + h.id + '</span>' +
+            '<span class="gh-item__text">' + text + '</span>' +
+            '<span class="gh-item__cat">' + h.category + '</span>';
+          grid.appendChild(el);
+        });
+      }
+      render();
+    })();
+  </script>
+</body>
+</html>

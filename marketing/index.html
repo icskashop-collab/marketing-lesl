@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Маркетинг — Дашборд | Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    /* ── МАРКЕТИНГ: ДАШБОРД ── */
+    .marketing-hero {
+      background: linear-gradient(135deg, var(--color-bg) 0%, #0D1A2E 100%);
+      padding: 60px 0 40px;
+      border-bottom: 1px solid rgba(212,160,23,0.2);
+    }
+    .marketing-hero__label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 12px;
+    }
+    .marketing-hero__title {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 800;
+      color: var(--color-text);
+      margin-bottom: 8px;
+    }
+    .marketing-hero__sub {
+      color: var(--color-text-muted);
+      font-size: 15px;
+    }
+
+    /* ── КЕЙ-ЦИФРЫ ── */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      padding: 32px 0;
+    }
+    .kpi-card {
+      background: var(--color-card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 16px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--color-gold);
+    }
+    .kpi-card__value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--color-gold);
+      line-height: 1.1;
+    }
+    .kpi-card__label {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      margin-top: 4px;
+      line-height: 1.3;
+    }
+
+    /* ── ПЛИТКИ МОДУЛЕЙ ── */
+    .modules-section { padding: 16px 0 60px; }
+    .modules-section__title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 20px;
+    }
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .module-tile {
+      background: var(--color-card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 24px;
+      text-decoration: none;
+      color: var(--color-text);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .module-tile:hover {
+      transform: translateY(-3px);
+      border-color: rgba(212,160,23,0.4);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .module-tile--active::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      border: 1px solid rgba(212,160,23,0.3);
+      pointer-events: none;
+    }
+    .module-tile--wip {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .module-tile__num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--color-gold);
+      text-transform: uppercase;
+    }
+    .module-tile__icon {
+      font-size: 32px;
+      line-height: 1;
+    }
+    .module-tile__title {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .module-tile__desc {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+    .module-tile__arrow {
+      font-size: 18px;
+      color: var(--color-gold);
+      margin-top: auto;
+    }
+    .module-tile--wip .module-tile__arrow {
+      font-size: 12px;
+      color: var(--color-text-muted);
+    }
+    .badge-wip {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px;
+      padding: 2px 6px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .modules-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <section class="marketing-hero">
+    <div class="container">
+      <div class="marketing-hero__label">Внутренний инструмент</div>
+      <h1 class="marketing-hero__title">Маркетинг-дашборд</h1>
+      <p class="marketing-hero__sub">Весь анализ экосистемы Алекса Лесли в одной навигируемой панели</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- КЕЙ-ЦИФРЫ -->
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-card__value">17,7 млрд ₽</div>
+        <div class="kpi-card__label">Объём ниши на GetCourse (психология + отношения)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-card__value">5–9 млн</div>
+        <div class="kpi-card__label">Женщин ЦА в России и СНГ</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-card__value">50 000 ₽</div>
+        <div class="kpi-card__label">Средний чек флагманского продукта</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-card__value">1 млрд ₽</div>
+        <div class="kpi-card__label">Целевая оценка бизнеса</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-card__value">20</div>
+        <div class="kpi-card__label">Сегментов целевой аудитории</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-card__value">100</div>
+        <div class="kpi-card__label">Конкурентов в базе разведки</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-card__value">19</div>
+        <div class="kpi-card__label">Терминов в словаре бренда</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-card__value">20</div>
+        <div class="kpi-card__label">Авторских техник в каталоге</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-card__value">1800+</div>
+        <div class="kpi-card__label">Идей контента в библиотеке</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-card__value">20</div>
+        <div class="kpi-card__label">Лид-магнитов в воронке</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-card__value">20</div>
+        <div class="kpi-card__label">Трипваеров в линейке</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-card__value">4</div>
+        <div class="kpi-card__label">Тарифа клуба «Академия Охотниц»</div>
+      </div>
+    </div>
+
+    <!-- МОДУЛИ -->
+    <section class="modules-section">
+      <div class="modules-section__title">9 модулей анализа</div>
+      <div class="modules-grid">
+
+        <a href="m1-filosofiya.html" class="module-tile module-tile--active">
+          <div class="module-tile__num">Модуль 1</div>
+          <div class="module-tile__icon">🧭</div>
+          <div class="module-tile__title">Философия и смыслы</div>
+          <div class="module-tile__desc">Карта философии, словарь 19 терминов, психологический профиль бренда и архетип</div>
+          <div class="module-tile__arrow">→</div>
+        </a>
+
+        <a href="m2-auditoriya.html" class="module-tile module-tile--active">
+          <div class="module-tile__num">Модуль 2</div>
+          <div class="module-tile__icon">👥</div>
+          <div class="module-tile__title">Аудитория</div>
+          <div class="module-tile__desc">Карта 14 болей, 20 сегментов ЦА с аватарами, Wordstat-спрос и сезонность</div>
+          <div class="module-tile__arrow">→</div>
+        </a>
+
+        <a href="m3-zhenskoe.html" class="module-tile module-tile--active">
+          <div class="module-tile__num">Модуль 3</div>
+          <div class="module-tile__icon">🎯</div>
+          <div class="module-tile__title">Женское направление</div>
+          <div class="module-tile__desc">9 шагов Охотницы, что актуально в 2026, 6 сценариев, каталог 20 техник</div>
+          <div class="module-tile__arrow">→</div>
+        </a>
+
+        <a href="m4-produkty.html" class="module-tile module-tile--active">
+          <div class="module-tile__num">Модуль 4</div>
+          <div class="module-tile__icon">📦</div>
+          <div class="module-tile__title">Продукты и воронки</div>
+          <div class="module-tile__desc">Продуктовая линейка, 4 тарифа клуба, 20 лид-магнитов, 20 трипваеров, 5 схем воронок</div>
+          <div class="module-tile__arrow">→</div>
+        </a>
+
+        <a href="m5-kontent.html" class="module-tile module-tile--active">
+          <div class="module-tile__num">Модуль 5</div>
+          <div class="module-tile__icon">🎬</div>
+          <div class="module-tile__title">Контентная машина</div>
+          <div class="module-tile__desc">Библиотека 1800+ идей (Reels/Shorts/TG/эфиры/вебинары) с фильтрами, контент-планы по каналам</div>
+          <div class="module-tile__arrow">→</div>
+        </a>
+
+        <a href="m6-kanaly.html" class="module-tile module-tile--active">
+          <div class="module-tile__num">Модуль 6</div>
+          <div class="module-tile__icon">📡</div>
+          <div class="module-tile__title">Каналы и рост</div>
+          <div class="module-tile__desc">Telegram/Instagram/YouTube стратегии с KPI-графиками, сбор аудитории, 100 способов growth hacking</div>
+          <div class="module-tile__arrow">→</div>
+        </a>
+
+        <div class="module-tile module-tile--wip">
+          <div class="module-tile__num">Модуль 7</div>
+          <div class="module-tile__icon">🏆</div>
+          <div class="module-tile__title">Рынок и конкуренты</div>
+          <div class="module-tile__desc">Объёмы рынка с прогнозами, 100 конкурентов с фильтрами, сравнение топ-5</div>
+          <div class="badge-wip">В работе — Фаза 10</div>
+        </div>
+
+        <div class="module-tile module-tile--wip">
+          <div class="module-tile__num">Модуль 8</div>
+          <div class="module-tile__icon">⚙️</div>
+          <div class="module-tile__title">Технологии и автоматизация</div>
+          <div class="module-tile__desc">Парсинг и автоматизация, SEO-семантика, концепция приложения «Охотница»</div>
+          <div class="badge-wip">В работе — Фаза 10</div>
+        </div>
+
+        <div class="module-tile module-tile--wip">
+          <div class="module-tile__num">Модуль 9</div>
+          <div class="module-tile__icon">💰</div>
+          <div class="module-tile__title">Финансы и план</div>
+          <div class="module-tile__desc">Аудит экосистемы, финмодель по сценариям, дорожная карта запуска</div>
+          <div class="badge-wip">В работе — Фаза 10</div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/components.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+  </script>
+</body>
+</html>
