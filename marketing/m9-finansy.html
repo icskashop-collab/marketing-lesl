@@ -231,19 +231,23 @@
         <canvas id="milestoneChart" height="80"></canvas>
       </div>
       <div class="billion-path" id="billion-path" style="margin-top:28px;"></div>
-      <div class="insight-box">
-        <div class="insight-box__title">Ключевой инсайт совладельца</div>
-        <div class="insight-box__text">
-          При выходе на <strong>40–50 тыс. лидов в месяц</strong> и выручке <strong>70–90 млн руб/мес</strong> оценка бизнеса по мультипликатору 12–15x ежемесячной прибыли составит <strong>720 млн — 1,1 млрд рублей</strong>. Срок: <strong>18–24 месяца</strong> при правильном исполнении.<br><br>
-          Большинство конкурентов продают надежду. Лесли — единственный, кто продаёт <strong>доказанный результат</strong>. Сава вышла замуж за мультимиллионера. Рыбка оказалась на яхте Дерипаски. Ни у одного конкурента нет ничего близкого.
-        </div>
-      </div>
     </section>
 
     <!-- ── 3. ДОРОЖНАЯ КАРТА ── -->
     <section class="section">
       <div class="section__title">18 · Дорожная карта запуска</div>
       <div class="roadmap-grid" id="roadmap-grid"></div>
+
+      <!-- DISCLAIMER -->
+      <div style="margin-top:32px;padding:20px 24px;background:rgba(220,38,38,.07);border:1px solid rgba(220,38,38,.25);border-radius:12px;display:flex;gap:14px;align-items:flex-start">
+        <span style="font-size:1.25rem;flex-shrink:0;line-height:1.4">🔴</span>
+        <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.75">
+          <strong style="color:rgba(255,255,255,.9);display:block;margin-bottom:6px;font-size:13px;letter-spacing:.04em;text-transform:uppercase">ВАЖНО</strong>
+          Данная дорожная карта демонстрирует один из возможных сценариев развития проекта и <strong style="color:rgba(255,255,255,.85)">не является гарантией</strong> достижения указанных финансовых или маркетинговых показателей.<br>
+          Представленные результаты не являются следствием работы только SEO, рекламы, контент-маркетинга или какого-либо одного канала привлечения клиентов.<br>
+          Подобных показателей можно добиться исключительно при <strong style="color:rgba(255,255,255,.85)">комплексной работе сильной команды</strong>, которая системно развивает проект по всем направлениям привлечения, продаж, удержания и масштабирования бизнеса.
+        </div>
+      </div>
     </section>
 
   </div>
@@ -266,7 +270,7 @@
       ['Позиционирование', M9.profile.position],
       ['Аудитория', M9.profile.audience],
       ['Доход (2024)', M9.profile.income],
-      ['Правовой статус', M9.profile.legal],
+
       ['Ключевые кейсы', M9.profile.cases]
     ];
     var profileGrid = document.getElementById('profile-grid');
