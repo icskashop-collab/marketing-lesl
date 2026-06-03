@@ -136,6 +136,15 @@
     background: linear-gradient(135deg, #1A1A2E 0%, #0D0D1A 50%, rgba(21,101,192,0.12) 100%);
     border: 1px solid rgba(21,101,192,0.25);
   }
+  .bk-cover__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 16px;
+  }
+  .bk-book__cover .bk-cover__img { border-radius: 12px; }
+  /* fallback placeholder (only shown if img fails to load) */
   .bk-cover__placeholder {
     display: flex;
     flex-direction: column;
@@ -411,17 +420,15 @@
   <section class="bk-featured reveal">
     <div class="bk-featured__inner">
       <div class="bk-cover bk-cover--women">
-        <div class="bk-cover__placeholder">
-          <!-- TODO: обложка книги -->
-          <div class="bk-cover__icon">🎯</div>
-          <div class="bk-cover__title-text">Охота<br>на самца</div>
-          <div class="bk-cover__author">Алекс Лесли</div>
-        </div>
+        <img class="bk-cover__img"
+             src="https://avidreaders.ru/pics/6/7/8667.jpg"
+             alt="Охота на самца — Алекс Лесли"
+             loading="lazy" />
       </div>
       <div class="bk-feat__info">
         <div class="section-tag">Флагманская книга</div>
         <h2 class="section-h2">«Охота на самца»</h2>
-        <div class="bk-feat__badge">Женское направление · 2011</div>
+        <div class="bk-feat__badge">Женское направление</div>
         <p class="bk-feat__desc">
           Книга, которая изменила взгляд тысяч женщин на отношения. Методология «Охотницы»
           впервые описана системно: 9 шагов, Кодекс, техники якорения и раскачки эмоций.
@@ -455,132 +462,13 @@
       <div class="section-tag">Все книги</div>
       <h2 class="section-h2">Полная библиотека</h2>
       <div class="bk-grid" id="books-grid">
-
-        <!-- Книга 1 -->
-        <div class="bk-book reveal" data-dir="women">
-          <div class="bk-cover bk-cover--women bk-book__cover">
-            <div class="bk-cover__placeholder">
-              <div class="bk-cover__icon" style="font-size:40px;">🎯</div>
-              <div class="bk-cover__title-text" style="font-size:16px;">Охота<br>на самца</div>
-            </div>
-            <div class="bk-book__period">2011</div>
-            <div class="bk-book__direction dir-women">Женское</div>
-          </div>
-          <div class="bk-book__title">«Охота на самца»</div>
-          <div class="bk-book__year">2011 · Флагманская книга женского направления</div>
-          <div class="bk-book__desc">Методология Охотницы от начала до конца. 9 шагов, Кодекс, реальные техники и кейс Савы.</div>
-          <div class="bk-book__footer">
-            <div class="bk-book__price">590 ₽</div>
-            <a href="#" class="bk-book__cta">Купить →</a>
-          </div>
-        </div>
-
-        <!-- Книга 2 -->
-        <div class="bk-book reveal" data-dir="women">
+        <!-- Книга 1 — новейшая -->
+        <div class="bk-book reveal" data-dir="all">
           <div class="bk-cover bk-cover--gold bk-book__cover">
-            <div class="bk-cover__placeholder">
-              <div class="bk-cover__icon" style="font-size:40px;">♟️</div>
-              <div class="bk-cover__title-text" style="font-size:16px;">Игра Мастера<br>и Охотницы</div>
-            </div>
-            <div class="bk-book__period">2017</div>
+            <img class="bk-cover__img" src="https://avidreaders.ru/pics/5/2/1039452.jpeg" alt="Снимай трусы — Алекс Лесли" loading="lazy"/>
             <div class="bk-book__direction dir-all">М + Ж</div>
           </div>
-          <div class="bk-book__title">«Игра Мастера и Охотницы»</div>
-          <div class="bk-book__year">2017 · Системная философия</div>
-          <div class="bk-book__desc">Кодекс Мастера. Иерархия уровней. Отношения как игра. Философски самая глубокая книга.</div>
-          <div class="bk-book__footer">
-            <div class="bk-book__price">590 ₽</div>
-            <a href="#" class="bk-book__cta">Купить →</a>
-          </div>
-        </div>
-
-        <!-- Книга 3 -->
-        <div class="bk-book reveal" data-dir="men">
-          <div class="bk-cover bk-cover--men bk-book__cover">
-            <div class="bk-cover__placeholder">
-              <div class="bk-cover__icon" style="font-size:40px;">🔓</div>
-              <div class="bk-cover__title-text" style="font-size:16px;">Жизнь<br>без трусов</div>
-            </div>
-            <div class="bk-book__period">2006</div>
-            <div class="bk-book__direction dir-men">Мужское</div>
-          </div>
-          <div class="bk-book__title">«Жизнь без трусов»</div>
-          <div class="bk-book__year">2006 · Стартовая точка методологии</div>
-          <div class="bk-book__desc">Центральный образ всего творчества Лесли. Психологические ограничения, техники первого контакта, свидания.</div>
-          <div class="bk-book__footer">
-            <div class="bk-book__price">590 ₽</div>
-            <a href="#" class="bk-book__cta">Купить →</a>
-          </div>
-        </div>
-
-        <!-- Книга 4 -->
-        <div class="bk-book reveal" data-dir="men">
-          <div class="bk-cover bk-cover--men bk-book__cover">
-            <div class="bk-cover__placeholder">
-              <div class="bk-cover__icon" style="font-size:40px;">⏱️</div>
-              <div class="bk-cover__title-text" style="font-size:16px;">Угнать<br>за 60 секунд</div>
-            </div>
-            <div class="bk-book__period">2007</div>
-            <div class="bk-book__direction dir-men">Мужское</div>
-          </div>
-          <div class="bk-book__title">«Угнать за 60 секунд»</div>
-          <div class="bk-book__year">2007 · Техники первого контакта</div>
-          <div class="bk-book__desc">Техника захвата внимания с первых секунд. Крючок первой фразы, невербалика, переход к следующему этапу.</div>
-          <div class="bk-book__footer">
-            <div class="bk-book__price">590 ₽</div>
-            <a href="#" class="bk-book__cta">Купить →</a>
-          </div>
-        </div>
-
-        <!-- Книга 5 -->
-        <div class="bk-book reveal" data-dir="men">
-          <div class="bk-cover bk-cover--men bk-book__cover">
-            <div class="bk-cover__placeholder">
-              <div class="bk-cover__icon" style="font-size:40px;">🏡</div>
-              <div class="bk-cover__title-text" style="font-size:16px;">Как проснуться<br>в гостях</div>
-            </div>
-            <div class="bk-book__period">2008</div>
-            <div class="bk-book__direction dir-men">Мужское</div>
-          </div>
-          <div class="bk-book__title">«Как проснуться в гостях»</div>
-          <div class="bk-book__year">2008 · Переход к близости</div>
-          <div class="bk-book__desc">Стратегия перехода к физической близости. Правило первой ночи, эмоциональные якоря, удержание интереса.</div>
-          <div class="bk-book__footer">
-            <div class="bk-book__price">590 ₽</div>
-            <a href="#" class="bk-book__cta">Купить →</a>
-          </div>
-        </div>
-
-        <!-- Книга 6 -->
-        <div class="bk-book reveal" data-dir="women">
-          <div class="bk-cover bk-cover--women bk-book__cover">
-            <div class="bk-cover__placeholder">
-              <div class="bk-cover__icon" style="font-size:40px;">💊</div>
-              <div class="bk-cover__title-text" style="font-size:16px;">Волшебная<br>таблетка</div>
-            </div>
-            <div class="bk-book__period">2011</div>
-            <div class="bk-book__direction dir-women">Женское</div>
-          </div>
-          <div class="bk-book__title">«Волшебная таблетка»</div>
-          <div class="bk-book__year">2011 · Адаптация мужских техник для женщин</div>
-          <div class="bk-book__desc">Первая адаптация методологии для женской аудитории. Прорыв: признание того, что женщины могут «охотиться».</div>
-          <div class="bk-book__footer">
-            <div class="bk-book__price">590 ₽</div>
-            <a href="#" class="bk-book__cta">Купить →</a>
-          </div>
-        </div>
-
-        <!-- Книга 7 -->
-        <div class="bk-book reveal" data-dir="women">
-          <div class="bk-cover bk-cover--gold bk-book__cover">
-            <div class="bk-cover__placeholder">
-              <div class="bk-cover__icon" style="font-size:40px;">✍️</div>
-              <div class="bk-cover__title-text" style="font-size:16px;">Метод Лесли:<br>рабочая тетрадь</div>
-            </div>
-            <div class="bk-book__period">2020+</div>
-            <div class="bk-book__direction dir-all">М + Ж</div>
-          </div>
-          <div class="bk-book__title">«Метод Лесли: рабочая тетрадь»</div>
+          <div class="bk-book__title">«Снимай трусы»</div>
           <div class="bk-book__year">Практическое дополнение к методологии</div>
           <div class="bk-book__desc">Задания, трекер прогресса, дневник соблазнения. Для тех, кто хочет работать с методологией системно.</div>
           <div class="bk-book__footer">
@@ -589,19 +477,105 @@
           </div>
         </div>
 
-        <!-- Книга 8 -->
+        <!-- Книга 2 -->
         <div class="bk-book reveal" data-dir="women">
           <div class="bk-cover bk-cover--women bk-book__cover">
-            <div class="bk-cover__placeholder">
-              <div class="bk-cover__icon" style="font-size:40px;">🌍</div>
-              <div class="bk-cover__title-text" style="font-size:16px;">Евротрэш</div>
-            </div>
-            <div class="bk-book__period">2018</div>
+            <img class="bk-cover__img" src="https://avidreaders.ru/pics/3/6/975836.jpeg" alt="Евротрэш — Алекс Лесли" loading="lazy"/>
             <div class="bk-book__direction dir-women">Женское</div>
           </div>
           <div class="bk-book__title">«Евротрэш»</div>
-          <div class="bk-book__year">2018 · Кейс-студи Насти Рыбки</div>
+          <div class="bk-book__year">Кейс-студи Насти Рыбки</div>
           <div class="bk-book__desc">История охоты на конкретного состоятельного мужчину. Реализация методологии в экстремальных условиях.</div>
+          <div class="bk-book__footer">
+            <div class="bk-book__price">590 ₽</div>
+            <a href="#" class="bk-book__cta">Купить →</a>
+          </div>
+        </div>
+
+        <!-- Книга 3 -->
+        <div class="bk-book reveal" data-dir="women">
+          <div class="bk-cover bk-cover--gold bk-book__cover">
+            <img class="bk-cover__img" src="https://avidreaders.ru/pics/9/4/486994.jpeg" alt="Игра Мастера и Охотницы — Алекс Лесли" loading="lazy"/>
+            <div class="bk-book__direction dir-all">М + Ж</div>
+          </div>
+          <div class="bk-book__title">«Игра Мастера и Охотницы»</div>
+          <div class="bk-book__year">Системная философия</div>
+          <div class="bk-book__desc">Кодекс Мастера. Иерархия уровней. Отношения как игра. Философски самая глубокая книга.</div>
+          <div class="bk-book__footer">
+            <div class="bk-book__price">590 ₽</div>
+            <a href="#" class="bk-book__cta">Купить →</a>
+          </div>
+        </div>
+
+        <!-- Книга 4 -->
+        <div class="bk-book reveal" data-dir="women">
+          <div class="bk-cover bk-cover--women bk-book__cover">
+            <img class="bk-cover__img" src="https://avidreaders.ru/pics/6/7/8667.jpg" alt="Охота на самца — Алекс Лесли" loading="lazy"/>
+            <div class="bk-book__direction dir-women">Женское</div>
+          </div>
+          <div class="bk-book__title">«Охота на самца»</div>
+          <div class="bk-book__year">Флагманская книга женского направления</div>
+          <div class="bk-book__desc">Методология Охотницы от начала до конца. 9 шагов, Кодекс, реальные техники и кейс Савы.</div>
+          <div class="bk-book__footer">
+            <div class="bk-book__price">590 ₽</div>
+            <a href="#" class="bk-book__cta">Купить →</a>
+          </div>
+        </div>
+
+        <!-- Книга 5 -->
+        <div class="bk-book reveal" data-dir="women">
+          <div class="bk-cover bk-cover--women bk-book__cover">
+            <img class="bk-cover__img" src="https://avidreaders.ru/pics/0/6/94006.jpg" alt="Волшебная таблетка — Алекс Лесли" loading="lazy"/>
+            <div class="bk-book__direction dir-women">Женское</div>
+          </div>
+          <div class="bk-book__title">«Волшебная таблетка»</div>
+          <div class="bk-book__year">Адаптация мужских техник для женщин</div>
+          <div class="bk-book__desc">Первая адаптация методологии для женской аудитории. Прорыв: признание того, что женщины могут «охотиться».</div>
+          <div class="bk-book__footer">
+            <div class="bk-book__price">590 ₽</div>
+            <a href="#" class="bk-book__cta">Купить →</a>
+          </div>
+        </div>
+
+        <!-- Книга 6 -->
+        <div class="bk-book reveal" data-dir="men">
+          <div class="bk-cover bk-cover--men bk-book__cover">
+            <img class="bk-cover__img" src="https://avidreaders.ru/pics/4/2/75342.jpg" alt="Как проснуться в гостях — Алекс Лесли" loading="lazy"/>
+            <div class="bk-book__direction dir-men">Мужское</div>
+          </div>
+          <div class="bk-book__title">«Как проснуться в гостях»</div>
+          <div class="bk-book__year">Переход к близости</div>
+          <div class="bk-book__desc">Стратегия перехода к физической близости. Правило первой ночи, эмоциональные якоря, удержание интереса.</div>
+          <div class="bk-book__footer">
+            <div class="bk-book__price">590 ₽</div>
+            <a href="#" class="bk-book__cta">Купить →</a>
+          </div>
+        </div>
+
+        <!-- Книга 7 -->
+        <div class="bk-book reveal" data-dir="men">
+          <div class="bk-cover bk-cover--men bk-book__cover">
+            <img class="bk-cover__img" src="https://avidreaders.ru/pics/2/4/13824.jpg" alt="Угнать за 60 секунд — Алекс Лесли" loading="lazy"/>
+            <div class="bk-book__direction dir-men">Мужское</div>
+          </div>
+          <div class="bk-book__title">«Угнать за 60 секунд»</div>
+          <div class="bk-book__year">Техники первого контакта</div>
+          <div class="bk-book__desc">Техника захвата внимания с первых секунд. Крючок первой фразы, невербалика, переход к следующему этапу.</div>
+          <div class="bk-book__footer">
+            <div class="bk-book__price">590 ₽</div>
+            <a href="#" class="bk-book__cta">Купить →</a>
+          </div>
+        </div>
+
+        <!-- Книга 8 -->
+        <div class="bk-book reveal" data-dir="men">
+          <div class="bk-cover bk-cover--men bk-book__cover">
+            <img class="bk-cover__img" src="https://avidreaders.ru/pics/5/0/90850.jpg" alt="ЖЖизнь без трусов — Алекс Лесли" loading="lazy"/>
+            <div class="bk-book__direction dir-men">Мужское</div>
+          </div>
+          <div class="bk-book__title">«Жизнь без трусов»</div>
+          <div class="bk-book__year">Стартовая точка методологии</div>
+          <div class="bk-book__desc">Центральный образ всего творчества Лесли. Психологические ограничения, техники первого контакта, свидания.</div>
           <div class="bk-book__footer">
             <div class="bk-book__price">590 ₽</div>
             <a href="#" class="bk-book__cta">Купить →</a>
@@ -687,3 +661,4 @@
   </script>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
