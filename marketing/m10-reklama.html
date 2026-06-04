@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модуль 10: Рекламная кампания | Маркетинг | Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="canonical" href="https://icskashop-collab.github.io/marketing-lesl/marketing/m10-reklama" />
+  <meta property="og:url" content="https://icskashop-collab.github.io/marketing-lesl/marketing/m10-reklama" />
+  <meta name="robots" content="noindex, nofollow" />
+  <style>
+    .mod-nav { display:flex; gap:12px; flex-wrap:wrap; padding:20px 0 0; }
+    .mod-nav a {
+      display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600;
+      color:var(--color-text-muted); text-decoration:none; padding:6px 14px;
+      border:1px solid rgba(255,255,255,0.1); border-radius:20px; transition:all 0.2s;
+    }
+    .mod-nav a:hover { color:var(--color-gold); border-color:var(--color-gold); }
+    .mod-header { padding:20px 0 16px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:16px; }
+    .mod-header__num { font-size:11px; font-weight:700; letter-spacing:3px; color:var(--color-gold); text-transform:uppercase; margin-bottom:8px; }
+    .mod-header__title { font-size:clamp(24px,4vw,40px); font-weight:800; margin-bottom:8px; }
+    .mod-header__sub { color:var(--color-text-muted); font-size:15px; }
+
+    .section { margin-bottom:0; }
+    .section__title {
+      font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+      color:var(--color-gold); margin-bottom:20px; display:flex; align-items:center; gap:10px;
+    }
+    .section__title::after { content:''; flex:1; height:1px; background:rgba(212,160,23,0.2); }
+
+    /* INTRO CARD */
+    .intro-card {
+      background:linear-gradient(135deg,rgba(212,160,23,0.06) 0%,rgba(212,160,23,0.02) 100%);
+      border:1px solid rgba(212,160,23,0.18); border-radius:16px; padding:28px 32px;
+      margin-bottom:12px;
+    }
+    .intro-card__lead {
+      font-size:17px; font-weight:700; line-height:1.6; margin-bottom:16px; color:#fff;
+    }
+    .intro-card__body { font-size:14px; color:var(--color-text-muted); line-height:1.8; }
+    .intro-card__body p { margin-bottom:14px; }
+    .intro-card__body p:last-child { margin-bottom:0; }
+    .intro-card__body strong { color:var(--color-gold); }
+
+    /* ЭТАПЫ */
+    .stages { display:flex; flex-direction:column; gap:20px; }
+    .stage {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:14px; overflow:hidden; display:grid;
+      grid-template-columns:72px 1fr; gap:0;
+    }
+    .stage__num {
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(212,160,23,0.08); border-right:1px solid rgba(212,160,23,0.12);
+      font-size:24px; font-weight:900; color:var(--color-gold); padding:24px 0;
+      flex-direction:column; gap:4px;
+    }
+    .stage__num span { font-size:9px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:rgba(212,160,23,0.6); }
+    .stage__body { padding:20px 24px; }
+    .stage__title { font-size:16px; font-weight:800; margin-bottom:8px; }
+    .stage__desc { font-size:13px; color:var(--color-text-muted); line-height:1.7; margin-bottom:14px; }
+    .stage__tags { display:flex; flex-wrap:wrap; gap:6px; }
+    .stage__tag {
+      font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px;
+      background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08);
+      color:var(--color-text-muted);
+    }
+    .stage__tag--gold { background:rgba(212,160,23,0.1); border-color:rgba(212,160,23,0.2); color:var(--color-gold); }
+    .stage__tag--pink { background:rgba(194,24,91,0.1); border-color:rgba(194,24,91,0.2); color:#e91e8c; }
+
+    .stage__list { list-style:none; margin:0 0 14px; padding:0; }
+    .stage__list li {
+      font-size:13px; color:var(--color-text-muted); padding:5px 0;
+      border-bottom:1px solid rgba(255,255,255,0.04);
+      display:flex; align-items:flex-start; gap:8px; line-height:1.5;
+    }
+    .stage__list li::before { content:'→'; color:var(--color-gold); flex-shrink:0; font-weight:700; }
+
+    /* ЖЕНСКАЯ АУДИТОРИЯ — АКЦЕНТ */
+    .women-accent {
+      background:linear-gradient(135deg,rgba(194,24,91,0.08) 0%,rgba(194,24,91,0.03) 100%);
+      border:1px solid rgba(194,24,91,0.2); border-radius:12px; padding:16px 20px;
+      margin-top:16px; display:flex; gap:14px; align-items:flex-start;
+    }
+    .women-accent__icon { font-size:1.5rem; flex-shrink:0; }
+    .women-accent__text { font-size:13px; color:rgba(255,255,255,0.75); line-height:1.7; }
+    .women-accent__text strong { color:#e91e8c; }
+
+    /* LOOKALIKE ИНФОГРАФИКА */
+    .lookalike-wrap {
+      display:grid; grid-template-columns:1fr 340px; gap:32px; align-items:start;
+    }
+    @media(max-width:900px){ .lookalike-wrap { grid-template-columns:1fr; } }
+
+    .flow-diagram { display:flex; flex-direction:column; gap:0; }
+    .flow-step {
+      display:flex; gap:16px; align-items:flex-start;
+      opacity:0; transform:translateY(20px);
+      transition:opacity 0.45s ease, transform 0.45s ease;
+    }
+    .flow-step.visible { opacity:1; transform:translateY(0); }
+    .flow-step__left { display:flex; flex-direction:column; align-items:center; flex-shrink:0; }
+    .flow-step__circle {
+      width:40px; height:40px; border-radius:50%;
+      background:rgba(212,160,23,0.12); border:1.5px solid rgba(212,160,23,0.35);
+      display:flex; align-items:center; justify-content:center;
+      font-size:13px; font-weight:800; color:var(--color-gold); flex-shrink:0;
+    }
+    .flow-step__line {
+      width:1.5px; flex:1; min-height:28px;
+      background:linear-gradient(to bottom,rgba(212,160,23,0.3),rgba(212,160,23,0.05));
+      margin:4px 0;
+    }
+    .flow-step:last-child .flow-step__line { display:none; }
+    .flow-step__body { padding:4px 0 28px; }
+    .flow-step__label {
+      font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+      color:var(--color-gold); margin-bottom:4px;
+    }
+    .flow-step__title { font-size:15px; font-weight:800; margin-bottom:4px; }
+    .flow-step__note { font-size:12px; color:var(--color-text-muted); line-height:1.6; }
+    .flow-step__badge {
+      display:inline-block; margin-top:6px; font-size:11px; font-weight:700;
+      padding:2px 10px; border-radius:20px;
+      background:rgba(212,160,23,0.12); border:1px solid rgba(212,160,23,0.25);
+      color:var(--color-gold);
+    }
+
+    /* ПРОСТЫМИ СЛОВАМИ */
+    .simple-card {
+      background:var(--color-card); border:1px solid rgba(212,160,23,0.15);
+      border-radius:16px; padding:28px 24px; position:sticky; top:20px;
+    }
+    .simple-card__label {
+      font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+      color:var(--color-gold); margin-bottom:16px; display:flex; align-items:center; gap:8px;
+    }
+    .simple-card__label::before { content:'💡'; font-size:14px; }
+    .simple-card__title { font-size:18px; font-weight:800; margin-bottom:16px; line-height:1.3; }
+    .simple-card__body { font-size:13px; color:var(--color-text-muted); line-height:1.8; }
+    .simple-card__body strong { color:#fff; }
+    .simple-card__metric {
+      margin-top:20px; padding:14px 16px;
+      background:rgba(212,160,23,0.06); border:1px solid rgba(212,160,23,0.1);
+      border-radius:10px;
+    }
+    .simple-card__metric-row { display:flex; justify-content:space-between; align-items:center; padding:6px 0; }
+    .simple-card__metric-key { font-size:12px; color:var(--color-text-muted); }
+    .simple-card__metric-val { font-size:14px; font-weight:800; color:var(--color-gold); }
+
+    /* СРАВНЕНИЕ */
+    .compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:32px; }
+    @media(max-width:600px){ .compare-grid { grid-template-columns:1fr; } }
+    .compare-card { background:var(--color-card); border-radius:12px; padding:20px; }
+    .compare-card--old { border:1px solid rgba(255,255,255,0.06); }
+    .compare-card--new { border:1px solid rgba(212,160,23,0.25); }
+    .compare-card__badge {
+      font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+      padding:3px 10px; border-radius:20px; display:inline-block; margin-bottom:12px;
+    }
+    .compare-card--old .compare-card__badge { background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.4); }
+    .compare-card--new .compare-card__badge { background:rgba(212,160,23,0.12); color:var(--color-gold); }
+    .compare-card__title { font-size:15px; font-weight:700; margin-bottom:10px; }
+    .compare-card__text { font-size:12px; color:var(--color-text-muted); line-height:1.7; }
+    .compare-card--new .compare-card__title { color:var(--color-gold); }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <div class="container">
+    <nav class="mod-nav">
+      <a href="../index.html">← Главная</a>
+      <a href="index.html">← В Маркетинг</a>
+    </nav>
+
+    <div class="mod-header">
+      <div class="mod-header__num">Модуль 10 · Маркетинг</div>
+      <div class="mod-header__title">🎯 Рекламная кампания</div>
+      <div class="mod-header__sub">Стратегия · Парсинг аудитории конкурентов · Ретаргетинг · Look-alike масштабирование</div>
+    </div>
+
+    <!-- ── ВАЖНО ── -->
+    <div style="margin-bottom:28px;padding:20px 24px;background:linear-gradient(135deg,rgba(212,160,23,.08) 0%,rgba(212,160,23,.03) 100%);border:1px solid rgba(212,160,23,.3);border-left:4px solid var(--color-gold);border-radius:12px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <span style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--color-gold);">⚠ ВАЖНО</span>
+      </div>
+      <p style="font-size:15px;font-weight:700;color:#fff;line-height:1.6;margin-bottom:14px;">
+        Я знаю способ, как с минимальным бюджетом приводить качественных клиентов за счёт работы с аудиторией конкурентов.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;">
+          <span style="color:var(--color-gold);font-weight:700;flex-shrink:0;margin-top:1px;">1.</span>
+          <span>Парсинг аудитории конкурентов (Instagram-аккаунты и Telegram) — фильтр по активным и тем, кто ведёт сторис. <strong style="color:#e91e8c;">Упор на женскую аудиторию — это самая горячая аудитория.</strong> Парсингом собираем активные аккаунты.</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;">
+          <span style="color:var(--color-gold);font-weight:700;flex-shrink:0;margin-top:1px;">2.</span>
+          <span>Прогоняем собранные аккаунты через <strong style="color:#fff;">«Глаз Бога»</strong> — вытаскиваем верифицированные телефонные номера и email-адреса.</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;">
+          <span style="color:var(--color-gold);font-weight:700;flex-shrink:0;margin-top:1px;">3.</span>
+          <span>Эти телефонные номера загружаем напрямую в <strong style="color:#fff;">рекламный кабинет</strong> и по ним настраиваем рекламную кампанию — на людей, которые уже внутри рынка.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── СТРАТЕГИЯ ── -->
+    <section class="section">
+      <div class="section__title">Стратегия</div>
+
+      <div class="intro-card">
+        <div class="intro-card__lead">
+          Вместо «стрельбы из пушки по воробьям» — точечная работа с аудиторией, которая уже внутри рынка.
+        </div>
+        <div class="intro-card__body">
+          <p>
+            Я знаю способ приводить качественных клиентов с минимальным бюджетом — за счёт работы с аудиторией конкурентов.
+            Вместо холодного таргетинга мы выстраиваем воронку на стыке <strong>продвинутого парсинга</strong> и <strong>машинного обучения</strong>.
+          </p>
+          <p>
+            <strong>Глубокий сбор данных:</strong> Настраиваем систему парсинга активной аудитории из соцсетей прямых конкурентов.
+            Вытаскиваем верифицированные контакты их клиентов и потенциальной аудитории.
+          </p>
+          <p>
+            <strong>Высокоточный ретаргетинг:</strong> Собранная база загружается напрямую в рекламные кабинеты.
+            Реклама идёт на людей, которые уже прогреты и находятся в поиске аналогичных услуг — это «горячие» лиды с минимальными затратами.
+          </p>
+          <p>
+            <strong>ИИ-масштабирование (Look-alike):</strong> База становится топливом для алгоритмов машинного обучения.
+            Рекламные системы анализируют поведенческие паттерны этой аудитории и автоматически находят новых, максимально похожих пользователей.
+            Масштабирование — без слива бюджета на холодный трафик.
+          </p>
+        </div>
+      </div>
+
+      <!-- ── КАК ЭТО РАБОТАЕТ НА ПРАКТИКЕ ── -->
+      <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px;">
+
+        <div style="background:var(--color-card);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(212,160,23,0.12);border:1.5px solid rgba(212,160,23,0.3);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--color-gold);flex-shrink:0;">1</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Парсим аудиторию конкурентов</div>
+            <div style="font-size:13px;color:var(--color-text-muted);line-height:1.7;">Берём Instagram-аккаунты и Telegram-каналы прямых конкурентов из нашей базы. Через парсер фильтруем аккаунты по активности: отдельно — те, кто регулярно смотрит и реагирует на сторис. Это самая тёплая аудитория.</div>
+          </div>
+        </div>
+
+        <div style="background:var(--color-card);border:1px solid rgba(194,24,91,0.2);border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(194,24,91,0.12);border:1.5px solid rgba(194,24,91,0.35);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#e91e8c;flex-shrink:0;">♀</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:4px;color:#e91e8c;">Упор на женскую аудиторию</div>
+            <div style="font-size:13px;color:var(--color-text-muted);line-height:1.7;">Женская аудитория — самая горячая. Она активнее взаимодействует с контентом, быстрее вовлекается и охотнее делится рекомендациями. Приоритет при сборе и сегментации.</div>
+          </div>
+        </div>
+
+        <div style="background:var(--color-card);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(212,160,23,0.12);border:1.5px solid rgba(212,160,23,0.3);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--color-gold);flex-shrink:0;">2</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Вытаскиваем контакты через «Глаз Бога»</div>
+            <div style="font-size:13px;color:var(--color-text-muted);line-height:1.7;">Собранные аккаунты прогоняем через сервис-агрегатор. На выходе получаем верифицированные номера телефонов и email-адреса реальных людей, которые уже интересуются аналогичными продуктами.</div>
+          </div>
+        </div>
+
+        <div style="background:var(--color-card);border:1px solid rgba(212,160,23,0.15);border-radius:12px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(212,160,23,0.12);border:1.5px solid rgba(212,160,23,0.3);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--color-gold);flex-shrink:0;">3</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Загружаем в рекламный кабинет</div>
+            <div style="font-size:13px;color:var(--color-text-muted);line-height:1.7;">Телефоны и email загружаются напрямую в рекламный кабинет (VK Ads, MyTarget, Meta). Реклама показывается именно этим людям — тем, кто уже <strong style="color:#fff;">прогрет</strong> и знаком с темой. Не холодному рынку.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 4 ЭТАПА ── -->
+    <section class="section" style="margin-bottom:32px;">
+      <div class="section__title">4 этапа системы</div>
+
+      <div class="stages">
+
+        <!-- ЭТАП 1 -->
+        <div class="stage">
+          <div class="stage__num">1<span>Этап</span></div>
+          <div class="stage__body">
+            <div class="stage__title">Парсинг аудитории конкурентов</div>
+            <div class="stage__desc">
+              Анализируем прямых конкурентов во всех ключевых каналах. Цель — найти максимально активную аудиторию, которая уже внутри рынка и понимает ценность продукта.
+            </div>
+            <div class="stage__tags" style="margin-bottom:14px">
+              <span class="stage__tag">Instagram</span>
+              <span class="stage__tag">Telegram</span>
+              <span class="stage__tag">YouTube</span>
+              <span class="stage__tag">TikTok</span>
+              <span class="stage__tag">Тематические сообщества</span>
+            </div>
+            <ul class="stage__list">
+              <li>Регулярное взаимодействие с контентом (лайки, сохранения)</li>
+              <li>Комментарии и участие в обсуждениях</li>
+              <li>Реакции на сторис и прямые эфиры</li>
+              <li>Подписка сразу на нескольких конкурентов</li>
+              <li>Высокий уровень вовлечённости (ER &gt; 3%)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ЭТАП 2 -->
+        <div class="stage">
+          <div class="stage__num">2<span>Этап</span></div>
+          <div class="stage__body">
+            <div class="stage__title">Сегментация аудитории</div>
+            <div class="stage__desc">
+              После сбора данных аудитория разбивается на сегменты по уровню активности и типу взаимодействия.
+            </div>
+            <ul class="stage__list">
+              <li>Активные подписчики (взаимодействие &gt;2 раза/нед.)</li>
+              <li>Постоянные комментаторы</li>
+              <li>Постоянные зрители сторис</li>
+              <li>Подписчики нескольких конкурентов одновременно</li>
+              <li>Аудитория с высоким уровнем вовлечённости</li>
+            </ul>
+            <div class="women-accent">
+              <div class="women-accent__icon">🎯</div>
+              <div class="women-accent__text">
+                <strong>Главный акцент — женская аудитория.</strong> Практика показывает, что именно она чаще взаимодействует с контентом, делится рекомендациями, формирует органический охват и быстрее вовлекается в воронку прогрева. Это самая горячая и ценная аудитория для масштабирования.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ЭТАП 3 -->
+        <div class="stage">
+          <div class="stage__num">3<span>Этап</span></div>
+          <div class="stage__body">
+            <div class="stage__title">Высокоточный ретаргетинг</div>
+            <div class="stage__desc">
+              Вместо запуска рекламы на широкий рынок — формируем аудитории пользователей, которые уже знакомы с аналогичными продуктами или услугами.
+            </div>
+            <ul class="stage__list">
+              <li>Снижение стоимости лида (CPL) на 30–60%</li>
+              <li>Рост CTR за счёт релевантности</li>
+              <li>Повышение конверсии в заявку</li>
+              <li>Сокращение цикла принятия решения</li>
+            </ul>
+            <div class="stage__tags">
+              <span class="stage__tag stage__tag--gold">Реклама → уже заинтересованным</span>
+              <span class="stage__tag">Не холодный трафик</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ЭТАП 4 -->
+        <div class="stage">
+          <div class="stage__num">4<span>Этап</span></div>
+          <div class="stage__body">
+            <div class="stage__title">Масштабирование через Look-alike</div>
+            <div class="stage__desc">
+              Самая мощная часть системы. После получения первой качественной аудитории она становится топливом для машинного обучения рекламных платформ.
+            </div>
+            <ul class="stage__list">
+              <li>Алгоритм получает список «идеальных» пользователей (Seed Audience)</li>
+              <li>Анализирует сотни поведенческих параметров</li>
+              <li>Находит тысячи новых максимально похожих людей</li>
+              <li>Из 1 000 качественных → 50 000–500 000 похожих</li>
+            </ul>
+            <div class="stage__tags">
+              <span class="stage__tag stage__tag--gold">ИИ рекламных платформ</span>
+              <span class="stage__tag stage__tag--pink">Масштаб без холодного трафика</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── КАК РАБОТАЕТ LOOK-ALIKE ── -->
+    <section class="section" style="margin-top:0;">
+      <div class="section__title">Как работает Look-alike</div>
+
+      <div class="lookalike-wrap">
+
+        <!-- СХЕМА -->
+        <div class="flow-diagram" id="lookalike-flow">
+
+          <div class="flow-step">
+            <div class="flow-step__left">
+              <div class="flow-step__circle">1</div>
+              <div class="flow-step__line"></div>
+            </div>
+            <div class="flow-step__body">
+              <div class="flow-step__label">Шаг 1</div>
+              <div class="flow-step__title">Аудитория конкурентов</div>
+              <div class="flow-step__note">Собираем подписчиков и активных пользователей Instagram, Telegram, YouTube конкурентов. Тысячи людей, которые уже интересуются темой.</div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-step__left">
+              <div class="flow-step__circle">2</div>
+              <div class="flow-step__line"></div>
+            </div>
+            <div class="flow-step__body">
+              <div class="flow-step__label">Шаг 2</div>
+              <div class="flow-step__title">Выделяем самых активных</div>
+              <div class="flow-step__note">Фильтруем: только те, кто комментирует, реагирует на сторис, подписан на нескольких конкурентов. Особый акцент — женская аудитория.</div>
+              <span class="flow-step__badge">Фильтр по активности</span>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-step__left">
+              <div class="flow-step__circle">3</div>
+              <div class="flow-step__line"></div>
+            </div>
+            <div class="flow-step__body">
+              <div class="flow-step__label">Шаг 3</div>
+              <div class="flow-step__title">Создаём исходную аудиторию</div>
+              <div class="flow-step__note">Из отфильтрованных формируем Seed Audience — базу «идеальных» потенциальных клиентов. Это топливо для следующего шага.</div>
+              <span class="flow-step__badge">Seed Audience</span>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-step__left">
+              <div class="flow-step__circle">4</div>
+              <div class="flow-step__line"></div>
+            </div>
+            <div class="flow-step__body">
+              <div class="flow-step__label">Шаг 4</div>
+              <div class="flow-step__title">Алгоритмы анализируют поведение</div>
+              <div class="flow-step__note">Рекламная система изучает сотни параметров: интересы, поведение, активность, паттерны принятия решений каждого человека из Seed Audience.</div>
+              <span class="flow-step__badge">Машинное обучение</span>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-step__left">
+              <div class="flow-step__circle">5</div>
+              <div class="flow-step__line"></div>
+            </div>
+            <div class="flow-step__body">
+              <div class="flow-step__label">Шаг 5</div>
+              <div class="flow-step__title">Система находит похожих людей</div>
+              <div class="flow-step__note">Алгоритм ищет пользователей с максимально похожим поведением во всей базе платформы. Результат: десятки тысяч новых потенциальных клиентов.</div>
+              <span class="flow-step__badge">Look-alike Audience</span>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-step__left">
+              <div class="flow-step__circle">6</div>
+              <div class="flow-step__line"></div>
+            </div>
+            <div class="flow-step__body">
+              <div class="flow-step__label">Шаг 6</div>
+              <div class="flow-step__title">Запускаем рекламу</div>
+              <div class="flow-step__note">Реклама идёт именно на Look-alike аудиторию — людей, которые по поведению максимально похожи на тех, кто уже интересуется продуктом.</div>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-step__left">
+              <div class="flow-step__circle" style="background:rgba(212,160,23,0.2);border-color:rgba(212,160,23,0.6);">✓</div>
+            </div>
+            <div class="flow-step__body">
+              <div class="flow-step__label">Результат</div>
+              <div class="flow-step__title">Масштабирование без холодного трафика</div>
+              <div class="flow-step__note">Вместо поиска клиентов вручную — этим занимается ИИ рекламной платформы. Стоимость клиента значительно ниже классического таргетинга.</div>
+              <span class="flow-step__badge">CPL ниже на 40–70%</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ПРОСТЫМИ СЛОВАМИ -->
+        <div class="simple-card">
+          <div class="simple-card__label">Простыми словами</div>
+          <div class="simple-card__title">Как объяснить Look-alike за 30 секунд</div>
+          <div class="simple-card__body">
+            <p>Представьте, что вы нашли <strong>1 000 идеальных клиентов</strong>.</p>
+            <p>Look-alike позволяет попросить рекламную систему найти ещё <strong>десятки тысяч людей</strong>, которые максимально похожи на этих клиентов.</p>
+            <p>То есть вместо поиска клиентов вручную — этим занимается <strong>искусственный интеллект</strong> рекламной платформы.</p>
+            <p style="margin-top:12px">Мы не угадываем, кому показать рекламу.<br>Мы используем <strong>реальные данные и математические модели</strong>.</p>
+          </div>
+          <div class="simple-card__metric">
+            <div class="simple-card__metric-row">
+              <span class="simple-card__metric-key">Seed Audience</span>
+              <span class="simple-card__metric-val">1 000 чел.</span>
+            </div>
+            <div class="simple-card__metric-row">
+              <span class="simple-card__metric-key">Look-alike 1%</span>
+              <span class="simple-card__metric-val">~50 000 чел.</span>
+            </div>
+            <div class="simple-card__metric-row">
+              <span class="simple-card__metric-key">Look-alike 5%</span>
+              <span class="simple-card__metric-val">~500 000 чел.</span>
+            </div>
+            <div class="simple-card__metric-row">
+              <span class="simple-card__metric-key">Снижение CPL</span>
+              <span class="simple-card__metric-val">40–70%</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- СРАВНЕНИЕ -->
+      <div class="compare-grid">
+        <div class="compare-card compare-card--old">
+          <div class="compare-card__badge">Обычный таргетинг</div>
+          <div class="compare-card__title">Показываем рекламу по интересам</div>
+          <div class="compare-card__text">
+            Выбираем категории интересов. Реклама идёт на всех, кто когда-либо взаимодействовал с похожими темами.<br><br>
+            Мы <strong>угадываем</strong>, кто захочет купить.
+          </div>
+        </div>
+        <div class="compare-card compare-card--new">
+          <div class="compare-card__badge">Look-alike</div>
+          <div class="compare-card__title">Показываем тем, кто похож на покупателей</div>
+          <div class="compare-card__text">
+            Реклама идёт на людей, которые по реальному поведению максимально похожи на уже купивших.<br><br>
+            Мы используем <strong>реальные данные и математику</strong>.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/components.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+  </script>
+  <script>
+  (function () {
+    /* Показываем все flow-step сразу если IntersectionObserver недоступен */
+    var steps = document.querySelectorAll('.flow-step');
+    if (!steps.length) return;
+
+    function showAll() {
+      steps.forEach(function(el, i) {
+        setTimeout(function() { el.classList.add('visible'); }, i * 120);
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+
+      steps.forEach(function(el, i) {
+        el.style.transitionDelay = (i * 0.1) + 's';
+        io.observe(el);
+      });
+
+      /* Fallback: если через 1.5с элементы ещё не стали visible — показываем все */
+      setTimeout(function() {
+        steps.forEach(function(el) {
+          if (!el.classList.contains('visible')) el.classList.add('visible');
+        });
+      }, 1500);
+    } else {
+      showAll();
+    }
+  }());
+  </script>
+</body>
+</html>

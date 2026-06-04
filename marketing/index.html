@@ -160,6 +160,10 @@
       .kpi-row { grid-template-columns: repeat(2, 1fr); }
       .modules-grid { grid-template-columns: 1fr; }
     }
+    @keyframes pulse-dot {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.4; transform:scale(.7); }
+    }
   </style>
   <link rel="canonical" href="https://icskashop-collab.github.io/marketing-lesl/marketing/index" />
   <meta property="og:url" content="https://icskashop-collab.github.io/marketing-lesl/marketing/index" />
@@ -306,6 +310,23 @@
           <div class="module-tile__arrow">→</div>
         </a>
 
+        <a href="m10-reklama.html" class="module-tile module-tile--active">
+          <div class="module-tile__num">Модуль 10</div>
+          <div class="module-tile__icon">🎯</div>
+          <div class="module-tile__title">Рекламная кампания</div>
+          <div class="module-tile__desc">Парсинг аудитории конкурентов, женский сегмент, ретаргетинг, Look-alike масштабирование</div>
+          <div class="module-tile__arrow">→</div>
+        </a>
+
+        <a href="m11-telegram.html" class="module-tile module-tile--active" style="border-color:rgba(212,160,23,0.3);position:relative;overflow:hidden;">
+          <div style="position:absolute;top:10px;right:12px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--color-gold);background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.25);padding:2px 8px;border-radius:20px;display:flex;align-items:center;gap:5px;"><span style="width:5px;height:5px;border-radius:50%;background:var(--color-gold);display:inline-block;animation:pulse-dot 1.4s ease-in-out infinite;"></span>Анализ идёт</div>
+          <div class="module-tile__num">Модуль 11</div>
+          <div class="module-tile__icon">📊</div>
+          <div class="module-tile__title">Анализ Telegram</div>
+          <div class="module-tile__desc">Глубокий разбор канала, поведенческие паттерны, инсайты аудитории · Готово 5 июня</div>
+          <div class="module-tile__arrow">→</div>
+        </a>
+
       </div>
     </section>
   </div>
@@ -316,3 +337,6 @@
   <script>
     if (typeof insertHeader === 'function') insertHeader();
     if (typeof insertFooter === 'function') insertFooter()
+  </script>
+</body>
+</html>
