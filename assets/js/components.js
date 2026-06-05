@@ -9,16 +9,20 @@
 
   var ROOT = 'https://icskashop-collab.github.io/marketing-lesl/';
 
-  /* Загружаем theme-switcher.js только на веб-сервере */
-  if (typeof window !== 'undefined' && window.location && window.location.protocol !== 'file:') {
-    try {
-      if (!document.querySelector('script[src*="theme-switcher"]')) {
-        var ts = document.createElement('script');
-        ts.src = ROOT + 'assets/js/theme-switcher.js';
-        document.head.appendChild(ts);
-      }
-    } catch (e) {}
-  }
+  /* Загружаем theme-switcher.js из той же папки, что и components.js.
+     Работает на file://, localhost и production.                         */
+  try {
+    if (!document.querySelector('script[src*="theme-switcher"]')) {
+      var ts = document.createElement('script');
+      /* Находим <script src="...components.js"> в DOM */
+      var compScript = document.querySelector('script[src*="components.js"]');
+      var compSrc = (document.currentScript || compScript || {}).src || '';
+      ts.src = compSrc
+        ? compSrc.replace(/components\.js(\?.*)?$/, 'theme-switcher.js')
+        : ROOT + 'assets/js/theme-switcher.js';
+      document.head.appendChild(ts);
+    }
+  } catch (e) {}
 
   /* ============================================================
      ХЕДЕР
@@ -54,7 +58,8 @@
     h += '<div class="theme-switcher">';
     h += '<button class="theme-btn" data-theme-btn="dark">Dark</button>';
     h += '<button class="theme-btn" data-theme-btn="white">\u{1F90D} White</button>';
-    h += '<button class="theme-btn" data-theme-btn="lesley">\u{1F608}</button>';
+    h += '<button class="theme-btn theme-btn--cta" data-theme-btn="lesley">\u{1F608}</button>';
+    h += '<div class="cta-hint" id="cta-hint" role="button" title="Нажми">\u{1F446} Жми — тут интересно</div>';
     h += '</div>';
     h += '<a href="' + ROOT + 'marketing/index.html" class="header__marketing">\u{1F4CA} Маркетинг</a>';
     h += '<a href="' + ROOT + 'cabinet/index.html" class="btn btn-primary btn-sm">Войти</a>';
@@ -169,12 +174,26 @@
       headerEl.innerHTML = headerHTML();
       initBurger();
       highlightActiveNav();
+      initCtaHint();
     }
     if (footerEl) {
       footerEl.innerHTML = footerHTML();
     }
     initScrollReveal();
+    hideDeadCharts();
   };
+
+  /* Если Chart.js не загрузился (CDN недоступен) — прячем пустые канвасы,
+     чтобы они не оставляли огромные дыры на странице. */
+  function hideDeadCharts() {
+    setTimeout(function () {
+      if (typeof window.Chart !== 'undefined') return;
+      document.querySelectorAll('canvas').forEach(function (c) {
+        var wrap = c.closest('.chart-box') || c.closest('.chart-card') || c.closest('.chart-wrap') || c;
+        wrap.style.display = 'none';
+      });
+    }, 1200);
+  }
 
   function initBurger() {
     var btn  = document.getElementById('burger-btn');
@@ -193,6 +212,56 @@
         btn.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
       });
+    });
+  }
+
+  /* ── CTA-подсказка у переключателя тем («жми — тут интересно») ── */
+  function initCtaHint() {
+    var hint = document.getElementById('cta-hint');
+    if (!hint) return;
+
+    /* уже кликал — не показываем */
+    try {
+      if (localStorage.getItem('lesleyCtaClicked') === '1') { hint.remove(); return; }
+    } catch (e) {}
+
+    /* стили — один раз */
+    if (!document.getElementById('cta-hint-style')) {
+      var st = document.createElement('style');
+      st.id = 'cta-hint-style';
+      st.textContent =
+        '.theme-switcher{position:relative;}' +
+        '.theme-btn--cta{animation:cta-pulse 1.8s ease-out infinite;border-radius:8px;}' +
+        '@keyframes cta-pulse{0%{box-shadow:0 0 0 0 rgba(212,160,23,.65);}70%{box-shadow:0 0 0 9px rgba(212,160,23,0);}100%{box-shadow:0 0 0 0 rgba(212,160,23,0);}}' +
+        '.cta-hint{position:absolute;top:calc(100% + 12px);right:0;z-index:1200;' +
+          'background:var(--color-gold,#D4A017);color:#0D0D1A;font-size:12px;font-weight:800;' +
+          'padding:8px 14px;border-radius:10px;white-space:nowrap;cursor:pointer;' +
+          'box-shadow:0 8px 24px rgba(0,0,0,.45);animation:cta-bob 1.5s ease-in-out infinite;' +
+          'user-select:none;-webkit-user-select:none;}' +
+        '.cta-hint::before{content:\'\';position:absolute;top:-4px;right:16px;width:9px;height:9px;' +
+          'background:var(--color-gold,#D4A017);transform:rotate(45deg);}' +
+        '@keyframes cta-bob{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}' +
+        '@media(max-width:1024px){.cta-hint{display:none;}}';
+      document.head.appendChild(st);
+    }
+
+    function dismiss() {
+      try { localStorage.setItem('lesleyCtaClicked', '1'); } catch (e) {}
+      if (hint.parentNode) hint.parentNode.removeChild(hint);
+      document.querySelectorAll('.theme-btn--cta').forEach(function (b) {
+        b.classList.remove('theme-btn--cta');
+      });
+    }
+
+    /* клик по подсказке = клик по чёртику */
+    hint.addEventListener('click', function () {
+      var b = document.querySelector('.header__right .theme-btn[data-theme-btn="lesley"]');
+      dismiss();
+      if (b) b.click();
+    });
+    /* потрогал любую кнопку темы — подсказка больше не нужна */
+    document.querySelectorAll('.theme-btn').forEach(function (b) {
+      b.addEventListener('click', dismiss);
     });
   }
 
