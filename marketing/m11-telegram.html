@@ -3,479 +3,332 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Модуль 11: Анализ Telegram | Маркетинг | Alex Leslie</title>
+  <title>Модуль 11: Анализ Telegram-канала | Маркетинг | Alex Leslie</title>
   <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="../assets/js/vendor/chart.umd.min.js"></script>
+  <script>if(typeof Chart==='undefined')document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"><\/script>');</script>
+  <script>if(typeof Chart==='undefined')document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"><\/script>');</script>
   <link rel="canonical" href="https://icskashop-collab.github.io/marketing-lesl/marketing/m11-telegram" />
   <meta property="og:url" content="https://icskashop-collab.github.io/marketing-lesl/marketing/m11-telegram" />
   <meta name="robots" content="noindex, nofollow" />
   <style>
-    /* ── BASE ── */
-    .mod-nav { display:flex; gap:12px; flex-wrap:wrap; padding:20px 0 0; }
+    .mod-nav { display:flex; gap:12px; flex-wrap:wrap; padding:12px 0 0; }
     .mod-nav a {
       display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600;
       color:var(--color-text-muted); text-decoration:none; padding:6px 14px;
       border:1px solid rgba(255,255,255,0.1); border-radius:20px; transition:all 0.2s;
     }
     .mod-nav a:hover { color:var(--color-gold); border-color:var(--color-gold); }
-    .mod-header { padding:20px 0 16px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:20px; }
+    .mod-header { padding:14px 0 10px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:14px; }
     .mod-header__num { font-size:11px; font-weight:700; letter-spacing:3px; color:var(--color-gold); text-transform:uppercase; margin-bottom:8px; }
     .mod-header__title { font-size:clamp(24px,4vw,40px); font-weight:800; margin-bottom:8px; }
     .mod-header__sub { color:var(--color-text-muted); font-size:15px; }
-    .section { margin-bottom:8px; }
+    .section { margin-bottom:16px; }
     .section__title {
       font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
-      color:var(--color-gold); margin-bottom:8px; display:flex; align-items:center; gap:10px;
+      color:var(--color-gold); margin-bottom:10px; display:flex; align-items:center; gap:10px;
     }
     .section__title::after { content:''; flex:1; height:1px; background:rgba(212,160,23,0.2); }
 
-    /* ── BADGE СТАТУС ── */
-    .status-badge {
-      display:inline-flex; align-items:center; gap:8px; padding:6px 16px;
-      background:rgba(212,160,23,0.08); border:1px solid rgba(212,160,23,0.2);
-      border-radius:100px; font-size:12px; font-weight:700; color:var(--color-gold);
-      letter-spacing:.05em; margin-bottom:10px;
+    /* паспорт */
+    .kpi-row { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px; }
+    .kpi-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px; padding:16px 18px; position:relative; overflow:hidden;
     }
-    .status-badge__dot {
-      width:7px; height:7px; border-radius:50%; background:var(--color-gold);
-      animation: pulse-dot 1.4s ease-in-out infinite;
+    .kpi-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--color-gold); }
+    .kpi-card__value { font-size:22px; font-weight:800; color:var(--color-gold); line-height:1.1; }
+    .kpi-card__label { font-size:11px; color:var(--color-text-muted); margin-top:6px; line-height:1.4; }
+
+    .two-col { display:grid; grid-template-columns:1.4fr 1fr; gap:20px; align-items:start; }
+    @media(max-width:900px){ .two-col { grid-template-columns:1fr; } }
+    .chart-card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:16px; padding:20px;
     }
-    @keyframes pulse-dot {
-      0%,100% { opacity:1; transform:scale(1); }
-      50%      { opacity:.4; transform:scale(.7); }
+    .chart-card__title { font-size:13px; font-weight:700; margin-bottom:14px; }
+    .chart-box { position:relative; height:300px; }
+    .insight-note {
+      background:linear-gradient(135deg,rgba(212,160,23,0.1),rgba(212,160,23,0.03));
+      border:1px solid rgba(212,160,23,0.2); border-radius:10px;
+      padding:14px 18px; font-size:13.5px; line-height:1.6; margin-top:16px;
+    }
+    .insight-note b { color:var(--color-gold); }
+
+    /* карта контента */
+    .cats-table-wrap { overflow-x:auto; background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:8px 0; }
+    .cats-table { width:100%; border-collapse:collapse; font-size:13px; }
+    .cats-table th {
+      text-align:left; padding:10px 16px; font-size:10px; font-weight:700;
+      letter-spacing:1.5px; text-transform:uppercase; color:var(--color-text-muted);
+      border-bottom:1px solid rgba(255,255,255,0.07); white-space:nowrap;
+    }
+    .cats-table td { padding:10px 16px; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:middle; line-height:1.45; }
+    .cats-table tr:last-child td { border-bottom:none; }
+    .cats-table tr:hover td { background:rgba(255,255,255,0.03); }
+    .share-bar { display:flex; align-items:center; gap:8px; min-width:130px; }
+    .share-bar__track { flex:1; height:5px; background:rgba(255,255,255,0.07); border-radius:3px; overflow:hidden; }
+    .share-bar__fill { height:100%; border-radius:3px; background:var(--color-gold); }
+    .verdict { font-size:10px; font-weight:700; padding:2px 8px; border-radius:4px; white-space:nowrap; }
+    .verdict--up   { background:rgba(76,175,80,0.15);  color:#81C784; }
+    .verdict--mid  { background:rgba(255,255,255,0.08); color:var(--color-text-muted); }
+    .verdict--down { background:rgba(244,67,54,0.15);  color:#E57373; }
+
+    /* топ/дно */
+    .td-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    @media(max-width:900px){ .td-grid { grid-template-columns:1fr; } }
+    .td-panel { background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:16px; overflow:hidden; }
+    .td-panel__head { padding:14px 20px; font-size:12px; font-weight:800; letter-spacing:1px; text-transform:uppercase; border-bottom:1px solid rgba(255,255,255,0.06); }
+    .td-panel--top  .td-panel__head { color:#81C784; }
+    .td-panel--bottom .td-panel__head { color:#E57373; }
+    .td-item { display:flex; gap:12px; padding:11px 20px; border-bottom:1px solid rgba(255,255,255,0.04); font-size:13px; line-height:1.45; }
+    .td-item:last-child { border-bottom:none; }
+    .td-item__r { font-weight:800; min-width:52px; text-align:right; font-variant-numeric:tabular-nums; }
+    .td-panel--top  .td-item__r { color:#81C784; }
+    .td-panel--bottom .td-item__r { color:#E57373; }
+    .td-item__meta { font-size:11px; color:var(--color-text-muted); margin-top:2px; }
+    .conclusions { margin-top:16px; display:flex; flex-direction:column; gap:10px; }
+    .conclusion {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-left:3px solid var(--color-gold);
+      border-radius:0 10px 10px 0; padding:12px 16px; font-size:13.5px; line-height:1.55; color:var(--color-text);
     }
 
-    /* ── ДАТА ОБНОВЛЕНИЯ ── */
-    .update-banner {
-      background:linear-gradient(135deg, rgba(212,160,23,.1) 0%, rgba(212,160,23,.04) 100%);
-      border:1px solid rgba(212,160,23,.25); border-radius:14px;
-      padding:18px 28px; text-align:center; margin-bottom:10px;
-      animation: fadein 1s ease both;
-    }
-    .update-banner__date {
-      font-size:clamp(18px,3vw,26px); font-weight:800; color:var(--color-gold);
-      margin-bottom:8px; letter-spacing:-.01em;
-    }
-    .update-banner__sub { font-size:14px; color:var(--color-text-muted); line-height:1.6; }
-    @keyframes fadein { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    /* сильное/слабое */
+    .sw-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    @media(max-width:900px){ .sw-grid { grid-template-columns:1fr; } }
+    .sw-card { background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:16px 18px; }
+    .sw-card--s { border-left:3px solid #81C784; }
+    .sw-card--w { border-left:3px solid #E57373; }
+    .sw-card__title { font-size:14px; font-weight:700; margin-bottom:6px; }
+    .sw-card__text { font-size:13px; color:var(--color-text-muted); line-height:1.55; }
+    .sw-col__head { font-size:12px; font-weight:800; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; }
+    .sw-col__head--s { color:#81C784; } .sw-col__head--w { color:#E57373; }
+    .sw-col { display:flex; flex-direction:column; gap:12px; }
 
-    /* ── STAGE GRID (три слоя рядом) ── */
-    .stage-grid {
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap:14px;
-      margin-bottom:8px;
+    /* стилистика */
+    .style-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    @media(max-width:900px){ .style-grid { grid-template-columns:1fr; } }
+    .style-card { background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:20px; }
+    .style-card__title { font-size:13px; font-weight:800; margin-bottom:12px; color:var(--color-gold); }
+    .tov-pills { display:flex; flex-wrap:wrap; gap:6px; }
+    .tov-pill { font-size:12px; font-weight:600; padding:4px 12px; border-radius:20px; background:rgba(212,160,23,0.12); border:1px solid rgba(212,160,23,0.25); }
+    .tov-pill--anti { background:rgba(244,67,54,0.08); border-color:rgba(244,67,54,0.2); color:var(--color-text-muted); text-decoration:line-through; }
+    .kv-list { display:flex; flex-direction:column; gap:10px; }
+    .kv-item { font-size:13px; line-height:1.55; }
+    .kv-item b { display:block; font-size:12px; color:var(--color-text); margin-bottom:2px; }
+    .kv-item span { color:var(--color-text-muted); }
+    .quote {
+      font-family:var(--font-display); font-style:italic; font-size:14.5px; line-height:1.6;
+      border-left:2px solid var(--color-gold); padding:4px 0 4px 14px; margin-bottom:10px; color:var(--color-text);
     }
-    @media(max-width:900px) { .stage-grid { grid-template-columns:1fr; } }
+    .check-list { display:flex; flex-direction:column; gap:7px; }
+    .check-list li { font-size:13px; color:var(--color-text-muted); padding-left:22px; position:relative; line-height:1.5; }
+    .check-list li::before { content:'✓'; position:absolute; left:0; color:var(--color-gold); font-weight:800; }
 
-    .stage-panel {
-      background:var(--color-card);
-      border:1px solid rgba(255,255,255,.07);
-      border-radius:16px; overflow:hidden;
-    }
-    .stage-panel__header {
-      padding:14px 18px; border-bottom:1px solid rgba(255,255,255,.06);
-      display:flex; align-items:center; gap:10px;
-    }
-    .stage-panel__icon { font-size:18px; flex-shrink:0; }
-    .stage-panel__label { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--color-gold); }
-    .stage-panel__body { padding:18px; min-height:260px; position:relative; overflow:hidden; }
-
-    /* ── СЛОЙ 1: TELEGRAM ПОТОК ── */
-    .tg-stream { position:relative; height:200px; overflow:hidden; }
-    .tg-icon { font-size:2.2rem; text-align:center; margin-bottom:8px; }
-    .tg-counters { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:12px; }
-    .tg-counter {
-      background:rgba(255,255,255,.04); border-radius:8px; padding:8px 10px;
-    }
-    .tg-counter__label { font-size:10px; color:var(--color-text-muted); margin-bottom:2px; }
-    .tg-counter__val { font-size:16px; font-weight:800; color:var(--color-gold); font-variant-numeric:tabular-nums; }
-    .tg-progress-wrap { margin-top:10px; }
-    .tg-progress-label { font-size:11px; color:var(--color-text-muted); margin-bottom:4px; }
-    .tg-progress-bar { height:4px; background:rgba(255,255,255,.07); border-radius:2px; overflow:hidden; }
-    .tg-progress-fill {
-      height:100%; width:0%; background:linear-gradient(90deg, rgba(212,160,23,.5), var(--color-gold));
-      border-radius:2px; animation: tg-fill 7s ease-in-out infinite;
-    }
-    @keyframes tg-fill {
-      0%   { width:0%;   opacity:.6; }
-      70%  { width:100%; opacity:1;  }
-      85%  { width:100%; opacity:1;  }
-      100% { width:0%;   opacity:.6; }
-    }
-
-    /* Летящие точки потока */
-    .tg-dots { position:absolute; bottom:0; left:0; right:0; height:32px; }
-    .tg-dot {
-      position:absolute; width:5px; height:5px; border-radius:50%;
-      background:rgba(29,155,209,.7); bottom:8px;
-      animation: fly-dot 2.2s ease-in-out infinite;
-    }
-    @keyframes fly-dot {
-      0%   { transform:translateX(0) translateY(0); opacity:0; }
-      20%  { opacity:1; }
-      80%  { opacity:.8; }
-      100% { transform:translateX(220px) translateY(-20px); opacity:0; }
-    }
-
-    /* ── СЛОЙ 2: ТЕРМИНАЛ ── */
-    .terminal {
-      background:#0b0b14; border-radius:10px; overflow:hidden;
-      font-family:'Courier New', monospace;
-    }
-    .terminal__bar {
-      padding:7px 12px; background:#1a1a2e; display:flex; align-items:center; gap:6px;
-    }
-    .terminal__dot { width:10px; height:10px; border-radius:50%; }
-    .terminal__body { padding:12px; font-size:11.5px; line-height:1.7; min-height:182px; }
-    .t-line { color:#7ec8a0; white-space:nowrap; overflow:hidden; }
-    .t-line.typing { animation: type-line var(--dur,2s) steps(var(--ch,30),end) var(--del,0s) both; }
-    .t-comment { color:rgba(255,255,255,.25); }
-    .t-key { color:#7ec8a0; }
-    .t-val { color:#ffc400; }
-    .t-cmd { color:#e06c75; }
-    .cursor { display:inline-block; width:8px; height:12px; background:#ffc400; animation:blink .8s step-end infinite; vertical-align:middle; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-    @keyframes type-line {
-      from { width:0; }
-      to   { width:100%; }
-    }
-
-    /* ── СЛОЙ 3: ИНСАЙТЫ ── */
-    .insights-stage { position:relative; min-height:220px; }
-    .insight-card {
-      position:absolute; top:0; left:0; right:0;
-      background:rgba(212,160,23,.07); border:1px solid rgba(212,160,23,.2);
-      border-radius:12px; padding:14px 16px;
-      opacity:0; transform:translateY(8px);
-    }
-    .insight-card__tag {
-      font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
-      color:rgba(212,160,23,.6); margin-bottom:6px;
-    }
-    .insight-card__text { font-size:14px; font-weight:700; line-height:1.4; }
-    .insight-card__sub { font-size:11px; color:var(--color-text-muted); margin-top:4px; line-height:1.5; }
-    .insight-card__dot {
-      width:8px; height:8px; border-radius:50%; background:var(--color-gold);
-      display:inline-block; margin-right:6px; vertical-align:middle;
-      animation:pulse-dot 1.4s ease-in-out infinite;
-    }
-
-    /* ── OVERALL PROGRESS BAR ── */
-    .overall-progress { margin-bottom:10px; }
-    .overall-progress__header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
-    .overall-progress__label { font-size:12px; color:var(--color-text-muted); }
-    .overall-progress__pct { font-size:14px; font-weight:800; color:var(--color-gold); }
-    .overall-progress__bar { height:6px; background:rgba(255,255,255,.06); border-radius:3px; overflow:hidden; }
-    .overall-progress__fill {
-      height:100%; width:0%;
-      background:linear-gradient(90deg, rgba(212,160,23,.4) 0%, var(--color-gold) 100%);
-      border-radius:3px; animation:overall-fill 12s ease-in-out infinite;
-    }
-    @keyframes overall-fill {
-      0%   { width:5%; }
-      40%  { width:62%; }
-      70%  { width:78%; }
-      90%  { width:78%; }
-      100% { width:5%; }
-    }
-
-    /* ── АДАПТИВ ── */
-    @media(max-width:600px) {
-      .update-banner { padding:18px 20px; }
-      .tg-counters { grid-template-columns:1fr 1fr; }
-    }
+    .method-note { font-size:12px; color:var(--color-text-muted); line-height:1.6; border-top:1px solid rgba(255,255,255,0.07); padding-top:16px; }
   </style>
 </head>
 <body>
   <div id="site-header"></div>
-
   <div class="container">
     <nav class="mod-nav">
-      <a href="../index.html">← Главная</a>
+      <a href="../index.html">← Вернуться на главную</a>
       <a href="index.html">← В Маркетинг</a>
+      <a href="m12-strategiya.html">Модуль 12: Стратегия →</a>
     </nav>
-
     <div class="mod-header">
       <div class="mod-header__num">Модуль 11 · Маркетинг</div>
-      <div class="mod-header__title">📊 Анализ на основе Telegram</div>
-      <div class="mod-header__sub">Глубокий разбор канала · Поведенческие паттерны · Контентная стратегия · Инсайты аудитории</div>
+      <h1 class="mod-header__title">📊 Анализ Telegram-канала</h1>
+      <p class="mod-header__sub">Источник: экспорт @alexlesleynew — 2 992 записи за 03.2022–06.2026, сегментация по 14 категориям. Аудитория и охваты канала — см. Модуль 9.</p>
     </div>
 
-    <!-- СТАТУС -->
-    <div class="status-badge">
-      <div class="status-badge__dot"></div>
-      Анализ в процессе
-    </div>
-
-    <!-- ДАТА -->
-    <div class="update-banner">
-      <div class="update-banner__date">📅 Обновление — 5 июня в 14:00</div>
-      <div class="update-banner__sub">
-        Ведётся анализ. Обновите страницу 5 июня в 14:00 —<br>
-        здесь появится полный анализ на основе Telegram-канала.<br>
-        <span style="color:var(--color-gold);font-weight:600">Хорошего вам дня! 👋</span>
-      </div>
-    </div>
-
-    <!-- ТРИ ПАРАЛЛЕЛЬНЫХ СЛОЯ -->
+    <!-- 1. ПАСПОРТ -->
     <section class="section">
-      <div class="section__title">Процесс анализа — 3 параллельных слоя</div>
-
-      <div class="stage-grid">
-
-        <!-- СЛОЙ 1: TELEGRAM -->
-        <div class="stage-panel">
-          <div class="stage-panel__header">
-            <div class="stage-panel__icon">✈️</div>
-            <div class="stage-panel__label">Слой 1 · Выгрузка данных</div>
-          </div>
-          <div class="stage-panel__body">
-            <div class="tg-icon">📨</div>
-            <div class="tg-counters">
-              <div class="tg-counter">
-                <div class="tg-counter__label">Сообщений</div>
-                <div class="tg-counter__val" id="cnt-msg">0</div>
-              </div>
-              <div class="tg-counter">
-                <div class="tg-counter__label">Подписчиков</div>
-                <div class="tg-counter__val" id="cnt-sub">0</div>
-              </div>
-              <div class="tg-counter">
-                <div class="tg-counter__label">Реакций</div>
-                <div class="tg-counter__val" id="cnt-react">0</div>
-              </div>
-              <div class="tg-counter">
-                <div class="tg-counter__label">Комментариев</div>
-                <div class="tg-counter__val" id="cnt-com">0</div>
-              </div>
-            </div>
-            <div class="tg-progress-wrap">
-              <div class="tg-progress-label" id="tg-progress-label">Выгружено 0 сообщений…</div>
-              <div class="tg-progress-bar"><div class="tg-progress-fill"></div></div>
-            </div>
-            <div class="tg-dots">
-              <div class="tg-dot" style="left:0px;animation-delay:0s;"></div>
-              <div class="tg-dot" style="left:20px;animation-delay:.4s;"></div>
-              <div class="tg-dot" style="left:40px;animation-delay:.8s;background:rgba(212,160,23,.7);"></div>
-              <div class="tg-dot" style="left:60px;animation-delay:1.2s;"></div>
-              <div class="tg-dot" style="left:80px;animation-delay:1.6s;"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- СЛОЙ 2: ТЕРМИНАЛ -->
-        <div class="stage-panel">
-          <div class="stage-panel__header">
-            <div class="stage-panel__icon">💻</div>
-            <div class="stage-panel__label">Слой 2 · Обработка кода</div>
-          </div>
-          <div class="stage-panel__body" style="padding:0">
-            <div class="terminal">
-              <div class="terminal__bar">
-                <div class="terminal__dot" style="background:#ff5f56"></div>
-                <div class="terminal__dot" style="background:#ffbd2e"></div>
-                <div class="terminal__dot" style="background:#27c93f"></div>
-              </div>
-              <div class="terminal__body" id="terminal-body">
-                <div class="t-line t-comment"># Анализ Telegram-канала Alex Leslie</div>
-                <div class="t-line" style="margin-top:4px"><span class="t-cmd">import</span> telegram_parser</div>
-                <div class="t-line"><span class="t-cmd">import</span> nlp_analyzer</div>
-                <div class="t-line" style="height:6px"></div>
-                <div class="t-line"><span class="t-key">channel</span> = <span class="t-val">"@alexlesleynew"</span></div>
-                <div class="t-line" id="tl-parse"><span class="t-key">data</span> = parser.<span class="t-cmd">fetch</span>(channel)</div>
-                <div class="t-line" id="tl-filter"><span class="t-key">active</span> = data.<span class="t-cmd">filter</span>(engagement=<span class="t-val">"high"</span>)</div>
-                <div class="t-line" id="tl-segment"><span class="t-key">women</span> = active.<span class="t-cmd">segment</span>(gender=<span class="t-val">"F"</span>)</div>
-                <div class="t-line" id="tl-nlp"><span class="t-key">topics</span> = nlp.<span class="t-cmd">extract_topics</span>(data)</div>
-                <div class="t-line" id="tl-insights"><span class="t-key">insights</span> = model.<span class="t-cmd">generate</span>(topics)</div>
-                <div class="t-line" style="height:6px"></div>
-                <div class="t-line t-comment" id="tl-status"># Статус: сбор данных...</div>
-                <div class="t-line"><span class="cursor"></span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- СЛОЙ 3: ИНСАЙТЫ -->
-        <div class="stage-panel">
-          <div class="stage-panel__header">
-            <div class="stage-panel__icon">💡</div>
-            <div class="stage-panel__label">Слой 3 · Инсайты</div>
-          </div>
-          <div class="stage-panel__body">
-            <div class="insights-stage" id="insights-stage">
-
-              <div class="insight-card" id="ins-0">
-                <div class="insight-card__tag">🔍 Найдено</div>
-                <div class="insight-card__text"><span class="insight-card__dot"></span>Отсутствует воронка для женщин</div>
-                <div class="insight-card__sub">Нет выделенного пути для женской аудитории от контента к покупке</div>
-              </div>
-
-              <div class="insight-card" id="ins-1">
-                <div class="insight-card__tag">🔍 Найдено</div>
-                <div class="insight-card__text"><span class="insight-card__dot"></span>Нет чёткой сегментации курсов</div>
-                <div class="insight-card__sub">Продукты смешаны — непонятно, что для кого и в какой последовательности</div>
-              </div>
-
-              <div class="insight-card" id="ins-2">
-                <div class="insight-card__tag">🔍 Найдено</div>
-                <div class="insight-card__text"><span class="insight-card__dot"></span>Нужен женский чат</div>
-                <div class="insight-card__sub">Женская аудитория требует отдельного пространства для коммуникации</div>
-              </div>
-
-              <div class="insight-card" id="ins-3">
-                <div class="insight-card__tag">🎯 Рекомендация</div>
-                <div class="insight-card__text"><span class="insight-card__dot"></span>Бить по женским болям</div>
-                <div class="insight-card__sub">Контент и реклама — через боли: одиночество, несчастные отношения, страх остаться одной</div>
-              </div>
-
-            </div>
-            <div style="margin-top:16px;font-size:11px;color:rgba(255,255,255,.25);text-align:center">Инсайты обновляются по мере анализа</div>
-          </div>
-        </div>
-
-      </div>
+      <div class="section__title">Паспорт канала</div>
+      <div class="kpi-row" id="passport"></div>
     </section>
 
-    <!-- ОБЩИЙ ПРОГРЕСС -->
+    <!-- 2. ДИНАМИКА И ФОРМАТЫ -->
     <section class="section">
-      <div class="section__title">Общий прогресс анализа</div>
-      <div class="overall-progress">
-        <div class="overall-progress__header">
-          <span class="overall-progress__label">Идёт сбор и обработка данных…</span>
-          <span class="overall-progress__pct" id="pct-label">—</span>
+      <div class="section__title">Динамика и форматы</div>
+      <div class="two-col">
+        <div class="chart-card">
+          <div class="chart-card__title">Постов в месяц vs средние реакции — 18 месяцев</div>
+          <div class="chart-box"><canvas id="monthly-chart"></canvas></div>
         </div>
-        <div class="overall-progress__bar">
-          <div class="overall-progress__fill" id="overall-fill"></div>
+        <div class="chart-card">
+          <div class="chart-card__title">Форматы контента (2 415 постов)</div>
+          <div class="chart-box"><canvas id="fmt-chart"></canvas></div>
+        </div>
+      </div>
+      <div class="insight-note" id="monthly-note"></div>
+    </section>
+
+    <!-- 3. КАРТА КОНТЕНТА -->
+    <section class="section">
+      <div class="section__title">Карта контента: 14 категорий</div>
+      <div class="cats-table-wrap">
+        <table class="cats-table">
+          <thead><tr><th>Категория</th><th>Постов</th><th>Доля</th><th>Ср. реакций</th><th>Вердикт</th><th>Комментарий</th></tr></thead>
+          <tbody id="cats-body"></tbody>
+        </table>
+      </div>
+      <div class="insight-note" id="cats-insight"></div>
+    </section>
+
+    <!-- 4. ТОП / ДНО -->
+    <section class="section">
+      <div class="section__title">Что заходит / что проседает</div>
+      <div class="td-grid">
+        <div class="td-panel td-panel--top">
+          <div class="td-panel__head">🏆 ТОП по реакциям</div>
+          <div id="top-list"></div>
+        </div>
+        <div class="td-panel td-panel--bottom">
+          <div class="td-panel__head">🕳 ДНО по реакциям</div>
+          <div id="bottom-list"></div>
+        </div>
+      </div>
+      <div class="conclusions" id="td-conclusions"></div>
+    </section>
+
+    <!-- 5. СИЛЬНОЕ / СЛАБОЕ -->
+    <section class="section">
+      <div class="section__title">Аудит: сильные и слабые стороны</div>
+      <div class="sw-grid">
+        <div>
+          <div class="sw-col__head sw-col__head--s">Что работает</div>
+          <div class="sw-col" id="strengths"></div>
+        </div>
+        <div>
+          <div class="sw-col__head sw-col__head--w">Что проседает</div>
+          <div class="sw-col" id="weaknesses"></div>
         </div>
       </div>
     </section>
 
-    <!-- ЧТО БУДЕТ В ПОЛНОМ АНАЛИЗЕ -->
+    <!-- 6. СТИЛИСТИКА -->
     <section class="section">
-      <div class="section__title">Что появится 5 июня</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;">
-
-        <div style="background:var(--color-card);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:16px 18px;opacity:.55">
-          <div style="font-size:20px;margin-bottom:8px">📈</div>
-          <div style="font-size:14px;font-weight:700;margin-bottom:4px">Динамика канала</div>
-          <div style="font-size:12px;color:var(--color-text-muted)">Рост подписчиков, охват, вовлечённость по месяцам</div>
+      <div class="section__title">Стилистика автора — блок-справка</div>
+      <div class="style-grid">
+        <div class="style-card">
+          <div class="style-card__title">Tone of voice</div>
+          <div class="tov-pills" id="tov-pills"></div>
+          <div style="font-size:11px;color:var(--color-text-muted);margin:14px 0 6px;">Антиподы (как НЕ звучит):</div>
+          <div class="tov-pills" id="tov-anti"></div>
+          <div style="font-size:12px;color:var(--color-text-muted);margin-top:14px;line-height:1.5;">Жаргон-вселенная бренда (тема, нормисы, фаст, прожим…) — словарь 19 терминов см. в <a href="m1-filosofiya.html" style="color:var(--color-gold);">Модуле 1</a>.</div>
         </div>
-        <div style="background:var(--color-card);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:16px 18px;opacity:.55">
-          <div style="font-size:20px;margin-bottom:8px">🧠</div>
-          <div style="font-size:14px;font-weight:700;margin-bottom:4px">Топ-темы и боли</div>
-          <div style="font-size:12px;color:var(--color-text-muted)">О чём чаще всего пишут и что вызывает отклик</div>
+        <div class="style-card">
+          <div class="style-card__title">Письменный голос</div>
+          <div class="kv-list" id="style-written"></div>
         </div>
-        <div style="background:var(--color-card);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:16px 18px;opacity:.55">
-          <div style="font-size:20px;margin-bottom:8px">👩</div>
-          <div style="font-size:14px;font-weight:700;margin-bottom:4px">Профиль женской аудитории</div>
-          <div style="font-size:12px;color:var(--color-text-muted)">Сегментация, возраст, интересы, поведение</div>
+        <div class="style-card">
+          <div class="style-card__title">Устный голос (аудио и кружки)</div>
+          <div class="kv-list" id="style-oral"></div>
+          <div style="margin-top:16px;" id="style-quotes"></div>
         </div>
-        <div style="background:var(--color-card);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:16px 18px;opacity:.55">
-          <div style="font-size:20px;margin-bottom:8px">⚡</div>
-          <div style="font-size:14px;font-weight:700;margin-bottom:4px">Точки роста</div>
-          <div style="font-size:12px;color:var(--color-text-muted)">Конкретные шаги для увеличения охвата и конверсий</div>
+        <div class="style-card">
+          <div class="style-card__title">Чек-лист «пиши как автор»</div>
+          <ul class="check-list" id="style-check"></ul>
         </div>
-        <div style="background:var(--color-card);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:16px 18px;opacity:.55">
-          <div style="font-size:20px;margin-bottom:8px">📋</div>
-          <div style="font-size:14px;font-weight:700;margin-bottom:4px">Контентный план</div>
-          <div style="font-size:12px;color:var(--color-text-muted)">Готовые темы и форматы на основе данных канала</div>
-        </div>
-        <div style="background:var(--color-card);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:16px 18px;opacity:.55">
-          <div style="font-size:20px;margin-bottom:8px">🎯</div>
-          <div style="font-size:14px;font-weight:700;margin-bottom:4px">Рекламные аудитории</div>
-          <div style="font-size:12px;color:var(--color-text-muted)">Сегменты для таргетинга на основе Telegram-данных</div>
-        </div>
-
       </div>
     </section>
 
+    <div class="method-note" id="method-note"></div>
   </div>
 
   <div id="site-footer"></div>
-
   <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/data/m11.js"></script>
   <script>
     if (typeof insertHeader === 'function') insertHeader();
     if (typeof insertFooter === 'function') insertFooter();
-  </script>
-  <script>
-  (function () {
 
-    /* ── СЧЁТЧИКИ TELEGRAM ── */
-    var TARGETS = { msg: 4215, sub: 27840, react: 18630, com: 3472 };
-    var CURRENT = { msg: 0, sub: 0, react: 0, com: 0 };
-    var SPEED   = { msg: 11, sub: 74, react: 49, com: 9 };
+    var d = window.M11 || M11;
 
-    function fmtNum(n) {
-      return n >= 1000 ? (n/1000).toFixed(1).replace('.',',') + ' тыс.' : String(n);
-    }
+    /* паспорт */
+    document.getElementById('passport').innerHTML = d.passport.map(function(k){
+      return '<div class="kpi-card"><div class="kpi-card__value">' + k.value + '</div><div class="kpi-card__label">' + k.label + '</div></div>';
+    }).join('');
 
-    setInterval(function () {
-      ['msg','sub','react','com'].forEach(function(k){
-        CURRENT[k] = Math.min(TARGETS[k], CURRENT[k] + SPEED[k] + Math.floor(Math.random()*SPEED[k]));
-        if (CURRENT[k] >= TARGETS[k]) CURRENT[k] = 0; // reset loop
-      });
-      var el;
-      el = document.getElementById('cnt-msg');   if(el) el.textContent = CURRENT.msg.toLocaleString('ru');
-      el = document.getElementById('cnt-sub');   if(el) el.textContent = fmtNum(CURRENT.sub);
-      el = document.getElementById('cnt-react'); if(el) el.textContent = fmtNum(CURRENT.react);
-      el = document.getElementById('cnt-com');   if(el) el.textContent = CURRENT.com.toLocaleString('ru');
-      el = document.getElementById('tg-progress-label');
-      if(el) el.textContent = 'Выгружено ' + CURRENT.msg.toLocaleString('ru') + ' сообщений…';
-    }, 120);
-
-    /* ── ПРОГРЕСС-БАР ОБЩИЙ ── */
-    var pctEl = document.getElementById('pct-label');
-    var fillEl = document.getElementById('overall-fill');
-    var pct = 5;
-    var pctDir = 1;
-    setInterval(function () {
-      pct += pctDir * 0.3;
-      if (pct >= 79) pctDir = -1;
-      if (pct <= 5)  pctDir = 1;
-      if (fillEl) fillEl.style.width = pct.toFixed(1) + '%';
-      if (pctEl)  pctEl.textContent  = Math.round(pct) + '%';
-    }, 80);
-
-    /* ── ТЕРМИНАЛ СТАТУС ── */
-    var statuses = [
-      '# Статус: выгрузка сообщений...',
-      '# Статус: фильтрация активных...',
-      '# Статус: сегментация по полу...',
-      '# Статус: NLP-анализ тем...',
-      '# Статус: генерация инсайтов...',
-      '# Статус: формирование отчёта...',
-    ];
-    var si = 0;
-    setInterval(function () {
-      var el = document.getElementById('tl-status');
-      if (el) { el.textContent = statuses[si % statuses.length]; si++; }
-    }, 2800);
-
-    /* ── ИНСАЙТЫ РОТАЦИЯ ── */
-    var insightCount = 4;
-    var currentIns = 0;
-    function showInsight(idx) {
-      for (var i = 0; i < insightCount; i++) {
-        var card = document.getElementById('ins-' + i);
-        if (!card) continue;
-        card.style.transition = 'opacity .5s ease, transform .5s ease';
-        if (i === idx) {
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
-        } else {
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(8px)';
+    /* график: посты vs реакции */
+    new Chart(document.getElementById('monthly-chart').getContext('2d'), {
+      data: {
+        labels: d.monthly.map(function(m){ return m.m; }),
+        datasets: [
+          { type:'bar',  label:'Постов/мес', data:d.monthly.map(function(m){return m.posts;}),
+            backgroundColor:'rgba(212,160,23,0.35)', borderColor:'#D4A017', borderWidth:1, borderRadius:3, yAxisID:'y' },
+          { type:'line', label:'Ср. реакций', data:d.monthly.map(function(m){return m.avg;}),
+            borderColor:'#E57373', backgroundColor:'rgba(229,115,115,0.15)', tension:0.35, pointRadius:2.5, yAxisID:'y1' }
+        ]
+      },
+      options: {
+        responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{ labels:{ color:'#B0B8C1', boxWidth:12, font:{size:11} } } },
+        scales:{
+          x:{ grid:{display:false}, ticks:{ color:'#B0B8C1', font:{size:10} } },
+          y:{ position:'left', grid:{ color:'rgba(255,255,255,0.05)' }, ticks:{ color:'#B0B8C1' }, title:{display:true,text:'постов',color:'#B0B8C1',font:{size:10}} },
+          y1:{ position:'right', grid:{ drawOnChartArea:false }, ticks:{ color:'#E57373' }, title:{display:true,text:'реакций',color:'#E57373',font:{size:10}} }
         }
       }
-    }
-    showInsight(0);
-    setInterval(function () {
-      currentIns = (currentIns + 1) % insightCount;
-      showInsight(currentIns);
-    }, 3200);
+    });
+    document.getElementById('monthly-note').innerHTML = '<b>Вывод:</b> ' + d.monthlyNote;
 
-  }());
+    /* форматы doughnut */
+    var fmtColors = ['#D4A017','#2196F3','#9C27B0','#FF5722','#E91E63','#4CAF50','#607D8B'];
+    new Chart(document.getElementById('fmt-chart').getContext('2d'), {
+      type:'doughnut',
+      data:{
+        labels: d.formats.map(function(f){ return f.icon + ' ' + f.name + ' (' + f.n + ')'; }),
+        datasets:[{ data:d.formats.map(function(f){return f.n;}),
+          backgroundColor:fmtColors.map(function(c){return c+'B3';}), borderColor:'#1A1A2E', borderWidth:2 }]
+      },
+      options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'right', labels:{ color:'#B0B8C1', boxWidth:10, font:{size:11} } } } }
+    });
+
+    /* карта контента */
+    var maxShare = Math.max.apply(null, d.cats.map(function(c){return c.share;}));
+    var vLabel = { up:'заходит', mid:'нейтрально', down:'проседает' };
+    document.getElementById('cats-body').innerHTML = d.cats.map(function(c){
+      return '<tr>' +
+        '<td style="font-weight:600;white-space:nowrap;">' + c.name + '</td>' +
+        '<td style="font-variant-numeric:tabular-nums;">' + c.n + '</td>' +
+        '<td><div class="share-bar"><div class="share-bar__track"><div class="share-bar__fill" style="width:' + (100*c.share/maxShare) + '%"></div></div><span style="font-size:12px;font-variant-numeric:tabular-nums;">' + c.share.toFixed(1) + '%</span></div></td>' +
+        '<td style="font-weight:700;color:var(--color-gold);font-variant-numeric:tabular-nums;">' + c.avg + '</td>' +
+        '<td><span class="verdict verdict--' + c.verdict + '">' + vLabel[c.verdict] + '</span></td>' +
+        '<td style="color:var(--color-text-muted);font-size:12px;">' + c.note + '</td></tr>';
+    }).join('');
+    document.getElementById('cats-insight').innerHTML = '<b>Главный вывод:</b> ' + d.catsInsight;
+
+    /* топ/дно */
+    function tdItem(p){
+      return '<div class="td-item"><div class="td-item__r">' + p.r.toLocaleString('ru') + '</div>' +
+        '<div><div>' + p.text + '</div><div class="td-item__meta">' + p.date + ' · ' + p.cat + '</div></div></div>';
+    }
+    document.getElementById('top-list').innerHTML = d.topPosts.map(tdItem).join('');
+    document.getElementById('bottom-list').innerHTML = d.bottomPosts.map(tdItem).join('');
+    document.getElementById('td-conclusions').innerHTML = d.topBottomConclusions.map(function(c){
+      return '<div class="conclusion">' + c + '</div>';
+    }).join('');
+
+    /* сильное/слабое */
+    document.getElementById('strengths').innerHTML = d.strengths.map(function(s){
+      return '<div class="sw-card sw-card--s"><div class="sw-card__title">' + s.title + '</div><div class="sw-card__text">' + s.text + '</div></div>';
+    }).join('');
+    document.getElementById('weaknesses').innerHTML = d.weaknesses.map(function(s){
+      return '<div class="sw-card sw-card--w"><div class="sw-card__title">' + s.title + '</div><div class="sw-card__text">' + s.text + '</div></div>';
+    }).join('');
+
+    /* стилистика */
+    document.getElementById('tov-pills').innerHTML = d.style.tone.map(function(t){ return '<span class="tov-pill">' + t + '</span>'; }).join('');
+    document.getElementById('tov-anti').innerHTML = d.style.antipodes.map(function(t){ return '<span class="tov-pill tov-pill--anti">' + t + '</span>'; }).join('');
+    function kv(items){ return items.map(function(i){ return '<div class="kv-item"><b>' + i.k + '</b><span>' + i.v + '</span></div>'; }).join(''); }
+    document.getElementById('style-written').innerHTML = kv(d.style.written);
+    document.getElementById('style-oral').innerHTML = kv(d.style.oral);
+    document.getElementById('style-quotes').innerHTML = d.style.quotes.map(function(q){ return '<div class="quote">' + q + '</div>'; }).join('');
+    document.getElementById('style-check').innerHTML = d.style.checklist.map(function(c){ return '<li>' + c + '</li>'; }).join('');
+
+    document.getElementById('method-note').innerHTML = '<b>Методология:</b> ' + d.method;
   </script>
 </body>
 </html>

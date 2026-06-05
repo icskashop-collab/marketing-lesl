@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модуль 13: Точки роста — закрытые каналы | Маркетинг | Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="canonical" href="https://icskashop-collab.github.io/marketing-lesl/marketing/m13-tochki-rosta" />
+  <meta property="og:url" content="https://icskashop-collab.github.io/marketing-lesl/marketing/m13-tochki-rosta" />
+  <meta name="robots" content="noindex, nofollow" />
+  <style>
+    .mod-nav { display:flex; gap:12px; flex-wrap:wrap; padding:12px 0 0; }
+    .mod-nav a {
+      display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600;
+      color:var(--color-text-muted); text-decoration:none; padding:6px 14px;
+      border:1px solid rgba(255,255,255,0.1); border-radius:20px; transition:all 0.2s;
+    }
+    .mod-nav a:hover { color:var(--color-gold); border-color:var(--color-gold); }
+    .mod-header { padding:14px 0 10px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:14px; }
+    .mod-header__num { font-size:11px; font-weight:700; letter-spacing:3px; color:var(--color-gold); text-transform:uppercase; margin-bottom:8px; }
+    .mod-header__title { font-size:clamp(24px,4vw,40px); font-weight:800; margin-bottom:8px; }
+    .mod-header__sub { color:var(--color-text-muted); font-size:15px; }
+    .section { margin-bottom:16px; }
+
+    .intro-note {
+      background:linear-gradient(135deg,rgba(212,160,23,0.1),rgba(212,160,23,0.03));
+      border:1px solid rgba(212,160,23,0.25); border-radius:12px;
+      padding:14px 18px; font-size:13.5px; line-height:1.6; margin-bottom:14px; color:var(--color-text);
+    }
+
+    /* карточка рекомендации */
+    .rec-card { background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:16px; overflow:hidden; margin-bottom:16px; }
+    .rec-card--proposal { border-color:rgba(212,160,23,0.25); }
+    .rec-head { display:flex; align-items:center; gap:14px; padding:18px 22px; cursor:pointer; transition:background 0.2s; }
+    .rec-head:hover { background:rgba(255,255,255,0.03); }
+    .rec-head__icon { font-size:26px; flex-shrink:0; }
+    .rec-head__main { flex:1; min-width:0; }
+    .rec-head__title { font-size:15px; font-weight:800; line-height:1.35; }
+    .rec-head__meta { display:flex; gap:8px; margin-top:6px; flex-wrap:wrap; align-items:center; }
+    .rec-badge { font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:3px 10px; border-radius:20px; }
+    .rec-badge--obs { background:rgba(33,150,243,0.12); color:#90CAF9; border:1px solid rgba(33,150,243,0.3); }
+    .rec-badge--prop { background:rgba(212,160,23,0.12); color:var(--color-gold); border:1px solid rgba(212,160,23,0.35); }
+    .rec-priority { font-size:10px; font-weight:700; color:var(--color-text-muted); letter-spacing:0.5px; }
+    .rec-head__chevron { font-size:14px; color:var(--color-gold); transition:transform 0.25s; flex-shrink:0; }
+    .rec-card.open .rec-head__chevron { transform:rotate(90deg); }
+    .rec-body { display:none; padding:0 22px 22px; }
+    .rec-card.open .rec-body { display:block; }
+
+    .rec-block { margin-top:16px; }
+    .rec-block__label {
+      font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+      margin-bottom:8px; display:flex; align-items:center; gap:8px;
+    }
+    .rec-block__label--problem  { color:#E57373; }
+    .rec-block__label--critical { color:#FFB74D; }
+    .rec-block__label--actions  { color:var(--color-gold); }
+    .rec-block__label--effect   { color:#81C784; }
+    .rec-block__text { font-size:13.5px; color:var(--color-text-muted); line-height:1.6; }
+    .rec-actions { display:flex; flex-direction:column; gap:8px; }
+    .rec-actions li {
+      font-size:13px; color:var(--color-text-muted); line-height:1.55;
+      padding:10px 14px 10px 34px; position:relative;
+      background:rgba(255,255,255,0.025); border-radius:8px;
+    }
+    .rec-actions li::before { content:'→'; position:absolute; left:14px; color:var(--color-gold); font-weight:700; }
+    .rec-effect {
+      background:rgba(76,175,80,0.06); border:1px solid rgba(76,175,80,0.2); border-radius:10px;
+      padding:12px 16px; font-size:13px; line-height:1.6; color:var(--color-text-muted);
+    }
+
+    .disclaimer { font-size:12px; color:var(--color-text-muted); line-height:1.6; border-top:1px solid rgba(255,255,255,0.07); padding-top:16px; }
+    .disclaimer a { color:var(--color-gold); }
+    .expand-all {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.1); color:var(--color-text-muted);
+      font-size:12px; font-weight:600; padding:6px 16px; border-radius:20px; cursor:pointer; transition:all 0.2s;
+      margin-bottom:16px;
+    }
+    .expand-all:hover { border-color:var(--color-gold); color:var(--color-gold); }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <div class="container">
+    <nav class="mod-nav">
+      <a href="../index.html">← Вернуться на главную</a>
+      <a href="index.html">← В Маркетинг</a>
+      <a href="m12-strategiya.html">← Модуль 12: Стратегия</a>
+    </nav>
+    <div class="mod-header">
+      <div class="mod-header__num">Модуль 13 · Маркетинг · Рекомендации</div>
+      <h1 class="mod-header__title">🚀 Точки роста: закрытые каналы</h1>
+      <p class="mod-header__sub">6 рекомендаций консультанта: модерация, женский канал, навигация, геймификация, ИИ-Алекс, рефералка</p>
+    </div>
+
+    <div class="intro-note" id="intro"></div>
+
+    <section class="section">
+      <button class="expand-all" id="expand-all">Развернуть все</button>
+      <div id="recs"></div>
+      <div class="disclaimer" id="disclaimer" style="margin-top:24px;"></div>
+    </section>
+  </div>
+
+  <div id="site-footer"></div>
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/data/m13.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    var d = window.M13 || M13;
+    document.getElementById('intro').textContent = d.intro;
+
+    /* ссылки на модули внутри текстов */
+    function linkRefs(s) {
+      return s
+        .replace(/Модул([ьея])\s*11/g, '<a href="m11-telegram.html" style="color:var(--color-gold);">Модул$1 11</a>')
+        .replace(/Модул([ьея])\s*12/g, '<a href="m12-strategiya.html" style="color:var(--color-gold);">Модул$1 12</a>')
+        .replace(/Модул([ьея])\s*9/g,  '<a href="m9-finansy.html" style="color:var(--color-gold);">Модул$1 9</a>')
+        .replace(/Модул([ьея])\s*8/g,  '<a href="m8-tech.html" style="color:var(--color-gold);">Модул$1 8</a>')
+        .replace(/Модул([ьея])\s*4/g,  '<a href="m4-produkty.html" style="color:var(--color-gold);">Модул$1 4</a>')
+        .replace(/Модул([ьея])\s*3([^0-9])/g, '<a href="m3-zhenskoe.html" style="color:var(--color-gold);">Модул$1 3</a>$2')
+        .replace(/Модул([ьея])\s*1([^0-9])/g, '<a href="m1-filosofiya.html" style="color:var(--color-gold);">Модул$1 1</a>$2');
+    }
+
+    document.getElementById('recs').innerHTML = d.recs.map(function(r){
+      var badgeCls = r.badge === 'наблюдение' ? 'rec-badge--obs' : 'rec-badge--prop';
+      var cardCls  = r.badge === 'наблюдение' ? '' : ' rec-card--proposal';
+      return '<div class="rec-card' + cardCls + '" id="rec-' + r.id + '">' +
+        '<div class="rec-head" data-id="' + r.id + '">' +
+          '<div class="rec-head__icon">' + r.icon + '</div>' +
+          '<div class="rec-head__main">' +
+            '<div class="rec-head__title">' + r.id + '. ' + r.title + '</div>' +
+            '<div class="rec-head__meta">' +
+              '<span class="rec-badge ' + badgeCls + '">' + r.badge + '</span>' +
+              '<span class="rec-priority">' + r.priority + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="rec-head__chevron">▶</div>' +
+        '</div>' +
+        '<div class="rec-body">' +
+          '<div class="rec-block"><div class="rec-block__label rec-block__label--problem">⛔ Проблема / наблюдение</div><div class="rec-block__text">' + linkRefs(r.problem) + '</div></div>' +
+          '<div class="rec-block"><div class="rec-block__label rec-block__label--critical">⚠️ Почему критично</div><div class="rec-block__text">' + linkRefs(r.critical) + '</div></div>' +
+          '<div class="rec-block"><div class="rec-block__label rec-block__label--actions">🛠 Что делать и как внедрить</div><ul class="rec-actions">' +
+            r.actions.map(function(a){ return '<li>' + linkRefs(a) + '</li>'; }).join('') + '</ul></div>' +
+          '<div class="rec-block"><div class="rec-block__label rec-block__label--effect">📈 Ожидаемый эффект</div><div class="rec-effect">' + linkRefs(r.effect) + '</div></div>' +
+        '</div></div>';
+    }).join('');
+
+    document.getElementById('disclaimer').innerHTML = '<b>Дисклеймер:</b> ' + linkRefs(d.disclaimer);
+
+    document.querySelectorAll('.rec-head').forEach(function(h){
+      h.addEventListener('click', function(){
+        document.getElementById('rec-' + h.dataset.id).classList.toggle('open');
+      });
+    });
+    var allOpen = false;
+    document.getElementById('expand-all').addEventListener('click', function(){
+      allOpen = !allOpen;
+      document.querySelectorAll('.rec-card').forEach(function(c){ c.classList.toggle('open', allOpen); });
+      this.textContent = allOpen ? 'Свернуть все' : 'Развернуть все';
+    });
+    /* первый пункт открыт по умолчанию */
+    document.getElementById('rec-1').classList.add('open');
+  </script>
+</body>
+</html>

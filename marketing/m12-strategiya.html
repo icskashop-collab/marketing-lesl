@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Модуль 12: Маркетинговая стратегия | Маркетинг | Alex Leslie</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="../assets/js/vendor/chart.umd.min.js"></script>
+  <script>if(typeof Chart==='undefined')document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"><\/script>');</script>
+  <script>if(typeof Chart==='undefined')document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"><\/script>');</script>
+  <link rel="canonical" href="https://icskashop-collab.github.io/marketing-lesl/marketing/m12-strategiya" />
+  <meta property="og:url" content="https://icskashop-collab.github.io/marketing-lesl/marketing/m12-strategiya" />
+  <meta name="robots" content="noindex, nofollow" />
+  <style>
+    .mod-nav { display:flex; gap:12px; flex-wrap:wrap; padding:12px 0 0; }
+    .mod-nav a {
+      display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600;
+      color:var(--color-text-muted); text-decoration:none; padding:6px 14px;
+      border:1px solid rgba(255,255,255,0.1); border-radius:20px; transition:all 0.2s;
+    }
+    .mod-nav a:hover { color:var(--color-gold); border-color:var(--color-gold); }
+    .mod-header { padding:14px 0 10px; border-bottom:1px solid rgba(255,255,255,0.07); margin-bottom:14px; }
+    .mod-header__num { font-size:11px; font-weight:700; letter-spacing:3px; color:var(--color-gold); text-transform:uppercase; margin-bottom:8px; }
+    .mod-header__title { font-size:clamp(24px,4vw,40px); font-weight:800; margin-bottom:8px; }
+    .mod-header__sub { color:var(--color-text-muted); font-size:15px; }
+    .section { margin-bottom:16px; }
+    .section__title {
+      font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+      color:var(--color-gold); margin-bottom:10px; display:flex; align-items:center; gap:10px;
+    }
+    .section__title::after { content:''; flex:1; height:1px; background:rgba(212,160,23,0.2); }
+
+    .xref { font-size:12.5px; color:var(--color-text-muted); line-height:1.55; margin-top:14px;
+      border-left:2px solid rgba(212,160,23,0.35); padding-left:12px; }
+    .xref a { color:var(--color-gold); }
+
+    /* позиционирование */
+    .pos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    @media(max-width:900px){ .pos-grid { grid-template-columns:1fr; } }
+    .pos-card { background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:22px; display:flex; flex-direction:column; gap:10px; }
+    .pos-card__icon { font-size:26px; }
+    .pos-card__track { font-size:14px; font-weight:800; }
+    .pos-card__who { font-size:11px; color:var(--color-text-muted); text-transform:uppercase; letter-spacing:1px; }
+    .pos-card__utp { font-family:var(--font-display); font-style:italic; font-size:15px; line-height:1.5; color:var(--color-gold); }
+    .pos-card__detail { font-size:12.5px; color:var(--color-text-muted); line-height:1.55; }
+
+    /* таблицы */
+    .tbl-wrap { overflow-x:auto; background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:8px 0; }
+    .tbl { width:100%; border-collapse:collapse; font-size:13px; }
+    .tbl th { text-align:left; padding:10px 16px; font-size:10px; font-weight:700; letter-spacing:1.5px;
+      text-transform:uppercase; color:var(--color-text-muted); border-bottom:1px solid rgba(255,255,255,0.07); white-space:nowrap; }
+    .tbl td { padding:11px 16px; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:top; line-height:1.5; }
+    .tbl tr:last-child td { border-bottom:none; }
+    .tbl tr:hover td { background:rgba(255,255,255,0.03); }
+
+    .chart-card { background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:20px; }
+    .chart-card__title { font-size:13px; font-weight:700; margin-bottom:14px; }
+    .chart-box { position:relative; height:380px; }
+    @media(max-width:700px){ .chart-box { height:460px; } }
+
+    /* воронки */
+    .funnel-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    @media(max-width:900px){ .funnel-grid { grid-template-columns:1fr; } }
+    .funnel-card { background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:20px; }
+    .funnel-card__name { font-size:14px; font-weight:800; margin-bottom:14px; }
+    .funnel-steps { display:flex; flex-direction:column; gap:0; }
+    .funnel-step { font-size:12.5px; color:var(--color-text-muted); line-height:1.5; padding:10px 0 10px 26px; position:relative; }
+    .funnel-step::before {
+      content:''; position:absolute; left:7px; top:16px; width:7px; height:7px; border-radius:50%;
+      background:var(--color-gold);
+    }
+    .funnel-step:not(:last-child)::after {
+      content:''; position:absolute; left:10px; top:24px; bottom:-8px; width:1px; background:rgba(212,160,23,0.3);
+    }
+
+    /* воронка: точки отвала */
+    .drop-flow { display:flex; flex-direction:column; gap:0; }
+    .drop-step { display:grid; grid-template-columns:44px 1fr; gap:16px; }
+    .drop-step__rail { display:flex; flex-direction:column; align-items:center; }
+    .drop-step__dot {
+      width:34px; height:34px; border-radius:50%; flex-shrink:0;
+      background:rgba(212,160,23,0.12); border:1.5px solid rgba(212,160,23,0.35);
+      display:flex; align-items:center; justify-content:center;
+      font-size:13px; font-weight:800; color:var(--color-gold);
+    }
+    .drop-step__line { width:1.5px; flex:1; min-height:20px; background:linear-gradient(to bottom,rgba(212,160,23,0.3),rgba(212,160,23,0.05)); margin:4px 0; }
+    .drop-step:last-child .drop-step__line { display:none; }
+    .drop-step__card {
+      background:var(--color-card); border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px; padding:14px 18px; margin-bottom:14px;
+    }
+    .drop-step__stage { font-size:14px; font-weight:800; }
+    .drop-step__src { font-size:11px; color:var(--color-text-muted); margin-top:2px; }
+    .drop-leak {
+      margin-top:10px; padding:10px 14px; border-radius:8px; font-size:12.5px; line-height:1.55;
+      background:rgba(244,67,54,0.06); border-left:3px solid #E57373; color:var(--color-text-muted);
+    }
+    .drop-leak b { color:#E57373; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; display:block; margin-bottom:3px; }
+    .drop-fix {
+      margin-top:8px; padding:10px 14px; border-radius:8px; font-size:12.5px; line-height:1.55;
+      background:rgba(76,175,80,0.06); border-left:3px solid #81C784; color:var(--color-text-muted);
+    }
+    .drop-fix b { color:#81C784; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; display:block; margin-bottom:3px; }
+    .sev-badge { font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:3px 10px; border-radius:20px; float:right; }
+    .sev-badge--high { background:rgba(244,67,54,0.12); color:#E57373; border:1px solid rgba(244,67,54,0.3); }
+    .sev-badge--mid  { background:rgba(255,183,77,0.1); color:#FFB74D; border:1px solid rgba(255,183,77,0.3); }
+
+    /* контент-планы */
+    .cp-grid { display:grid; grid-template-columns:1.3fr 1fr; gap:16px; align-items:start; }
+    @media(max-width:900px){ .cp-grid { grid-template-columns:1fr; } }
+    .cp-steps { display:flex; flex-direction:column; gap:10px; }
+    .cp-step { background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:14px 18px; display:flex; gap:14px; }
+    .cp-step__num { font-size:18px; font-weight:900; color:var(--color-gold); min-width:24px; }
+    .cp-step__t { font-size:13.5px; font-weight:700; margin-bottom:3px; }
+    .cp-step__x { font-size:12.5px; color:var(--color-text-muted); line-height:1.55; }
+    .week-card { background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:16px; overflow:hidden; }
+    .week-card__head { padding:13px 18px; font-size:12px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--color-gold); border-bottom:1px solid rgba(255,255,255,0.06); }
+    .week-row { display:flex; gap:14px; padding:10px 18px; border-bottom:1px solid rgba(255,255,255,0.04); font-size:13px; align-items:baseline; }
+    .week-row:last-child { border-bottom:none; }
+    .week-row__day { font-weight:800; color:var(--color-gold); min-width:30px; }
+    .week-row__slot { color:var(--color-text-muted); line-height:1.5; }
+
+    /* сбор аудитории / блогеры */
+    .ads-card {
+      background:linear-gradient(135deg,rgba(212,160,23,0.08),rgba(212,160,23,0.02));
+      border:1px solid rgba(212,160,23,0.3); border-left:4px solid var(--color-gold);
+      border-radius:12px; padding:20px 24px;
+    }
+    .ads-card__lead { font-size:15px; font-weight:700; line-height:1.55; margin-bottom:14px; }
+    .ads-card ol { list-style:none; display:flex; flex-direction:column; gap:9px; margin-bottom:14px; }
+    .ads-card ol li { font-size:13px; color:var(--color-text-muted); line-height:1.6; padding-left:26px; position:relative; counter-increment:ads; }
+    .ads-card ol { counter-reset:ads; }
+    .ads-card ol li::before { content:counter(ads) '.'; position:absolute; left:0; color:var(--color-gold); font-weight:800; }
+    .ads-card__tie { font-size:12.5px; color:var(--color-text-muted); line-height:1.6; padding-top:12px; border-top:1px solid rgba(212,160,23,0.15); }
+
+    .blog-example {
+      background:var(--color-card); border:1px solid rgba(212,160,23,0.25); border-radius:14px; padding:18px 22px; margin-top:14px;
+    }
+    .blog-example__tag { font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--color-gold); background:rgba(212,160,23,0.1); border:1px solid rgba(212,160,23,0.3); border-radius:20px; padding:3px 10px; display:inline-block; margin-bottom:10px; }
+    .blog-example__name { font-size:15px; font-weight:800; margin-bottom:8px; }
+    .blog-example__row { font-size:12.5px; color:var(--color-text-muted); line-height:1.6; margin-bottom:6px; }
+    .blog-example__row b { color:var(--color-text); }
+
+    /* форматы */
+    .fmt-list { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    @media(max-width:900px){ .fmt-list { grid-template-columns:1fr; } }
+    .fmt-card { background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:14px 18px; font-size:13px; line-height:1.55; }
+    .fmt-card b { display:block; margin-bottom:4px; }
+    .fmt-card span { color:var(--color-text-muted); }
+
+    /* гипотезы */
+    .hyp-card { background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:16px 18px; display:grid; grid-template-columns:auto 1fr auto; gap:16px; align-items:start; margin-bottom:10px; }
+    @media(max-width:700px){ .hyp-card { grid-template-columns:1fr; gap:8px; } }
+    .hyp-card__num { font-size:20px; font-weight:900; color:var(--color-gold); min-width:30px; }
+    .hyp-card__h { font-size:14px; font-weight:700; margin-bottom:4px; }
+    .hyp-card__why { font-size:12.5px; color:var(--color-text-muted); line-height:1.5; }
+    .hyp-card__metric { font-size:11px; color:var(--color-gold); margin-top:6px; }
+    .hyp-badge { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:3px 10px; border-radius:20px; white-space:nowrap; }
+    .hyp-badge--g { background:rgba(255,255,255,0.07); color:var(--color-text-muted); border:1px solid rgba(255,255,255,0.12); }
+    .hyp-badge--r { background:rgba(76,175,80,0.12); color:#81C784; border:1px solid rgba(76,175,80,0.3); }
+    .hyp-badge--x { background:rgba(212,160,23,0.1); color:var(--color-gold); border:1px solid rgba(212,160,23,0.3); }
+
+    /* метрики */
+    .north-star {
+      background:linear-gradient(135deg,rgba(212,160,23,0.12),rgba(212,160,23,0.04));
+      border:1px solid rgba(212,160,23,0.3); border-radius:14px; padding:18px 24px; margin-bottom:16px;
+    }
+    .north-star__label { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--color-gold); margin-bottom:6px; }
+    .north-star__text { font-size:14.5px; font-weight:600; line-height:1.55; }
+    .metric-row { display:flex; gap:14px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05); font-size:13px; }
+    .metric-row:last-child { border-bottom:none; }
+    .metric-row__g { min-width:130px; font-weight:700; }
+    .metric-row__items { color:var(--color-text-muted); line-height:1.5; }
+
+    /* дорожная карта */
+    .rm-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; }
+    .rm-card { background:var(--color-card); border:1px solid rgba(255,255,255,0.06); border-radius:14px; padding:18px; position:relative; overflow:hidden; }
+    .rm-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--color-gold); }
+    .rm-card__stage { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--color-gold); margin-bottom:6px; }
+    .rm-card__title { font-size:14px; font-weight:800; margin-bottom:10px; }
+    .rm-card li { font-size:12px; color:var(--color-text-muted); line-height:1.5; padding-left:14px; position:relative; margin-bottom:6px; }
+    .rm-card li::before { content:'→'; position:absolute; left:0; color:var(--color-gold); font-size:10px; }
+  </style>
+</head>
+<body>
+  <div id="site-header"></div>
+  <div class="container">
+    <nav class="mod-nav">
+      <a href="../index.html">← Вернуться на главную</a>
+      <a href="index.html">← В Маркетинг</a>
+      <a href="m11-telegram.html">← Модуль 11: Анализ канала</a>
+      <a href="m13-tochki-rosta.html">Модуль 13: Точки роста →</a>
+    </nav>
+    <div class="mod-header">
+      <div class="mod-header__num">Модуль 12 · Маркетинг</div>
+      <h1 class="mod-header__title">🧠 Маркетинговая стратегия</h1>
+      <p class="mod-header__sub">Полная стратегия по итогам анализа канала (Модуль 11) под состояние проекта на июнь 2026: пивот в подписку + VIP + женский трек</p>
+    </div>
+
+    <!-- 1. ПОЗИЦИОНИРОВАНИЕ -->
+    <section class="section">
+      <div class="section__title">Позиционирование и УТП — три контура</div>
+      <div class="pos-grid" id="pos-grid"></div>
+      <div class="xref" id="pos-note"></div>
+    </section>
+
+    <!-- 2. СЕГМЕНТЫ -->
+    <section class="section">
+      <div class="section__title">Целевые сегменты и сообщения</div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>Сегмент</th><th>Профиль</th><th>Боль (из канала)</th><th>Ключевое сообщение</th><th>Продукт</th></tr></thead>
+          <tbody id="seg-body"></tbody>
+        </table>
+      </div>
+      <div class="xref" id="seg-note"></div>
+    </section>
+
+    <!-- 3. БАЛАНС КОНТЕНТА -->
+    <section class="section">
+      <div class="section__title">Оптимальный баланс контента: факт → цель</div>
+      <div class="chart-card">
+        <div class="chart-card__title">Доля категории в ленте, % (сейчас vs рекомендация)</div>
+        <div class="chart-box"><canvas id="balance-chart"></canvas></div>
+      </div>
+      <div class="tbl-wrap" style="margin-top:16px;">
+        <table class="tbl">
+          <thead><tr><th>Категория</th><th>Сейчас</th><th>Цель</th><th>Почему</th></tr></thead>
+          <tbody id="balance-body"></tbody>
+        </table>
+      </div>
+      <div class="xref" id="balance-note"></div>
+    </section>
+
+    <!-- 4. ВОРОНКИ -->
+    <section class="section">
+      <div class="section__title">Воронка: привлечение → прогрев → монетизация</div>
+      <div class="funnel-grid" id="funnel-grid"></div>
+      <div class="xref" id="funnel-note"></div>
+    </section>
+
+    <!-- 4b. ТОЧКИ ОТВАЛА -->
+    <section class="section">
+      <div class="section__title">Схематика воронки: где отпадают</div>
+      <div class="drop-flow" id="drop-flow"></div>
+      <div class="xref" id="drop-note"></div>
+    </section>
+
+    <!-- 5. ФОРМАТЫ -->
+    <section class="section">
+      <div class="section__title">Роль каждого формата</div>
+      <div class="fmt-list" id="fmt-list"></div>
+    </section>
+
+    <!-- 5b. КОНТЕНТ-ПЛАНЫ -->
+    <section class="section">
+      <div class="section__title">Составление контент-планов</div>
+      <div class="cp-grid">
+        <div class="cp-steps" id="cp-steps"></div>
+        <div class="week-card">
+          <div class="week-card__head">Типовая неделя под новый баланс (~12 постов)</div>
+          <div id="week-rows"></div>
+        </div>
+      </div>
+      <div class="xref" id="cp-note"></div>
+    </section>
+
+    <!-- 6. ГИПОТЕЗЫ -->
+    <section class="section">
+      <div class="section__title">Каналы роста: гипотезы для теста</div>
+      <div id="hyp-list"></div>
+      <div class="xref" id="hyp-note"></div>
+    </section>
+
+    <!-- 6b. СБОР АУДИТОРИИ ДЛЯ РЕКЛАМЫ -->
+    <section class="section">
+      <div class="section__title">Сбор аудитории для рекламной кампании</div>
+      <div class="ads-card">
+        <div class="ads-card__lead" id="ads-lead"></div>
+        <ol id="ads-steps"></ol>
+        <div class="ads-card__tie" id="ads-tie"></div>
+      </div>
+      <div class="xref" id="ads-xref"></div>
+    </section>
+
+    <!-- 6c. БЛОГЕРЫ -->
+    <section class="section">
+      <div class="section__title">Интеграции с блогерами</div>
+      <div class="ads-card" style="margin-bottom:16px;">
+        <div class="ads-card__lead" id="blog-lead" style="margin-bottom:0;"></div>
+      </div>
+      <div class="cp-steps" id="blog-steps"></div>
+      <div class="blog-example" id="blog-example"></div>
+      <div class="xref" id="blog-note"></div>
+    </section>
+
+    <!-- 7. МЕТРИКИ -->
+    <section class="section">
+      <div class="section__title">Метрики и целевые показатели</div>
+      <div class="north-star">
+        <div class="north-star__label">⭐ Северная звезда</div>
+        <div class="north-star__text" id="north-text"></div>
+      </div>
+      <div class="chart-card" id="metric-groups"></div>
+      <div class="xref" id="metric-note"></div>
+    </section>
+
+    <!-- 8. ДОРОЖНАЯ КАРТА -->
+    <section class="section">
+      <div class="section__title">Дорожная карта: этапы 1–5</div>
+      <div class="rm-grid" id="rm-grid"></div>
+      <div class="xref" id="rm-note"></div>
+    </section>
+  </div>
+
+  <div id="site-footer"></div>
+  <script src="../assets/js/components.js"></script>
+  <script src="../assets/js/data/m12.js"></script>
+  <script>
+    if (typeof insertHeader === 'function') insertHeader();
+    if (typeof insertFooter === 'function') insertFooter();
+
+    var d = window.M12 || M12;
+
+    /* позиционирование */
+    document.getElementById('pos-grid').innerHTML = d.positioning.map(function(p){
+      return '<div class="pos-card"><div class="pos-card__icon">' + p.icon + '</div>' +
+        '<div class="pos-card__track">' + p.track + '</div>' +
+        '<div class="pos-card__who">' + p.who + '</div>' +
+        '<div class="pos-card__utp">' + p.utp + '</div>' +
+        '<div class="pos-card__detail">' + p.detail + '</div></div>';
+    }).join('');
+    document.getElementById('pos-note').innerHTML = d.positioningNote
+      .replace('Модуль 1', '<a href="m1-filosofiya.html">Модуль 1</a>')
+      .replace('Модуль 7', '<a href="m7-rynok.html">Модуль 7</a>');
+
+    /* сегменты */
+    document.getElementById('seg-body').innerHTML = d.segments.map(function(s){
+      return '<tr><td style="font-weight:700;white-space:nowrap;">' + s.seg + '</td>' +
+        '<td style="color:var(--color-text-muted);">' + s.profile + '</td>' +
+        '<td style="color:var(--color-text-muted);">' + s.pain + '</td>' +
+        '<td style="font-style:italic;">' + s.msg + '</td>' +
+        '<td style="color:var(--color-gold);font-size:12px;">' + s.product + '</td></tr>';
+    }).join('');
+    document.getElementById('seg-note').innerHTML = d.segmentsNote.replace('Модуль 2', '<a href="m2-auditoriya.html">Модуль 2</a>');
+
+    /* баланс контента */
+    new Chart(document.getElementById('balance-chart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: d.balance.map(function(b){ return b.cat; }),
+        datasets: [
+          { label:'Сейчас', data:d.balance.map(function(b){return b.now;}),
+            backgroundColor:'rgba(176,184,193,0.35)', borderColor:'#B0B8C1', borderWidth:1, borderRadius:3 },
+          { label:'Цель',   data:d.balance.map(function(b){return b.target;}),
+            backgroundColor:'rgba(212,160,23,0.55)', borderColor:'#D4A017', borderWidth:1, borderRadius:3 }
+        ]
+      },
+      options: {
+        indexAxis:'y', responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{ labels:{ color:'#B0B8C1', boxWidth:12, font:{size:11} } },
+          tooltip:{ callbacks:{ label:function(c){ return ' ' + c.dataset.label + ': ' + c.raw + '%'; } } } },
+        scales:{
+          x:{ grid:{ color:'rgba(255,255,255,0.05)' }, ticks:{ color:'#B0B8C1', callback:function(v){return v+'%';} } },
+          y:{ grid:{ display:false }, ticks:{ color:'#B0B8C1', font:{size:11} } }
+        }
+      }
+    });
+    document.getElementById('balance-body').innerHTML = d.balance.map(function(b){
+      var dir = b.target > b.now ? '▲' : '▼';
+      var col = b.target > b.now ? '#81C784' : '#E57373';
+      return '<tr><td style="font-weight:600;">' + b.cat + '</td>' +
+        '<td style="font-variant-numeric:tabular-nums;">' + b.now.toFixed(1) + '%</td>' +
+        '<td style="font-weight:700;color:' + col + ';font-variant-numeric:tabular-nums;">' + dir + ' ' + b.target + '%</td>' +
+        '<td style="color:var(--color-text-muted);font-size:12px;">' + b.why + '</td></tr>';
+    }).join('');
+    document.getElementById('balance-note').innerHTML = d.balanceNote
+      .replace('Модуле 11', '<a href="m11-telegram.html">Модуле 11</a>')
+      .replace('Модуле 5', '<a href="m5-kontent.html">Модуле 5</a>');
+
+    /* воронки */
+    document.getElementById('funnel-grid').innerHTML = d.funnels.map(function(f){
+      return '<div class="funnel-card"><div class="funnel-card__name">' + f.icon + ' ' + f.name + '</div>' +
+        '<div class="funnel-steps">' + f.steps.map(function(s){ return '<div class="funnel-step">' + s + '</div>'; }).join('') + '</div></div>';
+    }).join('');
+    document.getElementById('funnel-note').innerHTML = d.funnelsNote
+      .replace('Модуль 4', '<a href="m4-produkty.html">Модуль 4</a>')
+      .replace('Модуль 6', '<a href="m6-kanaly.html">Модуль 6</a>');
+
+    /* точки отвала */
+    function modLinks(s){
+      return s
+        .replace(/Модул([ьея])\s*13/g, '<a href="m13-tochki-rosta.html" style="color:var(--color-gold);">Модул$1 13</a>')
+        .replace(/Модул([ьея])\s*11/g, '<a href="m11-telegram.html" style="color:var(--color-gold);">Модул$1 11</a>')
+        .replace(/Модул([ьея])\s*10/g, '<a href="m10-reklama.html" style="color:var(--color-gold);">Модул$1 10</a>')
+        .replace(/Модул([ьея])\s*9([^0-9])/g, '<a href="m9-finansy.html" style="color:var(--color-gold);">Модул$1 9</a>$2')
+        .replace(/Модул([ьея])\s*8([^0-9])/g, '<a href="m8-tech.html" style="color:var(--color-gold);">Модул$1 8</a>$2')
+        .replace(/Модул([ьея])\s*5([^0-9])/g, '<a href="m5-kontent.html" style="color:var(--color-gold);">Модул$1 5</a>$2');
+    }
+    document.getElementById('drop-flow').innerHTML = d.dropoff.map(function(s, i){
+      return '<div class="drop-step">' +
+        '<div class="drop-step__rail"><div class="drop-step__dot">' + (i+1) + '</div><div class="drop-step__line"></div></div>' +
+        '<div class="drop-step__card">' +
+          '<span class="sev-badge sev-badge--' + s.severity + '">' + (s.severity === 'high' ? 'критично' : 'важно') + '</span>' +
+          '<div class="drop-step__stage">' + s.stage + '</div>' +
+          '<div class="drop-step__src">' + s.src + '</div>' +
+          '<div class="drop-leak"><b>Точка отвала</b>' + modLinks(s.leak) + '</div>' +
+          '<div class="drop-fix"><b>Что чинит</b>' + modLinks(s.fix) + '</div>' +
+        '</div></div>';
+    }).join('');
+    document.getElementById('drop-note').innerHTML = modLinks(d.dropoffNote);
+
+    /* форматы */
+    document.getElementById('fmt-list').innerHTML = d.formats.map(function(f){
+      return '<div class="fmt-card"><b>' + f.fmt + '</b><span>' + f.role + '</span></div>';
+    }).join('');
+
+    /* контент-планы */
+    document.getElementById('cp-steps').innerHTML = d.contentPlanning.process.map(function(p, i){
+      return '<div class="cp-step"><div class="cp-step__num">' + (i+1) + '</div>' +
+        '<div><div class="cp-step__t">' + p.step + '</div><div class="cp-step__x">' + modLinks(p.text) + '</div></div></div>';
+    }).join('');
+    document.getElementById('week-rows').innerHTML = d.contentPlanning.week.map(function(w){
+      return '<div class="week-row"><div class="week-row__day">' + w.day + '</div><div class="week-row__slot">' + w.slot + '</div></div>';
+    }).join('');
+    document.getElementById('cp-note').innerHTML = modLinks(d.contentPlanning.note);
+
+    /* сбор аудитории для рекламы */
+    document.getElementById('ads-lead').textContent = d.adsCollection.lead;
+    document.getElementById('ads-steps').innerHTML = d.adsCollection.steps.map(function(s){ return '<li>' + s + '</li>'; }).join('');
+    document.getElementById('ads-tie').innerHTML = d.adsCollection.tie;
+    document.getElementById('ads-xref').innerHTML = modLinks(d.adsCollection.xref);
+
+    /* блогеры */
+    document.getElementById('blog-lead').textContent = d.bloggers.lead;
+    document.getElementById('blog-steps').innerHTML = d.bloggers.process.map(function(p, i){
+      return '<div class="cp-step"><div class="cp-step__num">' + (i+1) + '</div>' +
+        '<div><div class="cp-step__t">' + p.step + '</div><div class="cp-step__x">' + modLinks(p.text) + '</div></div></div>';
+    }).join('');
+    var ex = d.bloggers.example;
+    document.getElementById('blog-example').innerHTML =
+      '<span class="blog-example__tag">Пример · ' + ex.status + '</span>' +
+      '<div class="blog-example__name">📣 ' + ex.name + '</div>' +
+      '<div class="blog-example__row"><b>Что:</b> ' + ex.what + '</div>' +
+      '<div class="blog-example__row"><b>Почему подходит:</b> ' + ex.why + '</div>' +
+      '<div class="blog-example__row"><b>Формат:</b> ' + ex.format + '</div>';
+    document.getElementById('blog-note').innerHTML = modLinks(d.bloggers.note);
+
+    /* гипотезы */
+    var badge = { 'гипотеза':'hyp-badge--g', 'готово к запуску':'hyp-badge--r' };
+    document.getElementById('hyp-list').innerHTML = d.hypotheses.map(function(h, i){
+      var cls = badge[h.status] || 'hyp-badge--x';
+      return '<div class="hyp-card"><div class="hyp-card__num">' + (i+1) + '</div>' +
+        '<div><div class="hyp-card__h">' + h.h + '</div>' +
+        '<div class="hyp-card__why">' + h.why + '</div>' +
+        '<div class="hyp-card__metric">📐 Метрика: ' + h.metric + '</div></div>' +
+        '<span class="hyp-badge ' + cls + '">' + h.status.replace('см. Модуль 13, п. 6','Модуль 13 · п.6') + '</span></div>';
+    }).join('');
+    document.getElementById('hyp-note').innerHTML = d.hypothesesNote.replace('Модуль 6', '<a href="m6-kanaly.html">Модуль 6</a>');
+
+    /* метрики */
+    document.getElementById('north-text').textContent = d.metrics.north;
+    document.getElementById('metric-groups').innerHTML = d.metrics.groups.map(function(g){
+      return '<div class="metric-row"><div class="metric-row__g">' + g.g + '</div><div class="metric-row__items">' + g.items + '</div></div>';
+    }).join('');
+    document.getElementById('metric-note').innerHTML = d.metrics.note.replace('Модуль 9', '<a href="m9-finansy.html">Модуль 9</a>');
+
+    /* дорожная карта */
+    document.getElementById('rm-grid').innerHTML = d.roadmap.map(function(r){
+      return '<div class="rm-card"><div class="rm-card__stage">' + r.stage + '</div>' +
+        '<div class="rm-card__title">' + r.title + '</div>' +
+        '<ul>' + r.items.map(function(i){ return '<li>' + i + '</li>'; }).join('') + '</ul></div>';
+    }).join('');
+    document.getElementById('rm-note').innerHTML = d.roadmapNote.replace('Модуль 9', '<a href="m9-finansy.html">Модуль 9</a>');
+  </script>
+</body>
+</html>

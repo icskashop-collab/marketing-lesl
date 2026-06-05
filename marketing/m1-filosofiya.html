@@ -5,13 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Модуль 1: Философия и смыслы | Маркетинг | Alex Leslie</title>
   <link rel="stylesheet" href="../assets/css/main.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <script src="../assets/js/vendor/chart.umd.min.js"></script>
+  <script>if(typeof Chart==='undefined')document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"><\/script>');</script>
+  <script>if(typeof Chart==='undefined')document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"><\/script>');</script>
   <style>
     .mod-nav {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      padding: 20px 0 0;
+      padding: 12px 0 0;
     }
     .mod-nav a {
       display: inline-flex;
@@ -33,9 +35,9 @@
 
     /* ── ЗАГОЛОВОК МОДУЛЯ ── */
     .mod-header {
-      padding: 32px 0 24px;
+      padding: 14px 0 10px;
       border-bottom: 1px solid rgba(255,255,255,0.07);
-      margin-bottom: 40px;
+      margin-bottom: 14px;
     }
     .mod-header__num {
       font-size: 11px;
@@ -53,14 +55,14 @@
     .mod-header__sub { color: var(--color-text-muted); font-size: 15px; }
 
     /* ── СЕКЦИИ ── */
-    .section { margin-bottom: 56px; }
+    .section { margin-bottom: 16px; }
     .section__title {
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--color-gold);
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
       gap: 10px;
