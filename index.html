@@ -9,9 +9,9 @@
   <meta property="og:description" content="20 лет. 15 книг. 440+ тренингов. 27 283+ учеников. Методология, которая изменила жизнь сотен тысяч человек." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://icskashop-collab.github.io/marketing-lesl/assets/img/alex-hero.webp" />
-  <meta property="og:url" content="https://alexlesley.biz" />
+  <meta property="og:url" content="https://icskashop-collab.github.io/marketing-lesl/" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://alexlesley.biz" />
+  <link rel="canonical" href="https://icskashop-collab.github.io/marketing-lesl/" />
   <link rel="icon" href="https://icskashop-collab.github.io/marketing-lesl/assets/img/favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="assets/css/main.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,7 +24,7 @@
     "@type": "Person",
     "name": "Алекс Лесли",
     "alternateName": "Alex Lesley",
-    "url": "https://alexlesley.biz",
+    "url": "https://icskashop-collab.github.io/marketing-lesl/",
     "image": "https://alexlesley.biz/wp-content/uploads/2025/07/alex-transporent-good.webp",
     "sameAs": [
       "https://instagram.com/alexlesley11",
@@ -1466,75 +1466,24 @@
       <div>
         <div style="font-size:var(--text-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:16px">Контакты</div>
         <a href="tel:+79311062485" style="display:block;font-size:var(--text-sm);color:var(--color-text-muted);text-decoration:none;padding:4px 0">+7 931 106-24-85</a>
-        <a href="tel:+74954143569" style="display:block;font-size:var(--text-sm);color:var(--color-text-muted);text-decoration:none;padding:4px 0">+7 495 414-35-69</a>
-        <a href="https://t.me/alexlesleynew" target="_blank" rel="noopener" style="display:block;font-size:var(--text-sm);color:var(--color-text-muted);text-decoration:none;padding:4px 0">Telegram-канал</a>
-        <a href="https://vk.com/lesley1" target="_blank" rel="noopener" style="display:block;font-size:var(--text-sm);color:var(--color-text-muted);text-decoration:none;padding:4px 0">ВКонтакте</a>
-        <a href="privacy.html" style="display:block;font-size:var(--text-sm);color:var(--color-text-muted);text-decoration:none;padding:4px 0">Политика конф.</a>
-        <a href="offer.html" style="display:block;font-size:var(--text-sm);color:var(--color-text-muted);text-decoration:none;padding:4px 0">Оферта</a>
       </div>
     </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:24px;border-top:1px solid var(--color-border-light);flex-wrap:wrap">
-      <div style="font-size:var(--text-xs);color:rgba(176,184,193,.5)">© 2026 Алекс Лесли · alexlesley.biz · Individual Entrepreneur ALEKSANDR KIRILLOV · ID 300433261 · Georgia, Tbilisi</div>
-      <div style="font-size:var(--text-xs);color:rgba(176,184,193,.5)">Использование материалов только с письменного разрешения администрации</div>
+    <div class="footer-bottom">
+      <div class="footer-bottom__copy">&copy; 2026 Alex Leslie. Все права защищены.</div>
+      <div class="footer-social">
+        <a href="https://t.me/alexlesleynew" target="_blank" rel="noopener" aria-label="Telegram">✈️</a>
+        <a href="https://youtube.com/@AlexLesleyforman" target="_blank" rel="noopener" aria-label="YouTube">▶️</a>
+      </div>
     </div>
   </div>
 </footer>
+</main>
 
-<div id="site-footer-js"></div>
+<div id="site-header-scripts"></div>
 <script src="assets/js/components.js"></script>
 <script>
-/* ── Reveal on scroll ── */
-(function(){
-  var io = new IntersectionObserver(function(e){
-    e.forEach(function(x){ if(x.isIntersecting) x.target.classList.add('visible'); });
-  },{threshold:.1,rootMargin:'0px 0px -40px 0px'});
-  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
-})();
-
-/* ── Animated counters ── */
-(function(){
-  function ease(t){ return 1-Math.pow(1-t,3); }
-  function run(el){
-    var target = parseInt(el.dataset.count), dur = 2000, t0 = null;
-    function step(ts){
-      if(!t0) t0 = ts;
-      var p = Math.min((ts-t0)/dur,1);
-      el.textContent = Math.floor(ease(p)*target) + (p>=1 ? '+' : '');
-      if(p<1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-  var io2 = new IntersectionObserver(function(e){
-    e.forEach(function(x){
-      if(x.isIntersecting && !x.target.dataset.counted){
-        x.target.dataset.counted = '1'; run(x.target);
-      }
-    });
-  },{threshold:0, rootMargin:'0px'});
-  document.querySelectorAll('[data-count]').forEach(function(el){ io2.observe(el); });
-})();
-
-/* ── Nav active state on scroll ── */
-(function(){
-  var btns = document.querySelectorAll('.dash-nav__btn[href^="#"]');
-  var sections = [];
-  btns.forEach(function(b){
-    var id = b.getAttribute('href').slice(1);
-    var el = document.getElementById(id);
-    if(el) sections.push({btn:b, el:el});
-  });
-  function update(){
-    var scrollY = window.scrollY + 120;
-    var active = sections[0];
-    sections.forEach(function(s){ if(s.el.offsetTop <= scrollY) active = s; });
-    btns.forEach(function(b){ b.classList.remove('active'); });
-    if(active) active.btn.classList.add('active');
-  }
-  window.addEventListener('scroll', update, {passive:true});
-  update();
-})();
+  if (typeof insertComponents === 'function') insertComponents();
+  if (typeof initCounters === 'function') initCounters();
 </script>
 </body>
 </html>
-
-      <!-- Р

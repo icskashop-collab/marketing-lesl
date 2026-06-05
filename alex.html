@@ -639,32 +639,31 @@
   </div>
 </section>
 
-<!-- ПОДВАЛ -->
+<!-- ══════════════════════════════
+     ВИДЕО
+══════════════════════════════ -->
+<section class="section section--card-bg">
+  <div class="container">
+    <div class="section-header section-header--center reveal">
+      <div class="section-label">Медиа</div>
+      <h2 class="section-title">Самое популярное видео</h2>
+      <p class="section-subtitle" style="margin:0 auto"><!-- TODO: добавить кол-во просмотров --> Смотрите прямо сейчас.</p>
+    </div>
+    <div style="max-width:800px;margin:0 auto" class="reveal">
+      <div class="video-embed" style="aspect-ratio:16/9;background:var(--color-card);border-radius:var(--radius-card);display:flex;align-items:center;justify-content:center;border:1px solid var(--color-border-light);">
+        <!-- TODO: заменить на реальный YouTube iframe -->
+        <span style="color:var(--color-text-muted);font-size:14px;">▶ YouTube — скоро</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div id="site-footer"></div>
 
 <script src="assets/js/components.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    if (typeof initCounters === 'function') initCounters();
-  });
-
-  // Fix responsive grid for timeline section
-  (function () {
-    function fixGrid() {
-      var grid = document.querySelector('.alex-timeline-grid');
-      if (!grid) return;
-      if (window.innerWidth <= 768) {
-        grid.style.gridTemplateColumns = '1fr';
-        grid.style.gap = '32px';
-      } else {
-        grid.style.gridTemplateColumns = '1fr 1fr';
-        grid.style.gap = '80px';
-      }
-    }
-    fixGrid();
-    window.addEventListener('resize', fixGrid);
-  })();
+  if (typeof insertComponents === 'function') insertComponents();
+  if (typeof initCounters === 'function') initCounters();
 </script>
-
 </body>
 </html>
